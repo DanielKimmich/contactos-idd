@@ -1,0 +1,26 @@
+<?php
+
+return array (
+  'name' => 'Nombre',
+  'full_name' => 'Nombre largo',
+  'code' => 'Codigo',
+  'updated_at' => 'Actualizado el',
+  'created_at' => 'Creado el',
+  'continent' => 'Continente',
+  'continents' => 'Continentes',
+  'country' => 'Pais',
+  'countries' => 'Paises',  
+  'division' => 'Provincia',
+  'divisions' => 'Provincias',  
+  'city' => 'Ciudad',
+  'cities' => 'Ciudades',  
+  'capital' => 'Capital',
+  'code_alpha3' => 'Código alpha3',
+  'currency_code' => 'Código de moneda',
+  'currency_name' => 'Nombre de moneda',
+  'calling_code' => 'Prefijo llamada',
+  'tld' => 'Código de dominio',
+  'has_city' => 'con Ciudades',
+  'has_division' => 'con Provincias',
+  'date_range' => 'Rango de Fechas',
+);

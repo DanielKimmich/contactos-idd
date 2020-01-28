@@ -24,4 +24,12 @@ Route::group([
     
     Route::get('prueba', 'Api\WorldSearchController@prueba');
   //  Route::get('admin/api/division/{id}', '\Api\DivisionController@show');
+
+//Authentication
+    Route::crud('permission', 'PermissionCrudController');
+    Route::crud('role', 'RoleCrudController');
+    Route::crud('user', 'UserCrudController');    
+    Route::crud('contact', 'ContactCrudController');
+    Route::crud('contactdata', 'ContactDataCrudController');
+    Route::crud('contenttype', 'ContentTypeCrudController');
 }); // this should be the absolute last line of this file

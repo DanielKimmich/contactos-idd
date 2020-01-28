@@ -163,10 +163,12 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
-         * Package Service Providers...
+         * Package Service Providers... Agregados por DK
          */
         Khsing\World\WorldServiceProvider::class,
         Backpack\Settings\SettingsServiceProvider::class,
+        App\Providers\PermissionManagerServiceProvider::class, 
+
         /*
          * Application Service Providers...
          */
@@ -175,6 +177,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+         
 
     ],
 

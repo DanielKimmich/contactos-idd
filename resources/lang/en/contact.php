@@ -1,28 +1,18 @@
 <?php
 
 return [
-	'full_name'    	=> 'Nombre de Contacto',
-	'sexo'			=> 'Sexo',
-	'nationality'	=> 'Nacionalidad',
-	'status'		=> 'Estado',
-	'updated_at' 	=> 'Actualizado el',
-    'created_at' 	=> 'Creado el',
+	'contact_name'    => 'Nombre de Contacto',
+	'contact_person'    => 'Contact Person',
+	'updated_at' 		=> 'Actualizado el',
+    'created_at' 		=> 'Creado el',
 
 
 	'is_required'     => 'Contact is required',
 
-//NAME
-  	'name'    => [
-		'name'      => 'Nombre',
-		'middle'      => 'Segundo Nombre',
-		'family'      => 'Apellidos',
-
-    ],
-
 //PHONE
   'phone'    => [
 		'title'             => 'Phone',
-		'titles'            => 'Phones',
+		'titles'             => 'Phones',
 		'add_new'           => 'Añadir nuevo telefono',
 		'delete_confirm' 	=> 'Are you sure you want to delete this telefono?',		
 	// Messages
@@ -31,10 +21,10 @@ return [
 		'is_deleted'        => 'Telefono was deleted',
 		'is_created'        => 'Telefono was created',
 	//Fields				
-		'number'          => 'Numero',
-		'type'            => 'Tipo',
-		'label'           => 'Etiqueta',
-		'normalized'      => 'Normalizado',
+		'number'          => 'Number',
+		'type'            => 'Type',
+		'label'           => 'Label',
+		'normalized'      => 'Normalized',
     ],
 
 //ADDRESS

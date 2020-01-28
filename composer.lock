@@ -71,16 +71,16 @@
         },
         {
             "name": "backpack/crud",
-            "version": "4.0.32",
+            "version": "4.0.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "3bce24db8bc3cef2ea716bb383cad6e73fa23f32"
+                "reference": "e26c4775a637d3137e8253ffe4a1f492ed0cef7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/3bce24db8bc3cef2ea716bb383cad6e73fa23f32",
-                "reference": "3bce24db8bc3cef2ea716bb383cad6e73fa23f32",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/e26c4775a637d3137e8253ffe4a1f492ed0cef7d",
+                "reference": "e26c4775a637d3137e8253ffe4a1f492ed0cef7d",
                 "shasum": ""
             },
             "require": {
@@ -154,7 +154,7 @@
                 "read",
                 "update"
             ],
-            "time": "2020-01-14T13:15:33+00:00"
+            "time": "2020-01-15T17:08:12+00:00"
         },
         {
             "name": "backpack/logmanager",
@@ -218,16 +218,16 @@
         },
         {
             "name": "backpack/permissionmanager",
-            "version": "5.0.5",
+            "version": "5.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/PermissionManager.git",
-                "reference": "c73bcde2f8f7429b53f9c5a08a352d59fcee423e"
+                "reference": "4ddfbc91c1536c3e0a7a4d0379ebfe24eb859a46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/PermissionManager/zipball/c73bcde2f8f7429b53f9c5a08a352d59fcee423e",
-                "reference": "c73bcde2f8f7429b53f9c5a08a352d59fcee423e",
+                "url": "https://api.github.com/repos/Laravel-Backpack/PermissionManager/zipball/4ddfbc91c1536c3e0a7a4d0379ebfe24eb859a46",
+                "reference": "4ddfbc91c1536c3e0a7a4d0379ebfe24eb859a46",
                 "shasum": ""
             },
             "require": {
@@ -289,7 +289,7 @@
                 "updivision",
                 "users roles admin"
             ],
-            "time": "2020-01-14T13:02:13+00:00"
+            "time": "2020-01-15T15:50:58+00:00"
         },
         {
             "name": "backpack/settings",
@@ -1495,16 +1495,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.10.1",
+            "version": "v6.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "fe45ad5bc89e5e1b08ab2c8687f9be01c9c84d14"
+                "reference": "17af23842c259edcfd8c5b9e6a7c86596e040034"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/fe45ad5bc89e5e1b08ab2c8687f9be01c9c84d14",
-                "reference": "fe45ad5bc89e5e1b08ab2c8687f9be01c9c84d14",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/17af23842c259edcfd8c5b9e6a7c86596e040034",
+                "reference": "17af23842c259edcfd8c5b9e6a7c86596e040034",
                 "shasum": ""
             },
             "require": {
@@ -1638,7 +1638,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-01-08T21:17:42+00:00"
+            "time": "2020-01-14T15:12:09+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -1758,16 +1758,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "1.2.0",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "2533c389fd2a7573d4f7be279b1c33cf941c8dfc"
+                "reference": "34cf4ddb3892c715ae785c880e6691d839cff88d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/2533c389fd2a7573d4f7be279b1c33cf941c8dfc",
-                "reference": "2533c389fd2a7573d4f7be279b1c33cf941c8dfc",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/34cf4ddb3892c715ae785c880e6691d839cff88d",
+                "reference": "34cf4ddb3892c715ae785c880e6691d839cff88d",
                 "shasum": ""
             },
             "require": {
@@ -1825,7 +1825,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2020-01-09T22:41:09+00:00"
+            "time": "2020-01-16T01:18:13+00:00"
         },
         {
             "name": "league/commonmark-ext-table",
@@ -2946,21 +2946,21 @@
         },
         {
             "name": "spatie/db-dumper",
-            "version": "2.15.0",
+            "version": "2.15.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/db-dumper.git",
-                "reference": "ccb7dd7557cd119b21ea853a893da4d1b0ff08b6"
+                "reference": "0f9a65b52d707b915e2245e6cc2780a33630442a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/db-dumper/zipball/ccb7dd7557cd119b21ea853a893da4d1b0ff08b6",
-                "reference": "ccb7dd7557cd119b21ea853a893da4d1b0ff08b6",
+                "url": "https://api.github.com/repos/spatie/db-dumper/zipball/0f9a65b52d707b915e2245e6cc2780a33630442a",
+                "reference": "0f9a65b52d707b915e2245e6cc2780a33630442a",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2",
-                "symfony/process": "^4.2"
+                "symfony/process": "^4.2|^5.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^7.0|^8.0"
@@ -2992,7 +2992,7 @@
                 "mysqldump",
                 "spatie"
             ],
-            "time": "2019-11-11T10:40:42+00:00"
+            "time": "2020-01-16T12:47:19+00:00"
         },
         {
             "name": "spatie/laravel-backup",
@@ -5119,16 +5119,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.7.0",
+            "version": "2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "4c97f814aa2f0dd4d5bedc89181c10ef12c004c5"
+                "reference": "fff6f1e4f36be0e0d0b84d66b413d9dcb0c49130"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/4c97f814aa2f0dd4d5bedc89181c10ef12c004c5",
-                "reference": "4c97f814aa2f0dd4d5bedc89181c10ef12c004c5",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/fff6f1e4f36be0e0d0b84d66b413d9dcb0c49130",
+                "reference": "fff6f1e4f36be0e0d0b84d66b413d9dcb0c49130",
                 "shasum": ""
             },
             "require": {
@@ -5176,7 +5176,7 @@
                 "throwable",
                 "whoops"
             ],
-            "time": "2019-12-29T10:00:00+00:00"
+            "time": "2020-01-15T10:00:00+00:00"
         },
         {
             "name": "fzaninotto/faker",

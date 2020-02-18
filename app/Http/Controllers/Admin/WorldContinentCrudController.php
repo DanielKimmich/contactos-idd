@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\WorldContinentRequest;
-use Backpack\CRUD\app\Http\Controllers\CrudController;
+//use Backpack\CRUD\app\Http\Controllers\CrudController;
+use App\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
@@ -27,15 +28,14 @@ class WorldContinentCrudController extends CrudController
         $this->crud->setModel('App\Models\WorldContinent');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/worldcontinent');
         $this->crud->setEntityNameStrings( trans('world.continent'),  trans('world.continents'));
+
         $this->setupAvancedOperation();
-        $this->setupAccessOperation();
+        $this->setAccessOperation('worldcontinent');
     }
 
     protected function setupListOperation()
     {
-        // TODO: remove setFromDb() and manually define Columns, maybe Filters
-        //$this->crud->setFromDb();
-        // ------ CRUD COLUMNS
+    // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
             'label' => 'Id',
@@ -60,13 +60,20 @@ class WorldContinentCrudController extends CrudController
             'type'  => 'text',
             'priority' => 4,
             ]);
-
+/*
+   'visibleInTable' => false, // no point, since it's a large text
+   'visibleInModal' => false, // would make the modal too big
+   'visibleInExport' => false, // not important enough
+   'visibleInShow' => true, // sure, why not
+*/
+    //$this->crud->setDefaultPageLength(10); // number of rows shown in list view
+    //$this->crud->setPageLengthMenu([10, 20, 30]); // page length menu to show in the list view
     }
 
 protected function setupShowOperation()
     {
         $this->crud->set('show.setFromDb', false);
-         // ------ CRUD COLUMNS
+    // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
             'label' => 'Id',
@@ -96,10 +103,9 @@ protected function setupShowOperation()
 
     protected function setupCreateOperation()
     {
+    // ------ CRUD FIELDS
         $this->crud->setValidation(WorldContinentRequest::class);
-        // TODO: remove setFromDb() and manually define Fields
-        //$this->crud->setFromDb();
-        // ------ CRUD FIELDS
+    //DATA
         $this->crud->addField([ // Text
             'name'  => 'name',
             'label' =>  trans('world.name'),
@@ -112,95 +118,21 @@ protected function setupShowOperation()
             'type'  => 'text',
             'tab'   => 'Data',
             ]);
-      if ($this->crud->actionIs('edit')) {
-        $this->crud->addField([ // Text
-            'name'  => 'id',
-            'label' => 'Id',
-            'type'  => 'text',
-            'tab'   => 'Info',
-            'attributes' => ['readonly'  => 'readonly'],   
-            ]);     // ->beforeField('name'); 
-         $this->crud->addField([ // Text
-            'name'  => 'updated_at',
-            'label' => trans('world.updated_at'),
-            'type'  => 'text',
-            'tab'   => 'Info',
-            'attributes' => ['disabled'  => 'disabled']   
-            ]);     
-         $this->crud->addField([ // Text
-            'name'  => 'created_at',
-            'label' => trans('world.created_at'),
-            'type'  => 'text',
-            'tab'   => 'Info',
-            'attributes' => ['disabled'  => 'disabled']   
-            ]);   
-      }
-
+    //INFO
+        $this->getInfoFields();
     }
 
 
     protected function setupAvancedOperation()
     {
-        // ------ ADVANCED QUERIES    
+    // ------ ADVANCED QUERIES    
         $this->crud->orderBy('name');
 
-        // ------ CRUD FILTERS
+    // ------ CRUD FILTERS
         // daterange filter
-        $this->crud->addFilter([
-            'name'  => 'from_to',
-            'label' => trans('world.date_range'),
-            'type'  => 'date_range',
-            ],
-            false,
-            function ($value) { // if the filter is active, apply these constraints
-                $dates = json_decode($value);
-                $this->crud->addClause('where', 'updated_at', '>=', $dates->from);
-                $this->crud->addClause('where', 'updated_at', '<=', $dates->to . ' 23:59:59');
-            });       
+        $this->setFilterDateUpdate();
     }
  
-    protected function setupAccessOperation()
-    {
-    // ------ CRUD ACCESS
-        $ruta = 'worldcontinent';
-        if (auth()->user()->can('list '.$ruta ) ) {
-            $this->crud->allowAccess('list');
-            $this->crud->enableExportButtons(); // ------ DATATABLE EXPORT BUTTONS
-        } else {
-            $this->crud->denyAccess('list');
-        }
-        if (auth()->user()->can('create '.$ruta ) ) {
-            $this->crud->allowAccess('create');
-            $this->crud->allowAccess('clone');
-            $this->crud->allowAccess('bulkClone');
-        } else {
-            $this->crud->denyAccess('create');
-            $this->crud->denyAccess('clone');
-            $this->crud->denyAccess('bulkClone');
-        }
-        if (auth()->user()->can('update '.$ruta) ) {
-            $this->crud->allowAccess('update');
-        } else {
-            $this->crud->denyAccess('update');
-        } 
-        if (auth()->user()->can('show '.$ruta) ) {
-            $this->crud->allowAccess('show');
-        } else {
-            $this->crud->denyAccess('show');
-        }
-        if (auth()->user()->can('delete '.$ruta) ) {
-            $this->crud->allowAccess('delete');
-            $this->crud->allowAccess('bulkDelete');
-        } else {
-            $this->crud->denyAccess('delete');
-            $this->crud->denyAccess('bulkDelete');
-        }
-        // ------ CRUD BUTTONS
-        if (auth()->user()->hasAnyPermission(['delete '.$ruta, 'create '.$ruta]))  { 
-         //   $this->crud->enableBulkActions();
-        } 
-    }
-
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
@@ -216,4 +148,18 @@ protected function setupShowOperation()
 
         return (string) $clonedEntry->push();
     }
+/*
+protected function setupPrintDefaults()
+{
+    $this->crud->allowAccess('print');
+
+    $this->crud->operation('print', function() {
+       $this->crud->macro('getColumnsInTheFormatIWant', function() {
+            $columns = $this->columns();
+            // ... do something to $columns;
+            return $columns;
+        });
+    });
+}
+*/
 }

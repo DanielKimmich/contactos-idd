@@ -19,10 +19,14 @@ Route::group([
 
     Route::crud('migration', 'MigrationCrudController');
 
-    Route::get('searchdivision', 'Api\WorldSearchController@searchdivision');
+    Route::get('searchdivision/{id}', 'Api\WorldSearchController@searchdivision');
+ //   Route::get('searchcity', 'Api\WorldSearchController@searchcity');
+    Route::get('searchcity/{id}', 'Api\WorldSearchController@searchcity');
+    
     Route::get('filterdivision', 'Api\WorldSearchController@filterdivision');
     
     Route::get('prueba', 'Api\WorldSearchController@prueba');
+
   //  Route::get('admin/api/division/{id}', '\Api\DivisionController@show');
 
 //Authentication
@@ -32,4 +36,8 @@ Route::group([
     Route::crud('contact', 'ContactCrudController');
     Route::crud('contactdata', 'ContactDataCrudController');
     Route::crud('contenttype', 'ContentTypeCrudController');
+
+
+
+    
 }); // this should be the absolute last line of this file

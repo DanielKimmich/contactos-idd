@@ -2,8 +2,9 @@
 
 //namespace Backpack\PermissionManager\app\Http\Controllers;
 namespace App\Http\Controllers\Admin;
-use Backpack\PermissionManager\app\Http\Controllers\RoleCrudController as OriginalRoleCrudController;
-use Backpack\CRUD\app\Http\Controllers\CrudController;
+//use Backpack\PermissionManager\app\Http\Controllers\RoleCrudController as OriginalRoleCrudController;
+//use Backpack\CRUD\app\Http\Controllers\CrudController;
+use App\Http\Controllers\CrudController as OriginalRoleCrudController;
 use Backpack\PermissionManager\app\Http\Requests\RoleStoreCrudRequest as StoreRequest;
 use Backpack\PermissionManager\app\Http\Requests\RoleUpdateCrudRequest as UpdateRequest;
 
@@ -27,12 +28,12 @@ class RoleCrudController extends OriginalRoleCrudController
         $this->crud->setRoute(backpack_url('role'));
 
         $this->setupAvancedOperation();
-        $this->setupAccessOperation();
+        $this->setAccessOperation('authrole');
     }
 
     public function setupListOperation()
     {
-        // ------ CRUD COLUMNS
+    // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
             'label' => 'Id',
@@ -73,7 +74,7 @@ class RoleCrudController extends OriginalRoleCrudController
 protected function setupShowOperation()
     {
         $this->crud->set('show.setFromDb', false);
-         // ------ CRUD COLUMNS
+    // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
             'label' => 'Id',
@@ -123,7 +124,7 @@ protected function setupShowOperation()
     public function setupCreateOperation()
     {
         $this->crud->setValidation(StoreRequest::class);
-        // ------ CRUD FIELDS
+    // ------ CRUD FIELDS
         $this->addFields();
         //otherwise, changes won't have effect
         \Cache::forget('spatie.permission.cache');
@@ -132,88 +133,25 @@ protected function setupShowOperation()
     public function setupUpdateOperation()
     {
         $this->crud->setValidation(UpdateRequest::class);
-        // ------ CRUD FIELDS
+    // ------ CRUD FIELDS
         $this->addFields();
         //otherwise, changes won't have effect
         \Cache::forget('spatie.permission.cache');
     }
 
     protected function setupAvancedOperation()
-    {
+    {   
     // ------ ADVANCED QUERIES  
-    // Order
         $this->crud->orderBy('name');
-
-    // daterange filter
-        $this->crud->addFilter([
-            'name'  => 'from_to',
-            'label' => trans('common.date_range'),
-            'type'  => 'date_range',
-            ],
-            false,
-            function ($value) { // if the filter is active, apply these constraints
-                $dates = json_decode($value);
-                $this->crud->addClause('where', 'updated_at', '>=', $dates->from);
-                $this->crud->addClause('where', 'updated_at', '<=', $dates->to . ' 23:59:59');
-            });
+    // ------ CRUD FILTERS
+        // daterange filter
+        $this->setFilterDateUpdate();
     }
  
-    protected function setupAccessOperation()
-    {
-/*
-        // deny access according to configuration file
-        if (config('backpack.permissionmanager.allow_role_create') == false) {
-            $this->crud->denyAccess('create');
-        }
-        if (config('backpack.permissionmanager.allow_role_update') == false) {
-            $this->crud->denyAccess('update');
-        }
-        if (config('backpack.permissionmanager.allow_role_delete') == false) {
-            $this->crud->denyAccess('delete');
-        }
-*/
-    // ------ CRUD ACCESS
-        $ruta = 'authrole';
-        if (auth()->user()->can('list '.$ruta ) ) {
-            $this->crud->allowAccess('list');
-            $this->crud->enableExportButtons(); // ------ DATATABLE EXPORT BUTTONS
-        } else {
-            $this->crud->denyAccess('list');
-        }
-        if (auth()->user()->can('create '.$ruta ) ) {
-            $this->crud->allowAccess('create');
-            $this->crud->allowAccess('clone');
-            $this->crud->allowAccess('bulkClone');
-        } else {
-            $this->crud->denyAccess('create');
-            $this->crud->denyAccess('clone');
-            $this->crud->denyAccess('bulkClone');
-        }
-        if (auth()->user()->can('update '.$ruta) ) {
-            $this->crud->allowAccess('update');
-        } else {
-            $this->crud->denyAccess('update');
-        } 
-        if (auth()->user()->can('show '.$ruta) ) {
-            $this->crud->allowAccess('show');
-        } else {
-            $this->crud->denyAccess('show');
-        }
-        if (auth()->user()->can('delete '.$ruta) ) {
-            $this->crud->allowAccess('delete');
-            $this->crud->allowAccess('bulkDelete');
-        } else {
-            $this->crud->denyAccess('delete');
-            $this->crud->denyAccess('bulkDelete');
-        }
-        // ------ CRUD BUTTONS
-        if (auth()->user()->hasAnyPermission(['delete '.$ruta, 'create '.$ruta]))  { 
-         //   $this->crud->enableBulkActions();
-        }  
-    }
-
     private function addFields()
     {
+    // ------ CRUD FIELDS
+    //DATA
         $this->crud->addField([
             'name'  => 'name',
             'label' => trans('backpack::permissionmanager.name'),
@@ -239,29 +177,9 @@ protected function setupShowOperation()
             'model'     => $this->permission_model,
             'pivot'     => true,
             ]);
-        if ( $this->crud->actionIs('edit')) {
-        $this->crud->addField([ // Text
-            'name'  => 'id',
-            'label' => 'Id',
-            'type'  => 'text',
-            'tab'   => 'Info',
-            'attributes' => ['readonly'  => 'readonly'],  
-            ]);  //->beforeField('country_id'); 
-         $this->crud->addField([ // Text
-            'name'  => 'updated_at',
-            'label' => trans('common.updated_at'),
-            'type'  => 'text',
-            'tab'   => 'Info',
-            'attributes' => ['disabled'  => 'disabled'],
-            ]);     
-         $this->crud->addField([ // Text
-            'name'  => 'created_at',
-            'label' => trans('common.created_at'),
-            'type'  => 'text',
-            'tab'   => 'Info',
-            'attributes' => ['disabled'  => 'disabled'],
-            ]);   
-        }
+    //INFO
+        $this->getInfoFields();
+
     }
 
     /*

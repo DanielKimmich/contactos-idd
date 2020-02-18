@@ -1,9 +1,9 @@
 <?php
 
 return [
-	'updated_at' => 'Actualizado el',
- 	'created_at' => 'Creado el',
- 	'date_range' => 'Rango de Fechas',
+	'updated_at' 	=> 'Actualizado el',
+ 	'created_at' 	=> 'Creado el',
+ 	'updated_range' => 'Actualizado entre',
 
 
 	'add'              => 'Add',

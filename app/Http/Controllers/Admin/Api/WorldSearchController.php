@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\WorldDivision;
+use App\Models\WorldCity;
 use Illuminate\Support\Facades\Config;
 
 class WorldSearchController extends Controller
@@ -14,17 +15,22 @@ class WorldSearchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+/*
     public function searchdivision(Request $request)
     { 
         $search_term = $request->input('q');
         $page = $request->input('page');
         $form = collect($request->input('form'))->pluck('value', 'name');
-
+//dump($form);
         $options = WorldDivision::query();
 
-        if ($form['country_id']) {
+    
+        if (isset($form['country_id']) and $form['country_id']) {
         // if a category has been selected, only show articles in that category
             $options = $options->where('country_id', $form['country_id']);
+        } elseif (isset($form['contact_addresses[0][data10]']) and $form['contact_addresses[0][data10]']) {
+            $options = $options->where('country_id', $form['contact_addresses[0][data10]']);
+
         } else {
         // if no category has been selected, show no options 
            return []; 
@@ -34,7 +40,58 @@ class WorldSearchController extends Controller
         if ($search_term) {
             $options = $options->where('name', 'LIKE', '%'.$search_term.'%');
         }
+//      dump($form['country_id']);
+  //    dump($form['contact_addresses[0][data10]']);   
 
+        return $options->paginate($page);
+    }
+
+*/
+    public function searchdivision($id, Request $request)
+    { 
+        $search_term = $request->input('q');
+        $page = $request->input('page');
+        $form = collect($request->input('form'))->pluck('value', 'name');
+        $options = WorldDivision::query();
+
+//dump($id);
+//dump($form[$id]); 
+
+        if (isset($form[$id]) and $form[$id]) {
+            $options = $options->where('country_id', $form[$id]);
+        } else {
+        // if no category has been selected, show no options 
+           return []; 
+        }
+
+        // if a search term has been given, filter results to match the search term
+        if ($search_term) {
+            $options = $options->where('name', 'LIKE', '%'.$search_term.'%');
+        }   
+
+        return $options->paginate($page);
+    }
+
+    public function searchcity($id, Request $request)
+    { 
+        $search_term = $request->input('q');
+        $page = $request->input('page');
+        $form = collect($request->input('form'))->pluck('value', 'name');
+        $options = WorldCity::query();
+//dump($id); 
+   
+        if (isset($form[$id]) and $form[$id]) {
+            $options = $options->where('division_id', $form[$id]);
+        } else {
+        // if no category has been selected, show no options 
+           return []; 
+        }
+
+//    $options = $options->where('division_id', $id);
+        // if a search term has been given, filter results to match the search term
+        if ($search_term) {
+            $options = $options->where('name', 'LIKE', '%'.$search_term.'%');
+        }
         return $options->paginate($page);
     }
 

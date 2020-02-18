@@ -1,8 +1,10 @@
 <?php
 
 return [
-	'full_name'    	=> 'Nombre de Contacto',
-	'sexo'			=> 'Sexo',
+	'title'         => 'Contacto',
+	'titles'        => 'Contactos',
+	'display_name'  => 'Nombre de Contacto',
+	'sex'			=> 'Sexo',
 	'nationality'	=> 'Nacionalidad',
 	'status'		=> 'Estado',
 	'updated_at' 	=> 'Actualizado el',
@@ -13,34 +15,72 @@ return [
 
 //NAME
   	'name'    => [
-		'name'      => 'Nombre',
-		'middle'      => 'Segundo Nombre',
-		'family'      => 'Apellidos',
+		'first'     => 'Nombre',
+		'middle'    => 'Segundo Nombre',
+		'family'    => 'Apellidos',
 
     ],
 
+//EVENT
+  	'event'    => [
+		'birthday'      => 'Fecha de Nacimiento',
+	],
+
+//DOCUMENT
+  	'document'    => [
+		'number'      => 'Numero de Documento',
+	],
+
+
 //PHONE
   'phone'    => [
-		'title'             => 'Phone',
-		'titles'            => 'Phones',
-		'add_new'           => 'Añadir nuevo telefono',
-		'delete_confirm' 	=> 'Are you sure you want to delete this telefono?',		
-	// Messages
-		'no_rows'           => 'There are no telefonos',
-        'is_required'       => 'Telefono is required',
-		'is_deleted'        => 'Telefono was deleted',
-		'is_created'        => 'Telefono was created',
+		'title'             => 'Telefono',
+		'titles'            => 'Telefonos',
 	//Fields				
 		'number'          => 'Numero',
 		'type'            => 'Tipo',
 		'label'           => 'Etiqueta',
 		'normalized'      => 'Normalizado',
+	// Messages
+		'no_rows'           => 'There are no telefonos',
+        'is_required'       => 'Telefono is required',
+		'is_deleted'        => 'Telefono was deleted',
+		'is_created'        => 'Telefono was created',
+		'delete_confirm' 	=> 'Are you sure you want to delete this telefono?',
+    ],
+
+//EMAIL
+  'email'    => [
+		'title'             => 'Correo Electronico',
+		'titles'            => 'Correos Electronicos',
+	//Fields				
+		'address'          	=> 'Direccion de Correo',
+		'type'            	=> 'Tipo',
+		'label'           	=> 'Etiqueta',
+		'display_name'  	=> 'Nombre a Mostrar',
+	// Messages
+		'no_rows'           => 'There are no telefonos',
+        'is_required'       => 'Telefono is required',
+		'is_deleted'        => 'Telefono was deleted',
+		'is_created'        => 'Telefono was created',
+		'delete_confirm' 	=> 'Are you sure you want to delete this telefono?',
     ],
 
 //ADDRESS
    'address'    => [
 		'title'             => 'Dirección',
 		'titles'            => 'Direcciones',		
+	//Fields					
+        'address' 	=> 'Dirección Completa',
+        'type'    	=> 'Tipo',
+        'label'  	=> 'Etiqueta',
+        'street'   	=> 'Calle',
+        'pobox'    	=> 'Codigo Postal',
+        'neigh'  	=> 'Barrio',
+        'city'   	=> 'Ciudad',        
+        'region'    => 'Provincia',
+        'postcode'  => 'Postcode',
+        'country'   => 'Pais',   
 		'add_new'           => 'Añadir nueva dirección',
 		'delete_confirm' 	=> '¿Estás seguro de que quieres borrar esta dirección?',		
 	// Messages
@@ -48,17 +88,6 @@ return [
         'is_required'       => 'Se requiere la dirección',
 		'is_deleted'        => 'La dirección fue eliminado',
 		'is_created'        => 'la dirección fue creado',
-	//Fields					
-        'address' => 'Dirección',
-        'type'    => 'Tipo',
-        'label'  => 'Etiqueta',
-        'street'   => 'Calle',
-        'pobox'    => 'Codigo Postal',
-        'neigh'  => 'Barrio',
-        'city'   => 'Ciudad',        
-        'region'    => 'Provincia',
-        'postcode'  => 'Postcode',
-        'country'   => 'Pais',   
     ],
 
 //RELATION

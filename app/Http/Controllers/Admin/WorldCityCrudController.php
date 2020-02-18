@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\WorldCityRequest;
-use Backpack\CRUD\app\Http\Controllers\CrudController;
+//use Backpack\CRUD\app\Http\Controllers\CrudController;
+use App\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Config;
 
@@ -28,16 +29,15 @@ class WorldCityCrudController extends CrudController
         $this->crud->setModel('App\Models\WorldCity');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/worldcity');
         $this->crud->setEntityNameStrings(trans('world.city'), trans('world.cities'));
+
         $this->setupAvancedOperation();
-        $this->setupAccessOperation();
+        $this->setAccessOperation('worldcity');
  
     }
 
     protected function setupListOperation()
     {
-        // TODO: remove setFromDb() and manually define Columns, maybe Filters
-        //$this->crud->setFromDb();
-        // ------ CRUD COLUMNS
+    // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
             'label' => 'Id',
@@ -78,13 +78,12 @@ class WorldCityCrudController extends CrudController
             'type'  => 'text',
             'priority' => 4,
             ]);
-
     }
 
 protected function setupShowOperation()
     {
         $this->crud->set('show.setFromDb', false);
-         // ------ CRUD COLUMNS
+    // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
             'label' => 'Id',
@@ -134,11 +133,9 @@ protected function setupShowOperation()
 
     protected function setupCreateOperation()
     {
+    // ------ CRUD FIELDS
         $this->crud->setValidation(WorldCityRequest::class);
-
-        // TODO: remove setFromDb() and manually define Fields
-        //$this->crud->setFromDb();
-        // ------ CRUD FIELDS
+    //DATA
         $this->crud->addField([ // Text
             'name'  => 'name',
             'label' => trans('world.name'),
@@ -170,9 +167,10 @@ protected function setupShowOperation()
             'entity' => 'division', 
             'attribute' => 'name',
             'model' => 'App\Models\WorldDivision', // foreign key model
-            'data_source'  => url('admin/searchdivision'), // url to controller search function (with /{id} should return model)
-            'placeholder' => 'Select a Province', // placeholder for the select
+            'data_source'  => url('admin/searchdivision/country_id'), // url to controller search function (with /{id} should return model)
+            'placeholder' => '', // placeholder for the select
             'dependencies'  => ['country_id'], // when a dependency changes, this select2 is reset to null
+         //   'dependencies'  => 'country_id',
             'minimum_input_length' => 0, // minimum characters to type before querying results
             ]); 
         $this->crud->addField([ // Text
@@ -181,31 +179,8 @@ protected function setupShowOperation()
             'type'  => 'text',
             'tab'   => 'Data',
             ]);
-
-  if ( $this->crud->actionIs('edit')) {
-        $this->crud->addField([ // Text
-            'name'  => 'id',
-            'label' => 'Id',
-            'type'  => 'text',
-            'tab'   => 'Info',
-            'attributes' => ['readonly'  => 'readonly'],  
-            ]);  //->beforeField('country_id'); 
-         $this->crud->addField([ // Text
-            'name'  => 'updated_at',
-            'label' => trans('world.updated_at'),
-            'type'  => 'text',
-            'tab'   => 'Info',
-            'attributes' => ['disabled'  => 'disabled'],
-            ]);     
-         $this->crud->addField([ // Text
-            'name'  => 'created_at',
-            'label' => trans('world.created_at'),
-            'type'  => 'text',
-            'tab'   => 'Info',
-            'attributes' => ['disabled'  => 'disabled'],
-            ]);   
-    }
-
+    //INFO
+        $this->getInfoFields();
     }
 
    protected function setupAvancedOperation()
@@ -216,9 +191,6 @@ protected function setupShowOperation()
         $this->crud->orderBy('name');
 
     // ------ CRUD FILTERS
-    //Recuperando o ID do pais
-        $paisId = $this->request->country_id;
-
         $this->crud->addFilter([
             'name'  => 'country_id',
             'label' => trans('world.country'),
@@ -242,61 +214,9 @@ protected function setupShowOperation()
         });
 
     // daterange filter
-        $this->crud->addFilter([
-            'type'  => 'date_range',
-            'name'  => 'from_to',
-            'label' => 'Date range'],
-            false,
-            function ($value) { // if the filter is active, apply these constraints
-                $dates = json_decode($value);
-                $this->crud->addClause('where', 'updated_at', '>=', $dates->from);
-                $this->crud->addClause('where', 'updated_at', '<=', $dates->to . ' 23:59:59');
-            });
-
+        $this->setFilterDateUpdate();
     }
  
-    protected function setupAccessOperation()
-    {
-    // ------ CRUD ACCESS
-        $ruta = 'worldcity';
-        if (auth()->user()->can('list '.$ruta ) ) {
-            $this->crud->allowAccess('list');
-            $this->crud->enableExportButtons(); // ------ DATATABLE EXPORT BUTTONS
-        } else {
-            $this->crud->denyAccess('list');
-        }
-        if (auth()->user()->can('create '.$ruta ) ) {
-            $this->crud->allowAccess('create');
-            $this->crud->allowAccess('clone');
-            $this->crud->allowAccess('bulkClone');
-        } else {
-            $this->crud->denyAccess('create');
-            $this->crud->denyAccess('clone');
-            $this->crud->denyAccess('bulkClone');
-        }
-        if (auth()->user()->can('update '.$ruta) ) {
-            $this->crud->allowAccess('update');
-        } else {
-            $this->crud->denyAccess('update');
-        } 
-        if (auth()->user()->can('show '.$ruta) ) {
-            $this->crud->allowAccess('show');
-        } else {
-            $this->crud->denyAccess('show');
-        }
-        if (auth()->user()->can('delete '.$ruta) ) {
-            $this->crud->allowAccess('delete');
-            $this->crud->allowAccess('bulkDelete');
-        } else {
-            $this->crud->denyAccess('delete');
-            $this->crud->denyAccess('bulkDelete');
-        }
-        // ------ CRUD BUTTONS
-        if (auth()->user()->hasAnyPermission(['delete '.$ruta, 'create '.$ruta]))  { 
-         //   $this->crud->enableBulkActions();
-        }  
-    }
-
     public function clone($id)
     {
         $this->crud->hasAccessOrFail('clone');

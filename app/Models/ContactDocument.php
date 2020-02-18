@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class ContactData extends Model
+class ContactDocument extends Model
 {
     use CrudTrait;
 
@@ -38,8 +38,12 @@ class ContactData extends Model
         'data12',
         'data13',
         'data14', 
-        'data15',
+        'data15'
     ];
+
+    protected $attributes = [
+        'mimetype' => 'Document',
+        ];
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS

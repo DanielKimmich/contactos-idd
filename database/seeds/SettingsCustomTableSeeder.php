@@ -11,7 +11,7 @@ class SettingsCustomTableSeeder extends Seeder
     protected $settings = [
         [
             'key'         => 'world_continent',
-            'name'        => 'Continente',
+            'name'        => 'Id Continente',
             'description' => 'Continente por defecto en paises',
             'value'       => '2',
             'field'       => '{"name":"value","label":"Value","type":"text"}',
@@ -19,22 +19,28 @@ class SettingsCustomTableSeeder extends Seeder
         ],
         [
             'key'           => 'world_country',
-            'name'          => 'Pais',
+            'name'          => 'Id Pais',
             'description'   => 'Pais por defecto en provincias y ciudades',
             'value'         => '208',
             'field'         => '{"name":"value","label":"Value","type":"text"}',
             'active'        => 1,
-
         ],
         [
             'key'           => 'world_division',
-            'name'          => 'Provincia',
+            'name'          => 'Id Provincia',
             'description'   => 'Provincia por defecto en ciudades',
             'value'         => '',
             'field'         => '{"name":"value","label":"Value","type":"text"}',
             'active'        => 1,
         ],
- 
+        [
+            'key'           => 'contact_country',
+            'name'          => 'Code Pais',
+            'description'   => 'Pais por defecto en Nacionalidad y Direcciones',
+            'value'         => '208',
+            'field'         => '{"name":"value","label":"Value","type":"text"}',
+            'active'        => 1, 
+        ],
     ];
 
     /**
@@ -44,6 +50,8 @@ class SettingsCustomTableSeeder extends Seeder
      */
     public function run()
     {
+        \DB::table('settings')->delete();
+
         foreach ($this->settings as $index => $setting) {
             $result = DB::table('settings')->insert($setting);
 

@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Country;
 
-class ContactData extends Model
+class ContactAddress extends Model
 {
     use CrudTrait;
 
@@ -38,7 +39,11 @@ class ContactData extends Model
         'data12',
         'data13',
         'data14', 
-        'data15',
+        'data15'
+    ];
+
+    protected $attributes = [
+        'mimetype' => 'Address',
     ];
     /*
     |--------------------------------------------------------------------------
@@ -51,7 +56,10 @@ class ContactData extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function country()
+    {
+        return $this->belongsTo('App\Models\Country', 'data10', 'id');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

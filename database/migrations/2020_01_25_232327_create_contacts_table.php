@@ -17,9 +17,9 @@ class CreateContactsTable extends Migration
             $table->increments('id');
             $table->string('display_name');        
             $table->string('sexo'); 
-            $table->unsignedInteger('nationality_id')->nullable(); 
+            $table->string('nationality_id')->nullable(); 
             $table->string('blood_type')->nullable();           
-            $table->unsignedInteger('photo_id')->nullable(); 
+            $table->string('photo_id')->nullable(); 
             $table->string('status');
             $table->timestamps();
         });

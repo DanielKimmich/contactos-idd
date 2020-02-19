@@ -5,6 +5,9 @@ return [
  	'created_at' 	=> 'Creado el',
  	'updated_range' => 'Actualizado entre',
 
+	'data' 	=> 'Datos',
+	'info' 	=> 'Información',
+
 
 	'add'              => 'Add',
 	'cancel'           => 'Cancel',

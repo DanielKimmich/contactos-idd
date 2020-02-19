@@ -61,7 +61,7 @@ abstract class CrudController extends CrudControllerBackpack
             'name'  => 'id',
             'label' => 'Id',
             'type'  => 'text',
-            'tab'   => 'Info',
+            'tab'   => trans('common.info'),
             'attributes' => ['readonly'  => 'readonly'],
             'prefix'   => "<i class='fa fa-key'></i>", 
             ]); 
@@ -69,7 +69,7 @@ abstract class CrudController extends CrudControllerBackpack
             'name'  => 'updated_at',
             'label' => trans('common.updated_at'),
             'type'  => 'text',
-            'tab'   => 'Info',
+            'tab'   => trans('common.info'),
             'attributes' => ['disabled'  => 'disabled'],
             'prefix'   => "<i class='fa fa-calendar-check-o'></i>", 
             ]);     
@@ -77,7 +77,7 @@ abstract class CrudController extends CrudControllerBackpack
             'name'  => 'created_at',
             'label' => trans('common.created_at'),
             'type'  => 'text',
-            'tab'   => 'Info',
+            'tab'   => trans('common.info'),
             'attributes' => ['disabled'  => 'disabled'],
             'prefix'   => "<i class='fa fa-calendar-plus-o'></i>",
             ]);   

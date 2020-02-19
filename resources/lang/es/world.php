@@ -2,7 +2,7 @@
 
 return array (
   'name' => 'Nombre',
-  'full_name' => 'Nombre largo',
+  'full_name' => 'Nombre completo',
   'code' => 'Codigo',
   'updated_at' => 'Actualizado el',
   'created_at' => 'Creado el',
@@ -22,5 +22,7 @@ return array (
   'tld' => 'Código de dominio',
   'has_city' => 'con Ciudades',
   'has_division' => 'con Provincias',
-  'date_range' => 'Rango de Fechas',
+  'date_range' => 'Actualizado entre',
+  'data'  => 'Datos',
+  'info'  => 'Informacion',
 );

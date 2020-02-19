@@ -119,22 +119,22 @@ protected function setupShowOperation()
         $this->crud->setValidation(WorldDivisionRequest::class);
     //DATA
         $this->crud->addField([ // Text
-            'tab'   => 'Data',
             'name'  => 'name',
             'label' => trans('world.name'),
             'type'  => 'text',
+            'tab'   => trans('world.data'),
             ]);
         $this->crud->addField([ // Text
-            'tab'   => 'Data',
             'name'  => 'code',
             'label' => trans('world.code'),
             'type'  => 'text',
+            'tab'   => trans('world.data'),
             ]);
         $this->crud->addField([ // Select
-            'tab'   => 'Data',
             'name'  => 'country_id',
             'label' => trans('world.country'),
             'type'  => 'select2',
+            'tab'   => trans('world.data'),
             'entity' => 'country', 
             'attribute' => 'name',
             'default' => Config::get('settings.world_country'), // set default value
@@ -142,16 +142,16 @@ protected function setupShowOperation()
                return $query->orderBy('name', 'ASC')->get(); })
             ]);
         $this->crud->addField([ // Text
-            'tab'   => 'Data',
             'name'  => 'full_name',
             'label' => trans('world.full_name'),
             'type'  => 'text',
+            'tab'   => trans('world.data'),
             ]);
         $this->crud->addField([ // CheckBox
-            'tab'   => 'Data', 
             'name'  => 'has_city',
             'label' => trans('world.has_city'),
             'type'  => 'checkbox',
+            'tab'   => trans('world.data'),
             ]);
     //INFO
         $this->getInfoFields();

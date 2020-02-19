@@ -140,19 +140,20 @@ protected function setupShowOperation()
             'name'  => 'name',
             'label' => trans('world.name'),
             'type'  => 'text',
-            'tab'   => 'Data',
+            'tab'   => trans('world.data'),
             ]);
         $this->crud->addField([ // Text
             'name'  => 'code',
             'label' => trans('world.code'),
             'type'  => 'text',
-            'tab'   => 'Data',
+            'tab'   => trans('world.data'),
         ]);
          $this->crud->addField([ // Select
             'name'  => 'country_id',
             'label' => trans('world.country'),
             'type'  => 'select2',
-            'tab'   => 'Data',
+            'tab'   => trans('world.data'),
+            'wrapperAttributes' => ['class' => 'form-group col-md-6'],
             'entity' => 'country', 
             'attribute' => 'name',
             'default' => Config::get('settings.world_country'), // set default value
@@ -163,7 +164,8 @@ protected function setupShowOperation()
             'name'  => 'division_id',
             'label' => trans('world.division'),
             'type'  => 'select2_from_ajax',
-            'tab'   => 'Data',
+            'tab'   => trans('world.data'),
+            'wrapperAttributes' => ['class' => 'form-group col-md-6'],
             'entity' => 'division', 
             'attribute' => 'name',
             'model' => 'App\Models\WorldDivision', // foreign key model
@@ -177,7 +179,7 @@ protected function setupShowOperation()
             'name'  => 'full_name',
             'label' => trans('world.full_name'),
             'type'  => 'text',
-            'tab'   => 'Data',
+            'tab'   => trans('world.data'),
             ]);
     //INFO
         $this->getInfoFields();

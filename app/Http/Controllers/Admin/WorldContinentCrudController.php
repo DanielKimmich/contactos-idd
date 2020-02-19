@@ -110,13 +110,14 @@ protected function setupShowOperation()
             'name'  => 'name',
             'label' =>  trans('world.name'),
             'type'  => 'text',
-            'tab'   => 'Data',
+            'tab'   => trans('world.data'),
             ]);
         $this->crud->addField([ // Text
             'name'  => 'code',
             'label' => trans('world.code'),
             'type'  => 'text',
-            'tab'   => 'Data',
+            'tab'   => trans('world.data'),
+            'wrapperAttributes' => ['class' => 'form-group col-md-6'],
             ]);
     //INFO
         $this->getInfoFields();

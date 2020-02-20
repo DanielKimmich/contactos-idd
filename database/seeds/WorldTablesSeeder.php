@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\SQLiteConnection;
+use Illuminate\Database\MySqlConnection;
 
 class WorldTablesSeeder extends Seeder
 {
@@ -14,8 +15,10 @@ class WorldTablesSeeder extends Seeder
     {
         if (DB::connection() instanceof SQLiteConnection) {
             DB::statement('PRAGMA FOREIGN_KEYS=0');
+        } else if(DB::connection() instanceof MySqlConnection) {
+             DB::statement('SET FOREIGN_KEY_CHECKS=0');
         } else {
-            DB::statement('SET FOREIGN_KEY_CHECKS=0');
+           Schema::disableForeignKeyConstraints();
         }
 
         $this->call(WorldContinentsTableSeeder::class);
@@ -29,8 +32,10 @@ class WorldTablesSeeder extends Seeder
 
         if (DB::connection() instanceof SQLiteConnection) {
             DB::statement('PRAGMA FOREIGN_KEYS=1');
-        } else {
+        } else if(DB::connection() instanceof MySqlConnection) {
             DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        } else {
+           Schema::disableForeignKeyConstraints();
         }
     }
 }

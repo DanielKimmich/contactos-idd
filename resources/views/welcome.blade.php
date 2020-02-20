@@ -79,10 +79,38 @@
                 </div>
             @endif
 
+@php
+// Ejemplo de uso de getenv()
+    $ip = getenv('REMOTE_ADDR');
+    $db = getenv('DB_CONNECTION');
+    $url = getenv('DATABASE_URL');
+    $host = getenv('DB_HOST');
+    $port = getenv('DB_PORT');
+    $database = getenv('DB_DATABASE');
+    $username = getenv('DB_USERNAME');
+    $password = getenv('DB_PASSWORD');
+
+
+// O simplemente use una Superglobal ($_SERVER o $_ENV)
+
+
+@endphp
+
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
                 </div>
+
+            <p>
+                IP: {{ $ip }}<br>
+                DB: {{ $db }}<br>
+                URL: {{ $url }}<br>
+                HOST: {{ $host }}<br>
+                PORT: {{ $port }}<br>
+                DATABASE: {{ $database }}<br>
+                USERNAME: {{ $username }}<br>
+                PASSWORD: {{ $password }}<br>
+            </p>
 
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>

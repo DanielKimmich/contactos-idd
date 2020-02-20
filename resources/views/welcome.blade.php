@@ -81,6 +81,7 @@
 
 @php
 // Ejemplo de uso de getenv()
+/*
     $ip = getenv('REMOTE_ADDR');
     $db = getenv('DB_CONNECTION');
     $url = getenv('DATABASE_URL');
@@ -89,11 +90,28 @@
     $database = getenv('DB_DATABASE');
     $username = getenv('DB_USERNAME');
     $password = getenv('DB_PASSWORD');
-
+*/
+    $ip = env('REMOTE_ADDR');
+    $db = env('DB_CONNECTION');
+    $url = env('DATABASE_URL');
+    $host = env('DB_HOST');
+    $port = env('DB_PORT');
+    $database = env('DB_DATABASE');
+    $username = env('DB_USERNAME');
+    $password = env('DB_PASSWORD');
 
 // O simplemente use una Superglobal ($_SERVER o $_ENV)
-
-
+/*
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $db = $_ENV['DB_CONNECTION'];
+ //   $url = $_ENV['DATABASE_URL'];
+    $url = '';
+    $host = $_ENV['DB_HOST'];
+    $port = $_ENV['DB_PORT'];
+    $database = $_ENV['DB_DATABASE'];
+    $username = $_ENV['DB_USERNAME'];
+    $password = $_ENV['DB_PASSWORD'];
+*/
 @endphp
 
             <div class="content">
@@ -102,8 +120,8 @@
                 </div>
 
             <p>
-                IP: {{ $ip }}<br>
-                DB: {{ $db }}<br>
+                IP_LOCAL: {{ $ip }}<br>
+                DB_CONNECTION: {{ $db }}<br>
                 URL: {{ $url }}<br>
                 HOST: {{ $host }}<br>
                 PORT: {{ $port }}<br>

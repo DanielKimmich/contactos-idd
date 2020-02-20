@@ -93,12 +93,12 @@
 */
     $ip = env('REMOTE_ADDR');
     $db = env('DB_CONNECTION');
-    $url = env('DATABASE_URL');
+//    $url = env('DATABASE_URL');
     $host = env('DB_HOST');
     $port = env('DB_PORT');
     $database = env('DB_DATABASE');
     $username = env('DB_USERNAME');
-    $password = env('DB_PASSWORD');
+//    $password = env('DB_PASSWORD');
 
 // O simplemente use una Superglobal ($_SERVER o $_ENV)
 /*
@@ -118,16 +118,13 @@
                 <div class="title m-b-md">
                     Laravel
                 </div>
-
             <p>
                 IP_LOCAL: {{ $ip }}<br>
                 DB_CONNECTION: {{ $db }}<br>
-                URL: {{ $url }}<br>
-                HOST: {{ $host }}<br>
-                PORT: {{ $port }}<br>
-                DATABASE: {{ $database }}<br>
-                USERNAME: {{ $username }}<br>
-                PASSWORD: {{ $password }}<br>
+                DB_HOST: {{ $host }}<br>
+                DB_PORT: {{ $port }}<br>
+                DB_DATABASE: {{ $database }}<br>
+                DB_USERNAME: {{ $username }}<br>
             </p>
 
                 <div class="links">

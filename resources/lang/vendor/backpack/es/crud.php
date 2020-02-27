@@ -156,5 +156,5 @@ return [
     'table_max_reached' => 'El número máximo de :max alcanzado',
 
     // File manager
-    'file_manager' => 'Administrador de archivos',
+    'file_manager' => 'Administrar Archivos',
 ];

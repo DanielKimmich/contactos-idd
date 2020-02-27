@@ -34213,6 +34213,16 @@ class WorldCitiesTableSeeder extends Seeder
                 'id' => 3799,
                 'name' => 'Al Hoceima',
             ),
+            298 => 
+            array (
+                'code' => NULL,
+                'country_id' => 51,
+                'division_id' => NULL,
+                'full_name' => NULL,
+                'id' => 49,
+                'name' => 'Tamanrasset',
+            ),
+
         ));
         
         

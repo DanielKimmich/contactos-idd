@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Requests\ContactRequest;
 //use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Illuminate\Support\Facades\Config;
+use App\Http\Controllers\Admin\Operations\PrintOperation;
 use App\Models\Contact;
 use App\Models\ContactData;
 use App\Models\ContactPhone;
@@ -25,12 +25,11 @@ use App\Models\WorldCity;
 class ContactCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-//    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-//    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+  //  use \App\Http\Controllers\Admin\Operations\PrintOperation;
 
     protected $crudPhone;
     protected $crudEmail;
@@ -43,7 +42,7 @@ class ContactCrudController extends CrudController
         $this->crud->setEntityNameStrings(trans('contact.title'), trans('contact.titles'));
 //        $this->crud->with(['names', 'events']);
         $this->setupAvancedOperation();
-      //  $this->setAccessOperation('contact');
+        $this->setAccessOperation('contactdata');
         $this->setContactPhone();
         $this->setContactEmail();
         $this->setContactAddress();
@@ -56,7 +55,7 @@ class ContactCrudController extends CrudController
     }
 
     protected function setupListOperation()
-    {    
+    {   //$this->crud->setListContentClass('col-md-8 col-md-offset-2');
     //    $this->crud->setDefaultPageLength(25); //number of rows shown in list
      // ------ CRUD COLUMNS
         $this->crud->addColumn([
@@ -76,15 +75,13 @@ class ContactCrudController extends CrudController
         'name' => 'app.name', // relation.column_name
     ],   
     Also add a $this->crud->with(['app', 'user'])  */
-/*
+
         $this->crud->addColumn([
-            'name'  => 'id',
-            'label' => trans('contact.event.birthday'),
-            'type'  => 'select',
+            'name'  => 'events.data7',
+            'label' =>  trans('contact.event.birthday'),
+            'type'  => 'text',
             'priority' => 2,
-            'entity' => 'events',
-            'attribute' => 'data7',
-            ]);         */
+            ]);    
         $this->crud->addColumn([
             'name'  => 'sexo',
             'label' => trans('contact.sex'),
@@ -92,9 +89,8 @@ class ContactCrudController extends CrudController
             'priority' => 4,
             'entity' => 'sex', 
             'attribute' => 'label',
-
             ]);
-        $this->crud->addColumn([
+/*         $this->crud->addColumn([
             'name'  => 'nationality_id',
             'label' => trans('contact.nationality'),
             'type'  => 'select',
@@ -102,7 +98,7 @@ class ContactCrudController extends CrudController
             'entity' => 'nationality', 
             'attribute' => 'name',
             ]);  
- /*       $this->crud->addColumn([
+       $this->crud->addColumn([
             'name'  => 'nationality_id',
             'label' => trans('contact.nationality'),
             'type'  => 'select_from_array',
@@ -132,8 +128,85 @@ class ContactCrudController extends CrudController
             ]); */
     }
 
+protected function setupShowOperation()
+    {  // $this->crud->setShowContentClass('col-md-8 col-md-offset-2');
+        $this->crud->set('show.setFromDb', false);
+    // ------ CRUD COLUMNS
+        $this->crud->addColumn([
+            'name'  => 'id',
+            'label' => 'Id',
+            'type'  => 'number',
+            ]);
+        $this->crud->addColumn([
+            'name'  => 'display_name',
+            'label' =>  trans('contact.display_name'),
+            'type'  => 'text',
+            ]);
+        $this->crud->addColumn([
+            'name'  => 'sexo',
+            'label' => trans('contact.sex'),
+            'type'  => 'select',
+            'entity' => 'sex', 
+            'attribute' => 'label',
+            ]);
+        $this->crud->addColumn([
+            'name'  => 'nationality_id',
+            'label' => trans('contact.nationality'),
+            'type'  => 'select',
+            'entity' => 'nationality', 
+            'attribute' => 'name',
+            ]);  
+        $this->crud->addColumn([
+            'name'  => 'events.data7',
+            'label' =>  trans('contact.event.birthday'),
+            'type'  => 'text',
+            ]);  
+        $this->crud->addColumn([
+            'name'  => 'documents.data9',
+            'label' =>  trans('contact.document.number'),
+            'type'  => 'text',
+            ]);  
+        $this->crud->addColumn([
+            'name'      => 'phones', //the relationship in your Model
+            'label'     => trans('contact.phone.titles'), //column heading
+            'type'      => 'select_multiple',
+            'entity'    => 'phones', //the relationship in your Model
+            'attribute' => 'data1', //foreign key attribute that is shown to user
+            ]);
+        $this->crud->addColumn([
+            'name'      => 'emails', //the relationship in your Model
+            'label'     => trans('contact.email.titles'), //column heading
+            'type'      => 'select_multiple',
+            'entity'    => 'emails', //the relationship in your Model
+            'attribute' => 'data1', //foreign key attribute that is shown to user
+            ]);
+        $this->crud->addColumn([
+            'name'      => 'addresses', //the relationship in your Model
+            'label'     => trans('contact.address.titles'), //column heading
+            'type'      => 'select_multiple',
+            'entity'    => 'addresses', //the relationship in your Model
+            'attribute' => 'data1', //foreign key attribute that is shown to user
+            ]);
+        $this->crud->addColumn([
+            'name'  => 'status',
+            'label' => trans('contact.status'),
+            'type'  => 'text',
+            ]);
+        $this->crud->addColumn([    
+            'name'  => 'created_at',
+            'label' => trans('common.created_at'),
+            'type'  => 'text',
+            ]);       
+        $this->crud->addColumn([    
+            'name'  => 'updated_at',
+            'label' => trans('common.updated_at'),
+            'type'  => 'text',
+            ]);       
+    }      
+
+
     protected function setupCreateOperation()
-    {
+    {   //$this->crud->setCreateContentClass('col-md-8 col-md-offset-2');
         $this->crud->setValidation(ContactRequest::class);
 // ------ CRUD FIELDS
         $this->crud->addField([ // Text
@@ -451,7 +524,7 @@ class ContactCrudController extends CrudController
                 ],
             [
             'name'  => 'data8',
-            'label' => trans('contact.address.region'),
+            'label' => trans('contact.address.division'),
             'type'  => 'select2_from_ajax',
             'wrapperAttributes' => ['class' => 'form-group col-md-6'],
             'entity' => 'addresses', 
@@ -459,12 +532,12 @@ class ContactCrudController extends CrudController
             'model' => 'App\Models\WorldDivision', // foreign key model
             'data_source'  => url('admin/searchdivision/data10'), // url to controller search
             'placeholder' => '', // placeholder for the select
-       //     'dependencies'  => ['contact_addresses[0][data10]'], //this select2 is reset to null
+      //      'dependencies'  => ['data10'], //this select2 is reset to null
             'minimum_input_length' => 0, // minimum before querying results
             ],
             [
             'name'  => 'data7',
-            'label' => trans('contact.address.region'),
+            'label' => trans('contact.address.city'),
             'type'  => 'select2_from_ajax',
             'wrapperAttributes' => ['class' => 'form-group col-md-6'],
             'entity' => 'addresses', 
@@ -473,7 +546,7 @@ class ContactCrudController extends CrudController
            // 'data_source'  => url('admin/searchcity'), // url to controller search
             'data_source'  => url('admin/searchcity/data8'),
             'placeholder' => '', // placeholder for the select
-           // 'dependencies'  => 'data8', //this select2 is reset to null
+     //       'dependencies'  => ['data10','data8'], //this select2 is reset to null
        //     'dependencies'  => ['contact_addresses[0][data8]'],
             'minimum_input_length' => 0, // minimum before querying results
             ],
@@ -804,4 +877,6 @@ protected function setContactAddress(): void
             public function contactsbusiness() { return $this->belongsToMany('App\Models\Contact','applications_contacts') ->withPivot('application_id','contact_id') ->where('type_contact_id', 1) ->using(ContactPivot::class); } 
             public function contactsist() { return $this->belongsToMany('App\Models\Contact','applications_contacts') ->withPivot('application_id','contact_id') ->where('type_contact_id', 2) ->using(ContactPivot::class); }
 
+
+// $this->crud->setColumnDetails('column_name', ['attribute' => 'value']); // adjusts the properties of the passed in column (by name)
             */

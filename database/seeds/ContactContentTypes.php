@@ -93,7 +93,7 @@ class ContactContentTypes extends Seeder
                 'mimetype' => 'Address',
                 'type' => 'TYPE_HOME',
                 'order' => '1',
-                'label' => 'Particular',
+                'label' => 'Casa',
             ),     
             10 => 
             array (
@@ -247,7 +247,22 @@ class ContactContentTypes extends Seeder
                 'order' => '9',
                 'label' => 'Otro',
             ),     
-
+            29 => 
+            array (
+                'id' => 30,
+                'mimetype' => 'Sexo',
+                'type' => 'FEMALE',
+                'order' => '1',
+                'label' => 'Femenino',
+            ),               
+            30 => 
+            array (
+                'id' => 31,
+                'mimetype' => 'Sexo',
+                'type' => 'MALE',
+                'order' => '2',
+                'label' => 'Masculino',
+            ),     
 
 
         ));

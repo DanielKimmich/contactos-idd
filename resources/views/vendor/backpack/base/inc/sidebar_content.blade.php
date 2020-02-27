@@ -4,35 +4,44 @@
 
 
 <!-- Contactos -->
-<li class="nav-item nav-dropdown">
-	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-address-book"></i> Contactos</a>
+@if (auth()->user()->hasAnyPermission(['list contactdata','list contactsetting']))
+  <li class="nav-item nav-dropdown">
+	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-address-book"></i>{{ trans('common.menu.contact') }}</a>
 	<ul class="nav-dropdown-items">
-		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contact') }}'><i class='nav-icon fa fa-id-card-o'></i>Datos de Contactos</a></li>
-		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contenttype') }}'><i class='nav-icon fa fa-cogs'></i>Preferencias</a></li>	
-		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contactdata') }}'><i class='nav-icon fa fa-question'></i>ContactDatas</a></li>	
-	</ul>
-</li>
+ 	  @can('list contactdata')
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contact') }}'><i class='nav-icon fa fa-id-card-o'></i>{{ trans('contact.titles') }}</a></li>
+	  @endcan
 
+ 	  @can('list contactsetting')
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contenttype') }}'><i class='nav-icon fa fa-cogs'></i>Preferencias</a></li>	
+	  @endcan
+
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contactdata') }}'><i class='nav-icon fa fa-question'></i>ContactDatas
+
+		</a></li>	
+	</ul>
+  </li>
+@endif
 
 <!-- Continents, Contries, Divisions, Cities -->
 @if (auth()->user()->hasAnyPermission(['list worldcontinent','list worldcountry','list worlddivision','list worldcity']))
  <li class="nav-item nav-dropdown">
-	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-globe"></i>World</a>
+	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-globe"></i>{{ trans('common.menu.world') }}</a>
 	<ul class="nav-dropdown-items">
 	  @can('list worldcontinent')
-	  	<li class="nav-item"><a class="nav-link" href="{{ backpack_url('worldcontinent') }}"><i class="nav-icon fa fa-cloud"></i><span>{{ trans('world.continents') }}</span></a></li>
+	  	<li class="nav-item"><a class="nav-link" href="{{ backpack_url('worldcontinent') }}"><i class="nav-icon fa fa-cloud"></i><span>{{ trans('world.continent.titles') }}</span></a></li>
        @endcan
 
        @can('list worldcountry')
-	  	<li class="nav-item"><a class="nav-link" href="{{ backpack_url('worldcountry') }}"><i class="nav-icon fa fa-flag"></i><span>{{ trans('world.countries') }}</span></a></li>
+	  	<li class="nav-item"><a class="nav-link" href="{{ backpack_url('worldcountry') }}"><i class="nav-icon fa fa-flag"></i><span>{{ trans('world.country.titles') }}</span></a></li>
         @endcan
 
         @can('list worlddivision')
-	  	<li class="nav-item"><a class="nav-link" href="{{ backpack_url('worlddivision') }}"><i class="nav-icon fa fa-map-o"></i><span>{{ trans('world.divisions') }}</span></a></li>
+	  	<li class="nav-item"><a class="nav-link" href="{{ backpack_url('worlddivision') }}"><i class="nav-icon fa fa-map-o"></i><span>{{ trans('world.division.titles') }}</span></a></li>
         @endcan
 
         @can('list worldcity')
-	  	<li class="nav-item"><a class="nav-link" href="{{ backpack_url('worldcity') }}"><i class="nav-icon fa fa-building"></i><span>{{ trans('world.cities') }}</span></a></li>
+	  	<li class="nav-item"><a class="nav-link" href="{{ backpack_url('worldcity') }}"><i class="nav-icon fa fa-building"></i><span>{{ trans('world.city.titles') }}</span></a></li>
        @endcan
 	</ul>
   </li>
@@ -42,7 +51,7 @@
 <!-- Users, Roles, Permissions -->
 @if (auth()->user()->hasAnyPermission(['list authuser','list authrole','list authpermission']))
  <li class="nav-item nav-dropdown">
-	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-user-plus"></i>Authentication</a>
+	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-user-plus"></i>{{ trans('common.menu.authentication') }}</a>
 	<ul class="nav-dropdown-items">
 	  @can('list authuser')
 	  <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon fa fa-user"></i><span>{{ trans('backpack::permissionmanager.users') }}</span></a></li>
@@ -60,15 +69,27 @@
 @endif
 
 <!-- Backup Manager, Log Manager -->
-<li class="nav-item nav-dropdown">
-	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-wrench"></i> Manager</a>
+@if (auth()->user()->hasAnyPermission(['list managerbackup','list managerlog','list managersetting', 'list managermigrate']))
+  <li class="nav-item nav-dropdown">
+	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-wrench"></i>{{ trans('common.menu.manager') }}</a>
 	<ul class="nav-dropdown-items">
-	   <li class='nav-item'><a class='nav-link' href='{{ backpack_url('backup') }}'><i class='nav-icon fa fa-hdd-o'></i>Backups</a></li>
-       <li class='nav-item'><a class='nav-link' href='{{ backpack_url('log') }}'><i class='nav-icon fa fa-terminal'></i>Logs</a></li>
-       <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon fa fa-cog'></i><span>Settings</span></a></li>
-		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('migration') }}'><i class='nav-icon fa fa-upload'></i>Migrations</a></li>
-	</ul>
-</li>
+	  @can('list managerbackup')
+	   <li class='nav-item'><a class='nav-link' href='{{ backpack_url('backup') }}'><i class='nav-icon fa fa-hdd-o'></i>{{ trans('backpack::backup.backup') }}</a></li>
+	  @endcan
 
+      @can('list managerlog')
+       <li class='nav-item'><a class='nav-link' href='{{ backpack_url('log') }}'><i class='nav-icon fa fa-terminal'></i>Logs</a></li>
+ 	  @endcan 
+
+ 	  @can('list managersetting')
+       <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon fa fa-cog'></i><span>{{ trans('backpack::settings.setting_plural') }}</span></a></li>
+	  @endcan
+
+      @can('list managermigrate')  
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('migration') }}'><i class='nav-icon fa fa-upload'></i>Migrations</a></li>
+	  @endcan
+	</ul>
+  </li>
+@endif
 
 <li class=nav-item><a class=nav-link href="{{ backpack_url('elfinder') }}"><i class="nav-icon fa fa-files-o"></i><span>{{ trans('backpack::crud.file_manager') }}</span></a></li>

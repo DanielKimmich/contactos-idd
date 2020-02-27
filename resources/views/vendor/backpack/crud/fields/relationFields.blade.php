@@ -46,11 +46,9 @@
                         }  
 
                         if(array_key_exists ('data_source' , $relationField )) {
-                            
                             $pos = strrpos($relationField['data_source'], '/'); 
                             $url = substr($relationField['data_source'],0,$pos+1);
                             $str = substr($relationField['data_source'],$pos+1);
-                      
                             $rep = preg_replace('/'.$relationField['column_name'].'/', $str, $relationField['name']); 
                             $relationField['data_source'] = $url . $rep;
                      
@@ -62,7 +60,10 @@
                         }
     
                         if(array_key_exists ('dependencies' , $relationField )) {
-                            dump($relationField['dependencies']);
+                        //    dump($relationField['dependencies']);
+                        
+
+
                         //    $relationField['dependencies'] = preg_replace('/'.$relationField['column_name'].'/', $relationField['dependencies'], $relationField['name']); 
                          //   dump('#'.$relationField['column_name'].'#');  
                         //    dump($relationField['dependencies']); 
@@ -84,7 +85,7 @@
                                 'label' => 'id',
                                 ]);
                        
-                         //   dump($relationFields);      
+         //   dump($relationFields);      
                         @endphp
 
                         @include('crud::inc.show_fields', ['fields' => $relationFields, 'crud' => (!empty($field['crud'])? $field['crud'] : $crud)])
@@ -129,14 +130,41 @@
                             $newEntryField['attributes'] = ['id' =>  $newEntryField['id'] ];
                         }  
 
+                        if(array_key_exists ('data_source' , $newEntryField )) {
+                            $pos = strrpos($newEntryField['data_source'], '/'); 
+                            $url = substr($newEntryField['data_source'],0,$pos+1);
+                            $str = substr($newEntryField['data_source'],$pos+1);
+                            $rep = preg_replace('/'.$newEntryField['column_name'].'/', $str, $newEntryField['name']); 
+                            $newEntryField['data_source'] = $url . $rep;
+                     
+                    //        dump($url);  
+                    //        dump($str); 
+                     //       dump($rep); 
+                     //       dump($relationField['data_source']);  
+
+                        }
+
+                        if(array_key_exists ('dependencies' , $newEntryField )) {
+                         //   dump($newEntryField['dependencies']); 
+                            foreach($newEntryField['dependencies'] as $j =>$dependenciesField){
+
+                            //dump($newEntryField['dependencies']);
+                            $newEntryField['dependencies'][$j] = preg_replace('/'.$newEntryField['column_name'].'/', $dependenciesField, $newEntryField['name']); 
+                            }
+                         //   dump('#'.$relationField['column_name'].'#');  
+                         //   dump($newEntryField['dependencies']); 
+                         //   dump($relationField['name']);   
+
+                        }                        
                     //check if we have defined a relationFields specific template for this field type
-        //    dump($newEntryField['name']); 
+
                     $fieldsViewNamespace = $newEntryField['view_namespace'] ?? 'crud::fields';
                     if(view()->exists($fieldsViewNamespace.'.relationFields.'.$newEntryField['type'])){
                         $newEntryField['type'] = 'relationFields.'.$newEntryField['type'];
                     }
                 }
-                 @endphp
+ //       dump($newEntryField['name']); 
+                @endphp
 
                 @include('crud::inc.show_fields', ['fields' => $newEntryFields, 'crud' => (!empty($field['crud'])? $field['crud'] : $crud)])
                 </div>

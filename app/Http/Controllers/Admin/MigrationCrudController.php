@@ -30,6 +30,10 @@ class MigrationCrudController extends CrudController
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         $this->crud->setFromDb();
+        // remove a column from the stack
+        $this->crud->removeAllButtons();
+        // $this->crud->removeAllButtonsFromStack('line');
+        // $this->crud->removeColumn('column_name');
     }
 
     protected function setupCreateOperation()

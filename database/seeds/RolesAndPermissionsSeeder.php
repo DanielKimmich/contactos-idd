@@ -32,22 +32,26 @@ class RolesAndPermissionsSeeder extends Seeder
 
 
 	//Creación de usuarios
-		$user_Admin = User::create([
-    		'name' => 'Administrator',
-    		'email' => 'admin@contactos.com',
+		$user_DK = User::create([
+    		'name' => 'Daniel Kimmich',
+    		'email' => 'danielkimmich@hotmail.com',
     		'password' => bcrypt('secret')
 		]);
-		$user_Super = User::create([
-    		'name' => 'Supervisor',
-    		'email' => 'super@contactos.com',
+		$user_AB = User::create([
+    		'name' => 'Adrian Bergmeier',
+    		'email' => 'adrianbergmeier15@gmail.com',
     		'password' => bcrypt('secret')
 		]);		
-		$user_Guest = User::create([
-    		'name' => 'Guest',
-    		'email' => 'guest@contactos.com',
+		$user_DC = User::create([
+    		'name' => 'Daniel Chetti',
+    		'email' => 'chettichetti@hotmail.com',
     		'password' => bcrypt('secret')
 		]);		
-
+		$user_LZ = User::create([
+    		'name' => 'Liliana Ziegenbein',
+    		'email' => 'liliziegenbein@hotmail.com',
+    		'password' => bcrypt('secret')
+		]);		
 //Modulo Authentication
 	//Creacion de Permisos
 		Permission::create(['name' => 'list authrole', 'guard_name' => $guard]);
@@ -99,8 +103,9 @@ class RolesAndPermissionsSeeder extends Seeder
 		$role_SuperAuth->givePermissionTo('show authpermission');
 
 	//Asignación del rol al usuario
-		$user_Admin->assignRole('AdminAuth');
-		$user_Super->assignRole('SuperAuth');
+		$user_DK->assignRole('AdminAuth');
+		$user_AB->assignRole('AdminAuth');
+		$user_DC->assignRole('SuperAuth');
 
 
 //Modulo World
@@ -160,17 +165,100 @@ class RolesAndPermissionsSeeder extends Seeder
 
 		$role_UserWorld->givePermissionTo('list worldcontinent');
 		$role_UserWorld->givePermissionTo('show worldcontinent');
+		$role_UserWorld->givePermissionTo('update worldcontinent');
 		$role_UserWorld->givePermissionTo('list worldcountry');
 		$role_UserWorld->givePermissionTo('show worldcountry');
+		$role_UserWorld->givePermissionTo('update worldcountry');
 		$role_UserWorld->givePermissionTo('list worlddivision');
 		$role_UserWorld->givePermissionTo('show worlddivision');
+		$role_UserWorld->givePermissionTo('update worlddivision');		
 		$role_UserWorld->givePermissionTo('list worldcity');
 		$role_UserWorld->givePermissionTo('show worldcity');
+		$role_UserWorld->givePermissionTo('update worldcity');
 
 	//Asignación del rol al usuario
-		$user_Admin->assignRole('AdminWorld');
-		$user_Guest->assignRole('UserWorld');
+		$user_DK->assignRole('AdminWorld');
+		$user_AB->assignRole('AdminWorld');
+		$user_DC->assignRole('AdminWorld');
+		$user_LZ->assignRole('UserWorld');
 
+
+//Modulo Manager
+	//Creacion de Permisos
+		Permission::create(['name' => 'list managerbackup', 'guard_name' => $guard]);
+		Permission::create(['name' => 'list managerlog', 'guard_name' => $guard]);
+		Permission::create(['name' => 'list managersetting', 'guard_name' => $guard]);
+		Permission::create(['name' => 'list managermigrate', 'guard_name' => $guard]);
+
+	//Creacion de Roles
+		$role_AdminManager = Role::create(['name' => 'AdminManager', 'guard_name' => $guard]);
+		$role_SuperManager = Role::create(['name' => 'SuperManager', 'guard_name' => $guard]);
+
+	//Asignacion del permiso al rol
+		$role_AdminManager->givePermissionTo('list managerbackup');
+		$role_AdminManager->givePermissionTo('list managerlog');
+		$role_AdminManager->givePermissionTo('list managersetting');
+		$role_AdminManager->givePermissionTo('list managermigrate');
+
+		$role_SuperManager->givePermissionTo('list managersetting');
+		$role_SuperManager->givePermissionTo('list managermigrate');
+
+	//Asignación del rol al usuario
+		$user_DK->assignRole('AdminManager');
+		$user_AB->assignRole('AdminManager');
+		$user_DC->assignRole('SuperManager');
+
+//Modulo Contacts
+	//Creacion de Permisos
+		Permission::create(['name' => 'list contactdata', 'guard_name' => $guard]);
+		Permission::create(['name' => 'show contactdata', 'guard_name' => $guard]);
+		Permission::create(['name' => 'create contactdata', 'guard_name' => $guard]);
+		Permission::create(['name' => 'update contactdata', 'guard_name' => $guard]);
+		Permission::create(['name' => 'delete contactdata', 'guard_name' => $guard]);
+
+		Permission::create(['name' => 'list contactsetting', 'guard_name' => $guard]);
+		Permission::create(['name' => 'show contactsetting', 'guard_name' => $guard]);
+		Permission::create(['name' => 'create contactsetting', 'guard_name' => $guard]);
+		Permission::create(['name' => 'update contactsetting', 'guard_name' => $guard]);
+		Permission::create(['name' => 'delete contactsetting', 'guard_name' => $guard]);
+
+	//Creacion de Roles
+		$role_AdminContact = Role::create(['name' => 'AdminContact', 'guard_name' => $guard]);
+		$role_SuperContact = Role::create(['name' => 'SuperContact', 'guard_name' => $guard]);
+		$role_UserContact = Role::create(['name' => 'UserContact', 'guard_name' => $guard]);
+
+	//Asignacion del permiso al rol
+		$role_AdminContact->givePermissionTo('list contactdata');
+		$role_AdminContact->givePermissionTo('show contactdata');
+		$role_AdminContact->givePermissionTo('create contactdata');
+		$role_AdminContact->givePermissionTo('update contactdata');
+		$role_AdminContact->givePermissionTo('delete contactdata');
+
+		$role_AdminContact->givePermissionTo('list contactsetting');
+		$role_AdminContact->givePermissionTo('show contactsetting');
+		$role_AdminContact->givePermissionTo('create contactsetting');
+		$role_AdminContact->givePermissionTo('update contactsetting');
+		$role_AdminContact->givePermissionTo('delete contactsetting');
+
+		$role_SuperContact->givePermissionTo('list contactdata');
+		$role_SuperContact->givePermissionTo('show contactdata');
+		$role_SuperContact->givePermissionTo('create contactdata');
+		$role_SuperContact->givePermissionTo('update contactdata');
+		$role_SuperContact->givePermissionTo('delete contactdata');
+
+		$role_SuperContact->givePermissionTo('list contactsetting');
+		$role_SuperContact->givePermissionTo('show contactsetting');
+		$role_SuperContact->givePermissionTo('update contactsetting');
+
+		$role_UserContact->givePermissionTo('list contactdata');
+		$role_UserContact->givePermissionTo('show contactdata');
+		$role_UserContact->givePermissionTo('update contactdata');
+
+	//Asignación del rol al usuario
+		$user_DK->assignRole('AdminContact');
+		$user_AB->assignRole('AdminContact');
+		$user_DC->assignRole('SuperContact');
+		$user_LZ->assignRole('UserContact');
 
     }
 }

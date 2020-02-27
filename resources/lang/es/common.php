@@ -33,4 +33,11 @@ return [
 	'date'             => 'Date',
 	'total'            => 'Total',
 
+//MENU
+  	'menu'    => [
+		'contact'          => 'Datos de Contactos',
+		'world'            => 'Región Geográfica',
+		'authentication'   => 'Autenticación',
+		'manager'          => 'Administración',
+	],
 ];

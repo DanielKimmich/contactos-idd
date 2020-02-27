@@ -15,11 +15,11 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class WorldContinentCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;  
     use \Backpack\CRUD\app\Http\Controllers\Operations\CloneOperation { clone as traitClone; }   
+    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation; 
  //   use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
  //   use \Backpack\CRUD\app\Http\Controllers\Operations\BulkCloneOperation;
 
@@ -27,7 +27,7 @@ class WorldContinentCrudController extends CrudController
     {   
         $this->crud->setModel('App\Models\WorldContinent');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/worldcontinent');
-        $this->crud->setEntityNameStrings( trans('world.continent'),  trans('world.continents'));
+        $this->crud->setEntityNameStrings( trans('world.continent.title'),  trans('world.continent.titles'));
 
         $this->setupAvancedOperation();
         $this->setAccessOperation('worldcontinent');
@@ -44,13 +44,13 @@ class WorldContinentCrudController extends CrudController
             ]);
         $this->crud->addColumn([
             'name'  => 'name',
-            'label' =>  trans('world.name'),
+            'label' =>  trans('world.continent.name'),
             'type'  => 'text',
             'priority' => 1,
             ]);
         $this->crud->addColumn([
             'name'  => 'code',
-            'label' => trans('world.code'),
+            'label' => trans('world.continent.code'),
             'type'  => 'text',
             'priority' => 1,
             ]);
@@ -81,12 +81,12 @@ protected function setupShowOperation()
             ]);
         $this->crud->addColumn([
             'name'  => 'name',
-            'label' =>  trans('world.name'),
+            'label' =>  trans('world.continent.name'),
             'type'  => 'text',
             ]);
         $this->crud->addColumn([
             'name'  => 'code',
-            'label' => trans('world.code'),
+            'label' => trans('world.continent.code'),
             'type'  => 'text',
             ]);
         $this->crud->addColumn([    
@@ -108,13 +108,13 @@ protected function setupShowOperation()
     //DATA
         $this->crud->addField([ // Text
             'name'  => 'name',
-            'label' =>  trans('world.name'),
+            'label' =>  trans('world.continent.name'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
             ]);
         $this->crud->addField([ // Text
             'name'  => 'code',
-            'label' => trans('world.code'),
+            'label' => trans('world.continent.code'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
             'wrapperAttributes' => ['class' => 'form-group col-md-6'],

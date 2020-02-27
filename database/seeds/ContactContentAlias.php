@@ -77,7 +77,14 @@ class ContactContentAlias extends Seeder
                 'mimetype' => 'Event',
                 'alias' => 'name',
                 'data_column' => 'data1',
-            ),          
+            ),   
+            9 => 
+            array (
+                'id' => 10,
+                'mimetype' => 'Sexo',
+                'alias' => 'name',
+                'data_column' => 'data1',
+            ),                 
         ));
         
      

@@ -78,8 +78,8 @@ return [
         'pobox'    	=> 'Codigo Postal',
         'neigh'  	=> 'Barrio',
         'city'   	=> 'Ciudad',        
-        'region'    => 'Provincia',
-        'postcode'  => 'Postcode',
+        'division'  => 'Provincia',
+        'postcode'  => 'Codigo Postal',
         'country'   => 'Pais',   
 		'add_new'           => 'Añadir nueva dirección',
 		'delete_confirm' 	=> '¿Estás seguro de que quieres borrar esta dirección?',		
@@ -110,8 +110,8 @@ return [
 
 //TYPE
   'type'    => [
-		'title'             => 'Tipo de Contenido',
-		'titles'             => 'Tipos de Contenido',
+		'title'             => 'Preferencia',
+		'titles'            => 'Preferencias',
 		'add_new'           => 'Añadir nuevo tipo',
 		'delete_confirm' 	=> '¿Estás seguro de que quieres borrar este tipo?',		
 	// Messages
@@ -120,9 +120,9 @@ return [
 		'is_deleted'        => 'El tipo fue eliminado',
 		'is_created'        => 'El tipo fue creado',
 	//Fields				
-		'mimetype'          => 'Tipo mime',
+		'mimetype'          => 'Clase',
 		'type'            	=> 'Tipo',
 		'label'           	=> 'Etiqueta',
-		'value'      		=> 'Orden',
+		'order'      		=> 'Orden',
     ],    
 ];

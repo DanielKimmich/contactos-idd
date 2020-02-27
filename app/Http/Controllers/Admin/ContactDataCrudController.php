@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ContactDataRequest;
-use Backpack\CRUD\app\Http\Controllers\CrudController;
+//use Backpack\CRUD\app\Http\Controllers\CrudController;
+use App\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
@@ -24,6 +25,8 @@ class ContactDataCrudController extends CrudController
         $this->crud->setModel('App\Models\ContactData');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/contactdata');
         $this->crud->setEntityNameStrings('contactdata', 'contact_datas');
+
+        $this->setupAvancedOperation();
     }
 
     protected function setupListOperation()
@@ -43,5 +46,29 @@ class ContactDataCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    protected function setupAvancedOperation()
+    {
+    // ------ ADVANCED QUERIES  
+       // $this->crud->orderBy('name');
+
+    // ------ CRUD FILTERS
+        // Role Filter
+/*
+        $this->crud->addFilter([
+            'name'  => 'role',
+            'label' => trans('backpack::permissionmanager.role'),
+            'type'  => 'dropdown',
+            ],
+            config('permission.models.role')::all()->pluck('name', 'id')->toArray(),
+            function ($value) { // if the filter is active
+                $this->crud->addClause('whereHas', 'roles', function ($query) use ($value) {
+                    $query->where('role_id', '=', $value);
+                });
+            });
+*/
+        // daterange filter
+        $this->setFilterDateUpdate();
     }
 }

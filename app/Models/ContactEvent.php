@@ -4,11 +4,19 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class ContactEvent extends Model
 {
     use CrudTrait;
-
+/*
+    protected static function boot()
+    {   parent::boot();
+        static::addGlobalScope('event', function (Builder $builder) {
+            $builder->where('mimetype', 'Event');
+        });
+    }
+*/
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES

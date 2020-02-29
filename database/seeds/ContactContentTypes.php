@@ -61,7 +61,7 @@ class ContactContentTypes extends Seeder
                 'mimetype' => 'Email',
                 'type' => 'TYPE_HOME',
                 'order' => '1',
-                'label' => 'Particular',
+                'label' => 'Personal',
             ),     
             6 => 
             array (

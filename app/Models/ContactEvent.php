@@ -9,14 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 class ContactEvent extends Model
 {
     use CrudTrait;
-/*
-    protected static function boot()
-    {   parent::boot();
-        static::addGlobalScope('event', function (Builder $builder) {
-            $builder->where('mimetype', 'Event');
-        });
-    }
-*/
+
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
@@ -138,7 +131,13 @@ class ContactEvent extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
-
+    protected static function boot()
+    {   parent::boot();
+        static::addGlobalScope('event', function (Builder $builder) {
+            $builder->where('mimetype', 'Event');
+        });
+    }
+    
     /*
     |--------------------------------------------------------------------------
     | ACCESSORS

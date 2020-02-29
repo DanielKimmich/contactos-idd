@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class ContactName extends Model
 {
@@ -151,6 +152,13 @@ Public function setmimetypeAttribute($value)
     | SCOPES
     |--------------------------------------------------------------------------
     */
+    protected static function boot()
+    {   parent::boot();
+        static::addGlobalScope('event', function (Builder $builder) {
+            $builder->where('mimetype', 'Name');
+        });
+    }
+
 
     /*
     |--------------------------------------------------------------------------

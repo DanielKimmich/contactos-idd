@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use App\Models\Country;
 
 class ContactAddress extends Model
@@ -15,7 +16,6 @@ class ContactAddress extends Model
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-
     protected $table = 'contact_data';
     // protected $primaryKey = 'id';
     public $timestamps = true;
@@ -65,7 +65,13 @@ class ContactAddress extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
-
+    protected static function boot()
+    {   parent::boot();
+        static::addGlobalScope('event', function (Builder $builder) {
+            $builder->where('mimetype', 'Address');
+        });
+    }
+    
     /*
     |--------------------------------------------------------------------------
     | ACCESSORS

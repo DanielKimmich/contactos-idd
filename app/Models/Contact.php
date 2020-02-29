@@ -61,33 +61,33 @@ class Contact extends Model
 
     public function names()
     {
-        return $this->hasOne('App\Models\ContactName','contact_id','id')->where('mimetype', 'Name');
+        return $this->hasOne('App\Models\ContactName','contact_id','id');
     }
 
     public function documents()
     {
-        return $this->hasOne('App\Models\ContactDocument','contact_id', 'id')->where('mimetype', 'Document');
+        return $this->hasOne('App\Models\ContactDocument','contact_id', 'id')->where('data10', 'TYPE_DOC');
     }
 
     public function events()
     {
-       return $this->hasOne('App\Models\ContactEvent','contact_id','id')->where('mimetype', 'Event');
+       return $this->hasOne('App\Models\ContactEvent','contact_id','id')->where('data8', 'TYPE_BIRTHDAY');
     }
 
     public function phones()
     {
      //   return $this->hasMany('App\Models\ContactData','contact_id', 'id')->where('mimetype', 'Phone');
-         return $this->hasMany('App\Models\ContactPhone','contact_id', 'id')->where('mimetype', 'Phone');
+         return $this->hasMany('App\Models\ContactPhone','contact_id', 'id');
     }
 
     public function emails()
     {
-         return $this->hasMany('App\Models\ContactEmail','contact_id', 'id')->where('mimetype', 'Email');
+         return $this->hasMany('App\Models\ContactEmail','contact_id', 'id');
     }
 
     public function addresses()
     {
-         return $this->hasMany('App\Models\ContactAddress','contact_id', 'id')->where('mimetype', 'Address');
+         return $this->hasMany('App\Models\ContactAddress','contact_id', 'id');
     }
 
     public function sex()

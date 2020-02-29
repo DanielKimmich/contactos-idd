@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class ContactEmail extends Model
 {
@@ -61,7 +62,12 @@ class ContactEmail extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
-
+    protected static function boot()
+    {   parent::boot();
+        static::addGlobalScope('event', function (Builder $builder) {
+            $builder->where('mimetype', 'Email');
+        });
+    }
     /*
     |--------------------------------------------------------------------------
     | ACCESSORS

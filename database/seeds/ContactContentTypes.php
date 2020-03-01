@@ -17,7 +17,6 @@ class ContactContentTypes extends Seeder
         \DB::table('content_types')->insert(array (
             0 => 
             array (
-                'id' => 1,
                 'mimetype' => 'Phone',
                 'type' => 'TYPE_HOME',
                 'order' => '1',
@@ -25,7 +24,6 @@ class ContactContentTypes extends Seeder
             ),
             1 => 
             array (
-                'id' => 2,
                 'mimetype' => 'Phone',
                 'type' => 'TYPE_MOBILE',
                 'order' => '2',
@@ -33,7 +31,6 @@ class ContactContentTypes extends Seeder
             ),
             2 => 
             array (
-                'id' => 3,
                 'mimetype' => 'Phone',
                 'type' => 'TYPE_WORK',
                 'order' => '3',
@@ -41,7 +38,6 @@ class ContactContentTypes extends Seeder
             ),
             3 => 
             array (
-                'id' => 4,
                 'mimetype' => 'Phone',
                 'type' => 'TYPE_FAX_WORK',
                 'order' => '4',
@@ -49,7 +45,6 @@ class ContactContentTypes extends Seeder
             ),
             4 => 
             array (
-                'id' => 5,
                 'mimetype' => 'Phone',
                 'type' => 'TYPE_OTHER',
                 'order' => '9',
@@ -57,7 +52,6 @@ class ContactContentTypes extends Seeder
             ),
             5 => 
             array (
-                'id' => 6,
                 'mimetype' => 'Email',
                 'type' => 'TYPE_HOME',
                 'order' => '1',
@@ -65,7 +59,6 @@ class ContactContentTypes extends Seeder
             ),     
             6 => 
             array (
-                'id' => 7,
                 'mimetype' => 'Email',
                 'type' => 'TYPE_WORK',
                 'order' => '2',
@@ -73,7 +66,6 @@ class ContactContentTypes extends Seeder
             ),                 
             7 => 
             array (
-                'id' => 8,
                 'mimetype' => 'Email',
                 'type' => 'TYPE_OTHER',
                 'order' => '9',
@@ -81,7 +73,6 @@ class ContactContentTypes extends Seeder
             ),               
             8 => 
             array (
-                'id' => 9,
                 'mimetype' => 'Email',
                 'type' => 'TYPE_MOBILE',
                 'order' => '3',
@@ -89,7 +80,6 @@ class ContactContentTypes extends Seeder
             ),     
             9 => 
             array (
-                'id' => 10,
                 'mimetype' => 'Address',
                 'type' => 'TYPE_HOME',
                 'order' => '1',
@@ -97,7 +87,6 @@ class ContactContentTypes extends Seeder
             ),     
             10 => 
             array (
-                'id' => 11,
                 'mimetype' => 'Address',
                 'type' => 'TYPE_WORK',
                 'order' => '2',
@@ -105,7 +94,6 @@ class ContactContentTypes extends Seeder
             ),                 
             11 => 
             array (
-                'id' => 12,
                 'mimetype' => 'Address',
                 'type' => 'TYPE_OTHER',
                 'order' => '9',
@@ -113,7 +101,6 @@ class ContactContentTypes extends Seeder
             ),               
             12 => 
             array (
-                'id' => 13,
                 'mimetype' => 'Relation',
                 'type' => 'TYPE_FATHER',
                 'order' => '1',
@@ -121,7 +108,6 @@ class ContactContentTypes extends Seeder
             ),
             13 => 
             array (
-                'id' => 14,
                 'mimetype' => 'Relation',
                 'type' => 'TYPE_MOTHER',
                 'order' => '2',
@@ -129,7 +115,6 @@ class ContactContentTypes extends Seeder
             ),
             14 => 
             array (
-                'id' => 15,
                 'mimetype' => 'Relation',
                 'type' => 'TYPE_SPOUSE',
                 'order' => '3',
@@ -137,7 +122,6 @@ class ContactContentTypes extends Seeder
             ),
             15 => 
             array (
-                'id' => 16,
                 'mimetype' => 'Relation',
                 'type' => 'TTYPE_CHILD',
                 'order' => '4',
@@ -145,7 +129,6 @@ class ContactContentTypes extends Seeder
             ),     
             16 => 
             array (
-                'id' => 17,
                 'mimetype' => 'Relation',
                 'type' => 'TYPE_DOMESTIC_PARTNER',
                 'order' => '5',
@@ -153,7 +136,6 @@ class ContactContentTypes extends Seeder
             ),                 
             17 => 
             array (
-                'id' => 18,
                 'mimetype' => 'Relation',
                 'type' => 'TYPE_BROTHER',
                 'order' => '6',
@@ -161,7 +143,6 @@ class ContactContentTypes extends Seeder
             ),               
             18 => 
             array (
-                'id' => 19,
                 'mimetype' => 'Relation',
                 'type' => 'TYPE_SISTER',
                 'order' => '7',
@@ -169,7 +150,6 @@ class ContactContentTypes extends Seeder
             ),     
             19 => 
             array (
-                'id' => 20,
                 'mimetype' => 'Relation',
                 'type' => 'TYPE_RELATIVE',
                 'order' => '8',
@@ -177,7 +157,6 @@ class ContactContentTypes extends Seeder
             ),     
             20 => 
             array (
-                'id' => 21,
                 'mimetype' => 'Relation',
                 'type' => 'TYPE_ASSISTANT',
                 'order' => '9',
@@ -185,7 +164,6 @@ class ContactContentTypes extends Seeder
             ),     
             21 => 
             array (
-                'id' => 22,
                 'mimetype' => 'Relation',
                 'type' => 'TYPE_FRIEND',
                 'order' => '10',
@@ -193,7 +171,6 @@ class ContactContentTypes extends Seeder
             ),     
             22 => 
             array (
-                'id' => 23,
                 'mimetype' => 'Event',
                 'type' => 'TYPE_BIRTHDAY',
                 'order' => '1',
@@ -201,7 +178,6 @@ class ContactContentTypes extends Seeder
             ),
             23 => 
             array (
-                'id' => 24,
                 'mimetype' => 'Event',
                 'type' => 'TYPE_ANNIVERSARY',
                 'order' => '2',
@@ -209,7 +185,6 @@ class ContactContentTypes extends Seeder
             ),
             24 => 
             array (
-                'id' => 25,
                 'mimetype' => 'Event',
                 'type' => 'TYPE_OTHER',
                 'order' => '9',
@@ -217,7 +192,6 @@ class ContactContentTypes extends Seeder
             ),
             25 => 
             array (
-                'id' => 26,
                 'mimetype' => 'Document',
                 'type' => 'TYPE_DOC',
                 'order' => '1',
@@ -225,7 +199,6 @@ class ContactContentTypes extends Seeder
             ),     
             26 => 
             array (
-                'id' => 27,
                 'mimetype' => 'Document',
                 'type' => 'TYPE_CUIL',
                 'order' => '2',
@@ -233,7 +206,6 @@ class ContactContentTypes extends Seeder
             ),                 
             27 => 
             array (
-                'id' => 28,
                 'mimetype' => 'Document',
                 'type' => 'TYPE_PASS',
                 'order' => '3',
@@ -241,7 +213,6 @@ class ContactContentTypes extends Seeder
             ),               
             28 => 
             array (
-                'id' => 29,
                 'mimetype' => 'Document',
                 'type' => 'TYPE_OTHER',
                 'order' => '9',
@@ -249,7 +220,6 @@ class ContactContentTypes extends Seeder
             ),     
             29 => 
             array (
-                'id' => 30,
                 'mimetype' => 'Sexo',
                 'type' => 'FEMALE',
                 'order' => '1',
@@ -257,7 +227,6 @@ class ContactContentTypes extends Seeder
             ),               
             30 => 
             array (
-                'id' => 31,
                 'mimetype' => 'Sexo',
                 'type' => 'MALE',
                 'order' => '2',

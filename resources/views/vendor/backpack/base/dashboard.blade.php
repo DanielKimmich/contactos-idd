@@ -5,10 +5,10 @@
 	$dias = 7;
 	$contactCount = App\Models\Contact::count();
 	$contactCountNew = App\Models\Contact::whereDate('created_at', '>', Carbon::today()->addDays($dias*-1))->count();
-	$contactdataCount = App\Models\Contactdata::count();
-	$contactdataCountUpdate = App\Models\Contactdata::whereDate('updated_at', '>', Carbon::today()->addDays($dias*-1))->count();
+	$contactdataCount = App\Models\ContactData::count();
+	$contactdataCountUpdate = App\Models\ContactData::whereDate('updated_at', '>', Carbon::today()->addDays($dias*-1))->count();
 
-	$lastBirthDays = App\Models\Contactdata::where('mimetype', 'Event')->first();
+	$lastBirthDays = App\Models\ContactData::where('mimetype', 'Event')->first();
 	$lastBirthDaysAgo = Carbon::parse($lastBirthDays->data7)->diffInDays(Carbon::today());
 	$hoy = Carbon::today();
 	$ayer = Carbon::today()->addDays($dias*-1);	

@@ -13,11 +13,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RolesAndPermissionsSeeder::class);
         $this->call(SettingsCustomTableSeeder::class);
+        $this->call(ContactContentAlias::class);
+        $this->call(ContactContentTypes::class);        
         $this->call(WorldTablesSeeder::class);
         $this->call(ArgentinaDivisionsTableSeeder::class);
         $this->call(ArgentinaCitiesTableSeeder::class);
-        $this->call(ContactContentAlias::class);
-        $this->call(ContactContentTypes::class);
 
     }
 }

@@ -20,7 +20,7 @@ class WorldDivisionsTableSeeder extends Seeder
             0 => 
             array (
                 'code' => '43',
-                'country_id' => 58,
+                'country_id' => Country::where('code', 'kr')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 1,
@@ -29,7 +29,7 @@ class WorldDivisionsTableSeeder extends Seeder
             1 => 
             array (
                 'code' => '44',
-                'country_id' => 58,
+                'country_id' => Country::where('code', 'kr')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 2,
@@ -38,7 +38,7 @@ class WorldDivisionsTableSeeder extends Seeder
             2 => 
             array (
                 'code' => '27',
-                'country_id' => 58,
+                'country_id' => Country::where('code', 'kr')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 3,
@@ -47,7 +47,7 @@ class WorldDivisionsTableSeeder extends Seeder
             3 => 
             array (
                 'code' => '42',
-                'country_id' => 58,
+                'country_id' => Country::where('code', 'kr')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 4,
@@ -56,7 +56,7 @@ class WorldDivisionsTableSeeder extends Seeder
             4 => 
             array (
                 'code' => '49',
-                'country_id' => 58,
+                'country_id' => Country::where('code', 'kr')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 5,
@@ -65,7 +65,7 @@ class WorldDivisionsTableSeeder extends Seeder
             5 => 
             array (
                 'code' => '47',
-                'country_id' => 58,
+                'country_id' => Country::where('code', 'kr')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 6,
@@ -74,7 +74,7 @@ class WorldDivisionsTableSeeder extends Seeder
             6 => 
             array (
                 'code' => '48',
-                'country_id' => 58,
+                'country_id' => Country::where('code', 'kr')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 7,
@@ -83,7 +83,7 @@ class WorldDivisionsTableSeeder extends Seeder
             7 => 
             array (
                 'code' => '45',
-                'country_id' => 58,
+                'country_id' => Country::where('code', 'kr')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 8,
@@ -92,7 +92,7 @@ class WorldDivisionsTableSeeder extends Seeder
             8 => 
             array (
                 'code' => '46',
-                'country_id' => 58,
+                'country_id' => Country::where('code', 'kr')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 9,
@@ -101,7 +101,7 @@ class WorldDivisionsTableSeeder extends Seeder
             9 => 
             array (
                 'code' => 'jh',
-                'country_id' => 87,
+                'country_id' => Country::where('code', 'my')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 10,
@@ -110,7 +110,7 @@ class WorldDivisionsTableSeeder extends Seeder
             10 => 
             array (
                 'code' => 'kd',
-                'country_id' => 87,
+                'country_id' => Country::where('code', 'my')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 11,
@@ -119,7 +119,7 @@ class WorldDivisionsTableSeeder extends Seeder
             11 => 
             array (
                 'code' => 'kn',
-                'country_id' => 87,
+                'country_id' => Country::where('code', 'my')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 12,
@@ -128,7 +128,7 @@ class WorldDivisionsTableSeeder extends Seeder
             12 => 
             array (
                 'code' => 'kl',
-                'country_id' => 87,
+                'country_id' => Country::where('code', 'my')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 13,
@@ -137,7 +137,7 @@ class WorldDivisionsTableSeeder extends Seeder
             13 => 
             array (
                 'code' => 'lb',
-                'country_id' => 87,
+                'country_id' => Country::where('code', 'my')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 14,
@@ -146,7 +146,7 @@ class WorldDivisionsTableSeeder extends Seeder
             14 => 
             array (
                 'code' => 'ml',
-                'country_id' => 87,
+                'country_id' => Country::where('code', 'my')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 15,
@@ -155,7 +155,7 @@ class WorldDivisionsTableSeeder extends Seeder
             15 => 
             array (
                 'code' => 'ns',
-                'country_id' => 87,
+                'country_id' => Country::where('code', 'my')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 16,
@@ -164,7 +164,7 @@ class WorldDivisionsTableSeeder extends Seeder
             16 => 
             array (
                 'code' => 'pg',
-                'country_id' => 87,
+                'country_id' => Country::where('code', 'my')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 17,
@@ -173,7 +173,7 @@ class WorldDivisionsTableSeeder extends Seeder
             17 => 
             array (
                 'code' => 'pk',
-                'country_id' => 87,
+                'country_id' => Country::where('code', 'my')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 18,
@@ -182,7 +182,7 @@ class WorldDivisionsTableSeeder extends Seeder
             18 => 
             array (
                 'code' => 'ps',
-                'country_id' => 87,
+                'country_id' => Country::where('code', 'my')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 19,
@@ -191,7 +191,7 @@ class WorldDivisionsTableSeeder extends Seeder
             19 => 
             array (
                 'code' => 'ph',
-                'country_id' => 87,
+                'country_id' => Country::where('code', 'my')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 20,
@@ -200,7 +200,7 @@ class WorldDivisionsTableSeeder extends Seeder
             20 => 
             array (
                 'code' => 'sb',
-                'country_id' => 87,
+                'country_id' => Country::where('code', 'my')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 21,
@@ -209,7 +209,7 @@ class WorldDivisionsTableSeeder extends Seeder
             21 => 
             array (
                 'code' => 'sr',
-                'country_id' => 87,
+                'country_id' => Country::where('code', 'my')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 22,
@@ -218,7 +218,7 @@ class WorldDivisionsTableSeeder extends Seeder
             22 => 
             array (
                 'code' => 'sl',
-                'country_id' => 87,
+                'country_id' => Country::where('code', 'my')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 23,
@@ -227,7 +227,7 @@ class WorldDivisionsTableSeeder extends Seeder
             23 => 
             array (
                 'code' => 'tr',
-                'country_id' => 87,
+                'country_id' => Country::where('code', 'my')->firstOrFail()->id,
                 'full_name' => NULL,
                 'has_city' => 1,
                 'id' => 24,

@@ -62,7 +62,7 @@
     		],
       		[	'type'        => 'progress',
     			'class'       => 'card text-white bg-primary mb-2',
-    			'value'       => $contactdataCountUpdate,	
+    			'value'       => $contactDataCountUpdate,	
     			'description' => 'Datos Actualizados ' .' en los ultimos ' .$dias. ' días',
     			'progress'    => floor($contactDataCountUpdate/$contactDataCount*100), // integer
     			'hint'        => 'de un total de ' .$contactDataCount .' registros',

@@ -8,8 +8,8 @@
 	$contactDataCount = App\Models\ContactData::count();
 	$contactDataCountUpdate = App\Models\ContactData::whereDate('updated_at', '>', Carbon::today()->addDays($dias*-1))->count();
 
-	$lastBirthDays = App\Models\ContactData::where('mimetype', 'Event')->first();
-	$lastBirthDaysAgo = Carbon::parse($lastBirthDays->data7)->diffInDays(Carbon::today());
+//	$lastBirthDays = App\Models\ContactData::where('mimetype', 'Event')->first();
+//	$lastBirthDaysAgo = Carbon::parse($lastBirthDays->data7)->diffInDays(Carbon::today());
 	$hoy = Carbon::today();
 	$ayer = Carbon::today()->addDays($dias*-1);	
 
@@ -29,7 +29,7 @@
       			'class' => 'card bg-info text-white', 
       			'content' => [
       				'header' => 'Proximos Cumpleaños', 
-      				'body' => 'One' .$lastBirthDaysAgo.' days',
+      				'body' => 'One' // .$lastBirthDaysAgo.' days',
       			] 
     		],
       		[	'type' 	=> 'card', 

@@ -5,8 +5,8 @@
 	$dias = 7;
 	$contactCount = App\Models\Contact::count();
 	$contactCountNew = App\Models\Contact::whereDate('created_at', '>', Carbon::today()->addDays($dias*-1))->count();
-	$contactdataCount = App\Models\ContactData::count();
-	$contactdataCountUpdate = App\Models\ContactData::whereDate('updated_at', '>', Carbon::today()->addDays($dias*-1))->count();
+	$contactDataCount = App\Models\ContactData::count();
+	$contactDataCountUpdate = App\Models\ContactData::whereDate('updated_at', '>', Carbon::today()->addDays($dias*-1))->count();
 
 	$lastBirthDays = App\Models\ContactData::where('mimetype', 'Event')->first();
 	$lastBirthDaysAgo = Carbon::parse($lastBirthDays->data7)->diffInDays(Carbon::today());
@@ -64,8 +64,8 @@
     			'class'       => 'card text-white bg-primary mb-2',
     			'value'       => $contactdataCountUpdate,	
     			'description' => 'Datos Actualizados ' .' en los ultimos ' .$dias. ' días',
-    			'progress'    => floor($contactdataCountUpdate/$contactdataCount*100), // integer
-    			'hint'        => 'de un total de ' .$contactdataCount .' registros',
+    			'progress'    => floor($contactDataCountUpdate/$contactDataCount*100), // integer
+    			'hint'        => 'de un total de ' .$contactDataCount .' registros',
       		],
       		[ 	'type'        => 'progress',
     			'class'       => 'card text-white bg-danger mb-2',

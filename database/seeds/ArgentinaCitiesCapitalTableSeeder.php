@@ -163,6 +163,7 @@ class ArgentinaCitiesCapitalTableSeeder extends Seeder
                 'division_id' => $prov_E,
                 'name' => 'PARANA',
                 'code' => 3100,
-            ),                               
+            ),   
+        ));                                
     }
 }

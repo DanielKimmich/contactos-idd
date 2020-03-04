@@ -15,7 +15,7 @@ class WorldCountriesLocaleTableSeeder extends Seeder
         
 
         \DB::table('world_countries_locale')->truncate();
-        
+/*        
         \DB::table('world_countries_locale')->insert(array (
             0 => 
             array (
@@ -5452,7 +5452,7 @@ class WorldCountriesLocaleTableSeeder extends Seeder
                 'name' => 'Kosovo',
             ),
         ));
-        
+*/        
         
     }
 }

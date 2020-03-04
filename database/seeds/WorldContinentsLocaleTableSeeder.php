@@ -15,7 +15,7 @@ class WorldContinentsLocaleTableSeeder extends Seeder
         
 
         \DB::table('world_continents_locale')->truncate();
-        
+/*        
         \DB::table('world_continents_locale')->insert(array (
             0 => 
             array (
@@ -158,7 +158,7 @@ class WorldContinentsLocaleTableSeeder extends Seeder
                 'name' => 'South America',
             ),
         ));
-        
+*/        
         
     }
 }

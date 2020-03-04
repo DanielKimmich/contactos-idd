@@ -3,6 +3,8 @@
 return [
 	'updated_at' 	=> 'Actualizado el',
  	'created_at' 	=> 'Creado el',
+ 	'updated_by' 	=> 'Actualizado por',
+ 	'created_by' 	=> 'Creado por',
  	'updated_range' => 'Actualizado entre',
 
 	'data' 	=> 'Datos',

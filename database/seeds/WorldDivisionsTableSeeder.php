@@ -15,7 +15,7 @@ class WorldDivisionsTableSeeder extends Seeder
         
 
         \DB::table('world_divisions')->truncate();
-        
+/*        
         \DB::table('world_divisions')->insert(array (
             0 => 
             array (
@@ -1107,7 +1107,7 @@ class WorldDivisionsTableSeeder extends Seeder
                 'name' => 'Macau',
             ),
         ));
-        
+*/        
         
     }
 }

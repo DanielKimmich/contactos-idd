@@ -15,7 +15,7 @@ class WorldCitiesLocaleTableSeeder extends Seeder
         
 
         \DB::table('world_cities_locale')->truncate();
-        
+/*        
         \DB::table('world_cities_locale')->insert(array (
             0 => 
             array (
@@ -67674,7 +67674,7 @@ class WorldCitiesLocaleTableSeeder extends Seeder
                 'name' => 'York',
             ),
         ));
-        
+*/        
         
     }
 }

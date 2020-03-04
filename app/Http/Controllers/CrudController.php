@@ -70,16 +70,36 @@ abstract class CrudController extends CrudControllerBackpack
             'label' => trans('common.updated_at'),
             'type'  => 'text',
             'tab'   => trans('common.info'),
+            'wrapperAttributes' => ['class' => 'form-group col-md-6'],
             'attributes' => ['disabled'  => 'disabled'],
             'prefix'   => "<i class='fa fa-calendar-check-o'></i>", 
+            ]);     
+         $this->crud->addField([ // Text
+            'name'  => 'updated_by_user',
+            'label' => trans('common.updated_by'),
+            'type'  => 'text',
+            'tab'   => trans('common.info'),
+            'wrapperAttributes' => ['class' => 'form-group col-md-6'],
+            'attributes' => ['disabled'  => 'disabled'],
+            'prefix'   => "<i class='fa fa-user-circle-o'></i>", 
             ]);     
          $this->crud->addField([ // Text
             'name'  => 'created_at',
             'label' => trans('common.created_at'),
             'type'  => 'text',
             'tab'   => trans('common.info'),
+            'wrapperAttributes' => ['class' => 'form-group col-md-6'],
             'attributes' => ['disabled'  => 'disabled'],
             'prefix'   => "<i class='fa fa-calendar-plus-o'></i>",
+            ]);   
+         $this->crud->addField([ // Text
+            'name'  => 'created_by_user',
+            'label' => trans('common.created_by'),
+            'type'  => 'text',
+            'tab'   => trans('common.info'),
+            'wrapperAttributes' => ['class' => 'form-group col-md-6'],
+            'attributes' => ['disabled'  => 'disabled'],
+            'prefix'   => "<i class='fa fa-user-plus'></i>",
             ]);   
         }
     }

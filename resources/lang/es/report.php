@@ -8,22 +8,31 @@ return array (
 
 //AUTHCHECKER
     'authchecker'    => [
-        'title'             => 'Inicio de Sesion',
-        'titles'            => 'Inicio de Sesion',
+        'title'             => 'Inicio de Sesión',
+        'titles'            => 'Inicio de Sesiones',
     //Fields                
-        'user_name'         => 'Nombre de Usuario',
-        'operating_system'  => 'Sistema Operativo',
-        'web_browser'       => 'Navegador Web',
+        'user_name'         => 'Usuario',
+        'operating_system'  => 'Sistema',
+        'web_browser'       => 'Navegador',
         'device'            => 'Dispositivo',
-        'ip_address'        => 'Direccion IP',
+        'ip_address'        => 'Dirección IP',
         'logged_at'         => 'Registrado el',
         'status'            => 'Estado',
     ],    
 
 //LOGS
     'logs'    => [
-        'title'             => 'Registro de error',
-        'titles'            => 'Registro de errores',
+        'title'             => 'Registro de Log',
+        'titles'            => 'Registros de Logs',
     //Fields                
-    ],  
+    ], 
+
+//MIGRATIONS
+    'migration'    => [
+        'title'             => 'Actualización',
+        'titles'            => 'Actualizaciones',
+    //Fields   
+        'migration'         => 'Migración',
+        'batch'             => 'Lote',    
+    ],    
 );

@@ -13,9 +13,8 @@ abstract class CrudController extends CrudControllerBackpack
 {
 
     protected function setAccessOperation($ruta)
-    {
+    {   //$ruta = 'worldcity';
     // ------ CRUD ACCESS
-        //$ruta = 'worldcity';
         if (auth()->user()->can('list '.$ruta ) ) {
             $this->crud->allowAccess('list');
             $this->crud->enableExportButtons(); // ------ DATATABLE EXPORT BUTTONS

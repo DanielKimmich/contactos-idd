@@ -28,6 +28,14 @@ class AuthChecker extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public function getTypeStatus()
+    {   
+        return array(
+            'auth' => 'auth', 
+            'failed' => 'failed', 
+            'lockout' => 'lockout',
+        );
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -62,5 +70,5 @@ class AuthChecker extends Model
     |--------------------------------------------------------------------------
     */
 
-    
+
 }

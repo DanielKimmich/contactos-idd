@@ -90,6 +90,29 @@ class AuthCheckerCrudController extends CrudController
         $this->crud->orderBy('updated_at');
 
     // ------ CRUD FILTERS
+        //User
+        $this->crud->addFilter([
+            'name'  => 'user_id',
+            'label' => trans('report.authchecker.user_name'),
+            'type'  => 'select2',
+            ],
+            function() {
+                return \App\Models\BackpackUser::all()->sortBy('name')->pluck('name', 'id')->toArray(); },
+            function($value) {  
+                $this->crud->addClause('where', 'user_id', $value ); });
+
+        //Status
+        $this->crud->addFilter([
+            'name'  => 'type',
+            'label' => trans('report.authchecker.status'),
+            'type'  => 'dropdown',
+            ],
+            function() {
+            //    return array('auth', 'failed', 'lockout'); },
+                return $this->crud->model->getTypeStatus(); },
+            function($value) {  
+                $this->crud->addClause('where', 'type', $value ); });
+
         // daterange filter
         $this->setFilterDateUpdate();
     }

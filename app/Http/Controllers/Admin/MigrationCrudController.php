@@ -23,7 +23,7 @@ class MigrationCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\Migration');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/migration');
-        $this->crud->setEntityNameStrings('migration', 'migrations');
+        $this->crud->setEntityNameStrings(trans('report.migration.title'), trans('report.migration.titles'));
     }
 
     protected function setupListOperation()
@@ -37,13 +37,13 @@ class MigrationCrudController extends CrudController
             ]);
         $this->crud->addColumn([
             'name'  => 'migration',
-          //  'label' =>  trans('world.continent.name'),
+            'label' =>  trans('report.migration.migration'),
             'type'  => 'text',
             'priority' => 1,
             ]);
         $this->crud->addColumn([
             'name'  => 'batch',
-          //  'label' => trans('world.continent.code'),
+            'label' => trans('report.migration.batch'),
             'type'  => 'text',
             'priority' => 2,
             ]);

@@ -68,6 +68,26 @@
  </li>
 @endif
 
+
+<!-- Reportes -->
+@if (auth()->user()->hasAnyPermission(['list managerlog', 'list managermigrate']))
+  <li class="nav-item nav-dropdown">
+	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-file-text-o"></i>{{ trans('common.menu.report') }}</a>
+	<ul class="nav-dropdown-items">
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('authchecker') }}'><i class='nav-icon fa fa-sign-in'></i><span>{{ trans('report.authchecker.titles') }}</span></a></li>
+
+      @can('list managerlog')
+       <li class='nav-item'><a class='nav-link' href='{{ backpack_url('log') }}'><i class='nav-icon fa fa-warning'></i><span>{{ trans('report.logs.titles') }}</span></a></li>
+ 	  @endcan 
+
+      @can('list managermigrate')  
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('migration') }}'><i class='nav-icon fa fa-upload'></i><span>{{ trans('report.migration.titles') }}</span></a></li>
+	  @endcan
+	</ul>
+  </li>
+@endif
+
 <!-- Backup Manager, Log Manager -->
 @if (auth()->user()->hasAnyPermission(['list managerbackup','list managerlog','list managersetting', 'list managermigrate']))
   <li class="nav-item nav-dropdown">
@@ -77,20 +97,12 @@
 	   <li class='nav-item'><a class='nav-link' href='{{ backpack_url('backup') }}'><i class='nav-icon fa fa-hdd-o'></i>{{ trans('backpack::backup.backup') }}</a></li>
 	  @endcan
 
-      @can('list managerlog')
-       <li class='nav-item'><a class='nav-link' href='{{ backpack_url('log') }}'><i class='nav-icon fa fa-terminal'></i>Logs</a></li>
- 	  @endcan 
-
  	  @can('list managersetting')
        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('setting') }}'><i class='nav-icon fa fa-cog'></i><span>{{ trans('backpack::settings.setting_plural') }}</span></a></li>
 	  @endcan
 
-      @can('list managermigrate')  
-		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('migration') }}'><i class='nav-icon fa fa-upload'></i>Migrations</a></li>
-	  @endcan
 	</ul>
   </li>
 @endif
 
 <li class=nav-item><a class=nav-link href="{{ backpack_url('elfinder') }}"><i class="nav-icon fa fa-files-o"></i><span>{{ trans('backpack::crud.file_manager') }}</span></a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('authchecker') }}'><i class='nav-icon fa fa-question'></i> AuthCheckers</a></li>

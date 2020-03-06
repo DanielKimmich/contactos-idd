@@ -5,17 +5,18 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Wildside\Userstamps\Userstamps;
 
 class ContactPhone extends Model
 {
     use CrudTrait;
+    use Userstamps;
 
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-
     protected $table = 'contact_data';
     // protected $primaryKey = 'id';
     public $timestamps = true;
@@ -41,10 +42,9 @@ class ContactPhone extends Model
         'data14', 
         'data15'
     ];
+    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+    protected $attributes = ['mimetype' => 'Phone'];  
 
-    protected $attributes = [
-        'mimetype' => 'Phone',
-    ];    
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -80,4 +80,31 @@ class ContactPhone extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    Public function getCreatedByUserAttribute()
+    {
+        if (! empty( $this->creator->name)){
+            return $this->creator->name;
+        } else {
+            return '';
+        }
+    }
+
+    Public function getUpdatedByUserAttribute()
+    {
+        if (! empty( $this->editor->name)){
+            return $this->editor->name;
+        } else {
+            return '';
+        }
+    }
+
+    Public function getDeletedByUserAttribute()
+    {
+        if (! empty( $this->destroyer->name)){
+            return $this->destroyer->name;
+        } else {
+            return '';
+        }        
+    }
+
 }

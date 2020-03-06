@@ -40,4 +40,5 @@ Route::group([
 
 
     
+    Route::crud('authchecker', 'AuthCheckerCrudController');
 }); // this should be the absolute last line of this file

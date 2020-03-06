@@ -41,5 +41,6 @@ return [
 		'world'            => 'Región Geográfica',
 		'authentication'   => 'Autenticación',
 		'manager'          => 'Administración',
+		'report'           => 'Reportes',
 	],
 ];

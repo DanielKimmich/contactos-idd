@@ -92,17 +92,19 @@ class ContentTypeCrudController extends CrudController
             'label' => trans('contact.type.type'),
             'type'  => 'text',
             'tab'   => 'Data',
+            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
             ]);
         $this->crud->addField([ // LABEL
             'name'  => 'label',
             'label' => trans('contact.type.label'),
             'type'  => 'text',
             'tab'   => 'Data',
+            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
             ]);
         $this->crud->addField([ // ORDER
             'name'  => 'order',
             'label' => trans('contact.type.order'),
-            'type'  => 'text',
+            'type'  => 'number',
             'tab'   => 'Data',
             ]);
     //INFO

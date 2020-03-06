@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Khsing\World\Models\City as OriginalCity;
+use Backpack\PermissionManager\app\Models\Role as OriginalRole;
 use Wildside\Userstamps\Userstamps;
 
-class WorldCity extends OriginalCity
+class BackpackRole extends OriginalRole
 {
-    use CrudTrait;
     use Userstamps;
 
     /*
@@ -17,14 +15,6 @@ class WorldCity extends OriginalCity
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-    protected $table = 'world_cities';
-    // protected $primaryKey = 'id';
-    public $timestamps = true;
-    protected $guarded = ['id'];
-    // protected $fillable = [];
-    // protected $hidden = [];
-    // protected $dates = [];
-    protected $fillable = ['country_id', 'division_id', 'name', 'full_name', 'code'];
     protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
 
     /*
@@ -32,7 +22,7 @@ class WorldCity extends OriginalCity
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS

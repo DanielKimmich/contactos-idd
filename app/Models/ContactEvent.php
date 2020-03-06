@@ -5,17 +5,18 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Wildside\Userstamps\Userstamps;
 
 class ContactEvent extends Model
 {
     use CrudTrait;
+    use Userstamps;
 
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-
     protected $table = 'contact_data';
     // protected $primaryKey = 'id';
     public $timestamps = true;
@@ -43,16 +44,8 @@ class ContactEvent extends Model
         'data15',
         
         ];
-/*
-    protected $appends = [
-        'event_date', 
-        'event_type',
-        'event_label',         
-        ];
-*/
-    protected $attributes = [
-        'mimetype' => 'Event',
-        ];
+    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+//    protected $appends = ['event_date', 'event_type', 'event_label'];
 
     protected $fakeColumns = ['data4', 'data6'];
 //    protected $translatable = ['extras','data6','data4'];
@@ -60,6 +53,7 @@ class ContactEvent extends Model
         'data4' => 'array',
         'data6' => 'array',
         ];
+    protected $attributes = ['mimetype' => 'Event'];
 /*
     protected $visible = [
         'contact_id',
@@ -149,4 +143,31 @@ class ContactEvent extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    Public function getCreatedByUserAttribute()
+    {
+        if (! empty( $this->creator->name)){
+            return $this->creator->name;
+        } else {
+            return '';
+        }
+    }
+
+    Public function getUpdatedByUserAttribute()
+    {
+        if (! empty( $this->editor->name)){
+            return $this->editor->name;
+        } else {
+            return '';
+        }
+    }
+
+    Public function getDeletedByUserAttribute()
+    {
+        if (! empty( $this->destroyer->name)){
+            return $this->destroyer->name;
+        } else {
+            return '';
+        }        
+    }
+
 }

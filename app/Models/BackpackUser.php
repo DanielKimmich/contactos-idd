@@ -6,16 +6,17 @@ use App\User;
 use Illuminate\Notifications\Notifiable;
 use Backpack\CRUD\app\Models\Traits\InheritsRelationsFromParentModel;
 use Backpack\CRUD\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
-
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Wildside\Userstamps\Userstamps;
 
 class BackpackUser extends User
 {
     use InheritsRelationsFromParentModel;
     use Notifiable;
+    use Userstamps;
 
     protected $table = 'users';
-
+    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
     /**
      * Send the password reset notification.
      *
@@ -56,6 +57,38 @@ class BackpackUser extends User
     {
         return $this->getPermissionsViaRoles()->implode('name', ', ');
         //->pluck('name');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | MUTATORS
+    |--------------------------------------------------------------------------
+    */
+    Public function getCreatedByUserAttribute()
+    {
+        if (! empty( $this->creator->name)){
+            return $this->creator->name;
+        } else {
+            return '';
+        }
+    }
+
+    Public function getUpdatedByUserAttribute()
+    {
+        if (! empty( $this->editor->name)){
+            return $this->editor->name;
+        } else {
+            return '';
+        }
+    }
+
+    Public function getDeletedByUserAttribute()
+    {
+        if (! empty( $this->destroyer->name)){
+            return $this->destroyer->name;
+        } else {
+            return '';
+        }        
     }
 
 }

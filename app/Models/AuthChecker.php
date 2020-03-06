@@ -4,40 +4,45 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Khsing\World\Models\City as OriginalCity;
-use Wildside\Userstamps\Userstamps;
 
-class WorldCity extends OriginalCity
+class AuthChecker extends Model
 {
     use CrudTrait;
-    use Userstamps;
 
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-    protected $table = 'world_cities';
+
+    protected $table = 'logins';
     // protected $primaryKey = 'id';
-    public $timestamps = true;
+    // public $timestamps = false;
     protected $guarded = ['id'];
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $fillable = ['country_id', 'division_id', 'name', 'full_name', 'code'];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
 
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function users()
+    {
+        return $this->belongsTo('App\Models\BackpackUser', 'user_id');
+    }
+
+    public function devices()
+    {
+        return $this->belongsTo('App\Models\AuthDevice', 'device_id');
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -56,31 +61,6 @@ class WorldCity extends OriginalCity
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
-    {
-        if (! empty( $this->creator->name)){
-            return $this->creator->name;
-        } else {
-            return '';
-        }
-    }
 
-    Public function getUpdatedByUserAttribute()
-    {
-        if (! empty( $this->editor->name)){
-            return $this->editor->name;
-        } else {
-            return '';
-        }
-    }
-
-    Public function getDeletedByUserAttribute()
-    {
-        if (! empty( $this->destroyer->name)){
-            return $this->destroyer->name;
-        } else {
-            return '';
-        }        
-    }
-
+    
 }

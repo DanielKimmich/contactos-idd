@@ -93,3 +93,4 @@
 @endif
 
 <li class=nav-item><a class=nav-link href="{{ backpack_url('elfinder') }}"><i class="nav-icon fa fa-files-o"></i><span>{{ trans('backpack::crud.file_manager') }}</span></a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('authchecker') }}'><i class='nav-icon fa fa-question'></i> AuthCheckers</a></li>

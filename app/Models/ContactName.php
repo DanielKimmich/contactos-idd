@@ -5,10 +5,13 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Wildside\Userstamps\Userstamps;
 
 class ContactName extends Model
 {
     use CrudTrait;
+    use Userstamps;
+
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
@@ -41,18 +44,11 @@ class ContactName extends Model
         ];
 
     protected $appends = [
-        'name_mimetype', 
-        'name_display', 
-        'name_first', 
-        'name_middle', 
-        'name_family', 
-        'name_prefix',
-        'name_suffix',               
-        ];
-
-    protected $attributes = [
-        'mimetype' => 'Name',
-    ];
+        'name_mimetype', 'name_display', 
+        'name_first', 'name_middle', 'name_family', 
+        'name_prefix', 'name_suffix',               
+        'created_by_user', 'updated_by_user', 'deleted_by_user'];
+    protected $attributes = ['mimetype' => 'Name'];
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -138,9 +134,6 @@ Public function setmimetypeAttribute($value)
         $this->data6 = $value;
     }
 
-
-
-
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
@@ -159,7 +152,6 @@ Public function setmimetypeAttribute($value)
         });
     }
 
-
     /*
     |--------------------------------------------------------------------------
     | ACCESSORS
@@ -171,4 +163,31 @@ Public function setmimetypeAttribute($value)
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    Public function getCreatedByUserAttribute()
+    {
+        if (! empty( $this->creator->name)){
+            return $this->creator->name;
+        } else {
+            return '';
+        }
+    }
+
+    Public function getUpdatedByUserAttribute()
+    {
+        if (! empty( $this->editor->name)){
+            return $this->editor->name;
+        } else {
+            return '';
+        }
+    }
+
+    Public function getDeletedByUserAttribute()
+    {
+        if (! empty( $this->destroyer->name)){
+            return $this->destroyer->name;
+        } else {
+            return '';
+        }        
+    }
+
 }

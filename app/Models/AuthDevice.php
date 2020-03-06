@@ -2,37 +2,29 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Khsing\World\Models\City as OriginalCity;
-use Wildside\Userstamps\Userstamps;
 
-class WorldCity extends OriginalCity
+class AuthDevice extends Model
 {
-    use CrudTrait;
-    use Userstamps;
-
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-    protected $table = 'world_cities';
+    protected $table = 'devices';
     // protected $primaryKey = 'id';
-    public $timestamps = true;
+    // public $timestamps = false;
     protected $guarded = ['id'];
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $fillable = ['country_id', 'division_id', 'name', 'full_name', 'code'];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
-
+    protected $appends = ['operating_system', 'web_browser', 'device'];
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
@@ -56,31 +48,25 @@ class WorldCity extends OriginalCity
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
+    Public function getOperatingSystemAttribute()
     {
-        if (! empty( $this->creator->name)){
-            return $this->creator->name;
+        return $this->platform .' ('. strstr($this->platform_version, '.', true) .')';
+
+    }
+
+    Public function getWebBrowserAttribute()
+    {
+        return $this->browser .' ('. strstr($this->browser_version, '.', true) .')';
+    }
+
+    Public function getDeviceAttribute()
+    {
+        if ($this->is_desktop) {
+        	return 'Desktop';
+        } elseif ($this->is_mobile) {
+        	return 'Mobile';
         } else {
-            return '';
+        	return '';
         }
     }
-
-    Public function getUpdatedByUserAttribute()
-    {
-        if (! empty( $this->editor->name)){
-            return $this->editor->name;
-        } else {
-            return '';
-        }
-    }
-
-    Public function getDeletedByUserAttribute()
-    {
-        if (! empty( $this->destroyer->name)){
-            return $this->destroyer->name;
-        } else {
-            return '';
-        }        
-    }
-
 }

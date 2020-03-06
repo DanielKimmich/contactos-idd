@@ -5,11 +5,13 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Wildside\Userstamps\Userstamps;
 use App\Models\Country;
 
 class ContactAddress extends Model
 {
     use CrudTrait;
+    use Userstamps;
 
     /*
     |--------------------------------------------------------------------------
@@ -42,9 +44,9 @@ class ContactAddress extends Model
         'data15'
     ];
 
-    protected $attributes = [
-        'mimetype' => 'Address',
-    ];
+    protected $attributes = ['mimetype' => 'Address',  ];
+    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -83,4 +85,31 @@ class ContactAddress extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    Public function getCreatedByUserAttribute()
+    {
+        if (! empty( $this->creator->name)){
+            return $this->creator->name;
+        } else {
+            return '';
+        }
+    }
+
+    Public function getUpdatedByUserAttribute()
+    {
+        if (! empty( $this->editor->name)){
+            return $this->editor->name;
+        } else {
+            return '';
+        }
+    }
+
+    Public function getDeletedByUserAttribute()
+    {
+        if (! empty( $this->destroyer->name)){
+            return $this->destroyer->name;
+        } else {
+            return '';
+        }        
+    }
+    
 }

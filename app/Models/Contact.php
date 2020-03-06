@@ -5,6 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Wildside\Userstamps\Userstamps;
 use App\Models\WorldCountry;
 use App\Models\ContentType;
 
@@ -12,13 +13,13 @@ class Contact extends Model
 //class Contact extends Pivot
 {
     use CrudTrait;
+    use Userstamps;
 
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-
     protected $table = 'contacts';
     // protected $primaryKey = 'id';
     public $timestamps = true;
@@ -33,7 +34,8 @@ class Contact extends Model
     ];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $appends = ['birthday'];
+    protected $appends = ['birthday', 
+        'created_by_user', 'updated_by_user', 'deleted_by_user'];
    // protected $fakeColumns = ['status'];
     // protected $isColumnNullable = ['nationality_id'];
 
@@ -51,14 +53,11 @@ class Contact extends Model
        // return $this->data7;
     }
 
-
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
-
     public function names()
     {
         return $this->hasOne('App\Models\ContactName','contact_id','id');
@@ -123,4 +122,31 @@ class Contact extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    Public function getCreatedByUserAttribute()
+    {
+        if (! empty( $this->creator->name)){
+            return $this->creator->name;
+        } else {
+            return '';
+        }
+    }
+
+    Public function getUpdatedByUserAttribute()
+    {
+        if (! empty( $this->editor->name)){
+            return $this->editor->name;
+        } else {
+            return '';
+        }
+    }
+
+    Public function getDeletedByUserAttribute()
+    {
+        if (! empty( $this->destroyer->name)){
+            return $this->destroyer->name;
+        } else {
+            return '';
+        }        
+    }
+
 }

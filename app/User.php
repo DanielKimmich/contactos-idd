@@ -7,13 +7,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Backpack\CRUD\app\Models\Traits\CrudTrait; // <---------------- this one
 use Spatie\Permission\Traits\HasRoles;// <------------------------- and this one
+use Lab404\AuthChecker\Models\HasLoginsAndDevices;
+use Lab404\AuthChecker\Interfaces\HasLoginsAndDevicesInterface;
 
-
-class User extends Authenticatable
+class User extends Authenticatable implements HasLoginsAndDevicesInterface
 {
     use Notifiable;
     use CrudTrait; // <----- this
     use HasRoles; // <------ and this
+    use HasLoginsAndDevices;
 
     /**
      * The attributes that are mass assignable.

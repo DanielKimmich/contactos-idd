@@ -14,9 +14,9 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class MigrationCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+ //   use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+ //   use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+ //   use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     public function setup()
@@ -28,14 +28,31 @@ class MigrationCrudController extends CrudController
 
     protected function setupListOperation()
     {
-        // TODO: remove setFromDb() and manually define Columns, maybe Filters
-        $this->crud->setFromDb();
-        // remove a column from the stack
+    // ------ CRUD COLUMNS
+        $this->crud->addColumn([
+            'name'  => 'id',
+            'label' => 'Id',
+            'type'  => 'number',
+            'priority' => 2,
+            ]);
+        $this->crud->addColumn([
+            'name'  => 'migration',
+          //  'label' =>  trans('world.continent.name'),
+            'type'  => 'text',
+            'priority' => 1,
+            ]);
+        $this->crud->addColumn([
+            'name'  => 'batch',
+          //  'label' => trans('world.continent.code'),
+            'type'  => 'text',
+            'priority' => 2,
+            ]);
+    // remove a column from the stack
         $this->crud->removeAllButtons();
         // $this->crud->removeAllButtonsFromStack('line');
         // $this->crud->removeColumn('column_name');
     }
-
+/*
     protected function setupCreateOperation()
     {
         $this->crud->setValidation(MigrationRequest::class);
@@ -48,4 +65,6 @@ class MigrationCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+*/
+
 }

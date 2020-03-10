@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "74d5b072c858577ec99e37d8faa338bf",
+    "content-hash": "4c2d8d08fca92427525cf574e4a46a15",
     "packages": [
         {
             "name": "backpack/backupmanager",
@@ -71,16 +71,16 @@
         },
         {
             "name": "backpack/crud",
-            "version": "4.0.52",
+            "version": "4.0.53",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "574eb04050fbc8e073202fe0c38ed6bbb3718bfb"
+                "reference": "2305b74390a58dc1b7e9b2c5798a663f60cdcd62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/574eb04050fbc8e073202fe0c38ed6bbb3718bfb",
-                "reference": "574eb04050fbc8e073202fe0c38ed6bbb3718bfb",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/2305b74390a58dc1b7e9b2c5798a663f60cdcd62",
+                "reference": "2305b74390a58dc1b7e9b2c5798a663f60cdcd62",
                 "shasum": ""
             },
             "require": {
@@ -154,7 +154,7 @@
                 "read",
                 "update"
             ],
-            "time": "2020-03-09T19:48:01+00:00"
+            "time": "2020-03-10T08:45:49+00:00"
         },
         {
             "name": "backpack/logmanager",
@@ -5567,20 +5567,20 @@
         },
         {
             "name": "laracasts/generators",
-            "version": "1.1.7",
+            "version": "1.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laracasts/Laravel-5-Generators-Extended.git",
-                "reference": "134fd33fcbde4799c4d22106ab4af5c23a8067e4"
+                "reference": "6b5ea9024065689ce36f41a45c3ffddcf875f23c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/134fd33fcbde4799c4d22106ab4af5c23a8067e4",
-                "reference": "134fd33fcbde4799c4d22106ab4af5c23a8067e4",
+                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/6b5ea9024065689ce36f41a45c3ffddcf875f23c",
+                "reference": "6b5ea9024065689ce36f41a45c3ffddcf875f23c",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "~5.0|~6.0|~7.0",
+                "illuminate/support": "^5.8|~6.0|~7.0",
                 "php": ">=5.4.0"
             },
             "require-dev": {
@@ -5609,12 +5609,12 @@
                     "email": "jeffrey@laracasts.com"
                 }
             ],
-            "description": "Extend Laravel 5's generators.",
+            "description": "Advanced Laravel generators, that include schema information.",
             "keywords": [
                 "generators",
                 "laravel"
             ],
-            "time": "2020-03-03T10:04:59+00:00"
+            "time": "2020-03-10T07:16:20+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -7223,7 +7223,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2"
+        "php": "^7.2",
+        "ext-gd": " *"
     },
     "platform-dev": []
 }

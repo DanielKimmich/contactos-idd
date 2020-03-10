@@ -98,7 +98,7 @@
                 <p>
                     <img src="img/php-logo.png" alt="Php" height="150" width="150">
                     <img src="img/laravel-logo.jpg" alt="Laravel" height="150" width="450">
-                    <img src="img/Backpack-2.jpg" alt="Backpack" height="150" width="300">
+                    <img src="img/backpack-2.jpg" alt="Backpack" height="150" width="300">
                 </p>
 
                 <p>

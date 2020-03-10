@@ -65,10 +65,10 @@ return [
     // ------
 
     // Menu logo. You can replace this with an <img> tag if you have a logo.
-    'project_logo'   => '<b>Iglesia de Dios</b>',
+    'project_logo'   => '<b>Contactos-idd</b>',
 
     // Show / hide breadcrumbs on admin panel pages.
-    'breadcrumbs' => false,
+    'breadcrumbs' => false,     //default true
 
     // Horizontal navbar classes. Helps make the admin panel look similar to your project's design.
     'header_class' => 'app-header bg-light border-0 navbar',

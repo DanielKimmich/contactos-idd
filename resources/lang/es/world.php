@@ -1,10 +1,11 @@
 <?php
 
 return array (
-    'data'  => 'Datos',
-    'info'  => 'Informacion',
-    'updated_at' => 'Actualizado el',
-    'created_at' => 'Creado el',
+    'data'        => 'Datos',
+    'info'        => 'Informacion',
+    'updated_at'  => 'Actualizado el',
+    'created_at'  => 'Creado el',
+
 //CONTINENT
     'continent'    => [
         'title'             => 'Continente',

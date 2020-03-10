@@ -40,6 +40,7 @@ class MigrationCrudController extends CrudController
             'label' =>  trans('report.migration.migration'),
             'type'  => 'text',
             'priority' => 1,
+            'visibleInTable' => true,
             ]);
         $this->crud->addColumn([
             'name'  => 'batch',

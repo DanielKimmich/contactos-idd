@@ -22,7 +22,7 @@ class ContactDataCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Models\ContactData');
+        $this->crud->setModel('App\Models\ContactEvent');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/contactdata');
         $this->crud->setEntityNameStrings('contactdata', 'contact_datas');
 
@@ -40,7 +40,40 @@ class ContactDataCrudController extends CrudController
         $this->crud->setValidation(ContactDataRequest::class);
 
         // TODO: remove setFromDb() and manually define Fields
-        $this->crud->setFromDb();
+    //    $this->crud->setFromDb();
+
+        $this->crud->addField([        
+          //  'name'  => 'data8',
+            'name'  => 'event_type',
+            'label' => 'data2',
+            'type'  => 'text',
+            'tab'   => trans('contact.data'),
+            'attributes' => ['id' => 'event_type'],
+            //   'key'   => 'events.type',
+        //    'value' => 'TYPE_BIRTHDAY',
+       //     'entity' => 'events', 
+        //     'fake' => true,
+        //      'store_in' => 'data4', // [optional]
+         //    'pivot' => true,  
+          //   'morph' => true, 
+         //    'model' => 'App\Models\ContactEvent',         
+            ]);       
+
+        $this->crud->addField([
+            'name'  => 'event_date',
+            'label' => trans('contact.event.birthday'),            
+            'type'  => 'date',
+            'tab'   => trans('contact.data'),
+            'attributes' => ['id' => 'event_date'],
+            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
+      //      'key'   => 'events.date',
+       //     'entity' => 'events',
+      //      'fake' => true, 
+       //     'store_in' => 'data6', // [optional]
+        //    'pivot' => true,
+        //    'morph' => true,
+       //     'model' => 'App\Models\ContactEvent',
+            ]);
     }
 
     protected function setupUpdateOperation()

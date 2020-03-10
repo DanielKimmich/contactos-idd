@@ -5,6 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class ContactData extends Model
 {
@@ -76,4 +77,5 @@ class ContactData extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
 }

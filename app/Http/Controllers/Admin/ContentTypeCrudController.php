@@ -127,7 +127,7 @@ class ContentTypeCrudController extends CrudController
         $this->crud->addFilter([
             'name'  => 'mimetype',
             'label' => trans('contact.type.mimetype'),
-            'type'  => 'select2',
+            'type'  => 'dropdown',
             ],
             function() {
                 return \App\Models\ContentAlias::all()->sortBy('mimetype')->pluck('mimetype', 'mimetype')->toArray(); },

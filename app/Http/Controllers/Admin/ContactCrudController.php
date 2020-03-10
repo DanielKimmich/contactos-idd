@@ -70,13 +70,7 @@ class ContactCrudController extends CrudController
             'type'  => 'text',
             'priority' => 1,
             ]);
- /*       [
-        'label' => 'App',
-        'name' => 'app.name', // relation.column_name
-    ],   
-    Also add a $this->crud->with(['app', 'user'])  */
-
-        $this->crud->addColumn([
+         $this->crud->addColumn([
             'name'  => 'events.data7',
             'label' =>  trans('contact.event.birthday'),
             'type'  => 'text',
@@ -89,16 +83,17 @@ class ContactCrudController extends CrudController
             'priority' => 4,
             'entity' => 'sex', 
             'attribute' => 'label',
-            ]);
-/*         $this->crud->addColumn([
+            ]); 
+ /*        $this->crud->addColumn([
             'name'  => 'nationality_id',
             'label' => trans('contact.nationality'),
             'type'  => 'select',
             'priority' => 2,
             'entity' => 'nationality', 
             'attribute' => 'name',
-            ]);  
-       $this->crud->addColumn([
+            'visibleInTable' => false,
+            ]);  */
+ /*      $this->crud->addColumn([
             'name'  => 'nationality_id',
             'label' => trans('contact.nationality'),
             'type'  => 'select_from_array',
@@ -234,7 +229,7 @@ protected function setupShowOperation()
         $this->crud->addField([
             'name'  => 'data1',
             'type'  => 'hidden',
-            'tab'   => 'Name', 
+            'tab'   => trans('contact.names'), 
             'attributes' => ['id' => 'full_name'],
             'entity' => 'names', 
         //    'model' => 'App\Models\ContactName',
@@ -246,7 +241,7 @@ protected function setupShowOperation()
             'name'  => 'data2',
             'label' => trans('contact.name.first'),
             'type'  => 'text',
-            'tab'   => 'Name',
+            'tab'   => trans('contact.names'),
             'attributes' => ['id' => 'first_name'],
             'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
             'entity' => 'names', 
@@ -258,7 +253,7 @@ protected function setupShowOperation()
             'name'  => 'data5',
             'label' => trans('contact.name.middle'),
             'type'  => 'text',
-            'tab'   => 'Name',
+            'tab'   =>  trans('contact.names'),
             'attributes' => ['id' => 'middle_name'],
             'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
             'entity' => 'names', 
@@ -272,7 +267,7 @@ protected function setupShowOperation()
             'label' => trans('contact.name.family'),
             'type'  => 'text',
             'attributes' => ['id' => 'family_name'],
-            'tab'   => 'Name',
+            'tab'    => trans('contact.names'),
             'entity' => 'names', 
         //    'model' => 'App\Models\ContactName',
         //    'fake'  => true,
@@ -284,31 +279,17 @@ protected function setupShowOperation()
             'name'  => 'sexo',
             'label' => trans('contact.sex'),
             'type'  => 'radio',
-            'tab'   => 'Data',
+            'tab'   => trans('contact.data'),
             'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
             'inline'      => true,      
             'options'     => $this->getTypeSexes(),
             //'options'     => [ 'F' => "Femenino", 'M' => "Masculino"],
            ]);
-/*
-        $this->crud->addField([ 
-            'name'  => 'mimetype',
-            'label' => 'mimetype',
-            'type'  => 'hidden',
-            'tab'   => 'Data',
-            'key'   => 'events.mimetype',
-            'value' => 'Event',
-            'entity' => 'events', 
-       //     'pivot' => true,  
-        //    'morph' => true,
-         //        'model' => 'App\Models\ContactEvent',       
-            ]);       
- */
         $this->crud->addField([
             'name'  => 'data7',
             'label' => trans('contact.event.birthday'),            
             'type'  => 'date',
-            'tab'   => 'Data',
+            'tab'   => trans('contact.data'),
             'attributes' => ['id' => 'event_date'],
             'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
       //      'key'   => 'events.date',
@@ -322,25 +303,26 @@ protected function setupShowOperation()
 
         $this->crud->addField([        
             'name'  => 'data8',
+          //  'name'  => 'event_type',
             'label' => 'data2',
             'type'  => 'hidden',
-            'tab'   => 'Data',
+            'tab'   => trans('contact.data'),
             'attributes' => ['id' => 'event_type'],
-         //   'key'   => 'events.type',
-            'value' => 'TYPE_BIRTHDAY',
+            //   'key'   => 'events.type',
+        //    'value' => 'TYPE_BIRTHDAY',
             'entity' => 'events', 
-       //     'fake' => true,
-      //      'store_in' => 'data4', // [optional]
-        //    'pivot' => true,  
-         //   'morph' => true, 
-        //    'model' => 'App\Models\ContactEvent',         
+        //     'fake' => true,
+        //      'store_in' => 'data4', // [optional]
+         //    'pivot' => true,  
+          //   'morph' => true, 
+         //    'model' => 'App\Models\ContactEvent',         
             ]);       
 
         $this->crud->addField([
             'name'  => 'data9',
             'label' => trans('contact.document.number'),            
             'type'  => 'text',
-            'tab'   => 'Data',
+            'tab'   => trans('contact.data'),
             'attributes' => ['id' => 'event_date'],
             'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing    
       //      'key'   => 'events.date',
@@ -356,7 +338,7 @@ protected function setupShowOperation()
             'name'  => 'data10',
             'label' => 'data2',
             'type'  => 'hidden',
-            'tab'   => 'Data',
+            'tab'   => trans('contact.data'),
             'attributes' => ['id' => 'event_type'],             
          //   'key'   => 'events.type',
             'value' => 'TYPE_DOC',
@@ -384,7 +366,7 @@ protected function setupShowOperation()
             'name'  => 'nationality_id',
             'label' => trans('contact.nationality'),
             'type'  => 'select2_from_array',
-            'tab'   => 'Data', 
+            'tab'   => trans('contact.data'), 
             'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing      
             'options'   => $this->getCountries(),
             // 'allows_null' => true,
@@ -396,7 +378,7 @@ protected function setupShowOperation()
             'name' => 'contact_phones',
             'label' => trans('contact.phone.titles'),
             'type' => 'relationFields',
-            'tab' => 'Phone',
+            'tab' => trans('contact.phones'),
             'foreignKey' => 'contact_id',
            // 'crud' => $this->crud->model->phones,
           //'crud' => new crudPanel(ContactDataCrudController::class),
@@ -436,7 +418,7 @@ protected function setupShowOperation()
             'name' => 'contact_emails',
             'label' => trans('contact.email.titles'),
             'type' => 'relationFields',
-            'tab' => 'Email',
+            'tab' => trans('contact.emails'),
             'foreignKey' => 'contact_id',
             'crud' => $this->crudEmail,
             'fake' => true,
@@ -478,7 +460,7 @@ protected function setupShowOperation()
             'name' => 'contact_addresses',
             'label' => trans('contact.address.titles'),
             'type' => 'relationFields',
-            'tab' => 'Address',
+            'tab' => trans('contact.addresses'),
             'foreignKey' => 'contact_id',
             'crud' => $this->crudAddress,
             'fake' => true,
@@ -534,6 +516,7 @@ protected function setupShowOperation()
             'placeholder' => '', // placeholder for the select
       //      'dependencies'  => ['data10'], //this select2 is reset to null
             'minimum_input_length' => 0, // minimum before querying results
+            'default' => Config::get('settings.contact_division'),
             ],
             [
             'name'  => 'data7',
@@ -549,6 +532,7 @@ protected function setupShowOperation()
      //       'dependencies'  => ['data10','data8'], //this select2 is reset to null
        //     'dependencies'  => ['contact_addresses[0][data8]'],
             'minimum_input_length' => 0, // minimum before querying results
+            'default' => Config::get('settings.contact_city'),
             ],
 
 /*                [   'name' => 'data8',
@@ -583,7 +567,19 @@ protected function setupShowOperation()
             ],
         ], 'both');
 
-
+    //PHOTO
+        $this->crud->addField([
+            'label' => 'Profile Image',
+            'name' => 'data14',
+            'type' => 'image',
+            'tab'   => 'Photo',
+            'entity' => 'names', 
+            'upload' => true,
+            'crop' => true, // set to true to allow cropping, false to disable
+            'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
+    // 'disk' => 's3_bucket', // in case you need to show images from a different disk
+    // 'prefix' => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
+            ]);
     //INFO
         $this->getInfoFields();
 
@@ -596,20 +592,20 @@ protected function setupShowOperation()
        // $this->crud->orderBy('name');
 
     // ------ CRUD FILTERS
-        // Role Filter
-/*
+        // Birthday
+
         $this->crud->addFilter([
-            'name'  => 'role',
-            'label' => trans('backpack::permissionmanager.role'),
+            'name'  => 'birthday',
+            'label' => 'Birthday',
             'type'  => 'dropdown',
             ],
-            config('permission.models.role')::all()->pluck('name', 'id')->toArray(),
+            $this->getMonth(),
             function ($value) { // if the filter is active
-                $this->crud->addClause('whereHas', 'roles', function ($query) use ($value) {
-                    $query->where('role_id', '=', $value);
+                $this->crud->addClause('whereHas', 'events', function ($query) use ($value) {
+                $query->whereMonth('data7', $value);
                 });
             });
-*/
+
         // daterange filter
         $this->setFilterDateUpdate();
     }
@@ -627,10 +623,10 @@ protected function setupShowOperation()
         // do something after save Parent, then save children
         $this->updateRelationFields();  
         return $response;
-}
-//Operacion de Actualizar
-public function update()
-{
+    }
+    //Operacion de Actualizar
+    public function update()
+    {
   //  $redirect_location = parent::updateCrud($request);
   //  $this->storeOrUpdateMacronutrients($request, $this->crud->entry);
   //  return $redirect_location; 
@@ -812,7 +808,7 @@ protected function destroyMacronutrients($productId)
         return $options->toArray();
     }
 
-protected function setContactPhone(): void
+    protected function setContactPhone(): void
     {
         $this->crudPhone = new CrudPanel();
         $this->crudPhone->setModel(ContactPhone::class);
@@ -822,7 +818,7 @@ protected function setContactPhone(): void
         $this->crudPhone->addClause('where', 'mimetype', '=', 'Phone');
     }
 
-protected function setContactEmail(): void
+    protected function setContactEmail(): void
     {
         $this->crudEmail = new CrudPanel();
         $this->crudEmail->setModel(ContactEmail::class);
@@ -831,7 +827,8 @@ protected function setContactEmail(): void
         $this->crudEmail->addClause('where', 'contact_id', '=', $this->crud->getCurrentEntryId());
         $this->crudEmail->addClause('where', 'mimetype', '=', 'Email');
     }
-protected function setContactAddress(): void
+
+    protected function setContactAddress(): void
     {
         $this->crudAddress = new CrudPanel();
         $this->crudAddress->setModel(ContactAddress::class);
@@ -843,17 +840,32 @@ protected function setContactAddress(): void
 
 
 
-    function renameKey($oldkey, $newkey, $array) {
+    public function renameKey($oldkey, $newkey, $array) {
         $val = $array[$oldkey]; 
         $tmp_A = array_flip($array); 
         $tmp_A[$val] = $newkey; 
         return array_flip($tmp_A); 
     } 
-
-
-
+    
+    public function getMonth()
+    {
+        $months = [
+            '01' => 'January',
+            '02' => 'February',
+            '03' => 'March',
+            '04' => 'April',
+            '05' => 'May',
+            '06' => 'June',
+            '07' => 'July',
+            '08' => 'August',
+            '09' => 'September',
+            '10' => 'October',
+            '11' => 'November',
+            '12' => 'December'
+        ];
+        return $months;
+    }
 }
-
 
 /*
  

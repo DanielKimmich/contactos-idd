@@ -3,19 +3,25 @@
 return [
 	'title'         => 'Contacto',
 	'titles'        => 'Contactos',
+//Tabs
+	'names'			=> 'Nombres',
+	'phones'		=> 'Telefonos',
+	'emails'		=> 'Correos',
+	'addresses'		=> 'Direcciones',
+	'data'  		=> 'Datos',
+    'info'  		=> 'Información',
+//Fields
 	'display_name'  => 'Nombre de Contacto',
 	'sex'			=> 'Sexo',
 	'nationality'	=> 'Nacionalidad',
 	'status'		=> 'Estado',
 	'updated_at' 	=> 'Actualizado el',
     'created_at' 	=> 'Creado el',
-
-
 	'is_required'     => 'Contact is required',
 
 //NAME
   	'name'    => [
-		'first'     => 'Nombre',
+		'first'     => 'Primer Nombre',
 		'middle'    => 'Segundo Nombre',
 		'family'    => 'Apellidos',
 

@@ -28,7 +28,7 @@ class ContactEvent extends Model
         'contact_id',
         'mimetype',
         'data1', 
-        'data2', 
+     //   'data2', 
         'data3',
         'data4', 
         'data5', 
@@ -44,8 +44,8 @@ class ContactEvent extends Model
         'data15',
         
         ];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
-//    protected $appends = ['event_date', 'event_type', 'event_label'];
+    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user',
+                             'event_label'];
 
     protected $fakeColumns = ['data4', 'data6'];
 //    protected $translatable = ['extras','data6','data4'];
@@ -82,6 +82,7 @@ class ContactEvent extends Model
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
+    */
     
     Public function getEventDateAttribute()
     {
@@ -101,11 +102,11 @@ class ContactEvent extends Model
     //--------------------------------------------------------------------------
     public function setEventDateAttribute($value)
     {
-        $this->data1 = $value;
+        $this->attributes['data7'] = $value;
     }
     public function setEventTypeAttribute($value)
     {
-        $this->data2 = $value;
+        $this->attributes['data8'] = $value;
     }
     public function setEventLabelAttribute($value)
     {

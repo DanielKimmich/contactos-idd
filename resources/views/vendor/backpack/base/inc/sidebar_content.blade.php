@@ -15,9 +15,9 @@
  	  @can('list contactsetting')
 		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contenttype') }}'><i class='nav-icon fa fa-cogs'></i>Preferencias</a></li>	
 	  @endcan
-
+  	  @can('list contactdebug')
 		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contactdata') }}'><i class='nav-icon fa fa-question'></i>ContactDatas
-
+	  @endcan
 		</a></li>	
 	</ul>
   </li>

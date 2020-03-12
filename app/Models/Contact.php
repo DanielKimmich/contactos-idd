@@ -111,7 +111,12 @@ class Contact extends Model
     */
     Public function getBirthdayAttribute()
     {
-        return $this->events()->firstWhere('data2', 'TYPE_BIRTHDAY')->data1 ?? '';
+        $birth = $this->events()->firstWhere('data2', 'TYPE_BIRTHDAY')->data1 ?? '';
+        if (!empty($birth)) {
+            return Carbon::createFromFormat('Y-m-d',$birth);
+        } else {
+            return ''; 
+        }
     }
 
     Public function getAgeAttribute()

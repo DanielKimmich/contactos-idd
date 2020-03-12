@@ -87,5 +87,17 @@ class ContactDocument extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function setDocumentNumberAttribute($value)
+    {
+        $this->attributes['data1'] = $value;
+    }
+    public function setDocumentTypeAttribute($value)
+    {
+        $this->attributes['data2'] = $value;
+    }
+    public function setDocumentLabelAttribute($value)
+    {
+        $this->attributes['data3'] = $value;
+    }
 
 }

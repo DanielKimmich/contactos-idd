@@ -32,11 +32,11 @@ return [
 		'birthday'      => 'Nacido el',
 		'age'      		=> 'Edad',
 	],
+
 //DOCUMENT
   	'document'    => [
 		'number'      => 'Documento',
 	],
-
 
 //PHONE
   'phone'    => [

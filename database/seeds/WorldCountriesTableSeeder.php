@@ -3987,6 +3987,5 @@ class WorldCountriesTableSeeder extends Seeder
             ),
         ));
         
-        
     }
 }

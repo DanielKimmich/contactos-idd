@@ -71,7 +71,7 @@ class ContactContentAlias extends Seeder
             ),   
             9 => 
             array (
-                'mimetype' => 'Sexo',
+                'mimetype' => 'Sex',
                 'alias' => 'name',
                 'data_column' => 'data1',
             ),                 

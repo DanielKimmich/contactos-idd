@@ -34,9 +34,17 @@ class SettingsCustomTableSeeder extends Seeder
             'active'        => 1,
         ],
         [
+            'key'           => 'contact_nationality',
+            'name'          => 'Code3 Pais',
+            'description'   => 'Pais por defecto en Nacionalidad',
+            'value'         => 'arg',
+            'field'         => '{"name":"value","label":"Value","type":"text"}',
+            'active'        => 1, 
+        ],
+        [
             'key'           => 'contact_country',
             'name'          => 'Code Pais',
-            'description'   => 'Pais por defecto en Direcciones y Nacionalidad',
+            'description'   => 'Pais por defecto en Direcciones',
             'value'         => '208',
             'field'         => '{"name":"value","label":"Value","type":"text"}',
             'active'        => 1, 

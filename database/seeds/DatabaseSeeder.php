@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ContactContentTypes::class);        
         $this->call(WorldTablesSeeder::class);
         $this->call(ArgentinaDivisionsTableSeeder::class);
-    //    $this->call(ArgentinaCitiesTableSeeder::class);
-        $this->call(ArgentinaCitiesCapitalTableSeeder::class);
+        $this->call(ArgentinaCitiesTableSeeder::class);
+    //    $this->call(ArgentinaCitiesCapitalTableSeeder::class);
     }
 }

@@ -26,8 +26,9 @@ class WorldCountryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:2|max:255',
-            'code' => 'required|min:2|max:4',
+            'name'          => 'required|min:2|max:255',
+            'code'          => 'required|min:2|max:2',
+            'code_alpha3'   => 'required|min:3|max:3',
         ];
     }
 

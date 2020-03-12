@@ -72,7 +72,7 @@ class ContactCrudController extends CrudController
             'priority' => 1,
             ]);
         $this->crud->addColumn([
-            'name'  => 'sexo',
+            'name'  => 'sex_id',
             'label' => trans('contact.sex'),
             'type'  => 'select',
             'priority' => 4,
@@ -181,7 +181,7 @@ protected function setupShowOperation()
             'type'  => 'text',
             ]);
         $this->crud->addColumn([
-            'name'  => 'sexo',
+            'name'  => 'sex_id',
             'label' => trans('contact.sex'),
             'type'  => 'select',
             'entity' => 'sex', 
@@ -204,13 +204,24 @@ protected function setupShowOperation()
             'label' =>  trans('contact.document.number'),
             'type'  => 'text',
             ]);  
+ /*      $this->crud->addColumn([
+            'name' => 'phones',
+            'label' => 'Table',
+            'type' => 'table',
+            'columns' => [
+                'name'  => 'data1',
+                'desc'  => 'data2',
+                'price' => 'data3',
+            ]
+        ]); */
+
         $this->crud->addColumn([
             'name'      => 'phones', //the relationship in your Model
             'label'     => trans('contact.phone.titles'), //column heading
             'type'      => 'select_multiple',
             'entity'    => 'phones', //the relationship in your Model
             'attribute' => 'data1', //foreign key attribute that is shown to user
-            ]);
+            ]); 
         $this->crud->addColumn([
             'name'      => 'emails', //the relationship in your Model
             'label'     => trans('contact.email.titles'), //column heading
@@ -307,7 +318,7 @@ protected function setupShowOperation()
 
     //DATA
         $this->crud->addField([ // Text
-            'name'  => 'sexo',
+            'name'  => 'sex_id',
             'label' => trans('contact.sex'),
             'type'  => 'radio',
             'tab'   => trans('contact.data'),
@@ -358,9 +369,9 @@ protected function setupShowOperation()
             'type'  => 'select2_from_array',
             'tab'   => trans('contact.data'), 
             'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing      
-            'options'   => $this->getCountries(),
-            // 'allows_null' => true,
-            'default' => Config::get('settings.contact_country'),
+            'options'   => $this->getNations(),
+            'default' => Config::get('settings.contact_nationality'),
+            'allows_null' => true,
             ]);
 
     //PHONE
@@ -766,7 +777,7 @@ protected function destroyMacronutrients($productId)
     public function getTypeSexes()
     {   
         $types = ContentType::all();
-        $typeSexes = $types->where('mimetype', 'Sexo')->sortBy('order')->pluck('label','id');
+        $typeSexes = $types->where('mimetype', 'Sex')->sortBy('order')->pluck('label','type');
         return $typeSexes->toArray();
     }
 
@@ -789,6 +800,13 @@ protected function destroyMacronutrients($productId)
         $types = ContentType::all();
         $typePhones = $types->where('mimetype', 'Address')->sortBy('order')->pluck('label','type');
         return $typePhones->toArray();
+    }
+
+    public function getNations()
+    {   
+        $options = WorldCountry::all();
+        $options = $options->sortBy('name')->pluck('name','code_alpha3');
+        return $options->toArray();
     }
 
     public function getCountries()

@@ -27,7 +27,7 @@ class Contact extends Model
     protected $guarded = ['id'];
     protected $fillable = [
         'display_name', 
-        'sexo', 
+        'sex_id', 
         'nationality_id', 
         'blood_type',
         'photo_id',
@@ -85,12 +85,13 @@ class Contact extends Model
 
     public function sex()
     {
-        return $this->belongsTo('App\Models\ContentType', 'sexo', 'id')->where('mimetype', 'Sexo');
+      //  return $this->belongsTo('App\Models\ContentType', 'sexo', 'id')->where('mimetype', 'Sexo');
+        return $this->belongsTo('App\Models\ContentType', 'sex_id', 'type')->where('mimetype', 'Sex');
     }
 
     public function nationality()
     {
-        return $this->belongsTo(WorldCountry::class, 'nationality_id');
+        return $this->belongsTo('App\Models\WorldCountry', 'nationality_id', 'code_alpha3');
     }
    
     public function types()

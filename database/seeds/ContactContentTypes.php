@@ -220,14 +220,14 @@ class ContactContentTypes extends Seeder
             ),     
             29 => 
             array (
-                'mimetype' => 'Sexo',
+                'mimetype' => 'Sex',
                 'type' => 'FEMALE',
                 'order' => '1',
                 'label' => 'Femenino',
             ),               
             30 => 
             array (
-                'mimetype' => 'Sexo',
+                'mimetype' => 'Sex',
                 'type' => 'MALE',
                 'order' => '2',
                 'label' => 'Masculino',

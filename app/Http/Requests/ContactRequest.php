@@ -27,7 +27,7 @@ class ContactRequest extends FormRequest
     {
         return [
             'display_name'  => 'required|min:2|max:255',
-            'sexo'          => 'required',
+            'sex_id'        => 'required',
         ];
     }
 

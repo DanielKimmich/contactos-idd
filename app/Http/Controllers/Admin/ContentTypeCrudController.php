@@ -122,8 +122,7 @@ class ContentTypeCrudController extends CrudController
         $this->crud->orderBy('mimetype');
 
     // ------ CRUD FILTERS
-        // Role mimetype
-
+        //mimetype filter
         $this->crud->addFilter([
             'name'  => 'mimetype',
             'label' => trans('contact.type.mimetype'),

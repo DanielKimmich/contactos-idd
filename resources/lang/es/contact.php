@@ -17,7 +17,7 @@ return [
 	'status'		=> 'Estado',
 	'updated_at' 	=> 'Actualizado el',
     'created_at' 	=> 'Creado el',
-	'is_required'     => 'Contact is required',
+	'is_required'   => 'Contact is required',
 
 //NAME
   	'name'    => [
@@ -29,12 +29,12 @@ return [
 
 //EVENT
   	'event'    => [
-		'birthday'      => 'Fecha de Nacimiento',
+		'birthday'      => 'Nacido el',
+		'age'      		=> 'Edad',
 	],
-
 //DOCUMENT
   	'document'    => [
-		'number'      => 'Numero de Documento',
+		'number'      => 'Documento',
 	],
 
 
@@ -43,10 +43,12 @@ return [
 		'title'             => 'Telefono',
 		'titles'            => 'Telefonos',
 	//Fields				
-		'number'          => 'Numero',
-		'type'            => 'Tipo',
-		'label'           => 'Etiqueta',
-		'normalized'      => 'Normalizado',
+		'mobile1'			=> 'Movil_1',
+		'home1'				=> 'Telefono_1',
+		'number'          	=> 'Numero',
+		'type'            	=> 'Tipo',
+		'label'           	=> 'Info Adicional',
+		'normalized'      	=> 'Normalizado',
 	// Messages
 		'no_rows'           => 'There are no telefonos',
         'is_required'       => 'Telefono is required',
@@ -60,9 +62,10 @@ return [
 		'title'             => 'Correo Electronico',
 		'titles'            => 'Correos Electronicos',
 	//Fields				
+		'email1'			=> 'Correo_1',
 		'address'          	=> 'Direccion de Correo',
 		'type'            	=> 'Tipo',
-		'label'           	=> 'Etiqueta',
+		'label'           	=> 'Info Adicional',
 		'display_name'  	=> 'Nombre a Mostrar',
 	// Messages
 		'no_rows'           => 'There are no telefonos',
@@ -77,9 +80,10 @@ return [
 		'title'             => 'Dirección',
 		'titles'            => 'Direcciones',		
 	//Fields					
+        'address1' 	=> 'Dirección_1',
         'address' 	=> 'Dirección Completa',
         'type'    	=> 'Tipo',
-        'label'  	=> 'Etiqueta',
+        'label'  	=> 'Info Adicional',
         'street'   	=> 'Calle',
         'pobox'    	=> 'Codigo Postal',
         'neigh'  	=> 'Barrio',

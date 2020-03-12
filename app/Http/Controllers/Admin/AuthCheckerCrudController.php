@@ -82,12 +82,13 @@ class AuthCheckerCrudController extends CrudController
             ]);
     // remove a column from the stack
         $this->crud->removeAllButtons();
+     //   $this->crud->disableResponsiveTable();
     }
 
     protected function setupAvancedOperation()
     {
     // ------ ADVANCED QUERIES    
-        $this->crud->orderBy('updated_at');
+        $this->crud->orderBy('updated_at', 'desc');
 
     // ------ CRUD FILTERS
         //User

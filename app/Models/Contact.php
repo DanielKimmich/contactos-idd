@@ -6,6 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Wildside\Userstamps\Userstamps;
+use Carbon\Carbon;
 use App\Models\WorldCountry;
 use App\Models\ContentType;
 
@@ -34,24 +35,18 @@ class Contact extends Model
     ];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $appends = ['birthday', 
-        'created_by_user', 'updated_by_user', 'deleted_by_user'];
-   // protected $fakeColumns = ['status'];
+    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user',
+                'birthday', 'age',
+                'phone_mobile', 'phone_home', 'email1', 'address1'];
+    // protected $fakeColumns = ['status'];
     // protected $isColumnNullable = ['nationality_id'];
+    //  protected $casts = ['status' => 'array', ];
 
-//json_decode() expects parameter 1 to be string, array given
-
-  //  protected $casts = ['status' => 'array', ];
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    Public function getBirthdayAttribute()
-    {
-        return $this->events()->first()->data7;
-       // return $this->data7;
-    }
 
     /*
     |--------------------------------------------------------------------------
@@ -65,28 +60,27 @@ class Contact extends Model
 
     public function documents()
     {
-        return $this->hasOne('App\Models\ContactDocument','contact_id', 'id')->where('data10', 'TYPE_DOC');
+        return $this->hasOne('App\Models\ContactDocument','contact_id', 'id')->where('data2', 'TYPE_DOC');
     }
 
     public function events()
     {
-       return $this->hasOne('App\Models\ContactEvent','contact_id','id')->where('data8', 'TYPE_BIRTHDAY');
+        return $this->hasOne('App\Models\ContactEvent','contact_id','id')->where('data2', 'TYPE_BIRTHDAY');
     }
 
     public function phones()
     {
-     //   return $this->hasMany('App\Models\ContactData','contact_id', 'id')->where('mimetype', 'Phone');
-         return $this->hasMany('App\Models\ContactPhone','contact_id', 'id');
+        return $this->hasMany('App\Models\ContactPhone','contact_id', 'id');
     }
 
     public function emails()
     {
-         return $this->hasMany('App\Models\ContactEmail','contact_id', 'id');
+        return $this->hasMany('App\Models\ContactEmail','contact_id', 'id');
     }
 
     public function addresses()
     {
-         return $this->hasMany('App\Models\ContactAddress','contact_id', 'id');
+        return $this->hasMany('App\Models\ContactAddress','contact_id', 'id');
     }
 
     public function sex()
@@ -101,7 +95,6 @@ class Contact extends Model
    
     public function types()
     {
-      //  return $this->belongsTo('App\Models\ContentType', 'sexo', 'id')->where('mimetype', 'Sexo');
         return ContentType::all();
         //->sortBy('label')->pluck('label', 'id');
     }    
@@ -116,37 +109,66 @@ class Contact extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    Public function getBirthdayAttribute()
+    {
+        return $this->events()->firstWhere('data2', 'TYPE_BIRTHDAY')->data1 ?? '';
+    }
+
+    Public function getAgeAttribute()
+    {
+        $birth = $this->events()->firstWhere('data2', 'TYPE_BIRTHDAY')->data1 ?? '';
+        $dead = $this->events()->firstWhere('data2', 'TYPE_BIRTHDAY')->data4 ?? '';
+        if (!empty($birth)) {
+            $born = Carbon::createFromFormat('Y-m-d',$birth);
+            if (empty($dead)) {
+                $today = Carbon::now();
+            } else {
+                $today = Carbon::createFromFormat('Y-m-d',$dead); 
+            }
+            return $today->diff($born)->format('%y');
+        } else {
+            return ''; 
+        }
+    }
+
+    Public function getPhoneMobileAttribute()
+    {
+        return $this->phones()->firstWhere('data2', 'TYPE_MOBILE')->data1 ?? '';
+    }
+    
+    Public function getPhoneHomeAttribute()
+    {
+        return $this->phones()->firstWhere('data2', 'TYPE_HOME')->data1 ?? '';
+    }   
+
+    Public function getEmail1Attribute()
+    {
+        return $this->emails()->first()->data1 ?? '';
+    }
+
+    Public function getAddress1Attribute()
+    {
+        return $this->addresses()->first()->data1 ?? '';
+    }
+
+    //--------------------------------------------------------------------------
+    Public function getCreatedByUserAttribute()
+    {
+        return $this->creator->name ?? '';
+    }
+    Public function getUpdatedByUserAttribute()
+    {
+        return $this->editor->name ?? '';
+    }
+    Public function getDeletedByUserAttribute()
+    {
+        return $this->destroyer->name ?? '';
+    }
 
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
-    {
-        if (! empty( $this->creator->name)){
-            return $this->creator->name;
-        } else {
-            return '';
-        }
-    }
-
-    Public function getUpdatedByUserAttribute()
-    {
-        if (! empty( $this->editor->name)){
-            return $this->editor->name;
-        } else {
-            return '';
-        }
-    }
-
-    Public function getDeletedByUserAttribute()
-    {
-        if (! empty( $this->destroyer->name)){
-            return $this->destroyer->name;
-        } else {
-            return '';
-        }        
-    }
 
 }

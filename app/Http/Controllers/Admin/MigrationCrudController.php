@@ -40,7 +40,7 @@ class MigrationCrudController extends CrudController
             'label' =>  trans('report.migration.migration'),
             'type'  => 'text',
             'priority' => 1,
-            'visibleInTable' => true,
+            'limit' => 120,
             ]);
         $this->crud->addColumn([
             'name'  => 'batch',
@@ -52,6 +52,7 @@ class MigrationCrudController extends CrudController
         $this->crud->removeAllButtons();
         // $this->crud->removeAllButtonsFromStack('line');
         // $this->crud->removeColumn('column_name');
+        //$this->crud->disableResponsiveTable();
     }
 /*
     protected function setupCreateOperation()

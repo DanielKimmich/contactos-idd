@@ -16,13 +16,13 @@
 
     <script>
         //NAME
-        $(document).on('keyup', '#first_name', function() { 
+        $(document).on('keyup', '#name_first', function() { 
             setFullName();
         });
-        $(document).on('keyup', '#middle_name', function() { 
+        $(document).on('keyup', '#name_middle', function() { 
             setFullName();
         });
-        $(document).on('keyup', '#family_name', function() { 
+        $(document).on('keyup', '#name_family', function() { 
             setFullName();
         });
 
@@ -95,16 +95,16 @@
         });   
 */
         function setFullName() {
-            $first = $('#first_name').val();
-            $middle = $('#middle_name').val();
-            $family = $('#family_name').val();
+            $first = $('#name_first').val();
+            $middle = $('#name_middle').val();
+            $family = $('#name_family').val();
             //var name = $('input[name="name_first"]').val();
             //var family = $('input[name="name_family"]').val();
             //var middle = $('input[name="name_middle"]').val();
             $name =  $first.trim() +" "+ $middle.trim() +" "+ $family.trim();
             // $('input[name="data1"]').val(data1);
             //$('input[name="display_name"]').val(data1);
-            $('#full_name').val($name);
+            $('#name_display').val($name);
             $('#display_name').val($name);
         }
 

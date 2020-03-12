@@ -6,6 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Wildside\Userstamps\Userstamps;
+use Carbon\Carbon;
 
 class ContactEvent extends Model
 {
@@ -24,96 +25,15 @@ class ContactEvent extends Model
     // protected $hidden = [];
     // protected $dates = [];
     
-    protected $fillable = [
-        'contact_id',
-        'mimetype',
-        'data1', 
-     //   'data2', 
-        'data3',
-        'data4', 
-        'data5', 
-        'data6',
-        'data7', 
-        'data8', 
-        'data9',
-        'data10', 
-        'data11', 
-        'data12',
-        'data13',
-        'data14', 
-        'data15',
-        
-        ];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user',
-                             'event_label'];
-
-    protected $fakeColumns = ['data4', 'data6'];
-//    protected $translatable = ['extras','data6','data4'];
-    protected $casts = [
-        'data4' => 'array',
-        'data6' => 'array',
-        ];
+    protected $fillable = ['contact_id', 'mimetype', 'event_date', 'event_type', 'event_label'];
+    protected $appends = ['age','created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'Event'];
-/*
-    protected $visible = [
-        'contact_id',
-        'mimetype',
-        'event_date', 
-        'event_type',
-        'event_label',
-        'data1', 
-        'data2', 
-        'data3',
-        'data4', 
-        'data5', 
-        'data6',
-        'data7', 
-        'data8', 
-        'data9',
-        'data10', 
-        'data11', 
-        'data12',
-        'data13',
-        'data14', 
-        'data15',   
-        ];
-*/
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    
-    Public function getEventDateAttribute()
-    {
-        return $this->data7;
-    }
-
-    Public function getEventTypeAttribute()
-    {
-        return $this->data8;
-    }
-
-    Public function getEventLabelAttribute()
-    {
-        return $this->data3;
-    }
-
-    //--------------------------------------------------------------------------
-    public function setEventDateAttribute($value)
-    {
-        $this->attributes['data7'] = $value;
-    }
-    public function setEventTypeAttribute($value)
-    {
-        $this->attributes['data8'] = $value;
-    }
-    public function setEventLabelAttribute($value)
-    {
-        $this->data3 = $value;
-    }
-
-
 
     /*
     |--------------------------------------------------------------------------
@@ -138,37 +58,67 @@ class ContactEvent extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    Public function getEventDateAttribute()
+    {
+        return $this->data1;
+    }
+    Public function getEventTypeAttribute()
+    {
+        return $this->data2;
+    }
+    Public function getEventLabelAttribute()
+    {
+        return $this->data3;
+    }
+
+    //--------------------------------------------------------------------------
+    Public function getAgeAttribute()
+    {
+        $birth = $this->data1;
+        $dead = $this->data4;
+        if (!empty($birth)) {
+            $born = Carbon::createFromFormat('Y-m-d',$birth);
+            if (empty($dead)) {
+                $today = Carbon::now();
+            } else {
+                $today = Carbon::createFromFormat('Y-m-d',$dead); 
+            }
+            return $today->diff($born)->format('%y');
+        } else {
+            return ''; 
+        }
+    }
+
+    //--------------------------------------------------------------------------
+    Public function getCreatedByUserAttribute()
+    {
+        return $this->creator->name ?? '';
+    }
+    Public function getUpdatedByUserAttribute()
+    {
+        return $this->editor->name ?? '';
+    }
+    Public function getDeletedByUserAttribute()
+    {
+        return $this->destroyer->name ?? '';
+    }
 
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
+    public function setEventDateAttribute($value)
     {
-        if (! empty( $this->creator->name)){
-            return $this->creator->name;
-        } else {
-            return '';
-        }
+        $this->attributes['data1'] = $value;
     }
-
-    Public function getUpdatedByUserAttribute()
+    public function setEventTypeAttribute($value)
     {
-        if (! empty( $this->editor->name)){
-            return $this->editor->name;
-        } else {
-            return '';
-        }
+        $this->attributes['data2'] = $value;
     }
-
-    Public function getDeletedByUserAttribute()
+    public function setEventLabelAttribute($value)
     {
-        if (! empty( $this->destroyer->name)){
-            return $this->destroyer->name;
-        } else {
-            return '';
-        }        
+        $this->data3 = $value;
     }
 
 }

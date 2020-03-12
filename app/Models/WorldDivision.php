@@ -32,32 +32,6 @@ class WorldDivision extends OriginalDivision
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
-    {
-        if (! empty( $this->creator->name)){
-            return $this->creator->name;
-        } else {
-            return '';
-        }
-    }
-
-    Public function getUpdatedByUserAttribute()
-    {
-        if (! empty( $this->editor->name)){
-            return $this->editor->name;
-        } else {
-            return '';
-        }
-    }
-
-    Public function getDeletedByUserAttribute()
-    {
-        if (! empty( $this->destroyer->name)){
-            return $this->destroyer->name;
-        } else {
-            return '';
-        }        
-    }
 
     /*
     |--------------------------------------------------------------------------
@@ -76,6 +50,18 @@ class WorldDivision extends OriginalDivision
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    Public function getCreatedByUserAttribute()
+    {
+        return $this->creator->name ?? '';
+    }
+    Public function getUpdatedByUserAttribute()
+    {
+        return $this->editor->name ?? '';
+    }
+    Public function getDeletedByUserAttribute()
+    {
+        return $this->destroyer->name ?? '';
+    }
 
     /*
     |--------------------------------------------------------------------------

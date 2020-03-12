@@ -22,7 +22,7 @@ class ContactDataCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Models\ContactEvent');
+        $this->crud->setModel('App\Models\ContactData');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/contactdata');
         $this->crud->setEntityNameStrings('contactdata', 'contact_datas');
 
@@ -33,6 +33,8 @@ class ContactDataCrudController extends CrudController
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         $this->crud->setFromDb();
+        $this->crud->disableResponsiveTable();
+     //   $this->crud->addColumns(['id', 'mimetype', 'event_date', 'event_type', 'event_label'] );
     }
 
     protected function setupCreateOperation()
@@ -40,25 +42,9 @@ class ContactDataCrudController extends CrudController
         $this->crud->setValidation(ContactDataRequest::class);
 
         // TODO: remove setFromDb() and manually define Fields
-    //    $this->crud->setFromDb();
+        $this->crud->setFromDb();
 
-        $this->crud->addField([        
-          //  'name'  => 'data8',
-            'name'  => 'event_type',
-            'label' => 'data2',
-            'type'  => 'text',
-            'tab'   => trans('contact.data'),
-            'attributes' => ['id' => 'event_type'],
-            //   'key'   => 'events.type',
-        //    'value' => 'TYPE_BIRTHDAY',
-       //     'entity' => 'events', 
-        //     'fake' => true,
-        //      'store_in' => 'data4', // [optional]
-         //    'pivot' => true,  
-          //   'morph' => true, 
-         //    'model' => 'App\Models\ContactEvent',         
-            ]);       
-
+/*
         $this->crud->addField([
             'name'  => 'event_date',
             'label' => trans('contact.event.birthday'),            
@@ -66,14 +52,24 @@ class ContactDataCrudController extends CrudController
             'tab'   => trans('contact.data'),
             'attributes' => ['id' => 'event_date'],
             'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
-      //      'key'   => 'events.date',
-       //     'entity' => 'events',
-      //      'fake' => true, 
-       //     'store_in' => 'data6', // [optional]
-        //    'pivot' => true,
-        //    'morph' => true,
-       //     'model' => 'App\Models\ContactEvent',
             ]);
+
+        $this->crud->addField([        
+            'name'  => 'event_type',
+            'label' => 'data2',
+            'type'  => 'text',
+            'tab'   => trans('contact.data'),
+            'attributes' => ['id' => 'event_type'],
+            ]);       
+
+        $this->crud->addField([        
+            'name'  => 'event_label',
+            'label' => 'data3',
+            'type'  => 'text',
+            'tab'   => trans('contact.data'),
+            'attributes' => ['id' => 'event_type'],
+            ]);     
+*/
     }
 
     protected function setupUpdateOperation()
@@ -87,20 +83,17 @@ class ContactDataCrudController extends CrudController
        // $this->crud->orderBy('name');
 
     // ------ CRUD FILTERS
-        // Role Filter
-/*
+        //mimetype filter
         $this->crud->addFilter([
-            'name'  => 'role',
-            'label' => trans('backpack::permissionmanager.role'),
+            'name'  => 'mimetype',
+            'label' => trans('contact.type.mimetype'),
             'type'  => 'dropdown',
             ],
-            config('permission.models.role')::all()->pluck('name', 'id')->toArray(),
-            function ($value) { // if the filter is active
-                $this->crud->addClause('whereHas', 'roles', function ($query) use ($value) {
-                    $query->where('role_id', '=', $value);
-                });
-            });
-*/
+            function() {
+                return \App\Models\ContentAlias::all()->sortBy('mimetype')->pluck('mimetype', 'mimetype')->toArray(); },
+            function($value) {  
+                $this->crud->addClause('where', 'mimetype', $value ); });
+
         // daterange filter
         $this->setFilterDateUpdate();
     }

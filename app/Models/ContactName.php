@@ -25,106 +25,19 @@ class ContactName extends Model
     // protected $hidden = [];
     // protected $dates = [];
     protected $fillable = [
-        'contact_id', 
-        'mimetype', 
-        'data1', 
-        'data2', 
-        'data3',
-        'data4', 
-        'data5', 
-        'data6',
-        'data7', 
-        'data8', 
-        'data9',
-        'data10', 
-        'data11', 
-        'data12',
-        'data13',
-        'data14', 
-        'data15',
-        ];
-
-    protected $appends = [
+        'contact_id', 'mimetype', 
         'name_display', 
         'name_first', 'name_middle', 'name_family', 
-        'name_prefix', 'name_suffix',               
-        'created_by_user', 'updated_by_user', 'deleted_by_user'];
+        'name_prefix', 'name_suffix',  
+        'data14',         
+        ];
+    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'Name'];
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    Public function getNameDisplayAttribute()
-    {
-        return $this->data1;
-    }
-
-    Public function getNameFirstAttribute()
-    {
-        return $this->data2;
-    }
-
-    Public function getNameMiddleAttribute()
-    {
-        return $this->data5;
-    }
-
-    Public function getNameFamilyAttribute()
-    {
-        return $this->data3;
-    }
-
-    Public function getNameprefixAttribute()
-    {
-        return $this->data4;
-    }
-    Public function getNameSuffixAttribute()
-    {
-        return $this->data6;
-    }
-
-    /**
-    * Set the
-    *
-    * @param  string  $value
-    * @return void
-    */
-/*
-Public function setmimetypeAttribute($value)
-    {
-        dd($value);
-    //    $this->attributes['mimetype'] = strtoupper($value);
-    }
-*/
-
-    Public function setNameDisplayAttribute($value)
-    {
-       $this->data1 = $value;
-    }
-
-    Public function setNameFirstAttribute($value)
-    {
-        $this->data2 = $value;
-    }
-    Public function setNameMiddleAttribute($value)
-    {
-        $this->data5 = $value;
-    }
-
-    Public function setNameFamilyAttribute($value)
-    {
-        $this->data3 = $value;
-    }
-
-    Public function setNameprefixAttribute($value)
-    {
-        $this->data4 = $value;
-    }
-    Public function setNameSuffixAttribute($value)
-    {
-        $this->data6 = $value;
-    }
 
     /*
     |--------------------------------------------------------------------------
@@ -149,39 +62,78 @@ Public function setmimetypeAttribute($value)
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    Public function getNameDisplayAttribute()
+    {
+        return $this->data1;
+    }
+    Public function getNameFirstAttribute()
+    {
+        return $this->data2;
+    }
+    Public function getNameMiddleAttribute()
+    {
+        return $this->data5;
+    }
+    Public function getNameFamilyAttribute()
+    {
+        return $this->data3;
+    }
+
+    Public function getNameprefixAttribute()
+    {
+        return $this->data4;
+    }
+    Public function getNameSuffixAttribute()
+    {
+        return $this->data6;
+    }
+
+    //-------------------------------------------------------------------------- 
+    Public function getCreatedByUserAttribute()
+    {
+        return $this->creator->name ?? '';
+    }
+    Public function getUpdatedByUserAttribute()
+    {
+        return $this->editor->name ?? '';
+    }
+    Public function getDeletedByUserAttribute()
+    {
+        return $this->destroyer->name ?? '';
+    }
 
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
+    Public function setNameDisplayAttribute($value)
     {
-        if (! empty( $this->creator->name)){
-            return $this->creator->name;
-        } else {
-            return '';
-        }
+       $this->data1 = $value;
+    }
+    Public function setNameFirstAttribute($value)
+    {
+        $this->data2 = $value;
+    }
+    Public function setNameMiddleAttribute($value)
+    {
+        $this->data5 = $value;
+    }
+    Public function setNameFamilyAttribute($value)
+    {
+        $this->data3 = $value;
     }
 
-    Public function getUpdatedByUserAttribute()
+    Public function setNameprefixAttribute($value)
     {
-        if (! empty( $this->editor->name)){
-            return $this->editor->name;
-        } else {
-            return '';
-        }
+        $this->data4 = $value;
+    }
+    Public function setNameSuffixAttribute($value)
+    {
+        $this->data6 = $value;
     }
 
-    Public function getDeletedByUserAttribute()
-    {
-        if (! empty( $this->destroyer->name)){
-            return $this->destroyer->name;
-        } else {
-            return '';
-        }        
-    }
-
+    //--------------------------------------------------------------------------
     public function setData14Attribute($value)
     {
         $attribute_name = "data14";
@@ -218,6 +170,5 @@ Public function setmimetypeAttribute($value)
             $this->attributes[$attribute_name] = $public_destination_path.'/'.$filename;
         }
     }
-
 
 }

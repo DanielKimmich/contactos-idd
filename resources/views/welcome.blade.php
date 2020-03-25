@@ -84,8 +84,15 @@
                 <div class="title m-b-md">
                     Contactos-idd
                 </div>
+
+                <div class="links">
+                    <a href="{{ backpack_url() }}">Login</a>
+                    <a target="_blank" href="https://backpackforlaravel.com/docs">Docs</a>
+                    <a target="_blank" href="https://github.com/laravel-backpack/crud">GitHub</a>
+                    <a target="_blank" href="https://backpackforlaravel.com/contact">Contact</a>
+                </div>
                 
-                <div>
+                <div class="m-t-lg">
                 <p>
                 A partir de la necesidad de la Iglesia de Dios, delegacion Montecarlo, de contar con información de personas, actividades; 
                 surge esta aplicacion web que tiene como finaliad ser una herramienta de apoyo para la gestion y administracion de la Iglesia.<br><br>

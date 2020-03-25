@@ -23,7 +23,7 @@
                             <div >
                                 @if(!empty($entry))
                                 <a class="btn btn-danger {{$uid}}-remove pull-left" related-field-id="{{$k}}" >
-                                    <i class="fa fa-close"></i> 
+                                    <i class="la la-close"></i> 
                                     {{ trans('backpack::crud.delete') }} 
                                     {{ $field['crud']->entity_name }}
                                 </a>
@@ -105,7 +105,7 @@
                     <div class="col-md-12">
                         <div >
                             <a class="btn btn-warning {{$uid}}-remove pull-left" related-field-id="{{$i}}">
-                            <i class="fa fa-close"></i> 
+                            <i class="la la-close"></i> 
                             {{ trans('backpack::crud.delete') }} 
                             {{ $field['crud']->entity_name }}
                         </a>
@@ -175,7 +175,7 @@
  
 
         <a id="{{$uid}}-add" class="btn btn-primary">
-            <i class="fa fa-plus"></i> 
+            <i class="la la-plus"></i> 
             {{ trans('backpack::crud.add') }} {{ $field['crud']->entity_name }}
         </a>
  

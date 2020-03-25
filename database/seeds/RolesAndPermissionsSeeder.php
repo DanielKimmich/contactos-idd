@@ -222,6 +222,8 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'update contactsetting', 'guard_name' => $guard]);
 		Permission::create(['name' => 'delete contactsetting', 'guard_name' => $guard]);
 
+		Permission::create(['name' => 'list contactdebug', 'guard_name' => $guard]);
+
 	//Creacion de Roles
 		$role_AdminContact = Role::create(['name' => 'AdminContact', 'guard_name' => $guard]);
 		$role_SuperContact = Role::create(['name' => 'SuperContact', 'guard_name' => $guard]);
@@ -259,6 +261,95 @@ class RolesAndPermissionsSeeder extends Seeder
 		$user_AB->assignRole('AdminContact');
 		$user_DC->assignRole('SuperContact');
 		$user_LZ->assignRole('UserContact');
+
+//Modulo Blog
+	//Creacion de Permisos
+		Permission::create(['name' => 'list blogpost', 'guard_name' => $guard]);
+		Permission::create(['name' => 'show blogpost', 'guard_name' => $guard]);
+		Permission::create(['name' => 'create blogpost', 'guard_name' => $guard]);
+		Permission::create(['name' => 'update blogpost', 'guard_name' => $guard]);
+		Permission::create(['name' => 'delete blogpost', 'guard_name' => $guard]);
+
+		Permission::create(['name' => 'list blogcomment', 'guard_name' => $guard]);
+		Permission::create(['name' => 'show blogcomment', 'guard_name' => $guard]);
+		Permission::create(['name' => 'create blogcomment', 'guard_name' => $guard]);
+		Permission::create(['name' => 'update blogcomment', 'guard_name' => $guard]);
+		Permission::create(['name' => 'delete blogcomment', 'guard_name' => $guard]);
+
+		Permission::create(['name' => 'list blogcategory', 'guard_name' => $guard]);
+		Permission::create(['name' => 'show blogcategory', 'guard_name' => $guard]);
+		Permission::create(['name' => 'create blogcategory', 'guard_name' => $guard]);
+		Permission::create(['name' => 'update blogcategory', 'guard_name' => $guard]);
+		Permission::create(['name' => 'delete blogcategory', 'guard_name' => $guard]);
+
+		Permission::create(['name' => 'list blogtag', 'guard_name' => $guard]);
+		Permission::create(['name' => 'show blogtag', 'guard_name' => $guard]);
+		Permission::create(['name' => 'create blogtag', 'guard_name' => $guard]);
+		Permission::create(['name' => 'update blogtag', 'guard_name' => $guard]);
+		Permission::create(['name' => 'delete blogtag', 'guard_name' => $guard]);
+
+	//Creacion de Roles
+		$role_AdminBlog = Role::create(['name' => 'AdminBlog', 'guard_name' => $guard]);
+		$role_SuperBlog = Role::create(['name' => 'SuperBlog', 'guard_name' => $guard]);
+		$role_UserBlog = Role::create(['name' => 'UserBlog', 'guard_name' => $guard]);
+
+	//Asignacion del permiso al rol
+		$role_AdminBlog->givePermissionTo('list blogpost');
+		$role_AdminBlog->givePermissionTo('show blogpost');
+		$role_AdminBlog->givePermissionTo('create blogpost');
+		$role_AdminBlog->givePermissionTo('update blogpost');
+		$role_AdminBlog->givePermissionTo('delete blogpost');
+
+		$role_AdminBlog->givePermissionTo('list blogcomment');
+		$role_AdminBlog->givePermissionTo('show blogcomment');
+		$role_AdminBlog->givePermissionTo('create blogcomment');
+		$role_AdminBlog->givePermissionTo('update blogcomment');
+		$role_AdminBlog->givePermissionTo('delete blogcomment');
+
+		$role_AdminBlog->givePermissionTo('list blogcategory');
+		$role_AdminBlog->givePermissionTo('show blogcategory');
+		$role_AdminBlog->givePermissionTo('create blogcategory');
+		$role_AdminBlog->givePermissionTo('update blogcategory');
+		$role_AdminBlog->givePermissionTo('delete blogcategory');
+
+		$role_AdminBlog->givePermissionTo('list blogtag');
+		$role_AdminBlog->givePermissionTo('show blogtag');
+		$role_AdminBlog->givePermissionTo('create blogtag');
+		$role_AdminBlog->givePermissionTo('update blogtag');
+		$role_AdminBlog->givePermissionTo('delete blogtag');
+
+		$role_SuperBlog->givePermissionTo('list blogpost');
+		$role_SuperBlog->givePermissionTo('show blogpost');
+		$role_SuperBlog->givePermissionTo('create blogpost');
+		$role_SuperBlog->givePermissionTo('update blogpost');
+		$role_SuperBlog->givePermissionTo('delete blogpost');
+
+		$role_SuperBlog->givePermissionTo('list blogcomment');
+		$role_SuperBlog->givePermissionTo('show blogcomment');
+		$role_SuperBlog->givePermissionTo('create blogcomment');
+		$role_SuperBlog->givePermissionTo('update blogcomment');
+		$role_SuperBlog->givePermissionTo('delete blogcomment');
+
+		$role_SuperBlog->givePermissionTo('list blogcategory');
+		$role_SuperBlog->givePermissionTo('show blogcategory');
+		$role_SuperBlog->givePermissionTo('list blogtag');
+		$role_SuperBlog->givePermissionTo('show blogtag');
+
+		$role_UserBlog->givePermissionTo('list blogpost');
+		$role_UserBlog->givePermissionTo('show blogpost');
+		$role_UserBlog->givePermissionTo('list blogcomment');
+		$role_UserBlog->givePermissionTo('show blogcomment');
+		$role_UserBlog->givePermissionTo('list blogcategory');
+		$role_UserBlog->givePermissionTo('show blogcategory');
+		$role_UserBlog->givePermissionTo('list blogtag');
+		$role_UserBlog->givePermissionTo('show blogtag');
+
+	//Asignación del rol al usuario
+		$user_DK->assignRole('AdminBlog');
+		$user_DC->assignRole('AdminBlog');
+		$user_AB->assignRole('SuperBlog');
+		$user_LZ->assignRole('UserBlog');
+
 
     }
 }

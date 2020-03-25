@@ -28,7 +28,7 @@ class ContentTypeCrudController extends CrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/contenttype');
         $this->crud->setEntityNameStrings(trans('contact.type.title'), trans('contact.type.titles'));
         $this->setupAvancedOperation();
-    //    $this->setAccessOperation('contenttype');
+        $this->setAccessOperation('contactsetting');
     }
 
     protected function setupListOperation()
@@ -70,8 +70,57 @@ class ContentTypeCrudController extends CrudController
             'type'  => 'text',
             'priority' => 4,
             ]); 
+    }
 
-
+    protected function setupShowOperation()
+    {
+        $this->crud->set('show.setFromDb', false);
+// ------ CRUD COLUMNS
+        $this->crud->addColumn([
+            'name'  => 'id',
+            'label' => 'Id',
+            'type'  => 'number',
+            ]);            
+         $this->crud->addColumn([
+            'name'  => 'mimetype',
+            'label' => trans('contact.type.mimetype'),
+            'type'  => 'text',
+            ]);
+        $this->crud->addColumn([
+            'name'  => 'type',
+            'label' => trans('contact.type.type'),
+            'type'  => 'text',
+            ]);
+        $this->crud->addColumn([
+            'name'  => 'label',
+            'label' => trans('contact.type.label'),
+            'type'  => 'text',
+            ]);
+        $this->crud->addColumn([
+            'name'  => 'order',
+            'label' => trans('contact.type.order'),
+            'type'  => 'text',
+            ]);
+        $this->crud->addColumn([    
+            'name'  => 'created_at',
+            'label' => trans('contact.created_at'),
+            'type'  => 'text',
+            ]);       
+        $this->crud->addColumn([    
+            'name'  => 'updated_at',
+            'label' => trans('contact.updated_at'),
+            'type'  => 'text',
+            ]); 
+        $this->crud->addColumn([    
+            'name'  => 'created_by_user',
+            'label' => trans('contact.created_by'),
+            'type'  => 'text',
+            ]);       
+        $this->crud->addColumn([    
+            'name'  => 'updated_by_user',
+            'label' => trans('contact.updated_by'),
+            'type'  => 'text',
+            ]); 
     }
 
     protected function setupCreateOperation()

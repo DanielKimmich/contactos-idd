@@ -7,6 +7,7 @@ use App\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Illuminate\Support\Facades\Config;
+use Carbon\Carbon;
 use App\Http\Controllers\Admin\Operations\PrintOperation;
 use App\Models\Contact;
 use App\Models\ContactData;
@@ -86,11 +87,19 @@ class ContactCrudController extends CrudController
             'type'  => 'text',
             'priority' => 1,
             ]); 
+         $this->crud->addColumn([
+            'name'  => 'events.birthday',
+            'label' =>  'birthday',
+            'type'  => 'array',
+            'priority' => 1,
+//           'orderable' => true,            
+            ]); 
         $this->crud->addColumn([
             'name'  => 'events.age',
             'label' =>  trans('contact.event.age'),
             'type'  => 'text',
             'priority' => 2,
+//            'orderable' => true,
             ]);       
          $this->crud->addColumn([
             'name'  => 'documents.document_number',
@@ -130,7 +139,7 @@ class ContactCrudController extends CrudController
         $this->crud->addColumn([
             'name'  => 'email1',
             'label' => trans('contact.email.email1'),
-            'type'  => 'text',
+            'type'  => 'email',
             'priority' => 3,
             'limit' => 100,
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
@@ -603,13 +612,43 @@ protected function setupShowOperation()
             $this->getMonth(),
             function ($value) { // if the filter is active
                 $this->crud->addClause('whereHas', 'events', function ($query) use ($value) {
-                $query->whereMonth('data1', $value);
+                $query->whereNotNull('data1')->whereNull('data4')->where(\DB::raw("substr(data1, 6, 2)"),$value);
                 });
+            });
+
+        //Age Range
+        $this->crud->addFilter([
+            'name' => 'age',
+            'label'=> 'Range Age',
+            'type' => 'range',
+            'label_from' => 'min value',
+            'label_to' => 'max value'
+            ],
+            false,
+            function($value) { // if the filter is active
+                $range = json_decode($value);
+                $today = Carbon::today();
+                //MySQL
+                if ($range->from) {
+                    $this->crud->addClause('whereHas', 'events', function ($query) use ($range) {
+                        $query->whereNotNull('data1')->whereNull('data4')
+    ->where(\DB::raw("TIMESTAMPDIFF(year,STR_TO_DATE(data1,'%Y-%m-%d'),curdate())"), '>=', $range->from);
+                    });
+                } 
+
+                if ($range->to) {
+                    $this->crud->addClause('whereHas', 'events', function ($query) use ($range, $today) {
+                        $query->whereNotNull('data1')->whereNull('data4')
+                        ->where(\DB::raw("TIMESTAMPDIFF(year,STR_TO_DATE(data1,'%Y-%m-%d'),curdate())"), '<=', $range->to);
+                    });
+                }
+
             });
 
         // daterange filter
         $this->setFilterDateUpdate();
     }
+
 
 
     protected function setupUpdateOperation()
@@ -675,6 +714,7 @@ Mutator is not called, the edit request finishes successfully
         return $this->traitUpdate();
     }
 */
+/*
     protected function updateDataFields()
     {
         $appendFields = [];
@@ -693,7 +733,7 @@ Mutator is not called, the edit request finishes successfully
       //  $this->crud->model->events->save();
     }
 
-
+*/
 
 //public function destroy($id)
 //{
@@ -717,7 +757,7 @@ protected function storeOrUpdateMacronutrients(ContactRequest $request, Product 
     $macronutrients->save();
 }
 */
-
+/*
 protected function destroyMacronutrients($productId)
 {
     $macronutrients = Macronutrients::findOrFail($productId);
@@ -743,6 +783,7 @@ protected function destroyMacronutrients($productId)
      *
      * @return \Illuminate\Http\JsonResponse
      */
+/*
     public function addClientPhone(ContactRequest $request, Contact $user, ContactData $phone)
     {
         if ($clientId = $request->input('phone')['client_id']) {
@@ -763,6 +804,7 @@ protected function destroyMacronutrients($productId)
      *
      * @return \Illuminate\Http\JsonResponse
      */
+/*
     public function deleteClientPhone(ContactRequest $request, ContactData $phone)
     {
         if ($id = $request->input('id')) {
@@ -773,7 +815,7 @@ protected function destroyMacronutrients($productId)
 
         return response()->json(['status' => 'error', 'messages' => [trans('phone.phone_id_is_required')]]);
     }
-
+*/
     public function getTypeSexes()
     {   
         $types = ContentType::all();
@@ -858,18 +900,21 @@ protected function destroyMacronutrients($productId)
     public function getMonth()
     {
         $months = [
-            '01' => 'January',
-            '02' => 'February',
-            '03' => 'March',
-            '04' => 'April',
-            '05' => 'May',
-            '06' => 'June',
-            '07' => 'July',
-            '08' => 'August',
-            '09' => 'September',
-            '10' => 'October',
-            '11' => 'November',
-            '12' => 'December'
+            '0'  => 'Hoy',
+            '-1' => 'Ayer',
+            '+7' => 'Próximo 7 días',
+            '01'  => 'Enero',
+            '02'  => 'Febrero',
+            '03'  => 'Marzo',
+            '04'  => 'Abril',
+            '05'  => 'Mayo',
+            '06'  => 'Junio',
+            '07'  => 'Julio',
+            '08'  => 'Agosto',
+            '09'  => 'Septiembre',
+            '10' => 'Octubre',
+            '11' => 'Noviembre',
+            '12' => 'Deciembre',
         ];
         return $months;
     }

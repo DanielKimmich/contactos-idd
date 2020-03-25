@@ -25,23 +25,10 @@ class ContactData extends Model
     // protected $hidden = [];
     // protected $dates = [];
     protected $fillable = [
-        'contact_id', 
-        'mimetype', 
-        'data1', 
-        'data2', 
-        'data3',
-        'data4', 
-        'data5', 
-        'data6',
-        'data7', 
-        'data8', 
-        'data9',
-        'data10', 
-        'data11', 
-        'data12',
-        'data13',
-        'data14', 
-        'data15',
+        'contact_id', 'mimetype', 
+        'data1', 'data2', 'data3', 'data4', 'data5', 
+        'data6', 'data7', 'data8', 'data9', 'data10', 
+        'data11', 'data12', 'data13', 'data14', 'data15',
     ];
     protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
 /*
@@ -81,6 +68,10 @@ class ContactData extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public function openGoogle($crud = false)
+    {
+        return '<a class="btn btn-sm btn-link" target="_blank" href="http://google.com?q='.urlencode($this->text).'" data-toggle="tooltip" title="Just a demo custom button."><i class="fa fa-search"></i> Google it</a>';
+    }
 
     /*
     |--------------------------------------------------------------------------

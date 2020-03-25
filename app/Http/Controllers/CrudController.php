@@ -18,6 +18,7 @@ abstract class CrudController extends CrudControllerBackpack
         if (auth()->user()->can('list '.$ruta ) ) {
             $this->crud->allowAccess('list');
             $this->crud->enableExportButtons(); // ------ DATATABLE EXPORT BUTTONS
+//            $this->crud->modifyButton('exportButtons', ['stack' => 'top']);
         } else {
             $this->crud->denyAccess('list');
         }
@@ -62,7 +63,7 @@ abstract class CrudController extends CrudControllerBackpack
             'type'  => 'text',
             'tab'   => trans('common.info'),
             'attributes' => ['readonly'  => 'readonly'],
-            'prefix'   => "<i class='fa fa-key'></i>", 
+            'prefix'   => "<i class='la la-key'></i>", 
             ]); 
          $this->crud->addField([ // Text
             'name'  => 'updated_at',
@@ -71,7 +72,7 @@ abstract class CrudController extends CrudControllerBackpack
             'tab'   => trans('common.info'),
             'wrapperAttributes' => ['class' => 'form-group col-md-6'],
             'attributes' => ['disabled'  => 'disabled'],
-            'prefix'   => "<i class='fa fa-calendar-check-o'></i>", 
+            'prefix'   => "<i class='la la-calendar-check-o'></i>", 
             ]);     
          $this->crud->addField([ // Text
             'name'  => 'updated_by_user',
@@ -80,7 +81,7 @@ abstract class CrudController extends CrudControllerBackpack
             'tab'   => trans('common.info'),
             'wrapperAttributes' => ['class' => 'form-group col-md-6'],
             'attributes' => ['disabled'  => 'disabled'],
-            'prefix'   => "<i class='fa fa-user-circle-o'></i>", 
+            'prefix'   => "<i class='la la-user-circle-o'></i>", 
             ]);     
          $this->crud->addField([ // Text
             'name'  => 'created_at',
@@ -89,7 +90,7 @@ abstract class CrudController extends CrudControllerBackpack
             'tab'   => trans('common.info'),
             'wrapperAttributes' => ['class' => 'form-group col-md-6'],
             'attributes' => ['disabled'  => 'disabled'],
-            'prefix'   => "<i class='fa fa-calendar-plus-o'></i>",
+            'prefix'   => "<i class='la la-calendar-plus-o'></i>",
             ]);   
          $this->crud->addField([ // Text
             'name'  => 'created_by_user',
@@ -98,7 +99,7 @@ abstract class CrudController extends CrudControllerBackpack
             'tab'   => trans('common.info'),
             'wrapperAttributes' => ['class' => 'form-group col-md-6'],
             'attributes' => ['disabled'  => 'disabled'],
-            'prefix'   => "<i class='fa fa-user-plus'></i>",
+            'prefix'   => "<i class='la la-user-plus'></i>",
             ]);   
         }
     }
@@ -106,7 +107,7 @@ abstract class CrudController extends CrudControllerBackpack
     protected function setFilterDateUpdate()
     {   // daterange filter
         $this->crud->addFilter([
-            'name'  => 'from_to',
+            'name'  => 'updated_from_to',
             'label' => trans('common.updated_range'),
             'type'  => 'date_range',
             ],
@@ -123,7 +124,7 @@ abstract class CrudController extends CrudControllerBackpack
         $fields = $this->crud->getCurrentFields();
         foreach($fields as $field){
             if($field['type'] === 'relationFields'){
-                foreach($this->request->{$field['name']} ?? [] as $relationFieldData){
+                foreach($this->crud->getRequest()->{$field['name']} ?? [] as $relationFieldData){
                     if(!empty($relationFieldData['id'])){
                         if(!empty($relationFieldData[$field['foreignKey']])){
                         //update existing                          
@@ -149,4 +150,5 @@ abstract class CrudController extends CrudControllerBackpack
         }
     }
 
+    
 }

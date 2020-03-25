@@ -155,8 +155,10 @@ protected function setupShowOperation()
      */
     public function store()
     {
-        $this->crud->request = $this->crud->validateRequest();
-        $this->crud->request = $this->handlePasswordInput($this->crud->request);
+//        $this->crud->request = $this->crud->validateRequest();
+//        $this->crud->request = $this->handlePasswordInput($this->crud->request);
+        $this->crud->setRequest($this->crud->validateRequest());
+        $this->crud->setRequest($this->handlePasswordInput($this->crud->getRequest()));
         $this->crud->unsetValidation(); // validation has already been run
 
         return $this->traitStore();
@@ -169,8 +171,10 @@ protected function setupShowOperation()
      */
     public function update()
     {
-        $this->crud->request = $this->crud->validateRequest();
-        $this->crud->request = $this->handlePasswordInput($this->crud->request);
+//        $this->crud->request = $this->crud->validateRequest();
+//        $this->crud->request = $this->handlePasswordInput($this->crud->request);
+        $this->crud->setRequest($this->crud->validateRequest());
+        $this->crud->setRequest($this->handlePasswordInput($this->crud->getRequest()));
         $this->crud->unsetValidation(); // validation has already been run
 
         return $this->traitUpdate();

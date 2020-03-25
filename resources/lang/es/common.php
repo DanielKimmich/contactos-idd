@@ -37,10 +37,11 @@ return [
 
 //MENU
   	'menu'    => [
-		'contact'          => 'Datos de Contactos',
-		'world'            => 'Región Geográfica',
-		'authentication'   => 'Autenticación',
-		'manager'          => 'Administración',
-		'report'           => 'Reportes',
+		'contact'          	=> 'Contactos',
+		'blog'          	=> 'Historias',
+		'world'            	=> 'Región Geográfica',
+		'authentication'   	=> 'Autenticación',
+		'manager'          	=> 'Administración',
+		'report'           	=> 'Reportes',
 	],
 ];

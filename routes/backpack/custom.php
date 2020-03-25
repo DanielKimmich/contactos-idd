@@ -11,13 +11,35 @@ Route::group([
     'middleware' => ['web', config('backpack.base.middleware_key', 'admin')],
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
+
+//Contact
+    Route::crud('contact', 'ContactCrudController');
+    Route::crud('contactdata', 'ContactDataCrudController');
+    Route::crud('contenttype', 'ContentTypeCrudController');    
+
+    Route::get('contactdata/import', 'ContactDataCrudController@import');
+
+//Blog 
+    Route::crud('blogpost', 'BlogPostCrudController');
+    Route::crud('blogcategory', 'BlogCategoryCrudController');
+    Route::crud('blogtag', 'BlogTagCrudController');
+    Route::crud('blogcomment', 'BlogCommentCrudController');
+
 //World
     Route::crud('worldcontinent', 'WorldContinentCrudController');
     Route::crud('worldcountry', 'WorldCountryCrudController');
     Route::crud('worlddivision', 'WorldDivisionCrudController');
     Route::crud('worldcity', 'WorldCityCrudController');
 
+//Authentication
+    Route::crud('permission', 'PermissionCrudController');
+    Route::crud('role', 'RoleCrudController');
+    Route::crud('user', 'UserCrudController');    
+
+//Report
+    Route::crud('authchecker', 'AuthCheckerCrudController');
     Route::crud('migration', 'MigrationCrudController');
+
 
     Route::get('searchdivision/{id}', 'Api\WorldSearchController@searchdivision');
  //   Route::get('searchcity', 'Api\WorldSearchController@searchcity');
@@ -29,16 +51,5 @@ Route::group([
 
   //  Route::get('admin/api/division/{id}', '\Api\DivisionController@show');
 
-//Authentication
-    Route::crud('permission', 'PermissionCrudController');
-    Route::crud('role', 'RoleCrudController');
-    Route::crud('user', 'UserCrudController');    
-    Route::crud('contact', 'ContactCrudController');
-    Route::crud('contactdata', 'ContactDataCrudController');
-    Route::crud('contenttype', 'ContentTypeCrudController');
 
-
-
-    
-    Route::crud('authchecker', 'AuthCheckerCrudController');
 }); // this should be the absolute last line of this file

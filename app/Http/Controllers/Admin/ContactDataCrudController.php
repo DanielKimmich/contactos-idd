@@ -34,6 +34,9 @@ class ContactDataCrudController extends CrudController
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         $this->crud->setFromDb();
         $this->crud->disableResponsiveTable();
+    $this->crud->addButtonFromView('top', 'import', 'import', 'end');  
+    $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');  
+    $this->crud->enableExportButtons(); // ------ DATATABLE EXPORT BUTTONS
      //   $this->crud->addColumns(['id', 'mimetype', 'event_date', 'event_type', 'event_label'] );
     }
 
@@ -43,6 +46,7 @@ class ContactDataCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields
         $this->crud->setFromDb();
+
 
 /*
         $this->crud->addField([
@@ -68,8 +72,10 @@ class ContactDataCrudController extends CrudController
             'type'  => 'text',
             'tab'   => trans('contact.data'),
             'attributes' => ['id' => 'event_type'],
-            ]);     
-*/
+            ]);   */
+    $this->crud->addButtonFromView('top', 'import', 'import', 'end');  
+    $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');   
+
     }
 
     protected function setupUpdateOperation()
@@ -97,4 +103,13 @@ class ContactDataCrudController extends CrudController
         // daterange filter
         $this->setFilterDateUpdate();
     }
+
+
+    public function import() 
+    {
+    // whatever you decide to do
+        \Alert::add('info', 'This is a blue bubble.');
+    }
+
+
 }

@@ -26,7 +26,7 @@ class ContactEvent extends Model
     // protected $dates = [];
     
     protected $fillable = ['contact_id', 'mimetype', 'event_date', 'event_type', 'event_label'];
-    protected $appends = ['age','created_by_user', 'updated_by_user', 'deleted_by_user'];
+    protected $appends = ['age', 'birthday', 'created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'Event'];
 
     /*
@@ -34,7 +34,22 @@ class ContactEvent extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-
+    Public function getAgeContact()
+    {
+        $age = '';
+        $born = $this->data1;
+        $dead = $this->data4;
+        if (!empty($born)) {
+            $birth = Carbon::createFromFormat('Y-m-d',$born);
+            if (empty($dead)) {
+                $today = Carbon::now();
+            } else {
+                $today = Carbon::createFromFormat('Y-m-d',$dead); 
+            }
+            $age = $today->diff($birth)->format('%y');
+        } 
+        return $age;
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
@@ -72,21 +87,51 @@ class ContactEvent extends Model
     }
 
     //--------------------------------------------------------------------------
+    Public function getBirthdayAttribute()
+    {
+        $options = [];
+        $born = $this->data1;
+        $dead = $this->data4;
+        if (!empty($born) and empty($dead)) {
+            $birth = Carbon::createFromFormat('Y-m-d',$born);
+            $options[] = $birth->format('n');
+            $toDay = $birth->format("d");
+            $toMonth = $birth->format("m");
+            $toYear = Carbon::today()->format("Y");
+            $today = Carbon::today()->format('Ymd');
+            $yesterday = Carbon::yesterday()->format('Ymd');
+            $date = Carbon::createFromDate($toYear, $toMonth, $toDay)->format('Ymd');
+            $today7 = Carbon::today()->addDays(7)->format('Ymd');
+            if ($date == $today) {
+                $options[] = '0';
+            } 
+            if ($date == $yesterday) {
+                $options[] = '-1';
+            } 
+            if (($date > $today) and ($date <= $today7)) {
+                $options[] = '+7';
+            } 
+        }
+        return $options;
+    }
+
+//User::whereNotNull('birth_date') ->where('birth_date', '<=', $endDate) ->whereIn(DB::raw("to_char(birth_date, 'MMDD')"), Carbon::range($startDate, $endDate)->map(function ($date) { return $date->format('md'); }))->get(); 
+
     Public function getAgeAttribute()
     {
-        $birth = $this->data1;
+        $age = '';
+        $born = $this->data1;
         $dead = $this->data4;
-        if (!empty($birth)) {
-            $born = Carbon::createFromFormat('Y-m-d',$birth);
+        if (!empty($born)) {
+            $birth = Carbon::createFromFormat('Y-m-d',$born);
             if (empty($dead)) {
-                $today = Carbon::now();
+                $today = Carbon::today(); //->setTime(00,00,00)
             } else {
                 $today = Carbon::createFromFormat('Y-m-d',$dead); 
             }
-            return $today->diff($born)->format('%y');
-        } else {
-            return ''; 
-        }
+            $age = $today->diff($birth)->format('%y');
+        } 
+        return $age;
     }
 
     //--------------------------------------------------------------------------

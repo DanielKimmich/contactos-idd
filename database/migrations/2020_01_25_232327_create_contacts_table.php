@@ -96,7 +96,9 @@ class CreateContactsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('contacts');
-         Schema::dropIfExists('row_contacts');
-          Schema::dropIfExists('data_contacts');
+        Schema::dropIfExists('row_contacts');
+        Schema::dropIfExists('data_contacts');
+        Schema::dropIfExists('content_alias');
+        Schema::dropIfExists('content_types');       
     }
 }

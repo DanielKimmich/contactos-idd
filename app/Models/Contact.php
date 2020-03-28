@@ -82,13 +82,20 @@ class Contact extends Model
     {
         return $this->hasMany('App\Models\ContactAddress','contact_id', 'id');
     }
-
+/*
     public function sex()
     {
       //  return $this->belongsTo('App\Models\ContentType', 'sexo', 'id')->where('mimetype', 'Sexo');
-        return $this->belongsTo('App\Models\ContentType', 'sex_id', 'type')->where('mimetype', 'Sex');
+        $id = ContentType::where('type','Sex')->where('depth', 1)->orWhereNull('depth')->first()->id;
+        return $this->belongsTo('App\Models\ContentType', 'sex_id', 'type')->where('parent_id', $id);
     }
 
+    public function statuses()
+    {
+        $id = ContentType::where('type','Status')->where('depth', 1)->orWhereNull('depth')->first()->id;
+        return $this->belongsTo('App\Models\ContentType', 'status', 'type')->where('parent_id', $id);
+    }
+*/
     public function nationality()
     {
         return $this->belongsTo('App\Models\WorldCountry', 'nationality_id', 'code_alpha3');

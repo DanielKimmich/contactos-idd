@@ -178,21 +178,21 @@ class BlogPostCrudController extends CrudController
             'options'   => (function ($query) {
                 return $query->orderBy('display_name', 'ASC')->get(); }), 
             ]);
-/*
+
         $this->crud->addField([    // SELECT
             'name'  => 'category_id',
             'label' => trans('blog.post.category'),
             'type'  => 'select2',
             'tab'   => trans('blog.data'),
             'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing fields 
-            'entity'    => 'blogcategory',
+            'entity'    => 'category',
             'attribute' => 'name',
             'model'     => 'App\Models\BlogCategory',
             'options'   => (function ($query) {
                 return $query->orderBy('name', 'ASC')->get(); }), 
             ]);
-*/
 
+/*
         $this->crud->addField([    // Relationship
             'name'      => 'category_id',
             'label'     => 'Relationship (no AJAX) <span class="badge badge-warning">New in 4.1</span>',
@@ -214,7 +214,7 @@ class BlogPostCrudController extends CrudController
                 'create_route' => route('blogcategory-inline-create-save'), // InlineCreate::storeInlineCreate()
                 ],              */
 
-        ]);
+ //       ]);
 
 
 
@@ -287,7 +287,7 @@ class BlogPostCrudController extends CrudController
     {
     // ------ ADVANCED QUERIES  
         $this->crud->orderBy('updated_at', 'desc');
-/*
+
     // ------ CRUD FILTERS
         //Contact filter
         $this->crud->addFilter([
@@ -349,7 +349,7 @@ class BlogPostCrudController extends CrudController
 
         // daterange filter
         $this->setFilterDateUpdate();
-*/
+
     }
     
     public function clone($id)

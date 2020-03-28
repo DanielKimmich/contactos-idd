@@ -75,30 +75,32 @@ class ContactCrudController extends CrudController
         $this->crud->addColumn([
             'name'  => 'sex_id',
             'label' => trans('contact.sex'),
-            'type'  => 'select',
-            'priority' => 4,
-            'entity' => 'sex', 
-            'attribute' => 'label',
+        //    'type'  => 'select',
+            'type'  => 'select_from_array',
+            'priority'  => 4,
+            'options'   => ContentType::getTypeSexes(),
+//            'entity'    => 'sex', 
+//            'attribute' => 'label',
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
             ]); 
          $this->crud->addColumn([
             'name'  => 'events.event_date',
             'label' =>  trans('contact.event.birthday'),
             'type'  => 'text',
-            'priority' => 1,
+            'priority'  => 1,
             ]); 
-         $this->crud->addColumn([
+ /*        $this->crud->addColumn([
             'name'  => 'events.birthday',
             'label' =>  'birthday',
             'type'  => 'array',
-            'priority' => 1,
+            'priority'  => 1,
 //           'orderable' => true,            
-            ]); 
+            ]);     */
         $this->crud->addColumn([
             'name'  => 'events.age',
             'label' =>  trans('contact.event.age'),
             'type'  => 'text',
-            'priority' => 2,
+            'priority'  => 2,
 //            'orderable' => true,
             ]);       
          $this->crud->addColumn([
@@ -112,8 +114,8 @@ class ContactCrudController extends CrudController
             'name'  => 'nationality_id',
             'label' => trans('contact.nationality'),
             'type'  => 'select',
-            'priority' => 4,
-            'entity' => 'nationality', 
+            'priority'  => 4,
+            'entity'    => 'nationality', 
             'attribute' => 'name',
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
             ]);  
@@ -140,23 +142,24 @@ class ContactCrudController extends CrudController
             'name'  => 'email1',
             'label' => trans('contact.email.email1'),
             'type'  => 'email',
-            'priority' => 3,
-            'limit' => 100,
+            'priority'  => 3,
+            'limit'     => 100,
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
             ]);
         $this->crud->addColumn([
             'name'  => 'address1',
             'label' => trans('contact.address.address1'),
             'type'  => 'text',
-            'priority' => 3,
-            'limit' => 150,
+            'priority'  => 3,
+            'limit'     => 150,
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
             ]);
         $this->crud->addColumn([
             'name'  => 'status',
             'label' => trans('contact.status'),
-            'type'  => 'text',
-            'priority' => 3,
+            'type'  => 'select_from_array',
+            'priority'  => 3,
+            'options'   => ContentType::getTypeStatus(),
             ]);
         $this->crud->addColumn([    
             'name'  => 'updated_at',
@@ -192,9 +195,8 @@ protected function setupShowOperation()
         $this->crud->addColumn([
             'name'  => 'sex_id',
             'label' => trans('contact.sex'),
-            'type'  => 'select',
-            'entity' => 'sex', 
-            'attribute' => 'label',
+            'type'  => 'select_from_array',
+            'options'   => ContentType::getTypeSexes(),
             ]);
         $this->crud->addColumn([
             'name'  => 'nationality_id',
@@ -248,7 +250,8 @@ protected function setupShowOperation()
         $this->crud->addColumn([
             'name'  => 'status',
             'label' => trans('contact.status'),
-            'type'  => 'text',
+            'type'  => 'select_from_array',
+            'options'   => ContentType::getTypeStatus(),
             ]);
         $this->crud->addColumn([    
             'name'  => 'created_at',
@@ -271,18 +274,19 @@ protected function setupShowOperation()
             'name'  => 'display_name',
             'label' => trans('contact.display_name'),
             'type'  => 'text',
-            'prefix'   => '<i class="fa fa-id-card-o"></i>',
+            'wrapperAttributes' => ['class' => 'form-group col-md-8'],
+            'prefix'     => '<i class="la la-id-card-o"></i>',
             'attributes' => ['id' => 'display_name', 'readonly' => 'readonly'],
             ]);  
         $this->crud->addField([ // Text
             'name'  => 'status',
             'label' => trans('contact.status'),
-            'type'  => 'hidden',
-            'value' => 'Active',
-        //    'fake'  => true,
-        //    'store_in' => 'status',
+            'type'  => 'select_from_array',
+            'wrapperAttributes' => ['class' => 'form-group col-md-4'],
+            'options'    => ContentType::getTypeStatus(),
+            'default'    => 'START',
+//            'value' => 'Active',
             ]);
-
         $this->crud->addField([
             'name'  => 'update_fields',
             'type'  => 'update_fields_contact',
@@ -326,16 +330,17 @@ protected function setupShowOperation()
             ]);
 
     //DATA
-        $this->crud->addField([ // Text
+        $this->crud->addField([ // radio
             'name'  => 'sex_id',
             'label' => trans('contact.sex'),
-            'type'  => 'radio',
+            'type'  => 'radio',     //'radio',
             'tab'   => trans('contact.data'),
             'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
             'inline'      => true,      
-            'options'     => $this->getTypeSexes(),
-            //'options'     => [ 'F' => "Femenino", 'M' => "Masculino"],
-           ]);
+            'options'     => ContentType::getTypeSexes(),
+//            'options'     => $this->getTypeSexes(),
+ //           'options'     => ['FEMALE' => 'Femenino', 'MALE' => 'Masculino'],
+           ]);      
         $this->crud->addField([
             'name'  => 'event_date',
             'label' => trans('contact.event.birthday'),            
@@ -411,7 +416,7 @@ protected function setupShowOperation()
                     'type' => 'select_from_array',
                     'wrapperAttributes' => ['class' => 'form-group col-md-6'], 
                     'entity' => 'phones',
-                    'options'     => $this->getTypePhones(),
+                    'options'     => ContentType::getTypePhones(),
                     'allows_null' => true,
                 ],
                 [   'name' => 'data3',
@@ -448,7 +453,7 @@ protected function setupShowOperation()
                     'type' => 'select_from_array',
                     'wrapperAttributes' => ['class' => 'form-group col-md-6'],
                     'entity' => 'emails',
-                    'options'     => $this->getTypeEmails(),
+                    'options'     => ContentType::getTypeEmails(),
                     'allows_null' => true,
                 ],
                 [   'name' => 'data3',
@@ -483,7 +488,7 @@ protected function setupShowOperation()
                 [   'name' => 'data1',
                     'label' => trans('contact.address.address'),
                     'type' => 'text',
-                    'prefix'   => '<i class="fa fa-map-marker"></i>',
+                    'prefix'   => '<i class="la la-map-marker"></i>',
                     'attributes' => ['readonly' => 'readonly'],
                     'entity' => 'addresses',
                 ],
@@ -492,7 +497,7 @@ protected function setupShowOperation()
                     'type' => 'select_from_array',
                     'wrapperAttributes' => ['class' => 'form-group col-md-6'], 
                     'entity' => 'addresses',
-                    'options'     => $this->getTypeAddresses(),
+                    'options'     => ContentType::getTypeAddresses(),
                     'allows_null' => true,
                 ],
                 [   'name' => 'data3',
@@ -816,6 +821,7 @@ protected function destroyMacronutrients($productId)
         return response()->json(['status' => 'error', 'messages' => [trans('phone.phone_id_is_required')]]);
     }
 */
+ /*
     public function getTypeSexes()
     {   
         $types = ContentType::all();
@@ -843,7 +849,7 @@ protected function destroyMacronutrients($productId)
         $typePhones = $types->where('mimetype', 'Address')->sortBy('order')->pluck('label','type');
         return $typePhones->toArray();
     }
-
+*/
     public function getNations()
     {   
         $options = WorldCountry::all();

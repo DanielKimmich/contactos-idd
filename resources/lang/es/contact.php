@@ -18,7 +18,7 @@ return [
     'info'  		=> 'Información',
 //Fields
 	'display_name'  => 'Nombre de Contacto',
-	'sex'			=> 'Sexo',
+	'sex'			=> 'Genero',
 	'nationality'	=> 'Nacionalidad',
 	'status'		=> 'Estado',
 	'is_required'   => 'Contact is required',
@@ -116,10 +116,9 @@ return [
 		'is_deleted'        => 'La relación fue eliminado',
 		'is_created'        => 'la relación fue creado',
 	//Fields					
-        'name' => 'Nombre',
-        'type'    => 'Tipo',
-        'label'  => 'Etiqueta',
-   
+        'name' 		=> 'Nombre',
+        'type'  	=> 'Tipo',
+        'label'  	=> 'Etiqueta',
     ],
 
 //TYPE
@@ -134,9 +133,11 @@ return [
 		'is_deleted'        => 'El tipo fue eliminado',
 		'is_created'        => 'El tipo fue creado',
 	//Fields				
-		'mimetype'          => 'Clase',
-		'type'            	=> 'Tipo',
-		'label'           	=> 'Etiqueta',
+		'mimetype'          => 'Origen',
+		'type'            	=> 'Código',
+		'label'           	=> 'Nombre',
 		'order'      		=> 'Orden',
+   		'parent'			=> 'Categoria',
+   		'firstlevel'		=> 'Principal',
     ],    
 ];

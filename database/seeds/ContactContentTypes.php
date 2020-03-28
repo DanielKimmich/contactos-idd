@@ -12,230 +12,393 @@ class ContactContentTypes extends Seeder
     public function run()
     {
         //
-        \DB::table('content_types')->delete();
+        \DB::table('content_types')->truncate();
         
         \DB::table('content_types')->insert(array (
             0 => 
             array (
-                'mimetype' => 'Phone',
-                'type' => 'TYPE_HOME',
-                'order' => '1',
-                'label' => 'Casa',
+                'type'      => 'Status',
+                'label'     => 'Estado',
+                'parent_id' => '0',
+                'depth'     => '1',
+                'mimetype' => 'system',
             ),
             1 => 
             array (
-                'mimetype' => 'Phone',
-                'type' => 'TYPE_MOBILE',
-                'order' => '2',
-                'label' => 'Movil',
+                'type'      => 'Event',
+                'label'     => 'Evento',
+                'parent_id' => '0',
+                'depth'     => '1',
+                'mimetype' => 'system',
             ),
             2 => 
             array (
-                'mimetype' => 'Phone',
-                'type' => 'TYPE_WORK',
-                'order' => '3',
-                'label' => 'Trabajo',
+                'type'      => 'Document',
+                'label'     => 'Documento',
+                'parent_id' => '0',
+                'depth'     => '1',
+                'mimetype' => 'system',
             ),
-            3 => 
+            3 =>            
             array (
-                'mimetype' => 'Phone',
-                'type' => 'TYPE_FAX_WORK',
-                'order' => '4',
-                'label' => 'Fax_Trabajo',
+                'type'      => 'Sex',
+                'label'     => 'Sexo',
+                'parent_id' => '0',
+                'depth'     => '1',
+                'mimetype' => 'system',
             ),
-            4 => 
+            4 =>            
             array (
-                'mimetype' => 'Phone',
-                'type' => 'TYPE_OTHER',
-                'order' => '9',
-                'label' => 'Otro',
+                'type'      => 'Phone',
+                'label'     => 'Teléfono',
+                'parent_id' => '0',
+                'depth'     => '1',
+                'mimetype' => 'system',
             ),
-            5 => 
+            5 =>            
             array (
-                'mimetype' => 'Email',
-                'type' => 'TYPE_HOME',
-                'order' => '1',
-                'label' => 'Personal',
-            ),     
-            6 => 
+                'type'      => 'Email',
+                'label'     => 'Correo electrónico',
+                'parent_id' => '0',
+                'depth'     => '1',
+                'mimetype' => 'system',
+            ),
+            6 =>            
             array (
-                'mimetype' => 'Email',
-                'type' => 'TYPE_WORK',
-                'order' => '2',
-                'label' => 'Trabajo',
-            ),                 
-            7 => 
+                'type'      => 'Address',
+                'label'     => 'Dirección',
+                'parent_id' => '0',
+                'depth'     => '1',
+                'mimetype' => 'system',
+            ),
+            7 =>            
             array (
-                'mimetype' => 'Email',
-                'type' => 'TYPE_OTHER',
-                'order' => '9',
-                'label' => 'Otro',
-            ),               
-            8 => 
+                'type'      => 'Organization',
+                'label'     => 'Organización',
+                'parent_id' => '0',
+                'depth'     => '1',
+                'mimetype' => 'system',
+            ),
+            8 =>            
             array (
-                'mimetype' => 'Email',
-                'type' => 'TYPE_MOBILE',
-                'order' => '3',
-                'label' => 'Movil',
-            ),     
-            9 => 
+                'type'      => 'Relation',
+                'label'     => 'Relación',
+                'parent_id' => '0',
+                'depth'     => '1',
+                'mimetype' => 'system',
+            ),
+            9 =>            
             array (
-                'mimetype' => 'Address',
-                'type' => 'TYPE_HOME',
-                'order' => '1',
-                'label' => 'Casa',
-            ),     
+                'type'      => 'WebSite',
+                'label'     => 'Sitios web',
+                'parent_id' => '0',
+                'depth'     => '1',
+                'mimetype' => 'system',
+            ),
             10 => 
             array (
-                'mimetype' => 'Address',
-                'type' => 'TYPE_WORK',
-                'order' => '2',
-                'label' => 'Trabajo',
-            ),                 
+                'type' => 'TYPE_HOME',
+                'label' => 'Casa',
+                'parent_id' => '5',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
             11 => 
             array (
-                'mimetype' => 'Address',
-                'type' => 'TYPE_OTHER',
-                'order' => '9',
-                'label' => 'Otro',
-            ),               
+                'type' => 'TYPE_MOBILE',
+                'label' => 'Movil',
+                'parent_id' => '5',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
             12 => 
             array (
-                'mimetype' => 'Relation',
-                'type' => 'TYPE_FATHER',
-                'order' => '1',
-                'label' => 'Padre',
+                'type' => 'TYPE_WORK',
+                'label' => 'Trabajo',
+                'parent_id' => '5',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),
             13 => 
             array (
-                'mimetype' => 'Relation',
-                'type' => 'TYPE_MOTHER',
-                'order' => '2',
-                'label' => 'Madre',
+                'type' => 'TYPE_FAX_WORK',
+                'label' => 'Fax_Trabajo',
+                'parent_id' => '5',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),
             14 => 
             array (
-                'mimetype' => 'Relation',
-                'type' => 'TYPE_SPOUSE',
-                'order' => '3',
-                'label' => 'Conyugue',
+                'type' => 'TYPE_OTHER',
+                'label' => 'Otro',
+                'parent_id' => '5',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),
             15 => 
             array (
-                'mimetype' => 'Relation',
-                'type' => 'TTYPE_CHILD',
-                'order' => '4',
-                'label' => 'Hijo/a',
+                'type' => 'TYPE_HOME',
+                'label' => 'Personal',
+                'parent_id' => '6',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),     
             16 => 
             array (
-                'mimetype' => 'Relation',
-                'type' => 'TYPE_DOMESTIC_PARTNER',
-                'order' => '5',
-                'label' => 'Hijastro/a',
+                'type' => 'TYPE_WORK',
+                'label' => 'Trabajo',
+                'parent_id' => '6',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),                 
             17 => 
             array (
-                'mimetype' => 'Relation',
-                'type' => 'TYPE_BROTHER',
-                'order' => '6',
-                'label' => 'Hermano',
+                'type' => 'TYPE_OTHER',
+                'label' => 'Otro',
+                'parent_id' => '6',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),               
             18 => 
             array (
-                'mimetype' => 'Relation',
-                'type' => 'TYPE_SISTER',
-                'order' => '7',
-                'label' => 'Hermana',
+                'type' => 'TYPE_MOBILE',
+                'label' => 'Movil',
+                'parent_id' => '6',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),     
             19 => 
             array (
-                'mimetype' => 'Relation',
-                'type' => 'TYPE_RELATIVE',
-                'order' => '8',
-                'label' => 'Otro Familiar',
+                'type' => 'TYPE_HOME',
+                'label' => 'Casa',
+                'parent_id' => '7',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),     
             20 => 
             array (
-                'mimetype' => 'Relation',
-                'type' => 'TYPE_ASSISTANT',
-                'order' => '9',
-                'label' => 'Asistente',
-            ),     
+                'type' => 'TYPE_WORK',
+                'label' => 'Trabajo',
+                'parent_id' => '7',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),                 
             21 => 
             array (
-                'mimetype' => 'Relation',
-                'type' => 'TYPE_FRIEND',
-                'order' => '10',
-                'label' => 'Amigo/a',
-            ),     
+                'type' => 'TYPE_OTHER',
+                'label' => 'Otro',
+                'parent_id' => '7',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),               
             22 => 
             array (
-                'mimetype' => 'Event',
-                'type' => 'TYPE_BIRTHDAY',
-                'order' => '1',
-                'label' => 'Nacimiento',
+                'type' => 'TYPE_FATHER',
+                'label' => 'Padre',
+                'parent_id' => '9',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),
             23 => 
             array (
-                'mimetype' => 'Event',
-                'type' => 'TYPE_ANNIVERSARY',
-                'order' => '2',
-                'label' => 'Aniversario',
+                'type' => 'TYPE_MOTHER',
+                'label' => 'Madre',
+                'parent_id' => '9',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),
             24 => 
             array (
-                'mimetype' => 'Event',
-                'type' => 'TYPE_OTHER',
-                'order' => '9',
-                'label' => 'Otro',
+                'type' => 'TYPE_SPOUSE',
+                'label' => 'Conyugue',
+                'parent_id' => '9',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),
             25 => 
             array (
-                'mimetype' => 'Document',
-                'type' => 'TYPE_DOC',
-                'order' => '1',
-                'label' => 'Documento',
+                'type' => 'TYPE_CHILD',
+                'label' => 'Hijo/a',
+                'parent_id' => '9',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),     
             26 => 
             array (
-                'mimetype' => 'Document',
-                'type' => 'TYPE_CUIL',
-                'order' => '2',
-                'label' => 'CUIL',
+                'type' => 'TYPE_STEPCHILD',
+                'label' => 'Hijastro/a',
+                'parent_id' => '9',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),                 
             27 => 
             array (
-                'mimetype' => 'Document',
-                'type' => 'TYPE_PASS',
-                'order' => '3',
-                'label' => 'Pasaporte',
+                'type' => 'TYPE_BROTHER',
+                'label' => 'Hermano',
+                'parent_id' => '9',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),               
             28 => 
             array (
-                'mimetype' => 'Document',
-                'type' => 'TYPE_OTHER',
-                'order' => '9',
-                'label' => 'Otro',
+                'type' => 'TYPE_SISTER',
+                'label' => 'Hermana',
+                'parent_id' => '9',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),     
             29 => 
             array (
-                'mimetype' => 'Sex',
-                'type' => 'FEMALE',
-                'order' => '1',
-                'label' => 'Femenino',
-            ),               
+                'type' => 'TYPE_RELATIVE',
+                'label' => 'Otro Familiar',
+                'parent_id' => '9',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),     
             30 => 
             array (
-                'mimetype' => 'Sex',
-                'type' => 'MALE',
-                'order' => '2',
-                'label' => 'Masculino',
+                'type' => 'TYPE_ASSISTANT',
+                'label' => 'Asistente',
+                'parent_id' => '9',
+                'depth'     => '2',
+                'mimetype' => 'system',
             ),     
-
-
+            31 => 
+            array (
+                'type' => 'TYPE_FRIEND',
+                'label' => 'Amigo/a',
+                'parent_id' => '9',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),     
+            32 => 
+            array (
+                'type' => 'TYPE_BIRTHDAY',
+                'label' => 'Nacimiento',
+                'parent_id' => '2',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
+            33 => 
+            array (
+                'type' => 'TYPE_ANNIVERSARY',
+                'label' => 'Aniversario',
+                'parent_id' => '2',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
+            34 => 
+            array (
+                'type' => 'TYPE_OTHER',
+                'label' => 'Otro',
+                'parent_id' => '2',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
+            35 => 
+            array (
+                'type' => 'TYPE_DOC',
+                'label' => 'Documento',
+                'parent_id' => '3',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),     
+            36 => 
+            array (
+                'type' => 'TYPE_CUIL',
+                'label' => 'CUIL',
+                'parent_id' => '3',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),                 
+            37 => 
+            array (
+                'type' => 'TYPE_PASS',
+                'label' => 'Pasaporte',
+                'parent_id' => '3',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),               
+            38 => 
+            array (
+                'type' => 'TYPE_OTHER',
+                'label' => 'Otro',
+                'parent_id' => '3',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),     
+            39 => 
+            array (
+                'type' => 'FEMALE',
+                'label' => 'Femenino',
+                'parent_id' => '4',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),               
+            40 => 
+            array (
+                'type' => 'MALE',
+                'label' => 'Masculino',
+                'parent_id' => '4',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),     
+            41 => 
+            array (
+                'type' => 'START',
+                'label' => 'Inicial',
+                'parent_id' => '1',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),     
+            42 => 
+            array (
+                'type' => 'MEMBER',
+                'label' => 'Miembro',
+                'parent_id' => '1',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),     
+            43 => 
+            array (
+                'type' => 'CONCURRENT',
+                'label' => 'Concurrente',
+                'parent_id' => '1',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),     
+            44 => 
+            array (
+                'type' => 'TRANSFER',
+                'label' => 'Traslado',
+                'parent_id' => '1',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),     
+            45 => 
+            array (
+                'type' => 'MISSING',
+                'label' => 'Auscente',
+                'parent_id' => '1',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),     
+            46 => 
+            array (
+                'type' => 'DEAD',
+                'label' => 'Fallecido',
+                'parent_id' => '1',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),     
+            47 => 
+            array (
+                'type' => 'OTHER',
+                'label' => 'Otro',
+                'parent_id' => '1',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
         ));
-        
-     
     }
 }

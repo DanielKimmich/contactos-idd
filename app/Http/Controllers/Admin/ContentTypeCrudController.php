@@ -21,6 +21,7 @@ class ContentTypeCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CloneOperation { clone as traitClone; } 
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
 
     public function setup()
     {
@@ -40,12 +41,6 @@ class ContentTypeCrudController extends CrudController
             'type'  => 'number',
             'priority' => 2,
             ]) -> makeFirstColumn() ;
-         $this->crud->addColumn([
-            'name'  => 'mimetype',
-            'label' => trans('contact.type.mimetype'),
-            'type'  => 'text',
-            'priority' => 1,
-            ]);
         $this->crud->addColumn([
             'name'  => 'type',
             'label' => trans('contact.type.type'),
@@ -59,10 +54,24 @@ class ContentTypeCrudController extends CrudController
             'priority' => 3,
             ]);
         $this->crud->addColumn([
-            'name'  => 'order',
+            'name'  => 'lft',
             'label' => trans('contact.type.order'),
             'type'  => 'text',
             'priority' => 3,
+            ]);     
+        CRUD::addColumn([
+            'name'  => 'parent_id',
+            'label' => trans('contact.type.parent'),
+            'type'  => 'select',
+            'priority'  => 2,
+            'entity'    => 'parent',
+            'attribute' => 'label',
+        ]);
+        $this->crud->addColumn([
+            'name'  => 'mimetype',
+            'label' => trans('contact.type.mimetype'),
+            'type'  => 'text',
+            'priority' => 4,
             ]);
         $this->crud->addColumn([    
             'name'  => 'updated_at',
@@ -81,11 +90,6 @@ class ContentTypeCrudController extends CrudController
             'label' => 'Id',
             'type'  => 'number',
             ]);            
-         $this->crud->addColumn([
-            'name'  => 'mimetype',
-            'label' => trans('contact.type.mimetype'),
-            'type'  => 'text',
-            ]);
         $this->crud->addColumn([
             'name'  => 'type',
             'label' => trans('contact.type.type'),
@@ -96,9 +100,21 @@ class ContentTypeCrudController extends CrudController
             'label' => trans('contact.type.label'),
             'type'  => 'text',
             ]);
+        CRUD::addColumn([
+            'name'  => 'parent_id',
+            'label' => trans('contact.type.parent'),
+            'type'  => 'select',
+            'entity'    => 'parent',
+            'attribute' => 'label',
+        ]);
         $this->crud->addColumn([
-            'name'  => 'order',
+            'name'  => 'lft',
             'label' => trans('contact.type.order'),
+            'type'  => 'text',
+            ]);         
+         $this->crud->addColumn([
+            'name'  => 'mimetype',
+            'label' => trans('contact.type.mimetype'),
             'type'  => 'text',
             ]);
         $this->crud->addColumn([    
@@ -127,15 +143,6 @@ class ContentTypeCrudController extends CrudController
     {
         $this->crud->setValidation(ContentTypeRequest::class);
 // ------ CRUD FIELDS
-        $this->crud->addField([ // MIMETYPE
-            'name'  => 'mimetype',
-            'label' => trans('contact.type.mimetype'),
-            'type'  => 'select_from_array',
-            'tab'   => 'Data',
-            'options' => $this->getMimeType(),
-            'allows_null' => true,
-            ]);
-
         $this->crud->addField([ // TYPE
             'name'  => 'type',
             'label' => trans('contact.type.type'),
@@ -150,12 +157,34 @@ class ContentTypeCrudController extends CrudController
             'tab'   => 'Data',
             'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
             ]);
+        CRUD::addField([
+            'name'  => 'parent_id',
+            'label' => trans('contact.type.parent'),
+            'type'  => 'select',
+            'tab'   => 'Data',
+            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
+            'entity'    => 'parent',
+            'attribute' => 'label',
+            'model' => "App\Models\ContentType",
+            'options'   => (function ($query) {
+                return $query->where('depth', 1)->orWhereNull('depth')->orderBy('label', 'ASC')->get(); }),
+            'allows_null' => true, 
+        ]);
+/*        $this->crud->addField([ // MIMETYPE
+            'name'  => 'mimetype',
+            'label' => trans('contact.type.mimetype'),
+            'type'  => 'select_from_array',
+            'tab'   => 'Data',
+            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
+            'options' => $this->getMimeType(),
+            'allows_null' => true,
+            ]);
         $this->crud->addField([ // ORDER
             'name'  => 'order',
             'label' => trans('contact.type.order'),
             'type'  => 'number',
             'tab'   => 'Data',
-            ]);
+            ]); */
     //INFO
         $this->getInfoFields(); 
     }
@@ -171,16 +200,26 @@ class ContentTypeCrudController extends CrudController
         $this->crud->orderBy('mimetype');
 
     // ------ CRUD FILTERS
-        //mimetype filter
+        //parent filter
         $this->crud->addFilter([
-            'name'  => 'mimetype',
-            'label' => trans('contact.type.mimetype'),
+            'name'  => 'parent',
+            'label' => trans('contact.type.parent'),
             'type'  => 'dropdown',
             ],
             function() {
-                return \App\Models\ContentAlias::all()->sortBy('mimetype')->pluck('mimetype', 'mimetype')->toArray(); },
+                return \App\Models\ContentType::where('depth', '1')->orWhereNull('depth')->orderBy('label')->pluck('label', 'id')->toArray(); },
             function($value) {  
-                $this->crud->addClause('where', 'mimetype', $value ); });
+                $this->crud->addClause('where', 'parent_id', $value ); });
+
+        // FirstLevel filter
+        $this->crud->addFilter([
+            'name' => 'depth',
+            'label'=> trans('contact.type.firstlevel'),
+            'type' => 'simple',
+        ], 
+        false, 
+        function() { // if the filter is active
+            $this->crud->addClause('where', 'depth', '1'); } );
 
         // daterange filter
         $this->setFilterDateUpdate();
@@ -205,5 +244,10 @@ class ContentTypeCrudController extends CrudController
 
     }
 
+    protected function setupReorderOperation()
+    {
+        CRUD::set('reorder.label', 'label');
+        CRUD::set('reorder.max_level', 2);
+    }
 
 }

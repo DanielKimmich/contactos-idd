@@ -75,12 +75,9 @@ class ContactCrudController extends CrudController
         $this->crud->addColumn([
             'name'  => 'sex_id',
             'label' => trans('contact.sex'),
-        //    'type'  => 'select',
             'type'  => 'select_from_array',
             'priority'  => 4,
             'options'   => ContentType::getTypeSexes(),
-//            'entity'    => 'sex', 
-//            'attribute' => 'label',
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
             ]); 
          $this->crud->addColumn([
@@ -118,14 +115,7 @@ class ContactCrudController extends CrudController
             'entity'    => 'nationality', 
             'attribute' => 'name',
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
-            ]);  
-/*      $this->crud->addColumn([
-            'name'  => 'nationality_id',
-            'label' => trans('contact.nationality'),
-            'type'  => 'select_from_array',
-            'priority' => 2,
-            'options'   => $this->getCountries(),
-            ]);     */
+            ]); 
         $this->crud->addColumn([
             'name'  => 'phone_mobile',
             'label' => trans('contact.phone.mobile1'),
@@ -153,6 +143,12 @@ class ContactCrudController extends CrudController
             'priority'  => 3,
             'limit'     => 150,
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
+            ]);
+        $this->crud->addColumn([
+            'name'  => 'names.data14', 
+            'label' => trans('contact.photos'), 
+            'type'  => 'check',
+            'priority'  => 4,
             ]);
         $this->crud->addColumn([
             'name'  => 'status',
@@ -211,6 +207,11 @@ protected function setupShowOperation()
             'type'  => 'text',
             ]);  
         $this->crud->addColumn([
+            'name'  => 'events.age',
+            'label' =>  trans('contact.event.age'),
+            'type'  => 'text',
+            ]);       
+        $this->crud->addColumn([
             'name'  => 'documents.data1',
             'label' =>  trans('contact.document.number'),
             'type'  => 'text',
@@ -255,14 +256,25 @@ protected function setupShowOperation()
             ]);
         $this->crud->addColumn([    
             'name'  => 'created_at',
-            'label' => trans('common.created_at'),
+            'label' => trans('contact.created_at'),
             'type'  => 'text',
             ]);       
         $this->crud->addColumn([    
             'name'  => 'updated_at',
-            'label' => trans('common.updated_at'),
+            'label' => trans('contact.updated_at'),
+            'type'  => 'text',
+            ]); 
+        $this->crud->addColumn([    
+            'name'  => 'created_by_user',
+            'label' => trans('contact.created_by'),
             'type'  => 'text',
             ]);       
+        $this->crud->addColumn([    
+            'name'  => 'updated_by_user',
+            'label' => trans('contact.updated_by'),
+            'type'  => 'text',
+            ]); 
+
     }      
 
 
@@ -377,6 +389,7 @@ protected function setupShowOperation()
             'value' => 'TYPE_DOC',
             ], 'create'); 
 
+/*
         $this->crud->addField([ // Select
             'name'  => 'nationality_id',
             'label' => trans('contact.nationality'),
@@ -386,8 +399,13 @@ protected function setupShowOperation()
             'options'   => $this->getNations(),
             'default' => Config::get('settings.contact_nationality'),
             'allows_null' => true,
+//            'type'  => 'select2',
+//            'entity' => 'nationality', 
+ //           'attribute' => 'name',
+ //           'options'   => (function ($query) {
+  //              return $query->orderBy('name', 'ASC')->pluck('name','code_alpha3')->get(); }),
             ]);
-
+*/
     //PHONE
         $this->crud->addField([
             'name' => 'contact_phones',
@@ -584,10 +602,10 @@ protected function setupShowOperation()
 
     //PHOTO
         $this->crud->addField([
-            'label' => 'Profile Image',
             'name' => 'data14',
+            'label' => trans('contact.photo.profile_image'),
             'type' => 'image',
-            'tab'   => 'Photo',
+            'tab'   => trans('contact.photos'),
             'entity' => 'names', 
             'upload' => true,
             'crop' => true, // set to true to allow cropping, false to disable
@@ -608,47 +626,65 @@ protected function setupShowOperation()
 
     // ------ CRUD FILTERS
         // Birthday
-
         $this->crud->addFilter([
             'name'  => 'birthday',
-            'label' => 'Birthday',
+            'label' => trans('contact.birthday'),
             'type'  => 'dropdown',
             ],
             $this->getMonth(),
             function ($value) { // if the filter is active
                 $this->crud->addClause('whereHas', 'events', function ($query) use ($value) {
-                $query->whereNotNull('data1')->whereNull('data4')->where(\DB::raw("substr(data1, 6, 2)"),$value);
+                $query->whereNull('data4')
+                    ->where(\DB::raw("substr(data1, 6, 2)"),$value)
+                    ->orWhere(\DB::raw("substr(data1, 6,5)"),$value);
                 });
             });
 
         //Age Range
         $this->crud->addFilter([
             'name' => 'age',
-            'label'=> 'Range Age',
+            'label'=> trans('contact.age_range'),
             'type' => 'range',
-            'label_from' => 'min value',
-            'label_to' => 'max value'
+            'label_from' => 'min',
+            'label_to' => 'max',
+            'attributes' => ['min' => 0, 'max' => 120],
             ],
             false,
             function($value) { // if the filter is active
                 $range = json_decode($value);
                 $today = Carbon::today();
-                //MySQL
                 if ($range->from) {
-                    $this->crud->addClause('whereHas', 'events', function ($query) use ($range) {
+                    $datefrom = $today->subYears($range->from)->format('Y-m-d');
+                    $this->crud->addClause('whereHas', 'events', function ($query) use ($datefrom) {
                         $query->whereNotNull('data1')->whereNull('data4')
-    ->where(\DB::raw("TIMESTAMPDIFF(year,STR_TO_DATE(data1,'%Y-%m-%d'),curdate())"), '>=', $range->from);
+                            ->where('data1', '<=', $datefrom);
                     });
                 } 
 
                 if ($range->to) {
-                    $this->crud->addClause('whereHas', 'events', function ($query) use ($range, $today) {
+                    $dateto = $today->subYears($range->to)->format('Y-m-d');
+                    $this->crud->addClause('whereHas', 'events', function ($query) use ($dateto) {
                         $query->whereNotNull('data1')->whereNull('data4')
-                        ->where(\DB::raw("TIMESTAMPDIFF(year,STR_TO_DATE(data1,'%Y-%m-%d'),curdate())"), '<=', $range->to);
+                            ->where('data1', '>=', $dateto);
                     });
                 }
-
             });
+
+        // select2_multiple filter
+        $this->crud->addFilter([
+            'name' => 'status',
+            'label' => trans('contact.status'),
+            'type' => 'dropdown',       //'select2_multiple',
+            ], 
+            //function() { return 
+                ContentType::getTypeStatus(),
+                //; }, 
+            function($value) { // if the filter is active
+             //   foreach (json_decode($values) as $key => $value) {
+                    $this->crud->addClause('where', 'status', $value);
+              //  }
+            });
+
 
         // daterange filter
         $this->setFilterDateUpdate();
@@ -852,8 +888,9 @@ protected function destroyMacronutrients($productId)
 */
     public function getNations()
     {   
-        $options = WorldCountry::all();
-        $options = $options->sortBy('name')->pluck('name','code_alpha3');
+    //    $options = WorldCountry::all();
+    //    $options = $options->sortBy('name')->pluck('name','code_alpha3');
+        $options = WorldCountry::orderBy('name')->pluck('name','code_alpha3');    
         return $options->toArray();
     }
 
@@ -905,10 +942,13 @@ protected function destroyMacronutrients($productId)
     
     public function getMonth()
     {
+        $toDay      = Carbon::today()->format("m-d");
+        $yesterday  = Carbon::yesterday()->format('m-d');
+        $tomorrow  = Carbon::tomorrow()->format('m-d');
         $months = [
-            '0'  => 'Hoy',
-            '-1' => 'Ayer',
-            '+7' => 'Próximo 7 días',
+            $toDay      => 'Hoy',
+            $yesterday  => 'Ayer',
+            $tomorrow   => 'Mañana',
             '01'  => 'Enero',
             '02'  => 'Febrero',
             '03'  => 'Marzo',

@@ -17,7 +17,7 @@ class ChangeContactTable extends Migration
         Schema::table('contacts', function (Blueprint $table) {
            // $table->unsignedInteger('nationality_id')->charset('utf8')->collate('utf8_bin')->nullable()->change();
           //  $table->unsignedInteger('nationality_id')->nullable()->charset('')->collate('')->change();
-            $table->renameColumn('sexo', 'sex_id'); 
+         //   $table->renameColumn('sexo', 'sex_id'); 
         });
     }
 

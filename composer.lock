@@ -199,12 +199,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "02bf0a23ebfb81578604a0c89880f13468f1574a"
+                "reference": "50e4bda7c80da16c69da0bc9ade0aa0e0f9408a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/02bf0a23ebfb81578604a0c89880f13468f1574a",
-                "reference": "02bf0a23ebfb81578604a0c89880f13468f1574a",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/50e4bda7c80da16c69da0bc9ade0aa0e0f9408a3",
+                "reference": "50e4bda7c80da16c69da0bc9ade0aa0e0f9408a3",
                 "shasum": ""
             },
             "require": {
@@ -276,7 +276,7 @@
                 "read",
                 "update"
             ],
-            "time": "2020-03-27T13:41:04+00:00"
+            "time": "2020-03-29T09:30:57+00:00"
         },
         {
             "name": "backpack/permissionmanager",
@@ -5436,16 +5436,16 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v3.6.1",
+            "version": "v3.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "8f7961f7b9deb3b432452c18093cf16f88205902"
+                "reference": "786a947e57086cf236cefdee80784634224b99fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/8f7961f7b9deb3b432452c18093cf16f88205902",
-                "reference": "8f7961f7b9deb3b432452c18093cf16f88205902",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/786a947e57086cf236cefdee80784634224b99fa",
+                "reference": "786a947e57086cf236cefdee80784634224b99fa",
                 "shasum": ""
             },
             "require": {
@@ -5455,10 +5455,12 @@
             },
             "require-dev": {
                 "ext-filter": "*",
+                "ext-pcre": "*",
                 "phpunit/phpunit": "^4.8.35 || ^5.0 || ^6.0 || ^7.0"
             },
             "suggest": {
-                "ext-filter": "Required to use the boolean validator."
+                "ext-filter": "Required to use the boolean validator.",
+                "ext-pcre": "Required to use most of the library."
             },
             "type": "library",
             "extra": {
@@ -5499,7 +5501,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-03-12T13:44:00+00:00"
+            "time": "2020-03-27T23:36:02+00:00"
         },
         {
             "name": "wildside/userstamps",

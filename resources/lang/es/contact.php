@@ -6,15 +6,18 @@ return [
     'updated_by'    => 'Actualizado por',
     'created_by'    => 'Creado por',
     'updated_range' => 'Actualizado entre',
+    'birthday'      => 'Cumpleaños',
+    'age_range' 	=> 'Edades entre',    
 
 	'title'         => 'Contacto',
 	'titles'        => 'Contactos',
 //Tabs
 	'names'			=> 'Nombres',
-	'phones'		=> 'Telefonos',
+	'data'  		=> 'Datos',
+	'phones'		=> 'Teléfonos',
 	'emails'		=> 'Correos',
 	'addresses'		=> 'Direcciones',
-	'data'  		=> 'Datos',
+	'photos'  		=> 'Foto',
     'info'  		=> 'Información',
 //Fields
 	'display_name'  => 'Nombre de Contacto',
@@ -102,6 +105,11 @@ return [
         'is_required'       => 'Se requiere la dirección',
 		'is_deleted'        => 'La dirección fue eliminado',
 		'is_created'        => 'la dirección fue creado',
+    ],
+
+//PHOTO
+	'photo'    => [
+		'profile_image'     => 'Imagen de perfil',    
     ],
 
 //RELATION

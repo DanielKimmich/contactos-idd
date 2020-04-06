@@ -9,10 +9,10 @@
 
 @endphp
 
-<div id="{{$uid}}" 
-    @include('crud::inc.field_wrapper_attributes')>
+<div id="{{$uid}}">
+    @include('crud::fields.inc.wrapper_start')
     <label>{!! $field['label'] !!}</label>
-    @include('crud::inc.field_translatable_icon')
+
 
     <div id="{{$uid}}-existing">
         @if(!empty($entries) && $entries->count() > 0)
@@ -95,7 +95,7 @@
         @else
                 {{--<p>No results</p>--}}
         @endif
-    </div>
+     </div>
 
 
     <div id="{{$uid}}-new">
@@ -178,7 +178,7 @@
             <i class="la la-plus"></i> 
             {{ trans('backpack::crud.add') }} {{ $field['crud']->entity_name }}
         </a>
- 
+    @include('crud::fields.inc.wrapper_end') 
 </div>
 
     

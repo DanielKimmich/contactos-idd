@@ -8,6 +8,7 @@ return array (
     'updated_by'    => 'Actualizado por',
     'created_by'    => 'Creado por',
     'updated_range' => 'Actualizado entre',
+
 //POST
     'post'      => [
         'title'         => 'Publicación',
@@ -58,6 +59,18 @@ return array (
         'description'   => 'Descripción',
         'slug'          => 'Slug (URL)',     
         'slug_hint'     => 'Se genera automáticamente al crear a partir del nombre',
+    ],    
+
+//NOTIFICATION
+    'notification'    => [
+        'entity_name'   => 'Notificación',
+        'entity_names'  => 'Notificaciones',
+    //Fields                
+        'title'         => 'Título',
+        'body'          => 'Contenido',
+        'color'         => 'Estilo',
+        'priority'      => 'Prioridad',     
+        'expires_at'    => 'Expira el',
     ],    
 
 );

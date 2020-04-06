@@ -32,7 +32,7 @@
       @endcan
 
 	  @can('list blogcomment')		
-		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('blogcomment') }}'><i class='nav-icon la la-comment-o'></i><span>{{ trans('blog.comment.titles') }}</span></a></li>
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('blogcomment') }}'><i class='nav-icon la la-comments'></i><span>{{ trans('blog.comment.titles') }}</span></a></li>
       @endcan
 
 	  @can('list blogcategory')		
@@ -130,3 +130,5 @@
 
 <li class=nav-item><a class=nav-link href="{{ backpack_url('elfinder') }}"><i class="nav-icon la la-files-o"></i><span>{{ trans('backpack::crud.file_manager') }}</span></a></li>
 
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('notification') }}'><i class='nav-icon la la-comment-o'></i> Notifications</a></li>

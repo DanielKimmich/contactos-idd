@@ -179,7 +179,32 @@ class BlogPostCrudController extends CrudController
                 return $query->orderBy('display_name', 'ASC')->get(); }), 
             ]);
 
-        $this->crud->addField([    // SELECT
+  //      @can('create blogcategory') {
+  //      @if(backpack_user()->can('create blogcategory'))
+        $this->crud->addField([    // Relationship
+            'name'      => 'category_id',
+            'label'     => trans('blog.post.category') .'<span class="badge badge-warning"> New in 4.1</span>',
+            'type'      => 'relationship',
+            'tab'   => trans('blog.data'),
+            'wrapperAttributes' => ['class' => 'form-group col-md-6'],           
+            'entity'    => 'category',
+            'attribute' => 'name',
+            'model'     => 'App\Models\BlogCategory',
+ //           'options'   => (function ($query) {
+ //              return $query->sortBy('name')->get(); }), 
+            'ajax' => false,
+ //           'inline_create' => true, // TODO: make this work
+/*           'inline_create' => [ 
+                'entity' => 'category', // the entity in singular
+                'force_select' => true, // should the inline-created entry be immediately selected?
+                'modal_class' => 'modal-dialog modal-xl', // use modal-sm, modal-lg modal-xl
+                'modal_route' => route('blogcategory-inline-create'), // InlineCreate::getInlineCreateModal()
+                'create_route' => route('blogcategory-inline-create-save'), // InlineCreate::storeInlineCreate()
+                ],              */
+            ]);
+     //   @endif
+ //       } @elsecan {
+ /*       $this->crud->addField([    // SELECT
             'name'  => 'category_id',
             'label' => trans('blog.post.category'),
             'type'  => 'select2',
@@ -190,33 +215,8 @@ class BlogPostCrudController extends CrudController
             'model'     => 'App\Models\BlogCategory',
             'options'   => (function ($query) {
                 return $query->orderBy('name', 'ASC')->get(); }), 
-            ]);
-
-/*
-        $this->crud->addField([    // Relationship
-            'name'      => 'category_id',
-            'label'     => 'Relationship (no AJAX) <span class="badge badge-warning">New in 4.1</span>',
-            'type'      => 'relationship',
-            'tab'   => trans('blog.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'],           
-            'entity'    => 'category',
-            'attribute' => 'name',
-            'model'     => 'App\Models\BlogCategory',
-//            'options'   => (function ($query) {
-//               return $query->orderBy('name', 'ASC')->get(); }), 
-            'ajax' => false,
- //           'inline_create' => true, // TODO: make this work
-/*           'inline_create' => [ 
-                'entity' => 'category', // the entity in singular
-                'force_select' => true, // should the inline-created entry be immediately selected?
-                'modal_class' => 'modal-dialog modal-xl', // use modal-sm, modal-lg modal-xl
-                'modal_route' => route('blogcategory-inline-create'), // InlineCreate::getInlineCreateModal()
-                'create_route' => route('blogcategory-inline-create-save'), // InlineCreate::storeInlineCreate()
-                ],              */
-
- //       ]);
-
-
+            ]); */
+   //     } @endcan
 
         $this->crud->addField([    // TEXT 
             'name'  => 'title',

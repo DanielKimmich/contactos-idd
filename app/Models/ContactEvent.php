@@ -25,8 +25,8 @@ class ContactEvent extends Model
     // protected $hidden = [];
     // protected $dates = [];
     
-    protected $fillable = ['contact_id', 'mimetype', 'event_date', 'event_type', 'event_label'];
-    protected $appends = ['age', 'birthday', 'created_by_user', 'updated_by_user', 'deleted_by_user'];
+    protected $fillable = ['contact_id', 'mimetype', 'event_birth', 'event_type', 'event_label', 'event_dead'];
+    protected $appends = ['display_name', 'age', 'birthday', 'created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'Event'];
 
     /*
@@ -42,7 +42,7 @@ class ContactEvent extends Model
         if (!empty($born)) {
             $birth = Carbon::createFromFormat('Y-m-d',$born);
             if (empty($dead)) {
-                $today = Carbon::now();
+                $today = Carbon::today();
             } else {
                 $today = Carbon::createFromFormat('Y-m-d',$dead); 
             }
@@ -55,6 +55,10 @@ class ContactEvent extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function contact()
+    {
+        return $this->belongsTo('App\Models\Contact', 'contact_id', 'id');
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -73,7 +77,7 @@ class ContactEvent extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-    Public function getEventDateAttribute()
+    Public function getEventBirthAttribute()
     {
         return $this->data1;
     }
@@ -85,7 +89,10 @@ class ContactEvent extends Model
     {
         return $this->data3;
     }
-
+    Public function getEventDeadAttribute()
+    {
+        return $this->data4;
+    }
     //--------------------------------------------------------------------------
     Public function getBirthdayAttribute()
     {
@@ -123,15 +130,20 @@ class ContactEvent extends Model
         $born = $this->data1;
         $dead = $this->data4;
         if (!empty($born)) {
-            $birth = Carbon::createFromFormat('Y-m-d',$born);
+            $birth = Carbon::createFromFormat('Y-m-d',$born)->setTime(00,00,00);
             if (empty($dead)) {
                 $today = Carbon::today(); //->setTime(00,00,00)
             } else {
-                $today = Carbon::createFromFormat('Y-m-d',$dead); 
+                $today = Carbon::createFromFormat('Y-m-d',$dead)->setTime(00,00,00); 
             }
             $age = $today->diff($birth)->format('%y');
         } 
         return $age;
+    }
+
+    Public function getDisplayNameAttribute()
+    {
+        return $this->contact->display_name ?? '';
     }
 
     //--------------------------------------------------------------------------
@@ -153,7 +165,7 @@ class ContactEvent extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-    public function setEventDateAttribute($value)
+    public function setEventBirthAttribute($value)
     {
         $this->attributes['data1'] = $value;
     }
@@ -164,6 +176,10 @@ class ContactEvent extends Model
     public function setEventLabelAttribute($value)
     {
         $this->data3 = $value;
+    }
+    public function setEventDeadAttribute($value)
+    {
+        $this->attributes['data4'] = $value;
     }
 
 }

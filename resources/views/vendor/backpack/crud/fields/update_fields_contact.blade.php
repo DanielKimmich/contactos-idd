@@ -16,6 +16,13 @@
 
     <script>
         //NAME
+        $(document).ready(function() {
+            $status = $('#contact_status').find(':selected').val();
+            if ($status != 'DEAD') {
+                $('#event_dead').parents('.form-group').addClass('d-none');
+            } 
+        });
+
         $(document).on('keyup', '#name_first', function() { 
             setFullName();
         });
@@ -24,6 +31,11 @@
         });
         $(document).on('keyup', '#name_family', function() { 
             setFullName();
+        });
+
+        //STATUS
+        $(document).on('change', '#contact_status', function() { 
+            setEventDead(); 
         });
 
         //ADDRESS0
@@ -106,6 +118,49 @@
             //$('input[name="display_name"]').val(data1);
             $('#name_display').val($name);
             $('#display_name').val($name);
+        }
+
+        function setEventDead() {
+            $status = $('#contact_status').find(':selected').val();
+            if ($status == 'DEAD') {
+                $('#event_dead').parents('.form-group').removeClass('d-none');
+                $tab="#tab_{{ Str::slug(trans('contact.data')) }}"
+                $('#form_tabs a[href="' +$tab+ '"]').tab('show');
+                $('#event_dead').focus();
+            } else if ($('#event_dead').val() == '' ) {
+                $('#event_dead').parents('.form-group').addClass('d-none');
+            } else {
+                $tab="#tab_{{ Str::slug(trans('contact.data')) }}"
+                $('#form_tabs a[href="' +$tab+ '"]').tab('show');
+                swal({
+                    title: "{!! trans('backpack::base.warning') !!}",
+                    text: "{!! trans('contact.event.delete_confirm') !!}",
+                    icon: "warning",
+                    buttons: {
+                        cancel: {
+                            text: "{!! trans('backpack::crud.cancel') !!}",
+                            value: null,
+                            visible: true,
+                            className: "bg-secondary",
+                            closeModal: true,
+                        },
+                        delete: {
+                            text: "{!! trans('backpack::crud.delete') !!}",
+                            value: true,
+                            visible: true,
+                            className: "bg-danger",
+                            closeModal: true,
+                        }
+                    },
+                }).then((value) => {
+                    if (value) {
+                        $('#event_dead').val('');
+                        $('#event_dead').parents('.form-group').addClass('d-none');
+                    } else {
+                        $('#contact_status').val('DEAD');
+                    }
+                });
+            } 
         }
 
         function setFullAddress($prefix) {

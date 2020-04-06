@@ -1,53 +1,123 @@
 @extends(backpack_view('blank'))
 
 @php
-	use \Carbon\Carbon;
+
+    use App\Models\Notification;
+    use App\Models\ContactEvent;
+    use App\Models\Contact;
+    use App\Models\ContactData;
+    use App\Models\BlogPost;
+    use App\Models\BlogComment;
+    use \Carbon\Carbon;
+    use Illuminate\Support\Str;
+
 	$dias = 7;
-	$contactCount = App\Models\Contact::count();
-	$contactCountNew = App\Models\Contact::whereDate('created_at', '>', Carbon::today()->addDays($dias*-1))->count();
-	$contactDataCount = App\Models\ContactData::count();
-	$contactDataCountUpdate = App\Models\ContactData::whereDate('updated_at', '>', Carbon::today()->addDays($dias*-1))->count();
 
-//	$lastBirthDays = App\Models\ContactData::where('mimetype', 'Event')->first();
-//	$lastBirthDaysAgo = Carbon::parse($lastBirthDays->data7)->diffInDays(Carbon::today());
-	$hoy = Carbon::today();
-	$ayer = Carbon::today()->addDays($dias*-1);	
+    $notifications = App\Models\Notification::whereDate('expires_at', '>=', Carbon::today())->get();
+    foreach ($notifications as $noti)
+    {
+        $widgets['before_content'][] = [
+            'type'         => 'alert',
+            'class'        => 'alert mb-2 alert-' .$noti->class_color,
+            'heading'      => $noti->title,
+            'content'      => $noti->body,
+            'close_button' => true, // show close button or not
+        ];    
+    }
 
-	$widgets['before_content'][] = [
-  		'type'         => 'alert',
-  		'class'        => 'alert alert-primary mb-2',
-  		'heading'      => 'Important information!',
-  		'content'      => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti nulla quas distinctio veritatis provident mollitia error fuga quis repellat, modi minima corporis similique, quaerat minus rerum dolorem asperiores, odit magnam.',
-  		'close_button' => true, // show close button or not
-	];
-	
-	$widgets['before_content'][] = [
+    $today     = Carbon::today();
+    $todayMMDD = Carbon::today()->format('m-d');
+    $fromMMDD  = Carbon::today()->subDays($dias)->format('m-d');
+	$toMMDD    = Carbon::today()->addDays($dias)->format('m-d');
+
+//dump($todayMMDD, $fromMMDD, $toMMDD);
+
+	$births = ContactEvent::where('data2', 'TYPE_BIRTHDAY')
+                ->whereNull('data4')
+                ->where(\DB::raw("substr(data1, 6,5)"),">=", $fromMMDD)
+                ->where(\DB::raw("substr(data1, 6,5)"),"<=", $toMMDD)
+                ->get();
+
+    $todaybirths = '';
+    $nextbirths = '';
+    $previousbirths = '';
+    $arrbirths = [];
+
+    foreach ($births as $birth)
+    {   
+        $birthday = substr($birth->data1, 5,5);
+        $name  = $birth->display_name; 
+        $age   = $birth->age;
+        $arrbirths[] = ['birth' => $birthday, 'name'  => $name, 'age'   => $age];
+        if ($birthday < $todayMMDD) {
+            $previousbirths .= $birthday .' ' .$name .' (' .$age .')<br>';
+        } else if ($birthday > $todayMMDD) {
+            $nextage = (int)($age) +1;
+            $nextbirths .= $birthday .' ' .$name .' (' .$nextage  .')<br>';
+        }  else {
+            $todaybirths .= $birthday .' ' .$name .' (' .$age .')<br>';
+        }
+    }
+//dump($arrbirths);
+//dump($previousbirths);
+//dump($nextbirths);
+//dump($todaybirths);
+
+    $widgets['before_content'][] = [
   		'type' 	=> 'div',
   		'class' => 'row',
   		'content' => [ // widgets 
     		[ 	'type' => 'card', 
       			'class' => 'card bg-info text-white', 
       			'content' => [
-      				'header' => 'Proximos Cumpleaños', 
-      				'body' => 'One' // .$lastBirthDaysAgo.' days',
+      				'header' => 'Cumpleaños de Hoy', 
+      				'body' => $todaybirths,
       			] 
     		],
       		[	'type' 	=> 'card', 
       			'class' => 'card bg-success text-white', 
       			'content' => [
-      				'header' => 'Proximos Cumpleaños',
-      				'body' => 'Hoy '. $hoy ?? '',
+      				'header' => 'Cumpleaños en los próximos ' .$dias. ' días',
+      				'body' => $nextbirths,
       			] 
       		],
       		[ 	'type' 	=> 'card', 
       			'class' => 'card bg-dark text-white', 
       			'content' => [
-      				'header' => 'Proximos Cumpleaños',
-      				'body' => 'Three ' .$ayer ?? '',
+      				'header' => 'Cumpleaños de los últimos ' .$dias. ' días',
+      				'body' => $previousbirths,
       			] 
       		],
   		] 
   	];
+
+    $contactCount = Contact::count();
+    $contactCountNew = Contact::whereDate('created_at', '>', Carbon::today()->subDays($dias))->count();
+    if ($contactCount > 0) 
+        $contactProgress = floor($contactCountNew/$contactCount*100);
+    else 
+        $contactProgress = 0;
+
+    $contactDataCount = ContactData::count();
+    $contactDataCountUpdate = ContactData::whereDate('updated_at', '>', Carbon::today()->subDays($dias))->count();
+    if ($contactDataCount > 0) 
+        $contactDataProgress = floor($contactDataCountUpdate/$contactDataCount*100);
+    else 
+        $contactDataProgress = 0;
+
+    $blogPostCount = BlogPost::count();
+    $blogPostCountNew = BlogPost::whereDate('created_at', '>', Carbon::today()->subDays($dias))->count();
+    if ($blogPostCount  > 0) 
+        $blogPostProgress = floor($blogPostCountNew/$blogPostCount*100);
+    else 
+        $blogPostProgress = 0;
+
+    $blogCommentCount = BlogComment::count();
+    $blogCommentCountNew = BlogComment::whereDate('updated_at', '>', Carbon::today()->subDays($dias))->count();
+    if ($blogCommentCount > 0) 
+        $blogCommentProgress = floor($blogCommentCountNew/$blogCommentCount*100);
+    else 
+        $blogCommentProgress = 0;
 
 	$widgets['before_content'][] = [
   		'type' 	=> 'div',
@@ -55,31 +125,31 @@
   		'content' => [ // widgets 
     		[ 	'type'        => 'progress',
     			'class'       => 'card text-white bg-success mb-2',
-    			'value'       => $contactCountNew,
-    			'description' => 'Nuevos Contactos' .' en los ultimos ' .$dias. ' días',
-    			'progress'    => floor($contactCountNew/$contactCount*100), // integer
+    			'value'       => $contactCountNew .' Contactos',
+    			'description' => 'nuevos en los últimos ' .$dias. ' días',
+    			'progress'    => $contactProgress, // integer
     			'hint'        => 'de un total de ' .$contactCount .' registros',
     		],
       		[	'type'        => 'progress',
     			'class'       => 'card text-white bg-primary mb-2',
-    			'value'       => $contactDataCountUpdate,	
-    			'description' => 'Datos Actualizados ' .' en los ultimos ' .$dias. ' días',
-    			'progress'    => floor($contactDataCountUpdate/$contactDataCount*100), // integer
+    			'value'       => $contactDataCountUpdate .' Datos',	
+    			'description' => 'editados en los últimos ' .$dias. ' días',
+    			'progress'    => $contactDataProgress, // integer
     			'hint'        => 'de un total de ' .$contactDataCount .' registros',
       		],
       		[ 	'type'        => 'progress',
     			'class'       => 'card text-white bg-danger mb-2',
-    			'value'       => '11.456',
-    			'description' => 'Registered users.',
-    			'progress'    => 40, // integer
-    			'hint'        => '8544 more until next milestone.',
+    			'value'       => $blogPostCountNew . ' Historias',
+    			'description' => 'nuevas en los últimos ' .$dias. ' días',
+    			'progress'    => $blogPostProgress, // integer
+    			'hint'        => 'de un total de ' .$blogPostCount .' registros',
       		],
             [ 	'type'        => 'progress',
     			'class'       => 'card text-white bg-dark mb-2',
-    			'value'       => '11.456',
-    			'description' => 'Registered users.',
-    			'progress'    => 40, // integer
-    			'hint'        => '8544 more until next milestone.',
+    			'value'       => $blogCommentCountNew .' Comentarios',
+    			'description' => 'nuevos en los últimos ' .$dias. ' días',
+    			'progress'    => $blogCommentProgress, // integer
+    			'hint'        => 'de un total de ' .$blogCommentCount .' registros',
       		],
   		] 
   	];
@@ -141,3 +211,4 @@ $widgets['before_content'][] =
 
 @section('content')
 @endsection
+

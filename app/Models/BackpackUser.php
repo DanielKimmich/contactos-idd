@@ -4,14 +4,14 @@ namespace App\Models;
 
 use App\User;
 use Illuminate\Notifications\Notifiable;
-use Backpack\CRUD\app\Models\Traits\InheritsRelationsFromParentModel;
+//use Backpack\CRUD\app\Models\Traits\InheritsRelationsFromParentModel;
 use Backpack\CRUD\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Wildside\Userstamps\Userstamps;
 
 class BackpackUser extends User
 {
-    use InheritsRelationsFromParentModel;
+//    use InheritsRelationsFromParentModel;
     use Notifiable;
     use Userstamps;
 

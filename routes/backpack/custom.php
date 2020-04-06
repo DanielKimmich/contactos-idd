@@ -52,4 +52,5 @@ Route::group([
   //  Route::get('admin/api/division/{id}', '\Api\DivisionController@show');
 
 
+    Route::crud('notification', 'NotificationCrudController');
 }); // this should be the absolute last line of this file

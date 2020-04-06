@@ -149,7 +149,7 @@ $this->crud->orderButtons('line', ['show','update','delete']);
             'tab'   => trans('blog.data'),
             'hint' => trans('blog.tag.slug_hint'),
             // 'attributes' => ['disabled'  => 'disabled'],
-            'prefix'   => "<i class='fa fa-link'></i>",
+            'prefix'   => "<i class='la la-link'></i>",
             ]);
     }
 

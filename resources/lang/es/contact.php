@@ -37,7 +37,9 @@ return [
 //EVENT
   	'event'    => [
 		'birthday'      => 'Nacido el',
+		'deadday'       => 'Fallecido el',
 		'age'      		=> 'Edad',
+		'delete_confirm' => 'Si cambia el estado de Fallecido, entonces se eliminará la fecha. ¿Está seguro que desea eliminar la fecha de fallecido?',
 	],
 
 //DOCUMENT

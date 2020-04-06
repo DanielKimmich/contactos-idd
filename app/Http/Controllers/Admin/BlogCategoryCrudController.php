@@ -145,7 +145,7 @@ class BlogCategoryCrudController extends CrudController
             'tab'   => trans('blog.data'),
             'hint' => trans('blog.category.slug_hint'),
             // 'attributes' => ['disabled'  => 'disabled'],
-            'prefix'   => "<i class='fa fa-link'></i>",
+            'prefix'   => "<i class='la la-link'></i>",
             ]);
     }
 

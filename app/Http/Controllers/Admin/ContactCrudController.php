@@ -81,7 +81,7 @@ class ContactCrudController extends CrudController
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
             ]); 
          $this->crud->addColumn([
-            'name'  => 'events.event_date',
+            'name'  => 'events.event_birth',
             'label' =>  trans('contact.event.birthday'),
             'type'  => 'text',
             'priority'  => 1,
@@ -281,12 +281,13 @@ protected function setupShowOperation()
     protected function setupCreateOperation()
     {   //$this->crud->setCreateContentClass('col-md-8 col-md-offset-2');
         $this->crud->setValidation(ContactRequest::class);
+        //$this->crud->disableAutoFocus();
 // ------ CRUD FIELDS
         $this->crud->addField([ // Text
             'name'  => 'display_name',
             'label' => trans('contact.display_name'),
             'type'  => 'text',
-            'wrapperAttributes' => ['class' => 'form-group col-md-8'],
+            'wrapper' => ['class' => 'form-group col-md-8'],
             'prefix'     => '<i class="la la-id-card-o"></i>',
             'attributes' => ['id' => 'display_name', 'readonly' => 'readonly'],
             ]);  
@@ -294,10 +295,10 @@ protected function setupShowOperation()
             'name'  => 'status',
             'label' => trans('contact.status'),
             'type'  => 'select_from_array',
-            'wrapperAttributes' => ['class' => 'form-group col-md-4'],
+            'wrapper' => ['class' => 'form-group col-md-4'],
             'options'    => ContentType::getTypeStatus(),
             'default'    => 'START',
-//            'value' => 'Active',
+            'attributes' => ['id' => 'contact_status'],
             ]);
         $this->crud->addField([
             'name'  => 'update_fields',
@@ -312,15 +313,15 @@ protected function setupShowOperation()
             'attributes' => ['id' => 'name_display'],
             'entity' => 'names', 
             ]);
-
         $this->crud->addField([
             'name'  => 'name_first',
             'label' => trans('contact.name.first'),
             'type'  => 'text',
             'tab'   => trans('contact.names'),
             'attributes' => ['id' => 'name_first'],
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing
             'entity' => 'names', 
+            'auto_focus' => 'true',
             ]);
         $this->crud->addField([
             'name'  => 'name_middle',
@@ -328,7 +329,7 @@ protected function setupShowOperation()
             'type'  => 'text',
             'tab'   =>  trans('contact.names'),
             'attributes' => ['id' => 'name_middle'],
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing
             'entity' => 'names', 
             ]);
 
@@ -347,21 +348,29 @@ protected function setupShowOperation()
             'label' => trans('contact.sex'),
             'type'  => 'radio',     //'radio',
             'tab'   => trans('contact.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing
             'inline'      => true,      
             'options'     => ContentType::getTypeSexes(),
 //            'options'     => $this->getTypeSexes(),
  //           'options'     => ['FEMALE' => 'Femenino', 'MALE' => 'Masculino'],
            ]);      
         $this->crud->addField([
-            'name'  => 'event_date',
+            'name'  => 'event_birth',
             'label' => trans('contact.event.birthday'),            
             'type'  => 'date',
             'tab'   => trans('contact.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
+            'wrapper' => ['class' => 'form-group col-md-3'], //resizing
             'entity' => 'events',
             ]);
-
+        $this->crud->addField([
+            'name'  => 'event_dead',
+            'label' => trans('contact.event.deadday'),            
+            'type'  => 'date',
+            'tab'   => trans('contact.data'),
+            'wrapper' => ['class' => 'form-group col-md-3'], //resizing
+            'attributes' => ['id' => 'event_dead'],
+            'entity' => 'events',
+            ]);
         $this->crud->addField([        
             'name'  => 'event_type',
             'label' => 'data2',
@@ -376,7 +385,7 @@ protected function setupShowOperation()
             'label' => trans('contact.document.number'),            
             'type'  => 'text',
             'tab'   => trans('contact.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing    
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing    
             'entity' => 'documents',
             ]);
 
@@ -389,13 +398,14 @@ protected function setupShowOperation()
             'value' => 'TYPE_DOC',
             ], 'create'); 
 
+
 /*
         $this->crud->addField([ // Select
             'name'  => 'nationality_id',
             'label' => trans('contact.nationality'),
             'type'  => 'select2_from_array',
             'tab'   => trans('contact.data'), 
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing      
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing      
             'options'   => $this->getNations(),
             'default' => Config::get('settings.contact_nationality'),
             'allows_null' => true,
@@ -426,13 +436,13 @@ protected function setupShowOperation()
                 [   'name' => 'data1',
                     'label' => trans('contact.phone.number'),
                     'type' => 'text',
-                    'wrapperAttributes' => ['class' => 'form-group col-md-8'],
+                    'wrapper' => ['class' => 'form-group col-md-6'],
                     'entity' => 'phones',
                 ],
                 [   'name' => 'data2',
                     'label' => trans('contact.phone.type'),
                     'type' => 'select_from_array',
-                    'wrapperAttributes' => ['class' => 'form-group col-md-6'], 
+                    'wrapper' => ['class' => 'form-group col-md-6'], 
                     'entity' => 'phones',
                     'options'     => ContentType::getTypePhones(),
                     'allows_null' => true,
@@ -440,7 +450,7 @@ protected function setupShowOperation()
                 [   'name' => 'data3',
                     'label' => trans('contact.phone.label'),
                     'type' => 'text',
-                    'wrapperAttributes' => ['class' => 'form-group col-md-6'], 
+                //    'wrapper' => ['class' => 'form-group col-md-6'], 
                     'entity' => 'phones',
                 ],
             ],
@@ -469,7 +479,7 @@ protected function setupShowOperation()
                 [   'name' => 'data2',
                     'label' => trans('contact.email.type'),
                     'type' => 'select_from_array',
-                    'wrapperAttributes' => ['class' => 'form-group col-md-6'],
+                    'wrapper' => ['class' => 'form-group col-md-6'],
                     'entity' => 'emails',
                     'options'     => ContentType::getTypeEmails(),
                     'allows_null' => true,
@@ -477,7 +487,7 @@ protected function setupShowOperation()
                 [   'name' => 'data3',
                     'label' => trans('contact.email.label'),
                     'type' => 'text',
-                    'wrapperAttributes' => ['class' => 'form-group col-md-6'], 
+                    'wrapper' => ['class' => 'form-group col-md-6'], 
                     'entity' => 'emails',
                 ],
  /*               [   'name' => 'data4',
@@ -513,7 +523,7 @@ protected function setupShowOperation()
                 [   'name' => 'data2',
                     'label' => trans('contact.address.type'),
                     'type' => 'select_from_array',
-                    'wrapperAttributes' => ['class' => 'form-group col-md-6'], 
+                    'wrapper' => ['class' => 'form-group col-md-6'], 
                     'entity' => 'addresses',
                     'options'     => ContentType::getTypeAddresses(),
                     'allows_null' => true,
@@ -521,7 +531,7 @@ protected function setupShowOperation()
                 [   'name' => 'data3',
                     'label' => trans('contact.address.label'),
                     'type' => 'text',
-                    'wrapperAttributes' => ['class' => 'form-group col-md-6'], 
+                    'wrapper' => ['class' => 'form-group col-md-6'], 
                     'entity' => 'addresses',
                 ],
                 [   'name' => 'data4',
@@ -532,7 +542,7 @@ protected function setupShowOperation()
                 [   'name' => 'data10',
                     'label' => trans('contact.address.country'),
                     'type' => 'select2_from_array',
-                    'wrapperAttributes' => ['class' => 'form-group col-md-6'],
+                    'wrapper' => ['class' => 'form-group col-md-6'],
                     'entity' => 'addresses',
                     'options'   => $this->getCountries(),
                     'default' => Config::get('settings.contact_country'),
@@ -541,7 +551,7 @@ protected function setupShowOperation()
             'name'  => 'data8',
             'label' => trans('contact.address.division'),
             'type'  => 'select2_from_ajax',
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'],
+            'wrapper' => ['class' => 'form-group col-md-6'],
             'entity' => 'addresses', 
             'attribute' => 'name',
             'model' => 'App\Models\WorldDivision', // foreign key model
@@ -555,7 +565,7 @@ protected function setupShowOperation()
             'name'  => 'data7',
             'label' => trans('contact.address.city'),
             'type'  => 'select2_from_ajax',
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'],
+            'wrapper' => ['class' => 'form-group col-md-6'],
             'entity' => 'addresses', 
             'attribute' => 'name',
             'model' => 'App\Models\WorldCity', // foreign key model
@@ -571,13 +581,13 @@ protected function setupShowOperation()
 /*                [   'name' => 'data8',
                     'label' => trans('contact.address.region'),
                     'type' => 'text',
-                    'wrapperAttributes' => ['class' => 'form-group col-md-6'],
+                    'wrapper' => ['class' => 'form-group col-md-6'],
                     'entity' => 'addresses',
                 ],                
                 [   'name' => 'data7',
                     'label' => trans('contact.address.city'),
                     'type' => 'text',
-                    'wrapperAttributes' => ['class' => 'form-group col-md-6'],
+                    'wrapper' => ['class' => 'form-group col-md-6'],
                     'entity' => 'addresses',
                 ],
 */
@@ -585,7 +595,7 @@ protected function setupShowOperation()
                 [   'name' => 'data9',
                     'label' => trans('contact.address.postcode'),
                     'type' => 'text',
-                    'wrapperAttributes' => ['class' => 'form-group col-md-6'], 
+                    'wrapper' => ['class' => 'form-group col-md-6'], 
                     'entity' => 'addresses',
                 ],                
                 [   'name' => 'data6',
@@ -634,9 +644,8 @@ protected function setupShowOperation()
             $this->getMonth(),
             function ($value) { // if the filter is active
                 $this->crud->addClause('whereHas', 'events', function ($query) use ($value) {
-                $query->whereNull('data4')
-                    ->where(\DB::raw("substr(data1, 6, 2)"),$value)
-                    ->orWhere(\DB::raw("substr(data1, 6,5)"),$value);
+                $query->whereNull('data4')->where(\DB::raw("substr(data1, 6, 2)"),$value)
+                    ->orWhere(\DB::raw("substr(data1, 6,5)"),$value)->whereNull('data4');
                 });
             });
 
@@ -670,22 +679,30 @@ protected function setupShowOperation()
                 }
             });
 
+        // status filter
+        $this->crud->addFilter([
+            'name' => 'status',
+            'label' => trans('contact.status'),
+            'type' => 'dropdown',     
+            ], 
+            ContentType::getTypeStatus(),
+            function($value) { // if the filter is active
+                $this->crud->addClause('where', 'status', $value);
+            });
+/*
         // select2_multiple filter
         $this->crud->addFilter([
             'name' => 'status',
             'label' => trans('contact.status'),
-            'type' => 'dropdown',       //'select2_multiple',
+            'type' => 'select2_multiple',      
             ], 
-            //function() { return 
-                ContentType::getTypeStatus(),
-                //; }, 
-            function($value) { // if the filter is active
-             //   foreach (json_decode($values) as $key => $value) {
-                    $this->crud->addClause('where', 'status', $value);
-              //  }
+            function() {return ContentType::getTypeStatus(); },
+            function($values) { // if the filter is active
+                foreach (json_decode($values) as $key => $value) {
+                    $this->crud->addClause('orwhere', 'status', $value);
+                }
             });
-
-
+*/
         // daterange filter
         $this->setFilterDateUpdate();
     }
@@ -694,6 +711,7 @@ protected function setupShowOperation()
 
     protected function setupUpdateOperation()
     {
+        $this->crud->disableAutoFocus();
         $this->setupCreateOperation();
     }
 
@@ -942,11 +960,11 @@ protected function destroyMacronutrients($productId)
     
     public function getMonth()
     {
-        $toDay      = Carbon::today()->format("m-d");
+        $today      = Carbon::today()->format("m-d");
         $yesterday  = Carbon::yesterday()->format('m-d');
         $tomorrow  = Carbon::tomorrow()->format('m-d');
         $months = [
-            $toDay      => 'Hoy',
+            $today      => 'Hoy',
             $yesterday  => 'Ayer',
             $tomorrow   => 'Mañana',
             '01'  => 'Enero',

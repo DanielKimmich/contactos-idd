@@ -171,53 +171,43 @@ class BlogPostCrudController extends CrudController
             'label' => trans('blog.post.author'),
             'type'  => 'select2',
             'tab'   => trans('blog.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing fields 
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing fields 
             'entity'    => 'contacts',
             'attribute' => 'display_name',
             'model'     => 'App\Models\Contact',
             'options'   => (function ($query) {
                 return $query->orderBy('display_name', 'ASC')->get(); }), 
             ]);
-
-  //      @can('create blogcategory') {
-  //      @if(backpack_user()->can('create blogcategory'))
+    if (auth()->user()->can('create blogcategory') ) {
         $this->crud->addField([    // Relationship
-            'name'      => 'category_id',
-            'label'     => trans('blog.post.category') .'<span class="badge badge-warning"> New in 4.1</span>',
-            'type'      => 'relationship',
+            'name'  => 'category_id',
+            'label' => trans('blog.post.category'),
+            'type'  => 'relationship',
             'tab'   => trans('blog.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'],           
+            'wrapper'   => ['class' => 'form-group col-md-6'],           
             'entity'    => 'category',
             'attribute' => 'name',
             'model'     => 'App\Models\BlogCategory',
- //           'options'   => (function ($query) {
- //              return $query->sortBy('name')->get(); }), 
+        //    'options'   => (function ($query) {
+        //        return $query->orderBy('name', 'ASC')->get(); }),
             'ajax' => false,
- //           'inline_create' => true, // TODO: make this work
-/*           'inline_create' => [ 
-                'entity' => 'category', // the entity in singular
-                'force_select' => true, // should the inline-created entry be immediately selected?
-                'modal_class' => 'modal-dialog modal-xl', // use modal-sm, modal-lg modal-xl
-                'modal_route' => route('blogcategory-inline-create'), // InlineCreate::getInlineCreateModal()
-                'create_route' => route('blogcategory-inline-create-save'), // InlineCreate::storeInlineCreate()
-                ],              */
+      //      'inline_create' => false, // TODO: make this work
+           'inline_create' => ['entity' => 'blogcategory'],             
             ]);
-     //   @endif
- //       } @elsecan {
- /*       $this->crud->addField([    // SELECT
+    } else {
+        $this->crud->addField([    // SELECT
             'name'  => 'category_id',
-            'label' => trans('blog.post.category'),
+            'label' => trans('blog.post.category'),         
             'type'  => 'select2',
             'tab'   => trans('blog.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing fields 
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing fields 
             'entity'    => 'category',
             'attribute' => 'name',
             'model'     => 'App\Models\BlogCategory',
             'options'   => (function ($query) {
                 return $query->orderBy('name', 'ASC')->get(); }), 
-            ]); */
-   //     } @endcan
-
+            ]); 
+    }
         $this->crud->addField([    // TEXT 
             'name'  => 'title',
             'label' => trans('blog.post.title_header'),
@@ -237,33 +227,46 @@ class BlogPostCrudController extends CrudController
             'tab'   => trans('blog.data'),            
             'placeholder' => 'Your textarea text here',
             ]);
-
-        $this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table)
-            'name'  => 'tags', // the method that defines the relationship in your Model
+    if (auth()->user()->can('create blogtag') ) {
+        $this->crud->addField([    // Relationship
+            'name'  => 'tags',
+            'label' => trans('blog.post.tags'),
+            'type'  => 'relationship',
+            'tab'   => trans('blog.data'),
+            'entity'    => 'tags',
+            'attribute' => 'name',
+            'model'     => 'App\Models\BlogTag',
+            'ajax' => true,
+            'minimum_input_length' => 0, //minimum characters before querying results
+           'inline_create' => ['entity' => 'blogtag'], 
+            ]);
+    } else {
+        $this->crud->addField([   // Select2Multiple 
+            'name'  => 'tags', // the method relationship in your Model
             'label' => trans('blog.post.tags'),
             'type'  => 'select2_multiple',
             'tab'   => trans('blog.data'),
-            'entity'    => 'tags', // the method that defines the relationship in your Model
-            'attribute' => 'name', // foreign key attribute that is shown to user
+            'entity'    => 'tags', // the method relationship in your Model
+            'attribute' => 'name', // foreign key attribute shown to user
             'model' => 'App\Models\BlogTag', // foreign key model
-            'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+            'pivot' => true, // on create&update, do you need to add/delete pivot
             ]);
-
+    }
         $this->crud->addField([    // DATE create 
             'name'  => 'posted_at',
             'label' => trans('blog.post.posted_at'),
             'type'  => 'date',
             'tab'   => trans('blog.data'),             
             'default' => date('Y-m-d'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing fields
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing fields
             ]); 
         $this->crud->addField([    // SELECT
             'name'  => 'status',
             'label' => trans('blog.post.status'),
             'type'  => 'select_from_array',
             'tab'   => trans('blog.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing fields
-            'options'   => BlogPost::getTypeStatus(),            
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing fields
+            'options' => BlogPost::getTypeStatus(),            
         ]);
         
     //INFO
@@ -279,7 +282,7 @@ class BlogPostCrudController extends CrudController
             'type'  => 'text',
             'tab'   => trans('blog.data'),
             'hint'  => trans('blog.post.slug_hint'),
-            'prefix'    => "<i class='fa fa-link'></i>",
+            'prefix'    => "<i class='la la-link'></i>",
             ]);
     }
 
@@ -362,10 +365,15 @@ class BlogPostCrudController extends CrudController
 
         return (string) $clonedEntry->push();
     }
-/*
+
     public function fetchCategory()
     {
-        return $this->fetch(App\Models\BlogCategory::class);
+        return $this->fetch('App\Models\BlogCategory');
     }
-*/
+
+    public function fetchTags()
+    {
+        return $this->fetch('App\Models\BlogTag');
+    }
+
 }

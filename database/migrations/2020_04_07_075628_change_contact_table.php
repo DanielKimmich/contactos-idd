@@ -18,6 +18,7 @@ class ChangeContactTable extends Migration
            // $table->unsignedInteger('nationality_id')->charset('utf8')->collate('utf8_bin')->nullable()->change();
           //  $table->unsignedInteger('nationality_id')->nullable()->charset('')->collate('')->change();
          //   $table->renameColumn('sexo', 'sex_id'); 
+              $table->renameColumn('blood_type', 'civil_status');
         });
     }
 

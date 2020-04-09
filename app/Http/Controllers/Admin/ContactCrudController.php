@@ -100,6 +100,13 @@ class ContactCrudController extends CrudController
             'priority'  => 2,
 //            'orderable' => true,
             ]);       
+        $this->crud->addColumn([
+            'name'  => 'civil_status',
+            'label' => trans('contact.civil_status'),
+            'type'  => 'select_from_array',
+            'priority'  => 3,
+            'options'   => ContentType::getTypeCivilStatus(),
+            ]);
          $this->crud->addColumn([
             'name'  => 'documents.document_number',
             'label' =>  trans('contact.document.number'),
@@ -116,6 +123,7 @@ class ContactCrudController extends CrudController
             'attribute' => 'name',
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
             ]); 
+
         $this->crud->addColumn([
             'name'  => 'phone_mobile',
             'label' => trans('contact.phone.mobile1'),
@@ -398,6 +406,15 @@ protected function setupShowOperation()
             'value' => 'TYPE_DOC',
             ], 'create'); 
 
+        $this->crud->addField([ // Text
+            'name'  => 'civil_status',
+            'label' => trans('contact.civil_status'),
+            'type'  => 'select_from_array',
+            'tab'   => trans('contact.data'),
+            'wrapper' => ['class' => 'form-group col-md-4'],
+            'options'    => ContentType::getTypeCivilStatus(),
+            'allows_null' => true,
+            ]);
 
 /*
         $this->crud->addField([ // Select

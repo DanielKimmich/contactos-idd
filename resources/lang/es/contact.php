@@ -23,6 +23,7 @@ return [
 	'display_name'  => 'Nombre de Contacto',
 	'sex'			=> 'Genero',
 	'nationality'	=> 'Nacionalidad',
+	'civil_status'	=> 'Estado Civil',
 	'status'		=> 'Estado',
 	'is_required'   => 'Contact is required',
 

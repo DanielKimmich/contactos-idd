@@ -20,6 +20,7 @@ class BlogTagCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 //    use \Backpack\CRUD\app\Http\Controllers\Operations\CloneOperation { clone as traitClone; } 
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
 
 
     public function setup()
@@ -160,7 +161,7 @@ $this->crud->orderButtons('line', ['show','update','delete']);
 
     // ------ CRUD FILTERS
         // daterange filter
-        $this->setFilterDateUpdate();
+//        $this->setFilterDateUpdate();
     }
     
     public function clone($id)

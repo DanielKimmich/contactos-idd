@@ -89,8 +89,8 @@ class ContactContentTypes extends Seeder
             ),
             9 =>            
             array (
-                'type'      => 'WebSite',
-                'label'     => 'Sitios web',
+                'type'      => 'Civil_Status',
+                'label'     => 'Estado Civil',
                 'parent_id' => '0',
                 'depth'     => '1',
                 'mimetype' => 'system',
@@ -399,6 +399,55 @@ class ContactContentTypes extends Seeder
                 'depth'     => '2',
                 'mimetype' => 'system',
             ),
+            48 => 
+            array (
+                'type' => 'SINGLE',
+                'label' => 'Soltero/a',
+                'parent_id' => '10',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
+            49 => 
+            array (
+                'type' => 'MARRIED',
+                'label' => 'Casado/a',
+                'parent_id' => '10',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
+            50 => 
+            array (
+                'type' => 'WIDOWED',
+                'label' => 'Viudo/a',
+                'parent_id' => '10',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
+            51 => 
+            array (
+                'type' => 'DIVORCED',
+                'label' => 'Divorciado/a',
+                'parent_id' => '10',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
+            52 => 
+            array (
+                'type' => 'SEPARATED',
+                'label' => 'Separado/a',
+                'parent_id' => '10',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
+            53 => 
+            array (
+                'type' => 'COHABITING',
+                'label' => 'Conviviente',
+                'parent_id' => '10',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
+
         ));
     }
 }

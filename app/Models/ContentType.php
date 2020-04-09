@@ -81,6 +81,13 @@ class ContentType extends Model
         return $types->toArray();
     }
 
+    public static function getTypeCivilStatus()
+    {   
+        $id = self::where('type','Civil_Status')->where('depth', 1)->orWhereNull('depth')->first()->id;
+        $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        return $types->toArray();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS

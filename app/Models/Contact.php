@@ -25,14 +25,7 @@ class Contact extends Model
     // protected $primaryKey = 'id';
     public $timestamps = true;
     protected $guarded = ['id'];
-    protected $fillable = [
-        'display_name', 
-        'sex_id', 
-        'nationality_id', 
-        'blood_type',
-        'photo_id',
-        'status', 
-    ];
+    protected $fillable = ['display_name', 'sex_id', 'nationality_id', 'civil_status', 'photo_id', 'status'];
     // protected $hidden = [];
     // protected $dates = [];
     protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user',

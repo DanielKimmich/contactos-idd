@@ -54,7 +54,7 @@ class BlogCategory extends Model
     */
     public function posts()
     {
-        return $this->hasMany('App\Models\BlogPost','category_id', 'id');
+        return $this->hasMany('App\Models\BlogPost'); //,'category_id', 'id'
         
     }
 

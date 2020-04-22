@@ -57,7 +57,7 @@ class ContactEvent extends Model
     */
     public function contact()
     {
-        return $this->belongsTo('App\Models\Contact', 'contact_id', 'id');
+        return $this->belongsTo('App\Models\ContactPerson', 'contact_id', 'id');
     }
 
     /*

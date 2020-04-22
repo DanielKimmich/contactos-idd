@@ -26,13 +26,13 @@ class BlogCategoryCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\BlogCategory');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/blogcategory');
-        $this->crud->setEntityNameStrings(trans('blog.category.title'), trans('blog.category.titles'));
-        $this->setupAvancedOperation();
+        $this->crud->setEntityNameStrings(trans('blog.category.entity_name'), trans('blog.category.entity_names'));
         $this->setAccessOperation('blogcategory');
     }
 
     protected function setupListOperation()
     {
+        $this->setupAvancedOperation();
 // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -156,7 +156,7 @@ class BlogCategoryCrudController extends CrudController
 
     // ------ CRUD FILTERS
         // daterange filter
-//        $this->setFilterDateUpdate();
+        $this->setFilterDateUpdate();
 
     }
     

@@ -3,21 +3,22 @@
 
 
 <!-- Contacts -->
-@if (auth()->user()->hasAnyPermission(['list contactdata','list contactsetting']))
+@if (auth()->user()->hasAnyPermission(['list contactperson', 'list contactfamily', 'list contactsetting']))
   <li class="nav-item nav-dropdown">
 	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-address-book"></i>{{ trans('common.menu.contact') }}</a>
 	<ul class="nav-dropdown-items">
- 	  @can('list contactdata')
-		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contact') }}'><i class='nav-icon la la-address-card'></i>{{ trans('contact.titles') }}</a></li>
+ 	  @can('list contactperson')
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contactperson') }}'><i class='nav-icon la la-id-card'></i>{{ trans('contact.person.entity_names') }}</a></li>
 	  @endcan
-
+ 	  @can('list contactfamily')
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contactfamily') }}'><i class='nav-icon la la-users'></i>{{ trans('contact.family.entity_names') }}</a></li>
+	  @endcan
  	  @can('list contactsetting')
-		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contenttype') }}'><i class='nav-icon la la-cogs'></i>Preferencias</a></li>	
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contenttype') }}'><i class='nav-icon la la-cogs'></i>{{ trans('contact.type.entity_names') }}</a></li>	
 	  @endcan
-  	  @can('list contactdebug')
-		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contactdata') }}'><i class='nav-icon la la-question'></i>ContactDatas
+  	  @can('list contactdata')
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contactdata') }}'><i class='nav-icon la la-question'></i>Contact Data</a></li>	
 	  @endcan
-		</a></li>	
 	</ul>
   </li>
 @endif
@@ -28,19 +29,19 @@
 	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-book"></i>{{ trans('common.menu.blog') }}</a>
 	  <ul class="nav-dropdown-items">
 	  @can('list blogpost')
-		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('blogpost') }}'><i class='nav-icon la la-newspaper-o'></i><span>{{ trans('blog.post.titles') }}</span></a></li>
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('blogpost') }}'><i class='nav-icon la la-newspaper-o'></i><span>{{ trans('blog.post.entity_names') }}</span></a></li>
       @endcan
 
 	  @can('list blogcomment')		
-		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('blogcomment') }}'><i class='nav-icon la la-comments'></i><span>{{ trans('blog.comment.titles') }}</span></a></li>
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('blogcomment') }}'><i class='nav-icon la la-comments'></i><span>{{ trans('blog.comment.entity_names') }}</span></a></li>
       @endcan
 
 	  @can('list blogcategory')		
-		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('blogcategory') }}'><i class='nav-icon la la-list'></i><span>{{ trans('blog.category.titles') }}</span></a></li>
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('blogcategory') }}'><i class='nav-icon la la-list'></i><span>{{ trans('blog.category.entity_names') }}</span></a></li>
       @endcan
 
 	  @can('list blogtag')		
-		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('blogtag') }}'><i class='nav-icon la la-tag'></i><span>{{ trans('blog.tag.titles') }}</span></a></li>
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('blogtag') }}'><i class='nav-icon la la-tag'></i><span>{{ trans('blog.tag.entity_names') }}</span></a></li>
       @endcan
 	</ul>
   </li>
@@ -81,7 +82,7 @@
       @endcan
       
 	  @can('list authrole')
-	  <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-group"></i><span>{{ trans('backpack::permissionmanager.roles') }}</span></a></li>
+	  <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-users-cog"></i><span>{{ trans('backpack::permissionmanager.roles') }}</span></a></li>
       @endcan
 
 	  @can('list authpermission')

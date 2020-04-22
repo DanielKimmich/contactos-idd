@@ -28,12 +28,12 @@ class PermissionCrudController extends OriginalPermissionCrudController
         $this->crud->setEntityNameStrings(trans('backpack::permissionmanager.permission_singular'), trans('backpack::permissionmanager.permission_plural'));
         $this->crud->setRoute(backpack_url('permission'));
 
-        $this->setupAvancedOperation();
         $this->setAccessOperation('authpermission');
     }
 
     public function setupListOperation()
     {
+        $this->setupAvancedOperation();
     // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',

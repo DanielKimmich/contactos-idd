@@ -27,14 +27,14 @@ class ContentTypeCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\ContentType');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/contenttype');
-        $this->crud->setEntityNameStrings(trans('contact.type.title'), trans('contact.type.titles'));
-        $this->setupAvancedOperation();
+        $this->crud->setEntityNameStrings(trans('contact.type.entity_name'), trans('contact.type.entity_names'));
         $this->setAccessOperation('contactsetting');
     }
 
     protected function setupListOperation()
     {
-// ------ CRUD COLUMNS
+        $this->setupAvancedOperation();
+    // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
             'label' => 'Id',
@@ -66,7 +66,7 @@ class ContentTypeCrudController extends CrudController
             'priority'  => 2,
             'entity'    => 'parent',
             'attribute' => 'label',
-        ]);
+            ]);
         $this->crud->addColumn([
             'name'  => 'mimetype',
             'label' => trans('contact.type.mimetype'),
@@ -106,7 +106,7 @@ class ContentTypeCrudController extends CrudController
             'type'  => 'select',
             'entity'    => 'parent',
             'attribute' => 'label',
-        ]);
+            ]);
         $this->crud->addColumn([
             'name'  => 'lft',
             'label' => trans('contact.type.order'),
@@ -247,7 +247,7 @@ class ContentTypeCrudController extends CrudController
     protected function setupReorderOperation()
     {
         CRUD::set('reorder.label', 'label');
-        CRUD::set('reorder.max_level', 2);
+        CRUD::set('reorder.max_level', 3);
     }
 
 }

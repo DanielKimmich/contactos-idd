@@ -24,12 +24,12 @@ class UserCrudController extends OriginalUserCrudController
         $this->crud->setEntityNameStrings(trans('backpack::permissionmanager.user'), trans('backpack::permissionmanager.users'));
         $this->crud->setRoute(backpack_url('user'));
 
-        $this->setupAvancedOperation();
         $this->setAccessOperation('authuser');
     }
 
     public function setupListOperation()
     {
+        $this->setupAvancedOperation();
     // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',

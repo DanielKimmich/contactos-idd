@@ -28,13 +28,13 @@ class BlogPostCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\BlogPost');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/blogpost');
-        $this->crud->setEntityNameStrings(trans('blog.post.title'), trans('blog.post.titles'));
-        $this->setupAvancedOperation();
+        $this->crud->setEntityNameStrings(trans('blog.post.entity_name'), trans('blog.post.entity_names'));
         $this->setAccessOperation('blogpost');
     }
 
     protected function setupListOperation()
     {
+        $this->setupAvancedOperation();
 // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -44,7 +44,7 @@ class BlogPostCrudController extends CrudController
             ]) -> makeFirstColumn() ;
          $this->crud->addColumn([
             'name'  => 'title',
-            'label' => trans('blog.post.title_header'),
+            'label' => trans('blog.post.title'),
             'type'  => 'text',
             'priority' => 1,
             ]);
@@ -76,7 +76,6 @@ class BlogPostCrudController extends CrudController
             'type'  => 'text',
             'priority' => 4,
             ]); 
-        
     }
 
     protected function setupShowOperation()
@@ -104,7 +103,7 @@ class BlogPostCrudController extends CrudController
             ]); 
          $this->crud->addColumn([
             'name'  => 'title',
-            'label' => trans('blog.post.title_header'),
+            'label' => trans('blog.post.title'),
             'type'  => 'text',
             ]);
         $this->crud->addColumn([
@@ -174,7 +173,7 @@ class BlogPostCrudController extends CrudController
             'wrapper' => ['class' => 'form-group col-md-6'], //resizing fields 
             'entity'    => 'contacts',
             'attribute' => 'display_name',
-            'model'     => 'App\Models\Contact',
+            'model'     => 'App\Models\ContactPerson',
             'options'   => (function ($query) {
                 return $query->orderBy('display_name', 'ASC')->get(); }), 
             ]);
@@ -188,8 +187,8 @@ class BlogPostCrudController extends CrudController
             'entity'    => 'category',
             'attribute' => 'name',
             'model'     => 'App\Models\BlogCategory',
-        //    'options'   => (function ($query) {
-        //        return $query->orderBy('name', 'ASC')->get(); }),
+    //        'options'   => (function ($query) {
+    //            return $query->orderBy('name', 'ASC')->get(); }),
             'ajax' => false,
       //      'inline_create' => false, // TODO: make this work
            'inline_create' => ['entity' => 'blogcategory'],             
@@ -210,7 +209,7 @@ class BlogPostCrudController extends CrudController
     }
         $this->crud->addField([    // TEXT 
             'name'  => 'title',
-            'label' => trans('blog.post.title_header'),
+            'label' => trans('blog.post.title'),
             'type'  => 'text',
             'tab'   => trans('blog.data'),
             ]);
@@ -299,7 +298,7 @@ class BlogPostCrudController extends CrudController
             'type'  => 'select2',
             ],
             function() {
-                return \App\Models\Contact::all()->sortBy('display_name')->pluck('display_name', 'id')->toArray(); },
+                return \App\Models\ContactPerson::all()->sortBy('display_name')->pluck('display_name', 'id')->toArray(); },
             function($value) {  
                 $this->crud->addClause('where', 'author_id', $value ); });
 

@@ -29,12 +29,12 @@ class WorldContinentCrudController extends CrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/worldcontinent');
         $this->crud->setEntityNameStrings( trans('world.continent.title'),  trans('world.continent.titles'));
 
-        $this->setupAvancedOperation();
         $this->setAccessOperation('worldcontinent');
     }
 
     protected function setupListOperation()
     {
+        $this->setupAvancedOperation();
     // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',

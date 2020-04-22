@@ -4,7 +4,7 @@
 
     use App\Models\Notification;
     use App\Models\ContactEvent;
-    use App\Models\Contact;
+    use App\Models\ContactPerson;
     use App\Models\ContactData;
     use App\Models\BlogPost;
     use App\Models\BlogComment;
@@ -91,10 +91,10 @@
   		] 
   	];
 
-    $contactCount = Contact::count();
-    $contactCountNew = Contact::whereDate('created_at', '>', Carbon::today()->subDays($dias))->count();
-    if ($contactCount > 0) 
-        $contactProgress = floor($contactCountNew/$contactCount*100);
+    $contactPersonCount = ContactPerson::count();
+    $contactPersonCountNew = ContactPerson::whereDate('created_at', '>', Carbon::today()->subDays($dias))->count();
+    if ($contactPersonCount > 0) 
+        $contactProgress = floor($contactPersonCountNew/$contactPersonCount*100);
     else 
         $contactProgress = 0;
 
@@ -125,10 +125,10 @@
   		'content' => [ // widgets 
     		[ 	'type'        => 'progress',
     			'class'       => 'card text-white bg-success mb-2',
-    			'value'       => $contactCountNew .' Contactos',
+    			'value'       => $contactPersonCountNew .' Contactos',
     			'description' => 'nuevos en los últimos ' .$dias. ' días',
     			'progress'    => $contactProgress, // integer
-    			'hint'        => 'de un total de ' .$contactCount .' registros',
+    			'hint'        => 'de un total de ' .$contactPersonCount .' registros',
     		],
       		[	'type'        => 'progress',
     			'class'       => 'card text-white bg-primary mb-2',

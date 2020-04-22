@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use App\Models\WorldCountry;
 use App\Models\ContentType;
 
-class Contact extends Model
+class ContactPerson extends Model
 //class Contact extends Pivot
 {
     use CrudTrait;
@@ -89,10 +89,10 @@ class Contact extends Model
         return $this->belongsTo('App\Models\ContentType', 'status', 'type')->where('parent_id', $id);
     }
 */
-    public function nationality()
+/*    public function nationality()
     {
         return $this->belongsTo('App\Models\WorldCountry', 'nationality_id', 'code_alpha3');
-    }
+    }  */
    
     public function types()
     {

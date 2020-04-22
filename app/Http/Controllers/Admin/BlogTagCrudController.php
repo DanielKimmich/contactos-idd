@@ -27,13 +27,14 @@ class BlogTagCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\BlogTag');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/blogtag');
-        $this->crud->setEntityNameStrings(trans('blog.tag.title'), trans('blog.tag.titles'));
-        $this->setupAvancedOperation();
+        $this->crud->setEntityNameStrings(trans('blog.tag.entity_name'), trans('blog.tag.entity_names'));
         $this->setAccessOperation('blogtag');
     }
 
     protected function setupListOperation()
     {
+        $this->setupAvancedOperation();
+        $this->crud->orderButtons('line', ['show','update','delete']);
 // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -58,7 +59,7 @@ class BlogTagCrudController extends CrudController
             'label' => trans('blog.tag.slug'),
             'type' => 'text',
             'priority' => 4,
-            'exportOnlyField' => true,  //forced to exportfield and hidden in table            
+            'exportOnlyField' => true, //forced to exportfield and hidden in table
             ]);    
         $this->crud->addColumn([    
             'name'  => 'updated_at',
@@ -69,7 +70,6 @@ class BlogTagCrudController extends CrudController
 //$this->crud->addButton('top', 'export_buttons', 'view', 'crud::inc.export_buttons', 'end');
 //$this->crud->modifyButton('exportButtons', ['position' => 'end']);
 //$this->crud->modifyButton('exportbuttons', ['stack' => 'top']);
-$this->crud->orderButtons('line', ['show','update','delete']);
     }
 
     protected function setupShowOperation()
@@ -160,8 +160,19 @@ $this->crud->orderButtons('line', ['show','update','delete']);
         $this->crud->orderBy('name');
 
     // ------ CRUD FILTERS
+    // simple filter
+/*        $this->crud->addFilter([
+            'type' => 'text',
+            'name' => 'description',
+            'label'=> 'Description'
+        ], 
+        false, 
+        function($value) { // if the filter is active
+            $this->crud->addClause('where', 'description', 'LIKE', "%$value%");
+        });
+*/
         // daterange filter
-//        $this->setFilterDateUpdate();
+        $this->setFilterDateUpdate();
     }
     
     public function clone($id)

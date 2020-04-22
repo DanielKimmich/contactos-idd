@@ -26,17 +26,24 @@ class ContactDataCrudController extends CrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/contactdata');
         $this->crud->setEntityNameStrings('contactdata', 'contact_datas');
 
-        $this->setupAvancedOperation();
     }
 
     protected function setupListOperation()
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
+        $this->setupAvancedOperation();
         $this->crud->setFromDb();
+        $this->crud->addColumn([
+            'name'  => 'id',
+            'label' => 'Id',
+            'type'  => 'number',
+            'priority' => 2,
+            ]) -> makeFirstColumn() ;        
+
         $this->crud->disableResponsiveTable();
-    $this->crud->addButtonFromView('top', 'import', 'import', 'end');  
-    $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');  
-    $this->crud->enableExportButtons(); // ------ DATATABLE EXPORT BUTTONS
+        $this->crud->addButtonFromView('top', 'import', 'import', 'end');  
+        $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');  
+        $this->crud->enableExportButtons(); // ------ DATATABLE EXPORT BUTTONS
      //   $this->crud->addColumns(['id', 'mimetype', 'event_date', 'event_type', 'event_label'] );
     }
 
@@ -46,7 +53,6 @@ class ContactDataCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields
         $this->crud->setFromDb();
-
 
 /*
         $this->crud->addField([

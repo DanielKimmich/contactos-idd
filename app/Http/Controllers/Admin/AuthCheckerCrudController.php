@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 //use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use App\Models\AuthChecker;
 
 /**
  * Class AuthCheckerCrudController
@@ -18,19 +19,19 @@ class AuthCheckerCrudController extends CrudController
 //    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
 //    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 //    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+//    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     public function setup()
     {
         $this->crud->setModel('App\Models\AuthChecker');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/authchecker');
         $this->crud->setEntityNameStrings(trans('report.authchecker.title'), trans('report.authchecker.titles'));
-
-        $this->setupAvancedOperation();
     }
 
     protected function setupListOperation()
     {
+        $this->setupAvancedOperation();
+        $this->crud->removeAllButtons();
     // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -77,12 +78,12 @@ class AuthCheckerCrudController extends CrudController
         $this->crud->addColumn([
             'name'  => 'type',
             'label' => trans('report.authchecker.status'),
-            'type'  => 'text',
-            'priority' => 2,
+            'type'  => 'select_from_array',
+            'priority'  => 2,
+            'options'   => AuthChecker::getTypeStatus(),
             ]);
     // remove a column from the stack
-        $this->crud->removeAllButtons();
-     //   $this->crud->disableResponsiveTable();
+    //   $this->crud->disableResponsiveTable();
     }
 
     protected function setupAvancedOperation()
@@ -110,13 +111,12 @@ class AuthCheckerCrudController extends CrudController
             ],
             function() {
             //    return array('auth', 'failed', 'lockout'); },
-                return $this->crud->model->getTypeStatus(); },
+                return AuthChecker::getTypeStatus(); },
             function($value) {  
                 $this->crud->addClause('where', 'type', $value ); });
 
         // daterange filter
         $this->setFilterDateUpdate();
     }
-
 
 }

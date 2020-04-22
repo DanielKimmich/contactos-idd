@@ -11,10 +11,10 @@ return array (
 
 //POST
     'post'      => [
-        'title'         => 'Publicación',
-        'titles'        => 'Publicaciones',
+        'entity_name'         => 'Publicación',
+        'entity_names'        => 'Publicaciones',
     //Fields                
-        'title_header'  => 'Título',
+        'title'  => 'Título',
         'description'   => 'Resumen',
         'body'          => 'Contenido',
         'tags'          => 'Etiquetas',
@@ -29,10 +29,10 @@ return array (
 
 //COMMENT
     'comment'    => [
-        'title'         => 'Comentario',
-        'titles'        => 'Comentarios',
+        'entity_name'         => 'Comentario',
+        'entity_names'        => 'Comentarios',
     //Fields                
-        'title_header'  => 'Título',
+        'title'  => 'Título',
         'body'          => 'Contenido',
         'status'        => 'Ver Comentario',
         'slug'          => 'Slug (URL)',     
@@ -41,8 +41,8 @@ return array (
 
 //CATEGORY
     'category'    => [
-        'title'         => 'Categoría',
-        'titles'        => 'Categorías',
+        'entity_name'         => 'Categoría',
+        'entity_names'        => 'Categorías',
     //Fields                
         'name'          => 'Nombre',
         'description'   => 'Descripción',
@@ -52,8 +52,8 @@ return array (
 
 //TAG
     'tag'         => [
-        'title'         => 'Etiqueta',
-        'titles'        => 'Etiquetas',
+        'entity_name'         => 'Etiqueta',
+        'entity_names'        => 'Etiquetas',
     //Fields                
         'name'          => 'Nombre',
         'description'   => 'Descripción',

@@ -81,6 +81,41 @@ class ContentType extends Model
         return $types->toArray();
     }
 
+    public static function getTypeRelationParents()
+    {   
+        $id = self::where('type','TYPE_PARENT')->where('depth', 2)->first()->id;
+        $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        return $types->toArray();
+    }
+
+    public static function getTypeRelationSpouses()
+    {   
+        $id = self::where('type','TYPE_SPOUSE')->where('depth', 2)->first()->id;
+        $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        return $types->toArray();
+    }
+
+    public static function getTypeRelationChildren()
+    {   
+        $id = self::where('type','TYPE_CHILDREN')->where('depth', 2)->first()->id;
+        $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        return $types->toArray();
+    }
+
+    public static function getTypeRelationRelatives()
+    {   
+        $id = self::where('type','TYPE_RELATIVE')->where('depth', 2)->first()->id;
+        $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        return $types->toArray();
+    }
+
+    public static function getTypeRelationOthers()
+    {   
+        $id = self::where('type','TYPE_OTHERS')->where('depth', 2)->first()->id;
+        $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        return $types->toArray();
+    }
+            
     public static function getTypeCivilStatus()
     {   
         $id = self::where('type','Civil_Status')->where('depth', 1)->orWhereNull('depth')->first()->id;

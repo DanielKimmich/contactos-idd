@@ -30,12 +30,12 @@ class WorldDivisionCrudController extends CrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/worlddivision');
         $this->crud->setEntityNameStrings( trans('world.division.title'),  trans('world.division.titles'));
 
-        $this->setupAvancedOperation();
         $this->setAccessOperation('worlddivision');
     }
 
     protected function setupListOperation()
     {
+        $this->setupAvancedOperation();
     // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',

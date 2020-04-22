@@ -28,12 +28,12 @@ class RoleCrudController extends OriginalRoleCrudController
         $this->crud->setEntityNameStrings(trans('backpack::permissionmanager.role'), trans('backpack::permissionmanager.roles'));
         $this->crud->setRoute(backpack_url('role'));
 
-        $this->setupAvancedOperation();
         $this->setAccessOperation('authrole');
     }
 
     public function setupListOperation()
     {
+        $this->setupAvancedOperation();
     // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',

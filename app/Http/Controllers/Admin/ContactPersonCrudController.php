@@ -23,7 +23,7 @@ use App\Models\WorldCity;
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class ContactCrudController extends CrudController
+class ContactPersonCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
@@ -38,12 +38,11 @@ class ContactCrudController extends CrudController
 
     public function setup()
     {
-        $this->crud->setModel('App\Models\Contact');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/contact');
-        $this->crud->setEntityNameStrings(trans('contact.title'), trans('contact.titles'));
+        $this->crud->setModel('App\Models\ContactPerson');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/contactperson');
+        $this->crud->setEntityNameStrings(trans('contact.person.entity_name'), trans('contact.person.entity_names'));
 //        $this->crud->with(['names', 'events']);
-        $this->setupAvancedOperation();
-        $this->setAccessOperation('contactdata');
+        $this->setAccessOperation('contactperson');
         $this->setContactPhone();
         $this->setContactEmail();
         $this->setContactAddress();
@@ -59,6 +58,7 @@ class ContactCrudController extends CrudController
     {   //$this->crud->setListContentClass('col-md-8 col-md-offset-2');
     //    $this->crud->setDefaultPageLength(25); //number of rows shown in list
      //   $this->crud->disableResponsiveTable();
+        $this->setupAvancedOperation();
      // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -68,13 +68,13 @@ class ContactCrudController extends CrudController
             ]) -> makeFirstColumn() ;
         $this->crud->addColumn([ // Text
             'name'  => 'display_name',
-            'label' =>  trans('contact.display_name'),
+            'label' =>  trans('contact.person.display_name'),
             'type'  => 'text',
             'priority' => 1,
             ]);
         $this->crud->addColumn([
             'name'  => 'sex_id',
-            'label' => trans('contact.sex'),
+            'label' => trans('contact.person.sex'),
             'type'  => 'select_from_array',
             'priority'  => 4,
             'options'   => ContentType::getTypeSexes(),
@@ -102,7 +102,7 @@ class ContactCrudController extends CrudController
             ]);       
         $this->crud->addColumn([
             'name'  => 'civil_status',
-            'label' => trans('contact.civil_status'),
+            'label' => trans('contact.person.civil_status'),
             'type'  => 'select_from_array',
             'priority'  => 3,
             'options'   => ContentType::getTypeCivilStatus(),
@@ -114,13 +114,22 @@ class ContactCrudController extends CrudController
             'priority' => 4,
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
             ]); 
-         $this->crud->addColumn([
+ /*        $this->crud->addColumn([
             'name'  => 'nationality_id',
             'label' => trans('contact.nationality'),
             'type'  => 'select',
             'priority'  => 4,
             'entity'    => 'nationality', 
             'attribute' => 'name',
+            'exportOnlyField' => true,  //forced to exportfield and hidden in table
+            ]); */
+
+        $this->crud->addColumn([
+            'name'  => 'nationality_id',
+            'label' => trans('contact.person.nationality'),
+            'type'  => 'select_from_array',
+            'priority'  => 4,
+            'options'   => $this->getNations(),
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
             ]); 
 
@@ -154,13 +163,13 @@ class ContactCrudController extends CrudController
             ]);
         $this->crud->addColumn([
             'name'  => 'names.data14', 
-            'label' => trans('contact.photos'), 
+            'label' => trans('contact.photo.tab'), 
             'type'  => 'check',
             'priority'  => 4,
             ]);
         $this->crud->addColumn([
             'name'  => 'status',
-            'label' => trans('contact.status'),
+            'label' => trans('contact.person.status'),
             'type'  => 'select_from_array',
             'priority'  => 3,
             'options'   => ContentType::getTypeStatus(),
@@ -193,22 +202,28 @@ protected function setupShowOperation()
             ]);
         $this->crud->addColumn([
             'name'  => 'display_name',
-            'label' =>  trans('contact.display_name'),
+            'label' =>  trans('contact.person.display_name'),
             'type'  => 'text',
             ]);
         $this->crud->addColumn([
             'name'  => 'sex_id',
-            'label' => trans('contact.sex'),
+            'label' => trans('contact.person.sex'),
             'type'  => 'select_from_array',
             'options'   => ContentType::getTypeSexes(),
             ]);
-        $this->crud->addColumn([
+/*        $this->crud->addColumn([
             'name'  => 'nationality_id',
-            'label' => trans('contact.nationality'),
+            'label' => trans('contact.person.nationality'),
             'type'  => 'select',
             'entity' => 'nationality', 
             'attribute' => 'name',
-            ]);  
+            ]);  */
+        $this->crud->addColumn([
+            'name'  => 'nationality_id',
+            'label' => trans('contact.person.nationality'),
+            'type'  => 'select_from_array',
+            'options'   => $this->getNations(),
+            ]); 
         $this->crud->addColumn([
             'name'  => 'events.data1',
             'label' =>  trans('contact.event.birthday'),
@@ -258,7 +273,7 @@ protected function setupShowOperation()
             ]);
         $this->crud->addColumn([
             'name'  => 'status',
-            'label' => trans('contact.status'),
+            'label' => trans('contact.person.status'),
             'type'  => 'select_from_array',
             'options'   => ContentType::getTypeStatus(),
             ]);
@@ -293,7 +308,7 @@ protected function setupShowOperation()
 // ------ CRUD FIELDS
         $this->crud->addField([ // Text
             'name'  => 'display_name',
-            'label' => trans('contact.display_name'),
+            'label' => trans('contact.person.display_name'),
             'type'  => 'text',
             'wrapper' => ['class' => 'form-group col-md-8'],
             'prefix'     => '<i class="la la-id-card-o"></i>',
@@ -301,7 +316,7 @@ protected function setupShowOperation()
             ]);  
         $this->crud->addField([ // Text
             'name'  => 'status',
-            'label' => trans('contact.status'),
+            'label' => trans('contact.person.status'),
             'type'  => 'select_from_array',
             'wrapper' => ['class' => 'form-group col-md-4'],
             'options'    => ContentType::getTypeStatus(),
@@ -317,7 +332,7 @@ protected function setupShowOperation()
         $this->crud->addField([
             'name'  => 'name_display',
             'type'  => 'hidden',
-            'tab'   => trans('contact.names'), 
+            'tab'   => trans('contact.name.tab'), 
             'attributes' => ['id' => 'name_display'],
             'entity' => 'names', 
             ]);
@@ -325,35 +340,35 @@ protected function setupShowOperation()
             'name'  => 'name_first',
             'label' => trans('contact.name.first'),
             'type'  => 'text',
-            'tab'   => trans('contact.names'),
+            'tab'   => trans('contact.name.tab'),
             'attributes' => ['id' => 'name_first'],
-            'wrapper' => ['class' => 'form-group col-md-6'], //resizing
-            'entity' => 'names', 
+            'wrapper'   => ['class' => 'form-group col-md-6'], //resizing
+            'entity'    => 'names', 
             'auto_focus' => 'true',
             ]);
         $this->crud->addField([
             'name'  => 'name_middle',
             'label' => trans('contact.name.middle'),
             'type'  => 'text',
-            'tab'   =>  trans('contact.names'),
+            'tab'   =>  trans('contact.name.tab'),
             'attributes' => ['id' => 'name_middle'],
-            'wrapper' => ['class' => 'form-group col-md-6'], //resizing
-            'entity' => 'names', 
+            'wrapper'   => ['class' => 'form-group col-md-6'], //resizing
+            'entity'    => 'names', 
             ]);
 
         $this->crud->addField([
             'name'  => 'name_family',
             'label' => trans('contact.name.family'),
             'type'  => 'text',
+            'tab'   => trans('contact.name.tab'),
             'attributes' => ['id' => 'name_family'],
-            'tab'    => trans('contact.names'),
-            'entity' => 'names', 
+            'entity'    => 'names', 
             ]);
 
     //DATA
         $this->crud->addField([ // radio
             'name'  => 'sex_id',
-            'label' => trans('contact.sex'),
+            'label' => trans('contact.person.sex'),
             'type'  => 'radio',     //'radio',
             'tab'   => trans('contact.data'),
             'wrapper' => ['class' => 'form-group col-md-6'], //resizing
@@ -406,20 +421,9 @@ protected function setupShowOperation()
             'value' => 'TYPE_DOC',
             ], 'create'); 
 
-        $this->crud->addField([ // Text
-            'name'  => 'civil_status',
-            'label' => trans('contact.civil_status'),
-            'type'  => 'select_from_array',
-            'tab'   => trans('contact.data'),
-            'wrapper' => ['class' => 'form-group col-md-4'],
-            'options'    => ContentType::getTypeCivilStatus(),
-            'allows_null' => true,
-            ]);
-
-/*
         $this->crud->addField([ // Select
             'name'  => 'nationality_id',
-            'label' => trans('contact.nationality'),
+            'label' => trans('contact.person.nationality'),
             'type'  => 'select2_from_array',
             'tab'   => trans('contact.data'), 
             'wrapper' => ['class' => 'form-group col-md-6'], //resizing      
@@ -432,13 +436,23 @@ protected function setupShowOperation()
  //           'options'   => (function ($query) {
   //              return $query->orderBy('name', 'ASC')->pluck('name','code_alpha3')->get(); }),
             ]);
-*/
+
+        $this->crud->addField([ // Text
+            'name'  => 'civil_status',
+            'label' => trans('contact.person.civil_status'),
+            'type'  => 'select_from_array',
+            'tab'   => trans('contact.data'),
+            'wrapper' => ['class' => 'form-group col-md-4'],
+            'options'    => ContentType::getTypeCivilStatus(),
+            'allows_null' => true,
+            ]);
+
     //PHONE
         $this->crud->addField([
             'name' => 'contact_phones',
             'label' => trans('contact.phone.titles'),
             'type' => 'relationFields',
-            'tab' => trans('contact.phones'),
+            'tab' => trans('contact.phone.tab'),
             'foreignKey' => 'contact_id',
            // 'crud' => $this->crud->model->phones,
           //'crud' => new crudPanel(ContactDataCrudController::class),
@@ -478,7 +492,7 @@ protected function setupShowOperation()
             'name' => 'contact_emails',
             'label' => trans('contact.email.titles'),
             'type' => 'relationFields',
-            'tab' => trans('contact.emails'),
+            'tab' => trans('contact.email.tab'),
             'foreignKey' => 'contact_id',
             'crud' => $this->crudEmail,
             'fake' => true,
@@ -520,7 +534,7 @@ protected function setupShowOperation()
             'name' => 'contact_addresses',
             'label' => trans('contact.address.titles'),
             'type' => 'relationFields',
-            'tab' => trans('contact.addresses'),
+            'tab' => trans('contact.address.tab'),
             'foreignKey' => 'contact_id',
             'crud' => $this->crudAddress,
             'fake' => true,
@@ -632,7 +646,7 @@ protected function setupShowOperation()
             'name' => 'data14',
             'label' => trans('contact.photo.profile_image'),
             'type' => 'image',
-            'tab'   => trans('contact.photos'),
+            'tab'   => trans('contact.photo.tab'),
             'entity' => 'names', 
             'upload' => true,
             'crop' => true, // set to true to allow cropping, false to disable
@@ -699,7 +713,7 @@ protected function setupShowOperation()
         // status filter
         $this->crud->addFilter([
             'name' => 'status',
-            'label' => trans('contact.status'),
+            'label' => trans('contact.person.status'),
             'type' => 'dropdown',     
             ], 
             ContentType::getTypeStatus(),

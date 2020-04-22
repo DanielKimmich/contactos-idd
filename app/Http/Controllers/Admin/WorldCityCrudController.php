@@ -30,13 +30,13 @@ class WorldCityCrudController extends CrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/worldcity');
         $this->crud->setEntityNameStrings(trans('world.city.title'), trans('world.city.titles'));
 
-        $this->setupAvancedOperation();
         $this->setAccessOperation('worldcity');
  
     }
 
     protected function setupListOperation()
     {
+        $this->setupAvancedOperation();
     // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -234,6 +234,5 @@ protected function setupShowOperation()
     {
         $this->setupCreateOperation();
     }
-
 
 }

@@ -72,7 +72,7 @@ class BlogPost extends Model
 
     public function contacts()
     {
-        return $this->belongsTo('App\Models\Contact','author_id', 'id');
+        return $this->belongsTo('App\Models\ContactPerson','author_id', 'id');
     }
 
     public function tags()

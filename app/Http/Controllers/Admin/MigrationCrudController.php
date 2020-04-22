@@ -17,7 +17,7 @@ class MigrationCrudController extends CrudController
  //   use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
  //   use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
  //   use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+ //   use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     public function setup()
     {
@@ -28,6 +28,7 @@ class MigrationCrudController extends CrudController
 
     protected function setupListOperation()
     {
+        $this->crud->removeAllButtons();
     // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -49,7 +50,7 @@ class MigrationCrudController extends CrudController
             'priority' => 2,
             ]);
     // remove a column from the stack
-        $this->crud->removeAllButtons();
+
         // $this->crud->removeAllButtonsFromStack('line');
         // $this->crud->removeColumn('column_name');
         //$this->crud->disableResponsiveTable();

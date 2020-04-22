@@ -210,11 +210,17 @@ class RolesAndPermissionsSeeder extends Seeder
 
 //Modulo Contacts
 	//Creacion de Permisos
-		Permission::create(['name' => 'list contactdata', 'guard_name' => $guard]);
-		Permission::create(['name' => 'show contactdata', 'guard_name' => $guard]);
-		Permission::create(['name' => 'create contactdata', 'guard_name' => $guard]);
-		Permission::create(['name' => 'update contactdata', 'guard_name' => $guard]);
-		Permission::create(['name' => 'delete contactdata', 'guard_name' => $guard]);
+		Permission::create(['name' => 'list contactperson', 'guard_name' => $guard]);
+		Permission::create(['name' => 'show contactperson', 'guard_name' => $guard]);
+		Permission::create(['name' => 'create contactperson', 'guard_name' => $guard]);
+		Permission::create(['name' => 'update contactperson', 'guard_name' => $guard]);
+		Permission::create(['name' => 'delete contactperson', 'guard_name' => $guard]);
+
+		Permission::create(['name' => 'list contactfamily', 'guard_name' => $guard]);
+		Permission::create(['name' => 'show contactfamily', 'guard_name' => $guard]);
+		Permission::create(['name' => 'create contactfamily', 'guard_name' => $guard]);
+		Permission::create(['name' => 'update contactfamily', 'guard_name' => $guard]);
+		Permission::create(['name' => 'delete contactfamily', 'guard_name' => $guard]);
 
 		Permission::create(['name' => 'list contactsetting', 'guard_name' => $guard]);
 		Permission::create(['name' => 'show contactsetting', 'guard_name' => $guard]);
@@ -222,7 +228,7 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'update contactsetting', 'guard_name' => $guard]);
 		Permission::create(['name' => 'delete contactsetting', 'guard_name' => $guard]);
 
-		Permission::create(['name' => 'list contactdebug', 'guard_name' => $guard]);
+		Permission::create(['name' => 'list contactdata', 'guard_name' => $guard]);
 
 	//Creacion de Roles
 		$role_AdminContact = Role::create(['name' => 'AdminContact', 'guard_name' => $guard]);
@@ -230,11 +236,17 @@ class RolesAndPermissionsSeeder extends Seeder
 		$role_UserContact = Role::create(['name' => 'UserContact', 'guard_name' => $guard]);
 
 	//Asignacion del permiso al rol
-		$role_AdminContact->givePermissionTo('list contactdata');
-		$role_AdminContact->givePermissionTo('show contactdata');
-		$role_AdminContact->givePermissionTo('create contactdata');
-		$role_AdminContact->givePermissionTo('update contactdata');
-		$role_AdminContact->givePermissionTo('delete contactdata');
+		$role_AdminContact->givePermissionTo('list contactperson');
+		$role_AdminContact->givePermissionTo('show contactperson');
+		$role_AdminContact->givePermissionTo('create contactperson');
+		$role_AdminContact->givePermissionTo('update contactperson');
+		$role_AdminContact->givePermissionTo('delete contactperson');
+
+		$role_AdminContact->givePermissionTo('list contactfamily');
+		$role_AdminContact->givePermissionTo('show contactfamily');
+		$role_AdminContact->givePermissionTo('create contactfamily');
+		$role_AdminContact->givePermissionTo('update contactfamily');
+		$role_AdminContact->givePermissionTo('delete contactfamily');
 
 		$role_AdminContact->givePermissionTo('list contactsetting');
 		$role_AdminContact->givePermissionTo('show contactsetting');
@@ -242,20 +254,30 @@ class RolesAndPermissionsSeeder extends Seeder
 		$role_AdminContact->givePermissionTo('update contactsetting');
 		$role_AdminContact->givePermissionTo('delete contactsetting');
 
-		$role_SuperContact->givePermissionTo('list contactdata');
-		$role_SuperContact->givePermissionTo('show contactdata');
-		$role_SuperContact->givePermissionTo('create contactdata');
-		$role_SuperContact->givePermissionTo('update contactdata');
-		$role_SuperContact->givePermissionTo('delete contactdata');
+		$role_SuperContact->givePermissionTo('list contactperson');
+		$role_SuperContact->givePermissionTo('show contactperson');
+		$role_SuperContact->givePermissionTo('create contactperson');
+		$role_SuperContact->givePermissionTo('update contactperson');
+		$role_SuperContact->givePermissionTo('delete contactperson');
+
+		$role_SuperContact->givePermissionTo('list contactfamily');
+		$role_SuperContact->givePermissionTo('show contactfamily');
+		$role_SuperContact->givePermissionTo('create contactfamily');
+		$role_SuperContact->givePermissionTo('update contactfamily');
+		$role_SuperContact->givePermissionTo('delete contactfamily');
 
 		$role_SuperContact->givePermissionTo('list contactsetting');
 		$role_SuperContact->givePermissionTo('show contactsetting');
 		$role_SuperContact->givePermissionTo('update contactsetting');
 
-		$role_UserContact->givePermissionTo('list contactdata');
-		$role_UserContact->givePermissionTo('show contactdata');
-		$role_UserContact->givePermissionTo('update contactdata');
+		$role_UserContact->givePermissionTo('list contactperson');
+		$role_UserContact->givePermissionTo('show contactperson');
+		$role_UserContact->givePermissionTo('update contactperson');
 
+		$role_UserContact->givePermissionTo('list contactfamily');
+		$role_UserContact->givePermissionTo('show contactfamily');
+		$role_UserContact->givePermissionTo('update contactfamily');
+		
 	//Asignación del rol al usuario
 		$user_DK->assignRole('AdminContact');
 		$user_AB->assignRole('AdminContact');

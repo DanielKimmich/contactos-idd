@@ -25,13 +25,13 @@ class BlogCommentCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\BlogComment');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/blogcomment');
-        $this->crud->setEntityNameStrings(trans('blog.comment.title'), trans('blog.comment.titles'));
-        $this->setupAvancedOperation();
+        $this->crud->setEntityNameStrings(trans('blog.comment.entity_name'), trans('blog.comment.entity_names'));
         $this->setAccessOperation('blogcomment');
     }
 
     protected function setupListOperation()
     {
+        $this->setupAvancedOperation();
 // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -41,7 +41,7 @@ class BlogCommentCrudController extends CrudController
             ]) -> makeFirstColumn() ;
         $this->crud->addColumn([ // Select
             'name'  => 'post_id',
-            'label' => trans('blog.comment.title_header'),
+            'label' => trans('blog.comment.title'),
             'type'  => 'select',
             'priority'  => 1,
             'entity'    => 'posts', 
@@ -66,7 +66,6 @@ class BlogCommentCrudController extends CrudController
             'type'  => 'text',
             'priority' => 4,
             ]); 
-
     }
 
     protected function setupCreateOperation()
@@ -75,7 +74,7 @@ class BlogCommentCrudController extends CrudController
     //DATA
         $this->crud->addField([    // SELECT
             'name'  => 'post_id',
-            'label' => trans('blog.comment.title_header'),
+            'label' => trans('blog.comment.title'),
             'type'  => 'select2',
             'tab'   => trans('blog.data'),
             'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing fields 
@@ -100,7 +99,6 @@ class BlogCommentCrudController extends CrudController
             'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing fields
             'options'   => BlogComment::getTypeStatus(),            
         ]);
-
     }
 
 

@@ -26,13 +26,13 @@ class NotificationCrudController extends CrudController
         $this->crud->setModel('App\Models\Notification');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/notification');
         $this->crud->setEntityNameStrings(trans('blog.notification.entity_name'), trans('blog.notification.entity_names'));
-        $this->setupAvancedOperation();
 //        $this->setAccessOperation('notification');
 
     }
 
     protected function setupListOperation()
     {
+        $this->setupAvancedOperation();
     // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -67,14 +67,12 @@ class NotificationCrudController extends CrudController
             'priority' => 3,
             'format' => 'YYYY-MM-DD', //default base.default_date_format config value
             ]);
-
     }
 
     protected function setupCreateOperation()
     {
         $this->crud->setValidation(NotificationRequest::class);
-
-// ------ CRUD FIELDS
+    // ------ CRUD FIELDS
     //DATA
         $this->crud->addField([
             'name'  => 'title',

@@ -13,10 +13,10 @@ Route::group([
 ], function () { // custom admin routes
 
 //Contact
-    Route::crud('contact', 'ContactCrudController');
+    Route::crud('contactperson', 'ContactPersonCrudController');
+    Route::crud('contactfamily', 'ContactFamilyCrudController');
     Route::crud('contactdata', 'ContactDataCrudController');
     Route::crud('contenttype', 'ContentTypeCrudController');    
-
     Route::get('contactdata/import', 'ContactDataCrudController@import');
 
 //Blog 
@@ -53,4 +53,5 @@ Route::group([
 
 
     Route::crud('notification', 'NotificationCrudController');
+
 }); // this should be the absolute last line of this file

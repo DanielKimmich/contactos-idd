@@ -65,6 +65,15 @@ abstract class CrudController extends CrudControllerBackpack
             'attributes' => ['readonly'  => 'readonly'],
             'prefix'   => "<i class='la la-key'></i>", 
             ]); 
+/*         $this->crud->addField([ // Text
+            'name'  => 'blanco',
+            'label' => '',
+            'type'  => 'text',
+            'tab'   => trans('common.info'),
+            'fake' => true,
+            'wrapperAttributes' => ['class' => 'form-group col-md-6'],
+            'attributes' => ['disabled'  => 'disabled'], 
+            ]);     */
          $this->crud->addField([ // Text
             'name'  => 'updated_at',
             'label' => trans('common.updated_at'),

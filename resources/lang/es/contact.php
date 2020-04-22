@@ -1,6 +1,8 @@
 <?php
 
 return [
+	'data'  		=> 'Datos',
+    'info'  		=> 'Información',
     'updated_at'    => 'Actualizado el',
     'created_at'    => 'Creado el',
     'updated_by'    => 'Actualizado por',
@@ -9,47 +11,47 @@ return [
     'birthday'      => 'Cumpleaños',
     'age_range' 	=> 'Edades entre',    
 
-	'title'         => 'Contacto',
-	'titles'        => 'Contactos',
-//Tabs
-	'names'			=> 'Nombres',
-	'data'  		=> 'Datos',
-	'phones'		=> 'Teléfonos',
-	'emails'		=> 'Correos',
-	'addresses'		=> 'Direcciones',
-	'photos'  		=> 'Foto',
-    'info'  		=> 'Información',
-//Fields
-	'display_name'  => 'Nombre de Contacto',
-	'sex'			=> 'Genero',
-	'nationality'	=> 'Nacionalidad',
-	'civil_status'	=> 'Estado Civil',
-	'status'		=> 'Estado',
-	'is_required'   => 'Contact is required',
+
+//POST
+    'person'      => [
+        'entity_name'   => 'Persona',
+        'entity_names'  => 'Personas',
+    //Fields
+		'display_name'  => 'Nombre Completo',
+		'sex'			=> 'Género',
+		'nationality'	=> 'Nacionalidad',
+		'civil_status'	=> 'Estado Civil',
+		'status'		=> 'Estado',
+    ],
 
 //NAME
   	'name'    => [
+		'tab'  		=> 'Nombres',
+	//Fields
 		'first'     => 'Primer Nombre',
 		'middle'    => 'Segundo Nombre',
 		'family'    => 'Apellidos',
-
     ],
 
 //EVENT
   	'event'    => [
+	//Fields
 		'birthday'      => 'Nacido el',
 		'deadday'       => 'Fallecido el',
 		'age'      		=> 'Edad',
+	// Messages
 		'delete_confirm' => 'Si cambia el estado de Fallecido, entonces se eliminará la fecha. ¿Está seguro que desea eliminar la fecha de fallecido?',
 	],
 
 //DOCUMENT
   	'document'    => [
+	//Fields
 		'number'      => 'Documento',
 	],
 
 //PHONE
-  'phone'    => [
+    'phone'    => [
+		'tab'			=> 'Teléfonos',
 		'title'             => 'Telefono',
 		'titles'            => 'Telefonos',
 	//Fields				
@@ -69,6 +71,7 @@ return [
 
 //EMAIL
   'email'    => [
+		'tab'		=> 'Correos',
 		'title'             => 'Correo Electronico',
 		'titles'            => 'Correos Electronicos',
 	//Fields				
@@ -87,6 +90,7 @@ return [
 
 //ADDRESS
    'address'    => [
+		'tab'		=> 'Direcciones',
 		'title'             => 'Dirección',
 		'titles'            => 'Direcciones',		
 	//Fields					
@@ -101,9 +105,9 @@ return [
         'division'  => 'Provincia',
         'postcode'  => 'Codigo Postal',
         'country'   => 'Pais',   
-		'add_new'           => 'Añadir nueva dirección',
-		'delete_confirm' 	=> '¿Estás seguro de que quieres borrar esta dirección?',		
 	// Messages
+		'add_new'           => 'Añadir nueva dirección',
+		'delete_confirm' 	=> '¿Estás seguro de que quieres borrar esta dirección?',
 		'no_rows'           => 'No hay direcciones',
         'is_required'       => 'Se requiere la dirección',
 		'is_deleted'        => 'La dirección fue eliminado',
@@ -112,37 +116,72 @@ return [
 
 //PHOTO
 	'photo'    => [
+		'tab'  		=> 'Foto',
 		'profile_image'     => 'Imagen de perfil',    
     ],
 
-//RELATION
-   'relation'    => [
-		'title'             => 'Relación',
-		'titles'            => 'Relaciones',		
-		'add_new'           => 'Añadir nueva relación',
-		'delete_confirm' 	=> '¿Estás seguro de que quieres borrar esta relación?',		
-	// Messages
-		'no_rows'           => 'No hay relaciones',
-        'is_required'       => 'Se requiere la relación',
-		'is_deleted'        => 'La relación fue eliminado',
-		'is_created'        => 'la relación fue creado',
-	//Fields					
-        'name' 		=> 'Nombre',
-        'type'  	=> 'Tipo',
-        'label'  	=> 'Etiqueta',
+//POST
+    'family'      => [
+        'entity_name'   => 'Familia',
+        'entity_names'  => 'Familias',
+    //Fields                
+		'display_name'  => 'Nombre Completo',
+		'sex'			=> 'Género',
+		'civil_status'	=> 'Estado Civil',
+		'status'		=> 'Estado',
     ],
+
+//PARENT
+  	'parent'    => [
+		'tab'  		=> 'Padres',
+		'data'      => 'Datos',
+	//Fields
+		'name'     	=> 'Nombres y Apellidos',
+		'type'  	=> 'Relación',
+		'label'    	=> 'Información Adicional',
+    ],
+//SPOUSE
+  	'spouse'    => [
+		'tab'  		=> 'Conyugue',
+		'data'      => 'Datos',
+	//Fields
+		'name'     	=> 'Nombre',
+		'type'  	=> 'Relación',
+		'label'    	=> 'Información Adicional',
+    ],
+//CHILDREN
+  	'children'    => [
+		'tab'  		=> 'Hijos',
+		'data'      => 'Datos',
+	//Fields
+		'name'     	=> 'Nombre',
+		'type'  	=> 'Relación',
+		'label'    	=> 'Información Adicional',
+    ],
+//RELATIVE
+  	'relative'    => [
+		'tab'  		=> 'Familiares',
+		'data'      => 'Datos',
+	//Fields
+		'name'     	=> 'Nombre',
+		'type'  	=> 'Relación',
+		'label'    	=> 'Información Adicional',
+    ],
+//OTHER
+  	'other'    => [
+		'tab'  		=> 'Otros',
+		'data'      => 'Datos',
+	//Fields
+		'name'     	=> 'Nombre',
+		'type'  	=> 'Relación',
+		'label'    	=> 'Información Adicional',
+    ],
+
 
 //TYPE
   'type'    => [
-		'title'             => 'Preferencia',
-		'titles'            => 'Preferencias',
-		'add_new'           => 'Añadir nuevo tipo',
-		'delete_confirm' 	=> '¿Estás seguro de que quieres borrar este tipo?',		
-	// Messages
-		'no_rows'           => 'No hay tipos',
-        'is_required'       => 'Se requiere el tipo',
-		'is_deleted'        => 'El tipo fue eliminado',
-		'is_created'        => 'El tipo fue creado',
+		'entity_name'       => 'Preferencia',
+		'entity_names'      => 'Preferencias',
 	//Fields				
 		'mimetype'          => 'Origen',
 		'type'            	=> 'Código',
@@ -150,5 +189,13 @@ return [
 		'order'      		=> 'Orden',
    		'parent'			=> 'Categoria',
    		'firstlevel'		=> 'Principal',
-    ],    
+	// Messages
+		'no_rows'           => 'No hay tipos',
+        'is_required'       => 'Se requiere el tipo',
+		'is_deleted'        => 'El tipo fue eliminado',
+		'is_created'        => 'El tipo fue creado',
+		'add_new'           => 'Añadir nuevo tipo',
+		'delete_confirm' 	=> '¿Estás seguro de que quieres borrar este tipo?',
+    ],  
+
 ];

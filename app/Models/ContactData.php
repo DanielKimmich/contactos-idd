@@ -78,6 +78,15 @@ class ContactData extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function person()
+    {
+        return $this->belongsTo('App\Models\ContactPerson', 'contact_id', 'id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\ContactPerson', 'data1', 'id');
+    }
 
     /*
     |--------------------------------------------------------------------------

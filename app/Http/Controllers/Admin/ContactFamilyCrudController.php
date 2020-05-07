@@ -6,7 +6,7 @@ use App\Http\Requests\FamilyRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use App\Models\ContentType;
-
+use App\Models\ContactPerson;
 /**
  * Class FamilyCrudController
  * @package App\Http\Controllers\Admin
@@ -19,6 +19,7 @@ class ContactFamilyCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
 
     public function setup()
     {
@@ -43,6 +44,27 @@ class ContactFamilyCrudController extends CrudController
             'priority' => 1,
             ]);
         $this->crud->addColumn([
+            'name'  => 'parents',
+            'label' => trans('contact.parent.tab'),
+            'type'  => 'relationship_count',
+            'priority'  => 2,
+            'suffix' => '',
+            ]); 
+        $this->crud->addColumn([
+            'name'  => 'spouses',
+            'label' => trans('contact.spouse.tab'),
+            'type'  => 'relationship_count',
+            'priority'  => 2,
+            'suffix' => '',
+            ]); 
+        $this->crud->addColumn([
+            'name'  => 'children',
+            'label' => trans('contact.children.tab'),
+            'type'  => 'relationship_count',
+            'priority'  => 2,
+            'suffix' => '',
+            ]); 
+        $this->crud->addColumn([
             'name'  => 'sex_id',
             'label' => trans('contact.family.sex'),
             'type'  => 'select_from_array',
@@ -56,6 +78,8 @@ class ContactFamilyCrudController extends CrudController
             'priority'  => 3,
             'options'   => ContentType::getTypeCivilStatus(),
             ]);
+
+
         $this->crud->addColumn([
             'name'  => 'status',
             'label' => trans('contact.family.status'),
@@ -86,6 +110,7 @@ class ContactFamilyCrudController extends CrudController
             'prefix'     => '<i class="la la-id-card-o"></i>',
             'attributes' => ['id' => 'display_name', 'readonly' => 'readonly'],
             ]);  
+
         $this->crud->addField([ // Text
             'name'  => 'civil_status',
             'label' => trans('contact.family.civil_status'),
@@ -109,10 +134,19 @@ class ContactFamilyCrudController extends CrudController
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
-                [   'name'  => 'data1',
+/*                [   'name'  => 'data1',
                     'label' => trans('contact.parent.name'),
                     'type'  => 'text',
                     'wrapperAttributes' => ['class' => 'form-group col-md-8'],
+                ],  */
+                [   'name'  => 'data1',
+                    'label' => trans('contact.parent.name'),
+                    'type'  => 'select2',
+                    'wrapper'   => ['class' => 'form-group col-md-8'],
+                    'entity'    => 'parents',
+                    'model'     => 'App\Models\ContactPerson',
+                    'attribute' => 'display_name',
+                    'allows_null' => true,
                 ],
                 [   'name'  => 'data2',
                     'label' => trans('contact.parent.type'),
@@ -141,10 +175,19 @@ class ContactFamilyCrudController extends CrudController
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
-                [   'name'  => 'data1',
+/*                [   'name'  => 'data1',
                     'label' => trans('contact.spouse.name'),
                     'type'  => 'text',
                     'wrapperAttributes' => ['class' => 'form-group col-md-8'],
+                ], */
+                [   'name'  => 'data1',
+                    'label' => trans('contact.spouse.name'),
+                    'type'  => 'select2',
+                    'wrapper'   => ['class' => 'form-group col-md-8'],
+                    'entity'    => 'spouses',
+                    'model'     => 'App\Models\ContactPerson',
+                    'attribute' => 'display_name',
+                    'allows_null' => true,
                 ],
                 [   'name'  => 'data2',
                     'label' => trans('contact.spouse.type'),
@@ -173,11 +216,20 @@ class ContactFamilyCrudController extends CrudController
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
-                [   'name'  => 'data1',
+ /*               [   'name'  => 'data1',
                     'label' => trans('contact.children.name'),
                     'type'  => 'text',
                     'wrapperAttributes' => ['class' => 'form-group col-md-8'],
-                ],
+                ],  */
+                [   'name'  => 'data1',
+                    'label' => trans('contact.children.name'),
+                    'type'  => 'select2',
+                    'wrapper'   => ['class' => 'form-group col-md-8'],
+                    'entity'    => 'children',   // 'children.person',
+                    'model'     => 'App\Models\ContactPerson',
+                    'attribute' => 'display_name',
+                    'allows_null' => true,
+                ],  
                 [   'name'  => 'data2',
                     'label' => trans('contact.children.type'),
                     'type'  => 'select_from_array',
@@ -205,11 +257,29 @@ class ContactFamilyCrudController extends CrudController
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
-                [   'name'  => 'data1',
+ /*               [   'name'  => 'data1',
                     'label' => trans('contact.relative.name'),
                     'type'  => 'text',
-                    'wrapperAttributes' => ['class' => 'form-group col-md-8'],
-                ],
+                    'wrapper' => ['class' => 'form-group col-md-8'],
+                ],      */
+
+            [
+            'name'  => 'data1',
+            'label' => trans('contact.relative.name'),
+            'type'  => 'relationship',
+            'wrapper'   => ['class' => 'form-group col-md-8'],           
+            'entity'    => 'relatives',
+            'data_source' => url($this->crud->route.'/fetch/person'),
+            'attribute' => 'display_name',
+            'model'     => 'App\Models\ContactPerson',
+//            'options'   => $this->getPersons(),
+ //           'options'   => (function ($query) {
+  //              return $query->orderBy('display_name', 'ASC')->get(); }), 
+            'ajax' => false,
+            'multiple' => false,
+            'allows_null' => true,
+            'inline_create' => ['entity' => 'contactperson'],             
+            ],  
                 [   'name'  => 'data2',
                     'label' => trans('contact.relative.type'),
                     'type'  => 'select_from_array',
@@ -224,6 +294,7 @@ class ContactFamilyCrudController extends CrudController
         ]);
 
     //OTHER
+
          $this->crud->addField([
             'name'  => 'relation_other',
             'label' => trans('contact.other.data'),
@@ -240,8 +311,22 @@ class ContactFamilyCrudController extends CrudController
                 [   'name'  => 'data1',
                     'label' => trans('contact.other.name'),
                     'type'  => 'text',
-                    'wrapperAttributes' => ['class' => 'form-group col-md-8'],
-                ],
+                    'wrapper' => ['class' => 'form-group col-md-8'],
+                ],  
+   /*         [
+            'name'  => 'data1',
+            'label' => trans('contact.other.name'),
+            'type'  => 'relationship',
+            'wrapper'   => ['class' => 'form-group col-md-8'],           
+            'entity'    => 'person',
+            'attribute' => 'display_name',
+            'model'     => 'App\Models\ContactPerson',
+            'ajax' => false,
+            'multiple' => false,
+            //        'allows_null' => true,
+           'inline_create' => ['entity' => 'contactperson'],             
+            ],  */
+  
                 [   'name'  => 'data2',
                     'label' => trans('contact.other.type'),
                     'type'  => 'select_from_array',
@@ -257,6 +342,14 @@ class ContactFamilyCrudController extends CrudController
 
     }
 
+    public function fetchPerson()
+    {
+        return $this->fetch('App\Models\ContactPerson');
+    }
 
-
+    public function getPersons()
+    {   
+        $options = ContactPerson::orderBy('display_name')->pluck('display_name','id'); 
+        return $options->toArray();
+    }
 }

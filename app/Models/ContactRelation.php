@@ -40,7 +40,7 @@ class ContactRelation extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function contact()
+    public function person()
     {
         return $this->belongsTo('App\Models\ContactPerson', 'contact_id', 'id');
     }

@@ -112,8 +112,8 @@ protected function setupShowOperation()
           'type' => "model_function",
           'function_name' => 'PermissionsViaRoles', // the method in your Model
            // 'function_parameters' => [$one, $two], // pass one/more parameters to that method
-          // 'limit' => 100, // Limit the number of characters shown
-        ]);
+           'limit' => 2000, // Limit the number of characters shown
+            ]);
 
         $this->crud->addColumn([
             // n-n relationship (with pivot table)
@@ -123,6 +123,7 @@ protected function setupShowOperation()
             'entity'    => 'permissions', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
   //          'model'     => config('permission.models.permission'), // foreign key model
+            //'limit' => 2000, // Limit the number of characters shown
             ]);
         $this->crud->addColumn([    
             'name'  => 'created_at',

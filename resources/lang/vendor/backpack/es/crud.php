@@ -17,6 +17,7 @@ return [
     'save_action_save_and_new'         => 'Guardar y crear nuevo',
     'save_action_save_and_edit'        => 'Guardar y continuar editando',
     'save_action_save_and_back'        => 'Guardar y regresar',
+    'save_action_save_and_preview'     => 'Guardar y vista previa',
     'save_action_changed_notification' => 'La acción por defecto del botón guardar ha sido modificada.',
 
     // Create form
@@ -52,7 +53,7 @@ return [
     'actions'                   => 'Acciones',
     'preview'                   => 'Ver',
     'delete'                    => 'Eliminar',
-     'admin'                     => 'Admin',
+    'admin'                     => 'Admin',
     'details_row'               => 'Esta es la fila de detalles. Modificar a su gusto.',
     'details_row_loading_error' => 'Se ha producido un error al cargar los datos. Por favor, intente de nuevo.',
     'clone' => 'Clonar',
@@ -85,7 +86,7 @@ return [
     'info'           => 'Mostrando registros _START_ a _END_ de un total de _TOTAL_ registros',
     'infoEmpty'      => 'Mostrando 0 registros',
     'infoFiltered'   => '(filtrando de _MAX_ registros totales)',
-    'infoPostFix'    => '',
+    'infoPostFix'    => '.',
     'thousands'      => ',',
     'lengthMenu'     => '_MENU_ elementos por página',
     'loadingRecords' => 'Cargando...',

@@ -180,14 +180,14 @@ protected function setupShowOperation()
             'label' => trans('world.country.code'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing fields 
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing fields 
             ]);
         $this->crud->addField([ // Text
             'name'  => 'code_alpha3',
             'label' => trans('world.country.code_alpha3'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing fields 
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing fields 
             ]);
         $this->crud->addField([ // Select
             'name'  => 'continent_id',
@@ -196,7 +196,7 @@ protected function setupShowOperation()
             'tab'   => trans('world.data'),
             'entity' => 'continent', 
             'attribute' => 'name',
-            'model' => "App\Models\WorldContinent",
+            'model' => 'App\Models\WorldContinent',
             'default' => Config::get('settings.world_continent'), // set default value
             'options'   => (function ($query) {
                 return $query->orderBy('name', 'ASC')->get(); }), 
@@ -231,28 +231,28 @@ protected function setupShowOperation()
             'label' => trans('world.country.currency_code'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing fields
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing fields
             ]);
         $this->crud->addField([ // Text
             'name'  => 'currency_name',
             'label' => trans('world.country.currency_name'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing fields
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing fields
             ]);
        $this->crud->addField([ // Text
             'name'  => 'tld',
             'label' => trans('world.country.tld'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing fields
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing fields
             ]);
         $this->crud->addField([ // Number
             'name'  => 'callingcode',
             'label' => trans('world.country.calling_code'),
             'type'  => 'number',
             'tab'   => trans('world.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing fields
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing fields
             ]);
     //INFO
         $this->getInfoFields();

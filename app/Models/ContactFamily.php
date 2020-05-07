@@ -168,13 +168,49 @@ class ContactFamily extends Model
         }    
     }   
 
-    public function setRelationChildrenAttribute() {
-
+    public function setRelationChildrenAttribute($value) {
+        $data = (json_decode($value, true)); //converts json into array
+        $keys = self::children()->get()->modelKeys();
+        //Insertar o actualizar registros en parent
+        if(is_array($data)) {
+            foreach ($data as $entry) {
+                if (!empty($entry['data1'])) {
+                    $id = (int) $entry['id'];
+                    unset($entry['id']);
+                    if (($key = array_search($id, $keys)) !== false) 
+                        unset($keys[$key]);  
+                    self::children()->updateOrCreate(['id' => $id], $entry);
+                }
+            }
+        }
+        //Eliminar registros en parent
+        if(!empty($keys)) {
+            foreach ($keys as $id) 
+                self::children()->find($id)->delete();
+        }    
     }    
-    public function setRelationRelativeAttribute() {
-
+    public function setRelationRelativeAttribute($value) {
+        $data = (json_decode($value, true)); //converts json into array
+        $keys = self::relatives()->get()->modelKeys();
+        //Insertar o actualizar registros en parent
+        if(is_array($data)) {
+            foreach ($data as $entry) {
+                if (!empty($entry['data1'])) {
+                    $id = (int) $entry['id'];
+                    unset($entry['id']);
+                    if (($key = array_search($id, $keys)) !== false) 
+                        unset($keys[$key]);  
+                    self::relatives()->updateOrCreate(['id' => $id], $entry);
+                }
+            }
+        }
+        //Eliminar registros en parent
+        if(!empty($keys)) {
+            foreach ($keys as $id) 
+                self::relatives()->find($id)->delete();
+        }    
     }    
-    public function setRelationOtherAttribute() {
+    public function setRelationOtherAttribute($value) {
 
     }   
 

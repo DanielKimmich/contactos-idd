@@ -136,7 +136,7 @@ return [
 		'tab'  		=> 'Padres',
 		'data'      => 'Datos',
 	//Fields
-		'name'     	=> 'Nombres y Apellidos',
+		'name'     	=> 'Nombre Completo',
 		'type'  	=> 'Relación',
 		'label'    	=> 'Información Adicional',
     ],
@@ -145,7 +145,7 @@ return [
 		'tab'  		=> 'Conyugue',
 		'data'      => 'Datos',
 	//Fields
-		'name'     	=> 'Nombre',
+		'name'     	=> 'Nombre Completo',
 		'type'  	=> 'Relación',
 		'label'    	=> 'Información Adicional',
     ],
@@ -154,7 +154,7 @@ return [
 		'tab'  		=> 'Hijos',
 		'data'      => 'Datos',
 	//Fields
-		'name'     	=> 'Nombre',
+		'name'     	=> 'Nombre Completo',
 		'type'  	=> 'Relación',
 		'label'    	=> 'Información Adicional',
     ],
@@ -163,7 +163,7 @@ return [
 		'tab'  		=> 'Familiares',
 		'data'      => 'Datos',
 	//Fields
-		'name'     	=> 'Nombre',
+		'name'     	=> 'Nombre Completo',
 		'type'  	=> 'Relación',
 		'label'    	=> 'Información Adicional',
     ],
@@ -172,7 +172,7 @@ return [
 		'tab'  		=> 'Otros',
 		'data'      => 'Datos',
 	//Fields
-		'name'     	=> 'Nombre',
+		'name'     	=> 'Nombre Completo',
 		'type'  	=> 'Relación',
 		'label'    	=> 'Información Adicional',
     ],

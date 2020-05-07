@@ -136,6 +136,7 @@ protected function setupShowOperation()
             'type'  => 'select2',
             'tab'   => trans('world.data'),
             'entity' => 'country', 
+            'model' => 'App\Models\WorldCountry', // foreign key model
             'attribute' => 'name',
             'default' => Config::get('settings.world_country'), // set default value
             'options' => (function ($query) { 

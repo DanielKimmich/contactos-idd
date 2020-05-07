@@ -51,13 +51,14 @@ class RoleCrudController extends OriginalRoleCrudController
             // n-n relationship (with pivot table)
             'label'     => ucfirst(trans('backpack::permissionmanager.permission_plural')),
             'type'      => 'select_multiple',
-            'name'      => 'permissions', // the method that defines the relationship in your Model
-            'priority' => 4,            
-            'entity'    => 'permissions', // the method that defines the relationship in your Model
+            'name'      => 'permissions', // defines the relationship in your Model
+            'priority'  => 4,            
+            'entity'    => 'permissions', // defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model'     => $this->permission_model, // foreign key model
-            'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
-        ]);
+            'pivot'     => true, // do you need to add/delete pivot table entries?
+            'exportOnlyField' => true,  //forced to exportfield and hidden in table
+            ]);
         $this->crud->addColumn([
             'name'  => 'guard_name',
             'label' => trans('backpack::permissionmanager.guard_type'),
@@ -145,6 +146,32 @@ protected function setupShowOperation()
     // ------ ADVANCED QUERIES  
         $this->crud->orderBy('name');
     // ------ CRUD FILTERS
+        // Extra Permission Filter
+        $this->crud->addFilter([
+            'name'  => 'permissions',
+            'label' => trans('backpack::permissionmanager.permission_singular'),
+            'type'  => 'select2',
+            ],
+            config('permission.models.permission')::all()->pluck('name', 'id')->toArray(),
+            function ($value) { // if the filter is active
+                $this->crud->addClause('whereHas', 'permissions', function ($query) use ($value) {
+                    $query->where('permission_id', '=', $value);
+                });
+            });
+
+        // User Filter
+/*        $this->crud->addFilter([
+            'name'  => 'users',
+            'label' => trans('backpack::permissionmanager.users'),
+            'type'  => 'dropdown',
+            ],
+            config('permission.models.users')::all()->pluck('name', 'id')->toArray(),
+            function ($value) { // if the filter is active
+                $this->crud->addClause('whereHas', 'users', function ($query) use ($value) {
+                    $query->where('user_id', '=', $value);
+                });
+            });
+*/
         // daterange filter
         $this->setFilterDateUpdate();
     }

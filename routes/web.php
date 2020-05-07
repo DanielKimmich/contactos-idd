@@ -21,6 +21,7 @@ Route::group(['middleware' => 'admin',
               'prefix' => 'ajax',
               'namespace' => 'Admin'
 ], function() {
+/*
     // Concat Phone
     Route::post('client/list/phones', ['as' => 'getClientPhones', 'uses' => 'ContactCrudController@getClientPhones']);
     Route::post('client/add/phone', ['as' => 'addClientPhone', 'uses' => 'ContactCrudController@addClientPhone']);
@@ -35,5 +36,7 @@ Route::group(['middleware' => 'admin',
     Route::post('client/list/addresses', ['as' => 'getContactAddresses', 'uses' => 'ContactAddressController@getContactAddresses']);
     Route::post('client/add/address', ['as' => 'addContactAddress', 'uses' => 'ContactAddressController@addContactAddress']);
     Route::post('client/delete/address', ['as' => 'deleteContactAddress', 'uses' => 'ContactAddressController@deleteContactAddress']);
+*/
+
 });
 

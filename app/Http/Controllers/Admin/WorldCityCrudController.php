@@ -153,8 +153,9 @@ protected function setupShowOperation()
             'label' => trans('world.city.country'),
             'type'  => 'select2',
             'tab'   => trans('world.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'],
-            'entity' => 'country', 
+            'wrapper' => ['class' => 'form-group col-md-6'],
+        //    'entity' => 'country', 
+            'model' => 'App\Models\WorldCountry', // foreign key model
             'attribute' => 'name',
             'default' => Config::get('settings.world_country'), // set default value
             'options'   => (function ($query) {
@@ -165,8 +166,8 @@ protected function setupShowOperation()
             'label' => trans('world.city.division'),
             'type'  => 'select2_from_ajax',
             'tab'   => trans('world.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'],
-            'entity' => 'division', 
+            'wrapper' => ['class' => 'form-group col-md-6'],
+        //    'entity' => 'division', 
             'attribute' => 'name',
             'model' => 'App\Models\WorldDivision', // foreign key model
             'data_source'  => url('admin/searchdivision/country_id'), // url to controller search function (with /{id} should return model)

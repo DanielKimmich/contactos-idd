@@ -189,9 +189,9 @@ class BlogPostCrudController extends CrudController
             'model'     => 'App\Models\BlogCategory',
     //        'options'   => (function ($query) {
     //            return $query->orderBy('name', 'ASC')->get(); }),
-            'ajax' => false,
-      //      'inline_create' => false, // TODO: make this work
-           'inline_create' => ['entity' => 'blogcategory'],             
+     //       'ajax' => true,
+     //      'inline_create' => true, // TODO: make this work
+           'inline_create' => ['entity' => 'blogcategory'],
             ]);
     } else {
         $this->crud->addField([    // SELECT
@@ -367,12 +367,14 @@ class BlogPostCrudController extends CrudController
 
     public function fetchCategory()
     {
-        return $this->fetch('App\Models\BlogCategory');
+     //   return $this->fetch('App\Models\BlogCategory');
+        return $this->fetch(App\Models\BlogCategory::class);
     }
 
     public function fetchTags()
     {
         return $this->fetch('App\Models\BlogTag');
+        //return $this->fetch(App\Models\BlogTag::class);
     }
 
 }

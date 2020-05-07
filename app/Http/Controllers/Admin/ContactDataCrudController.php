@@ -19,6 +19,7 @@ class ContactDataCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
 
     public function setup()
     {
@@ -54,6 +55,7 @@ class ContactDataCrudController extends CrudController
         // TODO: remove setFromDb() and manually define Fields
         $this->crud->setFromDb();
 
+
 /*
         $this->crud->addField([
             'name'  => 'event_date',
@@ -86,7 +88,19 @@ class ContactDataCrudController extends CrudController
 
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+    //    $this->setupCreateOperation();
+        $this->crud->addField([
+            'name'  => 'data1',
+            'label' => trans('contact.other.name'),
+            'type'  => 'relationship',
+            'tab'   => trans('contact.other.tab'),
+            'wrapper'   => ['class' => 'form-group col-md-8'],           
+            'entity'    => 'parent',
+            'attribute' => 'display_name',
+            'model'     => 'App\Models\ContactPerson',
+            'ajax' => false,
+            'inline_create' => ['entity' => 'contactperson'],             
+        ]);  
     }
 
     protected function setupAvancedOperation()
@@ -117,5 +131,9 @@ class ContactDataCrudController extends CrudController
         \Alert::add('info', 'This is a blue bubble.');
     }
 
+    public function fetchParent()
+    {
+        return $this->fetch('App\Models\ContactPerson');
+    }
 
 }

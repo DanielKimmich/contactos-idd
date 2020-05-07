@@ -117,7 +117,7 @@ protected function setupShowOperation()
             'label' => trans('world.continent.code'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'],
+            'wrapper' => ['class' => 'form-group col-md-6'],
             ]);
     //INFO
         $this->getInfoFields();

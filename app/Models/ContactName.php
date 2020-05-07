@@ -79,7 +79,7 @@ class ContactName extends Model
         return $this->data3;
     }
 
-    Public function getNameprefixAttribute()
+    Public function getNamePrefixAttribute()
     {
         return $this->data4;
     }
@@ -124,7 +124,7 @@ class ContactName extends Model
         $this->data3 = $value;
     }
 
-    Public function setNameprefixAttribute($value)
+    Public function setNamePrefixAttribute($value)
     {
         $this->data4 = $value;
     }

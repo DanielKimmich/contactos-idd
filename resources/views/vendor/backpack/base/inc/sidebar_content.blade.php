@@ -102,7 +102,7 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('authchecker') }}'><i class='nav-icon la la-sign-in'></i><span>{{ trans('report.authchecker.titles') }}</span></a></li>
 
       @can('list managerlog')
-		<li class='nav-item'><a class='nav-link' href='{{route("log-viewer::logs.list")}}'><i class='nav-icon la la-history'></i>{{ trans('report.logs.titles')}}</a></li>
+
  	  @endcan 
 
       @can('list managermigrate')  
@@ -133,3 +133,10 @@
 
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('notification') }}'><i class='nav-icon la la-comment-o'></i> Notifications</a></li>
+
+
+<!--		<li class='nav-item'><a class='nav-link' href=' 
+  route("log-viewer::logs.list")}}'><i class='nav-icon la la-history'></i>
+-->
+<!--  trans('report.logs.titles')}}</a></li> 
+-->

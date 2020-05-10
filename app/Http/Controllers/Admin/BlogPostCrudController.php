@@ -177,9 +177,9 @@ class BlogPostCrudController extends CrudController
             'options'   => (function ($query) {
                 return $query->orderBy('display_name', 'ASC')->get(); }), 
             ]);
-    if (auth()->user()->can('create blogcategory') ) {
+    if (auth()->user()->can('increate blogpost') ) {
         $this->crud->addField([    // Relationship
-            'name'  => 'category_id',
+            'name'  => 'category',
             'label' => trans('blog.post.category'),
             'type'  => 'relationship',
             'tab'   => trans('blog.data'),
@@ -187,11 +187,12 @@ class BlogPostCrudController extends CrudController
             'entity'    => 'category',
             'attribute' => 'name',
             'model'     => 'App\Models\BlogCategory',
+         //   'data_source' => url($this->crud->route.'/fetch/category'),
     //        'options'   => (function ($query) {
     //            return $query->orderBy('name', 'ASC')->get(); }),
-     //       'ajax' => true,
+            'ajax' => true,
      //      'inline_create' => true, // TODO: make this work
-           'inline_create' => ['entity' => 'blogcategory'],
+            'inline_create' => ['entity' => 'blogcategory'],
             ]);
     } else {
         $this->crud->addField([    // SELECT
@@ -226,7 +227,7 @@ class BlogPostCrudController extends CrudController
             'tab'   => trans('blog.data'),            
             'placeholder' => 'Your textarea text here',
             ]);
-    if (auth()->user()->can('create blogtag') ) {
+    if (auth()->user()->can('increate blogpost') ) {
         $this->crud->addField([    // Relationship
             'name'  => 'tags',
             'label' => trans('blog.post.tags'),
@@ -367,8 +368,8 @@ class BlogPostCrudController extends CrudController
 
     public function fetchCategory()
     {
-     //   return $this->fetch('App\Models\BlogCategory');
-        return $this->fetch(App\Models\BlogCategory::class);
+        return $this->fetch('App\Models\BlogCategory');
+     //   return $this->fetch(App\Models\BlogCategory::class);
     }
 
     public function fetchTags()

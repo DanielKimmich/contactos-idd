@@ -179,18 +179,19 @@ class BlogPostCrudController extends CrudController
             ]);
     if (auth()->user()->can('increate blogpost') ) {
         $this->crud->addField([    // Relationship
-            'name'  => 'category',
+            'name'  => 'category_id',
             'label' => trans('blog.post.category'),
             'type'  => 'relationship',
             'tab'   => trans('blog.data'),
             'wrapper'   => ['class' => 'form-group col-md-6'],           
-            'entity'    => 'category',
+          //  'entity'    => 'category',
             'attribute' => 'name',
             'model'     => 'App\Models\BlogCategory',
          //   'data_source' => url($this->crud->route.'/fetch/category'),
     //        'options'   => (function ($query) {
     //            return $query->orderBy('name', 'ASC')->get(); }),
-            'ajax' => true,
+          //  'ajax' => true,
+         //   'minimum_input_length' => 0, //minimum characters before querying results
      //      'inline_create' => true, // TODO: make this work
             'inline_create' => ['entity' => 'blogcategory'],
             ]);
@@ -200,7 +201,7 @@ class BlogPostCrudController extends CrudController
             'label' => trans('blog.post.category'),         
             'type'  => 'select2',
             'tab'   => trans('blog.data'),
-            'wrapper' => ['class' => 'form-group col-md-6'], //resizing fields 
+            'wrapper'   => ['class' => 'form-group col-md-6'], //resizing fields 
             'entity'    => 'category',
             'attribute' => 'name',
             'model'     => 'App\Models\BlogCategory',
@@ -369,7 +370,7 @@ class BlogPostCrudController extends CrudController
     public function fetchCategory()
     {
         return $this->fetch('App\Models\BlogCategory');
-     //   return $this->fetch(App\Models\BlogCategory::class);
+        //return $this->fetch(App\Models\BlogCategory::class);
     }
 
     public function fetchTags()

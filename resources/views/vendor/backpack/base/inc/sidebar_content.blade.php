@@ -117,6 +117,10 @@
   <li class="nav-item nav-dropdown">
 	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-wrench"></i>{{ trans('common.menu.manager') }}</a>
 	<ul class="nav-dropdown-items">
+	  @can('list managerlog')
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('log') }}'><i class='nav-icon la la-history'></i>{{ trans('report.logs.titles') }}</a></li>
+	  @endcan
+
 	  @can('list managerbackup')
 	   <li class='nav-item'><a class='nav-link' href='{{ backpack_url('backup') }}'><i class='nav-icon la la-hdd-o'></i>{{ trans('backpack::backup.backup') }}</a></li>
 	  @endcan

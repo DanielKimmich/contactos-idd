@@ -51,6 +51,7 @@ class BlogCategoryCrudController extends CrudController
             'label' => trans('blog.category.description'),
             'type'  => 'text',
             'priority' => 3,
+            'limit' => 100,
             ]);
         $this->crud->addColumn([
             'name' => 'slug',

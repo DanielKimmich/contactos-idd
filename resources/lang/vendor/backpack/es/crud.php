@@ -50,6 +50,7 @@ return [
     'all'                       => 'Todos los registros de ',
     'in_the_database'           => 'en la base de datos',
     'list'                      => 'Listar',
+    'reset'                     => 'Reiniciar',
     'actions'                   => 'Acciones',
     'preview'                   => 'Ver',
     'delete'                    => 'Eliminar',
@@ -57,6 +58,9 @@ return [
     'details_row'               => 'Esta es la fila de detalles. Modificar a su gusto.',
     'details_row_loading_error' => 'Se ha producido un error al cargar los datos. Por favor, intente de nuevo.',
     'clone' => 'Clonar',
+    'clone_success' => '<strong>Entry cloned</strong><br>A new entry has been added, with the same information as this one.',
+    'clone_failure' => '<strong>Cloning failed</strong><br>The new entry could not be created. Please try again.',
+
     // Confirmation messages and bubbles
     'delete_confirm'                              => '¿Está seguro que desea eliminar este elemento?',
     'delete_confirmation_title'                   => 'Elemento eliminado',
@@ -148,9 +152,12 @@ return [
     'page_link'                 => 'Enlace',
     'page_link_placeholder'     => 'http://example.com/su-pagina',
     'internal_link'             => 'Enlace interno',
-    'internal_link_placeholder' => 'Slug interno. Ejplo: \'admin/page\' (sin comillas) para \':url\'',
+    'internal_link_placeholder' => 'Slug interno. Ejemplo: \'admin/page\' (sin comillas) para \':url\'',
     'external_link'             => 'Enlace externo',
     'choose_file'               => 'Elegir archivo',
+    'new_item'                  => 'Nuevo Item',
+    'select_entry'              => 'Selecciona una entrada',
+    'select_entries'            => 'Seleccionar entradas',
 
     // Table field
     'table_cant_add'    => 'No se puede agregar una nueva :entity',
@@ -158,4 +165,8 @@ return [
 
     // File manager
     'file_manager' => 'Administrar Archivos',
+
+    // InlineCreateOperation
+    'related_entry_created_success' => 'Se ha creado y seleccionado una entrada relacionada.',
+    'related_entry_created_error' => 'No se pudo crear una entrada relacionada.',
 ];

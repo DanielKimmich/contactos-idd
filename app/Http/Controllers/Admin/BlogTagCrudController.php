@@ -53,6 +53,7 @@ class BlogTagCrudController extends CrudController
             'label' => trans('blog.tag.description'),
             'type'  => 'text',
             'priority' => 3,
+            'limit' => 100,
             ]);
         $this->crud->addColumn([
             'name' => 'slug',

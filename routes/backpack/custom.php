@@ -48,7 +48,7 @@ Route::group([
     Route::get('filterdivision', 'Api\WorldSearchController@filterdivision');
     
     Route::get('prueba', 'Api\WorldSearchController@prueba');
-
+    Route::get('show', 'Api\WorldSearchController@show');
   //  Route::get('admin/api/division/{id}', '\Api\DivisionController@show');
 
 

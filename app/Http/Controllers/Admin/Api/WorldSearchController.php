@@ -47,33 +47,36 @@ class WorldSearchController extends Controller
     }
 
 */
-    public function searchdivision($id, Request $request)
+    public function searchdivision($id) //, Request $request
     { 
-        $search_term = $request->input('q');
-        $page = $request->input('page');
-        $form = collect($request->input('form'))->pluck('value', 'name');
-        $options = WorldDivision::query();
 
-//dump($id);
+    //    $search_term = $request->input('q');
+    //    $page = $request->input('page');
+     //   $form = collect($request->input('form'))->pluck('value', 'name');
+    //    $options = WorldDivision::query();
+        //$options = WorldDivision::all()->get();
+        $options = WorldDivision::where('country_id', 208)->get();
+
 //dump($form[$id]); 
-
+/*
         if (isset($form[$id]) and $form[$id]) {
             $options = $options->where('country_id', $form[$id]);
         } else {
         // if no category has been selected, show no options 
            return []; 
         }
-
+*/
         // if a search term has been given, filter results to match the search term
-        if ($search_term) {
-            $options = $options->where('name', 'LIKE', '%'.$search_term.'%');
-        }   
+   //     if ($search_term) {
+   //         $options = $options->where('name', 'LIKE', '%'.$search_term.'%');
+   //     }   
 
-        return $options->paginate($page);
+        return $options; //->paginate($page);
     }
 
     public function searchcity($id, Request $request)
     { 
+        
         $search_term = $request->input('q');
         $page = $request->input('page');
         $form = collect($request->input('form'))->pluck('value', 'name');

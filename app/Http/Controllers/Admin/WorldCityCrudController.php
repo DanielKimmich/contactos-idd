@@ -21,6 +21,7 @@ class WorldCityCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CloneOperation { clone as traitClone; }   
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation; 
+    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
  //   use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
  //   use \Backpack\CRUD\app\Http\Controllers\Operations\BulkCloneOperation;
 
@@ -164,6 +165,23 @@ protected function setupShowOperation()
         $this->crud->addField([ // Select
             'name'  => 'division_id',
             'label' => trans('world.city.division'),
+            'type'  => 'relationship',
+            'tab'   => trans('world.data'),
+            'wrapper' => ['class' => 'form-group col-md-6'],
+        //    'entity' => 'division', 
+            'attribute' => 'name',
+            'ajax' => true,
+            'model' => 'App\Models\WorldDivision', // foreign key model
+            'data_source'  => backpack_url('worldcity/fetch/division'), // url to controller search function (with /{id} should return model)
+//            'placeholder' => '', // placeholder for the select
+            'dependencies'  => ['country_id'], // when a dependency changes, this select2 is reset to null
+         //   'dependencies'  => 'country_id',
+            'minimum_input_length' => 0, // minimum characters to type before querying results
+            ]); 
+/*        
+        $this->crud->addField([ // Select
+            'name'  => 'division_id',
+            'label' => trans('world.city.division'),
             'type'  => 'select2_from_ajax',
             'tab'   => trans('world.data'),
             'wrapper' => ['class' => 'form-group col-md-6'],
@@ -176,6 +194,7 @@ protected function setupShowOperation()
          //   'dependencies'  => 'country_id',
             'minimum_input_length' => 0, // minimum characters to type before querying results
             ]); 
+*/
         $this->crud->addField([ // Text
             'name'  => 'full_name',
             'label' => trans('world.city.full_name'),
@@ -234,6 +253,36 @@ protected function setupShowOperation()
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    public function fetchDivision()
+    {
+      //  return $this->fetch('App\Models\WorldDivision');
+/*
+        $form = $this->crud->getRequest()->input('form');
+        foreach ($form as $entry) {
+            dump( $entry );
+            if ($entry['name'] == 'country_id') {
+                $id = (int) $entry['value'];
+            }
+        }
+        dump( $id );
+*/
+        return $this->fetch([
+            'model' => 'App\Models\WorldDivision', // required
+            'searchable_attributes' => ['name'],
+            'paginate' => 50, // items to show per page
+            'query' => function($model) {
+                $form = $this->crud->getRequest()->input('form');
+                foreach ($form as $entry) {
+                    if ($entry['name'] == 'country_id') {
+                        $country_id = (int) $entry['value'];
+                        break 1;  /* Sólo sale del foreach. */
+                    }
+                }
+                return $model->where('country_id', $country_id)->orderBy('name');
+            } // to filter the results that are returned
+        ]);
     }
 
 }

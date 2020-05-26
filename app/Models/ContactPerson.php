@@ -25,7 +25,7 @@ class ContactPerson extends Model
     // protected $primaryKey = 'id';
     public $timestamps = true;
     protected $guarded = ['id'];
-    protected $fillable = ['display_name', 'sex_id', 'nationality_id', 'civil_status', 'photo_id', 'status'];
+    protected $fillable = ['display_name', 'sex_id', 'nationality_id', 'civil_status', 'photo_id', 'status', 'relation_phone', 'relation_email', 'relation_address'];
     // protected $hidden = [];
     // protected $dates = [];
     protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user',
@@ -137,11 +137,25 @@ class ContactPerson extends Model
         }
     }
 
+    //--------------------------------------------------------------------------
+    public function getRelationPhoneAttribute() {
+        $data = self::phones()->get();
+        return $data->toJson();
+    }
+    public function getRelationEmailAttribute() {
+        $data = self::emails()->get();
+        return $data->toJson();
+    }    
+    public function getRelationAddressAttribute() {
+        $data = self::addresses()->get();
+        return $data->toJson();
+    }    
+
+    //-------------------------------------------------------------------------- 
     Public function getPhoneMobileAttribute()
     {
         return $this->phones()->firstWhere('data2', 'TYPE_MOBILE')->data1 ?? '';
     }
-    
     Public function getPhoneHomeAttribute()
     {
         return $this->phones()->firstWhere('data2', 'TYPE_HOME')->data1 ?? '';
@@ -176,5 +190,70 @@ class ContactPerson extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function setRelationPhoneAttribute($value) {
+        $data = (json_decode($value, true)); //converts json into array
+        $keys = self::phones()->get()->modelKeys();
+        //Insertar o actualizar registros en parent
+        if(is_array($data)) {
+            foreach ($data as $entry) {
+                if (!empty($entry['data1'])) {
+                    $id = (int) $entry['id'];
+                    unset($entry['id']);
+                    if (($key = array_search($id, $keys)) !== false) 
+                        unset($keys[$key]);  
+                    self::phones()->updateOrCreate(['id' => $id], $entry);
+                }
+            }
+        }
+        //Eliminar registros en parent
+        if(!empty($keys)) {
+            foreach ($keys as $id) 
+                self::phones()->find($id)->delete();
+        }    
+    }   
+
+    public function setRelationEmailAttribute($value) {
+        $data = (json_decode($value, true)); //converts json into array
+        $keys = self::emails()->get()->modelKeys();
+        //Insertar o actualizar registros en parent
+        if(is_array($data)) {
+            foreach ($data as $entry) {
+                if (!empty($entry['data1'])) {
+                    $id = (int) $entry['id'];
+                    unset($entry['id']);
+                    if (($key = array_search($id, $keys)) !== false) 
+                        unset($keys[$key]);  
+                    self::emails()->updateOrCreate(['id' => $id], $entry);
+                }
+            }
+        }
+        //Eliminar registros en parent
+        if(!empty($keys)) {
+            foreach ($keys as $id) 
+                self::emails()->find($id)->delete();
+        }    
+    }   
+
+    public function setRelationAddressAttribute($value) {
+        $data = (json_decode($value, true)); //converts json into array
+        $keys = self::addresses()->get()->modelKeys();
+        //Insertar o actualizar registros en parent
+        if(is_array($data)) {
+            foreach ($data as $entry) {
+                if (!empty($entry['data4'])) {
+                    $id = (int) $entry['id'];
+                    unset($entry['id']);
+                    if (($key = array_search($id, $keys)) !== false) 
+                        unset($keys[$key]);  
+                    self::addresses()->updateOrCreate(['id' => $id], $entry);
+                }
+            }
+        }
+        //Eliminar registros en parent
+        if(!empty($keys)) {
+            foreach ($keys as $id) 
+                self::addresses()->find($id)->delete();
+        }    
+    }    
 
 }

@@ -83,8 +83,9 @@ class NotificationCrudController extends CrudController
         $this->crud->addField([
             'name'  => 'body',
             'label' => trans('blog.notification.body'),
-            'type'  => 'textarea',
+            'type'  => 'ckeditor',
             'tab'   => trans('blog.data'),
+
             ]);
         $this->crud->addField([
             'name'  => 'color',

@@ -111,13 +111,14 @@ protected function setupShowOperation()
             'label' =>  trans('world.continent.name'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
+            'wrapper' => ['class' => 'form-group col-md-8'],
             ]);
         $this->crud->addField([ // Text
             'name'  => 'code',
             'label' => trans('world.continent.code'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
-            'wrapper' => ['class' => 'form-group col-md-6'],
+            'wrapper' => ['class' => 'form-group col-md-4'],
             ]);
     //INFO
         $this->getInfoFields();

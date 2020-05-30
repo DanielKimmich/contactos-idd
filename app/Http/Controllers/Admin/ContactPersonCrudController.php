@@ -128,7 +128,7 @@ class ContactPersonCrudController extends CrudController
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
             ]); 
 
-        $this->crud->addColumn([
+/*        $this->crud->addColumn([
             'name'  => 'phone_mobile',
             'label' => trans('contact.phone.mobile1'),
             'type'  => 'phone',
@@ -140,12 +140,36 @@ class ContactPersonCrudController extends CrudController
             'type'  => 'phone',
             'priority' => 3,
             ]);
+
+        $this->crud->addColumn([
+            'name'  => 'phones',
+            'label' => trans('contact.phone.mobile1'),
+            'type'  => 'relationship',
+            'priority' => 3,
+            'attribute' => 'data1',
+            'limit' => 10, // Limit the number of characters shown
+            ]);
+*/
+        $this->crud->addColumn([
+            'name'      => 'phones', //the relationship in your Model
+            'label'     => trans('contact.phone.titles'), //column heading
+            'type'      => 'select_multiple',
+            'priority' => 3,
+            'entity'    => 'phones', //the relationship in your Model
+            'attribute' => 'data1', //foreign key attribute that is shown to user
+            'searchLogic' => function ($query, $column, $searchTerm) {
+                $query->orWhereHas('phones', function ($q) use ($column, $searchTerm) {
+                    $q->where('data1', 'like', '%'.$searchTerm.'%');
+                });
+            }
+            ]); 
+
         $this->crud->addColumn([
             'name'  => 'email1',
             'label' => trans('contact.email.email1'),
             'type'  => 'email',
             'priority'  => 3,
-            'limit'     => 100,
+            'limit'     => 80,
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
             ]);
         $this->crud->addColumn([
@@ -174,6 +198,7 @@ class ContactPersonCrudController extends CrudController
             'label' => trans('contact.updated_at'),
             'type'  => 'text',
             'priority' => 4,
+            'searchLogic' => false,
             ]); 
 /*        $this->crud->addColumn([
             'name' => 'created_at',
@@ -258,6 +283,7 @@ protected function setupShowOperation()
             'type'      => 'select_multiple',
             'entity'    => 'emails', //the relationship in your Model
             'attribute' => 'data1', //foreign key attribute that is shown to user
+            'limit'     => 80, // Limit the number of characters shown
             ]);
         $this->crud->addColumn([
             'name'      => 'addresses', //the relationship in your Model
@@ -265,6 +291,7 @@ protected function setupShowOperation()
             'type'      => 'select_multiple',
             'entity'    => 'addresses', //the relationship in your Model
             'attribute' => 'data1', //foreign key attribute that is shown to user
+            'limit'     => 150, // Limit the number of characters shown            
             ]);
         $this->crud->addColumn([
             'name'  => 'status',
@@ -709,18 +736,18 @@ protected function setupShowOperation()
                     'label' => trans('contact.address.address'),
                     'type' => 'text',
                     'prefix'   => '<i class="la la-map-marker"></i>',
-                    'attributes' => ['readonly' => 'readonly'], //, 'id' => 'address_data1'],
+                    'attributes' => ['readonly' => 'readonly', 'id' => 'address_data1'],
                 ],
                 [   'name'  => 'data4',
                     'label' => trans('contact.address.street'),
                     'type'  => 'text',
-                 //   'attributes' => ['id' => 'address_street'],
+                    'attributes' => ['id' => 'address_street'],
                 ],
                 [   'name' => 'data10',
                     'label' => trans('contact.address.country'),
                     'type' => 'select2_from_array',
                     'wrapper' => ['class' => 'form-group col-md-6'],
-                //    'attributes' => ['id' => 'address_country'],
+                    'attributes' => ['id' => 'address_country'],
                     'options'   => $this->getCountries(),
                     'default' => Config::get('settings.contact_country'),
                 ],
@@ -729,7 +756,7 @@ protected function setupShowOperation()
                     'label' => trans('contact.address.division'),
                     'type'  => 'relationship',
                     'wrapper' => ['class' => 'form-group col-md-6'],
-                //    'attributes' => ['id' => 'address_division'],
+                    'attributes' => ['id' => 'address_division'],
                     'model' => 'App\Models\WorldDivision', // foreign key model
                     'entity'    => 'addresses',
                     'attribute' => 'name',
@@ -746,6 +773,7 @@ protected function setupShowOperation()
                     'label' => trans('contact.address.city'),
                     'type'  => 'relationship',
                     'wrapper' => ['class' => 'form-group col-md-6'],
+                    'attributes' => ['id' => 'address_city'],
                     'model' => 'App\Models\WorldCity', // foreign key model
                     'entity' => 'addresses', 
                     'attribute' => 'name',
@@ -764,13 +792,13 @@ protected function setupShowOperation()
                     'label' => trans('contact.address.postcode'),
                     'type' => 'text',
                     'wrapper' => ['class' => 'form-group col-md-6'], 
-                //    'attributes' => ['id' => 'address_postcode'],
+                    'attributes' => ['id' => 'address_postcode'],
                 ],                
                 [   'name' => 'data6',
                     'label' => trans('contact.address.neigh'),
                     'type' => 'text',
                     'wrapper' => ['class' => 'form-group col-md-6'],
-                //    'attributes' => ['id' => 'address_neigh'], 
+                    'attributes' => ['id' => 'address_neigh'], 
                 ],                
                 [   'name'  => 'data2',
                     'label' => trans('contact.address.type'),
@@ -855,21 +883,34 @@ protected function setupShowOperation()
                 }
             });
 
-        // status filter
+        // Genero
         $this->crud->addFilter([
-            'name' => 'status',
-            'label' => trans('contact.person.status'),
+            'name' => 'sex_id',
+            'label' => trans('contact.person.sex'),
             'type' => 'dropdown',     
             ], 
-            ContentType::getTypeStatus(),
+            ContentType::getTypeSexes(),
             function($value) { // if the filter is active
-                $this->crud->addClause('where', 'status', $value);
+                $this->crud->addClause('where', 'sex_id', $value);
+            }); 
+
+        // Estado Civil
+        $this->crud->addFilter([
+            'name' => 'civil_status',
+            'label' => trans('contact.person.civil_status'),
+            'type' => 'select2_multiple',      
+            ], 
+            function() {return ContentType::getTypeCivilStatus(); },
+            function($values) { // if the filter is active
+                foreach (json_decode($values) as $key => $value) {
+                    $this->crud->addClause('orwhere', 'civil_status', $value);
+                }
             });
-/*
+
         // select2_multiple filter
         $this->crud->addFilter([
             'name' => 'status',
-            'label' => trans('contact.status'),
+            'label' => trans('contact.person.status'),
             'type' => 'select2_multiple',      
             ], 
             function() {return ContentType::getTypeStatus(); },
@@ -878,7 +919,7 @@ protected function setupShowOperation()
                     $this->crud->addClause('orwhere', 'status', $value);
                 }
             });
-*/
+
         // daterange filter
         $this->setFilterDateUpdate();
     }
@@ -1157,7 +1198,7 @@ protected function destroyMacronutrients($productId)
             '09'  => 'Septiembre',
             '10'  => 'Octubre',
             '11'  => 'Noviembre',
-            '12'  => 'Deciembre',
+            '12'  => 'Diciembre',
         ];
         return $months;
     }

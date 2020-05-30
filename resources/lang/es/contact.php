@@ -59,7 +59,7 @@ return [
 		'home1'				=> 'Telefono_1',
 		'number'          	=> 'Numero',
 		'type'            	=> 'Tipo',
-		'label'           	=> 'Info Adicional',
+		'label'           	=> 'Información Adicional',
 		'normalized'      	=> 'Normalizado',
 	// Messages
 		'no_rows'           => 'There are no telefonos',
@@ -78,7 +78,7 @@ return [
 		'email1'			=> 'Correo_1',
 		'address'          	=> 'Direccion de Correo',
 		'type'            	=> 'Tipo',
-		'label'           	=> 'Info Adicional',
+		'label'           	=> 'Información Adicional',
 		'display_name'  	=> 'Nombre a Mostrar',
 	// Messages
 		'no_rows'           => 'There are no telefonos',
@@ -97,7 +97,7 @@ return [
         'address1' 	=> 'Dirección_1',
         'address' 	=> 'Dirección Completa',
         'type'    	=> 'Tipo',
-        'label'  	=> 'Info Adicional',
+        'label'  	=> 'Información Adicional',
         'street'   	=> 'Calle',
         'pobox'    	=> 'Codigo Postal',
         'neigh'  	=> 'Barrio',

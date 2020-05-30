@@ -123,18 +123,21 @@ protected function setupShowOperation()
             'label' => trans('world.division.name'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
+            'wrapper' => ['class' => 'form-group col-md-8'],
             ]);
         $this->crud->addField([ // Text
             'name'  => 'code',
             'label' => trans('world.division.code'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
+            'wrapper' => ['class' => 'form-group col-md-4'],
             ]);
         $this->crud->addField([ // Select
             'name'  => 'country_id',
             'label' => trans('world.division.country'),
             'type'  => 'select2',
             'tab'   => trans('world.data'),
+            'wrapper' => ['class' => 'form-group col-md-6'],
             'entity' => 'country', 
             'model' => 'App\Models\WorldCountry', // foreign key model
             'attribute' => 'name',

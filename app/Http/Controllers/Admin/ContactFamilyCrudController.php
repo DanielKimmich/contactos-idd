@@ -33,6 +33,7 @@ class ContactFamilyCrudController extends CrudController
 
     protected function setupListOperation()
     {
+        $this->setupAvancedOperation();
      // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -532,6 +533,53 @@ class ContactFamilyCrudController extends CrudController
     }
     //INFO
         $this->getInfoFields();
+    }
+
+    protected function setupAvancedOperation()
+    {
+    // ------ ADVANCED QUERIES  
+        $this->crud->orderBy('updated_at', 'desc');  // 'asc', 'desc'
+
+    // ------ CRUD FILTERS
+        // Genero
+        $this->crud->addFilter([
+            'name' => 'sex_id',
+            'label' => trans('contact.person.sex'),
+            'type' => 'dropdown',     
+            ], 
+            ContentType::getTypeSexes(),
+            function($value) { // if the filter is active
+                $this->crud->addClause('where', 'sex_id', $value);
+            }); 
+
+        // Estado Civil
+        $this->crud->addFilter([
+            'name' => 'civil_status',
+            'label' => trans('contact.person.civil_status'),
+            'type' => 'select2_multiple',      
+            ], 
+            function() {return ContentType::getTypeCivilStatus(); },
+            function($values) { // if the filter is active
+                foreach (json_decode($values) as $key => $value) {
+                    $this->crud->addClause('orwhere', 'civil_status', $value);
+                }
+            });
+
+        // select2_multiple filter
+        $this->crud->addFilter([
+            'name' => 'status',
+            'label' => trans('contact.person.status'),
+            'type' => 'select2_multiple',      
+            ], 
+            function() {return ContentType::getTypeStatus(); },
+            function($values) { // if the filter is active
+                foreach (json_decode($values) as $key => $value) {
+                    $this->crud->addClause('orwhere', 'status', $value);
+                }
+            });
+
+        // daterange filter
+        $this->setFilterDateUpdate();
     }
 
     public function fetchPerson()

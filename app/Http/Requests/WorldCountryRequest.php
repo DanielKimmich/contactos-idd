@@ -25,11 +25,21 @@ class WorldCountryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name'          => 'required|min:2|max:255',
-            'code'          => 'required|min:2|max:2',
-            'code_alpha3'   => 'required|min:3|max:3',
-        ];
+        $id = $this->get('id');
+        if (empty($id))
+            $rules = [
+                'name'          => 'required|min:2|max:255|unique:world_countries,name',
+                'code'          => 'required|min:2|max:2|unique:world_countries,code',
+                'code_alpha3'   => 'required|min:3|max:3|unique:world_countries,code_alpha3',
+            ];
+        else
+            $rules = [
+                'name'          => 'required|min:2|max:255|unique:world_countries,name,' .$id,
+                'code'          => 'required|min:2|max:2|unique:world_countries,code,' .$id,
+                'code_alpha3'   => 'required|min:3|max:3|unique:world_countries,code_alpha3,' .$id,
+            ]; 
+
+        return $rules;  
     }
 
     /**

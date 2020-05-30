@@ -24,11 +24,20 @@ class WorldContinentRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
-        return [
-            'name' => 'required|min:2|max:255',
-            'code' => 'required|min:2|max:2',
-        ];
+    {   
+        $id = $this->get('id');
+        if (empty($id))
+            $rules = [
+                'name' => 'required|min:2|max:255|unique:world_continents,name',
+                'code' => 'required|min:2|max:2|unique:world_continents,code',
+            ];
+        else
+            $rules = [
+                'name' => 'required|min:2|max:255|unique:world_continents,name,' .$id,
+                'code' => 'required|min:2|max:2|unique:world_continents,code,' .$id,
+            ]; 
+
+        return $rules;  
     }
 
     /**

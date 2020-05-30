@@ -142,13 +142,15 @@ protected function setupShowOperation()
             'label' => trans('world.city.name'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
+            'wrapper' => ['class' => 'form-group col-md-8'],
             ]);
         $this->crud->addField([ // Text
             'name'  => 'code',
             'label' => trans('world.city.code'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
-        ]);
+            'wrapper' => ['class' => 'form-group col-md-4'],
+            ]);
          $this->crud->addField([ // Select
             'name'  => 'country_id',
             'label' => trans('world.city.country'),

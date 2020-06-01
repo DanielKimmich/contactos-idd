@@ -28,6 +28,10 @@
             setFullName();
         });
 
+        $('#inline-create-dialog').on('keyup', '#name_first, #name_middle, #name_family', function() { 
+            setFullName();
+        });
+
         //STATUS
         $(document).on('change', '#contact_status', function() { 
             setEventDead(); 
@@ -62,50 +66,7 @@
             setFullAddress('contact_addresses2'); 
         });
 
-        //ADDRESS3
-        $(document).on('keyup', '#contact_addresses3data4, #contact_addresses3data6, #contact_addresses3data9', function() { 
-            setFullAddress('contact_addresses3');
-        });
-        $(document).on('change', '#contact_addresses3data7, #contact_addresses3data8, #contact_addresses3data10', function() { 
-            setFullAddress('contact_addresses3'); 
-        });
 
-        //ADDRESS4
-        $(document).on('keyup', '#contact_addresses4data4, #contact_addresses4data6, #contact_addresses4data9', function() { 
-            setFullAddress('contact_addresses3');
-        });
-        $(document).on('change', '#contact_addresses4data7, #contact_addresses4data8, #contact_addresses4data10', function() { 
-            setFullAddress('contact_addresses4'); 
-        });
-
-
- //       $(document).on('keyup', '#contact_addresses0data6', function() { 
- //           setFullAddress('contact_addresses0');
- //       });
- //       $(document).on('keyup', '#contact_addresses0data9', function() { 
-  //          setFullAddress('contact_addresses0');
-  //      });
-  //      $(document).on('change', '#contact_addresses0data7', function() { 
-  //          setFullAddress('contact_addresses0'); 
-  //      });
- //        $(document).on('change', '#contact_addresses0data8', function() { 
- //           setFullAddress('contact_addresses0');   
- //       });
- //       $(document).on('change', '#contact_addresses0data10', function() { 
-  //          setFullAddress('contact_addresses0'); 
-  //      });   
-
- /*       
-        $('#contact_addresses0data7').on("change", function(e) { 
-            setFullAddress('contact_addresses0'); 
-        });
-         $('#contact_addresses0data8').on("change", function(e) { 
-            setFullAddress('contact_addresses0');   
-        });
-        $('#contact_addresses0data10').on("change", function(e) { 
-            setFullAddress('contact_addresses0'); 
-        });   
-*/
         function setFullName() {
             $first = $('#name_first').val();
             $middle = $('#name_middle').val();
@@ -124,8 +85,8 @@
             $status = $('#contact_status').find(':selected').val();
             if ($status == 'DEAD') {
                 $('#event_dead').parents('.form-group').removeClass('d-none');
-                if ($('#contactperson-inline-create-dialog').hasClass('show')) {
-                    //alert("Modal is visible")
+                if ($('#inline-create-dialog').hasClass('show')) {
+                    //alert("Modal is visible") #contactperson-
                     $tab="#inline_tab_{{ Str::slug(trans('contact.data')) }}"
                     $('#inline_form_tabs a[href="' +$tab+ '"]').tab('show');
                     //inline_form_tabs
@@ -137,8 +98,8 @@
             } else if ($('#event_dead').val() == '' ) {
                 $('#event_dead').parents('.form-group').addClass('d-none');
             } else {
-                if ($('#contactperson-inline-create-dialog').hasClass('show')) {
-                    //alert("Modal is visible")
+                if ($('#inline-create-dialog').hasClass('show')) {
+                    //alert("Modal is visible") contactperson-
                     $tab="#inline_tab_{{ Str::slug(trans('contact.data')) }}"
                     $('#inline_form_tabs a[href="' +$tab+ '"]').tab('show');
                     //inline_form_tabs

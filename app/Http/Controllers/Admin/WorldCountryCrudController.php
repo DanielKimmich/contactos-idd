@@ -216,7 +216,6 @@ protected function setupShowOperation()
             'attribute' => 'name',
             'model' => 'App\Models\WorldContinent',
         //    'default' => Config::get('settings.world_continent'), // set default value
-         //   'default' => '',
             'allows_null' => true,
             'options'   => (function ($query) {
                 return $query->orderBy('name', 'ASC')->get(); }), 

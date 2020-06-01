@@ -231,13 +231,6 @@ protected function setupShowOperation()
             'type'  => 'select_from_array',
             'options'   => ContentType::getTypeSexes(),
             ]);
-/*        $this->crud->addColumn([
-            'name'  => 'nationality_id',
-            'label' => trans('contact.person.nationality'),
-            'type'  => 'select',
-            'entity' => 'nationality', 
-            'attribute' => 'name',
-            ]);  */
         $this->crud->addColumn([
             'name'  => 'nationality_id',
             'label' => trans('contact.person.nationality'),
@@ -255,21 +248,16 @@ protected function setupShowOperation()
             'type'  => 'text',
             ]);       
         $this->crud->addColumn([
+            'name'  => 'civil_status',
+            'label' => trans('contact.person.civil_status'),
+            'type'  => 'select_from_array',
+            'options'   => ContentType::getTypeCivilStatus(),
+            ]);
+        $this->crud->addColumn([
             'name'  => 'documents.data1',
             'label' =>  trans('contact.document.number'),
             'type'  => 'text',
             ]);  
- /*      $this->crud->addColumn([
-            'name' => 'phones',
-            'label' => 'Table',
-            'type' => 'table',
-            'columns' => [
-                'name'  => 'data1',
-                'desc'  => 'data2',
-                'price' => 'data3',
-            ]
-        ]); */
-
         $this->crud->addColumn([
             'name'      => 'phones', //the relationship in your Model
             'label'     => trans('contact.phone.titles'), //column heading

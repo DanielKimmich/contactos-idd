@@ -148,21 +148,21 @@ class ContentTypeCrudController extends CrudController
             'label' => trans('contact.type.type'),
             'type'  => 'text',
             'tab'   => 'Data',
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
+            'wrapper'   => ['class' => 'form-group col-md-6'], //resizing
             ]);
         $this->crud->addField([ // LABEL
             'name'  => 'label',
             'label' => trans('contact.type.label'),
             'type'  => 'text',
             'tab'   => 'Data',
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
+            'wrapper'   => ['class' => 'form-group col-md-6'], //resizing
             ]);
         CRUD::addField([
             'name'  => 'parent_id',
             'label' => trans('contact.type.parent'),
             'type'  => 'select',
             'tab'   => 'Data',
-            'wrapperAttributes' => ['class' => 'form-group col-md-6'], //resizing
+            'wrapper'   => ['class' => 'form-group col-md-6'], //resizing
             'entity'    => 'parent',
             'attribute' => 'label',
             'model' => "App\Models\ContentType",

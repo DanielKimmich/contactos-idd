@@ -26,7 +26,7 @@ class FamilyRequest extends FormRequest
     public function rules()
     {
         return [
-            'data1'  => 'required',
+        //    'data1'  => 'required',
         ];
     }
 

@@ -6,6 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Wildside\Userstamps\Userstamps;
+use App\Models\ContentType;
 
 class ContactDocument extends Model
 {
@@ -24,7 +25,7 @@ class ContactDocument extends Model
     // protected $hidden = [];
     // protected $dates = [];
     protected $fillable = ['contact_id', 'mimetype', 'document_number', 'document_type', 'document_label'];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+    protected $appends = ['document_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'Document'];
 
     /*
@@ -38,6 +39,11 @@ class ContactDocument extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function types()
+    {
+        $id = ContentType::where('type','Document')->where('depth', 1)->orWhereNull('depth')->first()->id;
+        return $this->belongsTo('App\Models\ContentType', 'data2', 'type')->where('parent_id', $id);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -55,6 +61,11 @@ class ContactDocument extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    Public function getDocumentTypeDataAttribute()
+    {
+        return $this->types->label.': '.$this->data1;
+    }
+
     Public function getDocumentNumberAttribute()
     {
         return $this->data1;

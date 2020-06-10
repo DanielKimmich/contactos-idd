@@ -6,6 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Wildside\Userstamps\Userstamps;
+use App\Models\ContentType;
 
 class ContactPhone extends Model
 {
@@ -40,9 +41,9 @@ class ContactPhone extends Model
         'data12',
         'data13',
         'data14', 
-        'data15'
+        'data15',
     ];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+    protected $appends = ['phone_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'Phone'];  
 
     /*
@@ -56,6 +57,11 @@ class ContactPhone extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function types()
+    {
+        $id = ContentType::where('type','Phone')->where('depth', 1)->orWhereNull('depth')->first()->id;
+        return $this->belongsTo('App\Models\ContentType', 'data2', 'type')->where('parent_id', $id);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -74,6 +80,11 @@ class ContactPhone extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    Public function getPhoneTypeDataAttribute()
+    {
+        return $this->types->label.': '.$this->data1;
+    }
+
     Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';

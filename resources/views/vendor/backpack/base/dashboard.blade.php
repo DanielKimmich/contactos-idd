@@ -13,18 +13,6 @@
 
 	$dias = 7;
 
-    $notifications = App\Models\Notification::whereDate('expires_at', '>=', Carbon::today())->get();
-    foreach ($notifications as $noti)
-    {
-        $widgets['before_content'][] = [
-            'type'         => 'alert',
-            'class'        => 'alert mb-2 alert-' .$noti->class_color,
-            'heading'      => $noti->title,
-            'content'      => $noti->body,
-            'close_button' => true, // show close button or not
-        ];    
-    }
-
     $today     = Carbon::today();
     $todayMMDD = Carbon::today()->format('m-d');
     $fromMMDD  = Carbon::today()->subDays($dias)->format('m-d');
@@ -32,6 +20,7 @@
 
 //dump($todayMMDD, $fromMMDD, $toMMDD);
 
+//Cumpleaños
 	$births = ContactEvent::where('data2', 'TYPE_BIRTHDAY')
                 ->whereNull('data4')
                 ->where(\DB::raw("substr(data1, 6,5)"),">=", $fromMMDD)
@@ -91,6 +80,9 @@
   		] 
   	];
 
+
+
+//Contadores
     $contactPersonCount = ContactPerson::count();
     $contactPersonCountNew = ContactPerson::whereDate('created_at', '>', Carbon::today()->subDays($dias))->count();
     if ($contactPersonCount > 0) 
@@ -153,6 +145,19 @@
       		],
   		] 
   	];
+
+//Notificaciones
+    $notifications = App\Models\Notification::whereDate('expires_at', '>=', Carbon::today())->get();
+    foreach ($notifications as $noti)
+    {
+        $widgets['before_content'][] = [
+            'type'         => 'alert',
+            'class'        => 'alert mb-2 alert-' .$noti->class_color,
+            'heading'      => $noti->title,
+            'content'      => $noti->body,
+            'close_button' => true, // show close button or not
+        ];    
+    }
 
 /*
 	$widgets['before_content'][] =

@@ -6,6 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Wildside\Userstamps\Userstamps;
+use App\Models\ContentType;
 
 class ContactEmail extends Model
 {
@@ -42,7 +43,7 @@ class ContactEmail extends Model
         'data14', 
         'data15'
     ];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+    protected $appends = ['email_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'Email'];
 
     /*
@@ -56,7 +57,11 @@ class ContactEmail extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function types()
+    {
+        $id = ContentType::where('type','Email')->where('depth', 1)->orWhereNull('depth')->first()->id;
+        return $this->belongsTo('App\Models\ContentType', 'data2', 'type')->where('parent_id', $id);
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -73,6 +78,11 @@ class ContactEmail extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    Public function getEmailTypeDataAttribute()
+    {
+        return $this->types->label.': '.$this->data1;
+    }
+
     Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';

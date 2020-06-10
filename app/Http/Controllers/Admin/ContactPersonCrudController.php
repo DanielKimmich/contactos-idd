@@ -154,9 +154,10 @@ class ContactPersonCrudController extends CrudController
             'name'      => 'phones', //the relationship in your Model
             'label'     => trans('contact.phone.titles'), //column heading
             'type'      => 'select_multiple',
-            'priority' => 3,
+            'priority'  => 3,
             'entity'    => 'phones', //the relationship in your Model
             'attribute' => 'data1', //foreign key attribute that is shown to user
+            'separate'  => '/', //optional
             'searchLogic' => function ($query, $column, $searchTerm) {
                 $query->orWhereHas('phones', function ($q) use ($column, $searchTerm) {
                     $q->where('data1', 'like', '%'.$searchTerm.'%');
@@ -262,15 +263,17 @@ protected function setupShowOperation()
             'name'      => 'phones', //the relationship in your Model
             'label'     => trans('contact.phone.titles'), //column heading
             'type'      => 'select_multiple',
+         //   'type'      => 'relationship',
             'entity'    => 'phones', //the relationship in your Model
-            'attribute' => 'data1', //foreign key attribute that is shown to user
+            'attribute' => 'phone_type_data', //foreign key attribute that is shown to user
+            'limit'     => 80, // Limit the number of characters shown
             ]); 
         $this->crud->addColumn([
             'name'      => 'emails', //the relationship in your Model
             'label'     => trans('contact.email.titles'), //column heading
             'type'      => 'select_multiple',
             'entity'    => 'emails', //the relationship in your Model
-            'attribute' => 'data1', //foreign key attribute that is shown to user
+            'attribute' => 'email_type_data', //foreign key attribute that is shown to user
             'limit'     => 80, // Limit the number of characters shown
             ]);
         $this->crud->addColumn([
@@ -278,7 +281,7 @@ protected function setupShowOperation()
             'label'     => trans('contact.address.titles'), //column heading
             'type'      => 'select_multiple',
             'entity'    => 'addresses', //the relationship in your Model
-            'attribute' => 'data1', //foreign key attribute that is shown to user
+            'attribute' => 'address_type_data', //foreign key attribute that is shown to user
             'limit'     => 150, // Limit the number of characters shown            
             ]);
         $this->crud->addColumn([

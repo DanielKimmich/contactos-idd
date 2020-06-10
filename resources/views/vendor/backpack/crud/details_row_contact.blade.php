@@ -6,13 +6,13 @@
 				<strong>{{ trans('contact.document.number') }}:</strong> {{ $entry->documents->data1 }} <br>
 			@endif
 			@if($entry->phones->count() > 0)
-				<strong>{{ trans('contact.phone.titles') }}:</strong> {{ $entry->phones->implode('data1', ', ') }} <br>
+				<strong>{{ trans('contact.phone.titles') }}:</strong> {{ $entry->phones->implode('phone_type_data', ' / ') }} <br>
 			@endif
 			@if($entry->emails->count() > 0)
-				<strong>{{ trans('contact.email.titles') }}:</strong> {{ $entry->emails->implode('data1', ', ') }} <br>
+				<strong>{{ trans('contact.email.titles') }}:</strong> {{ $entry->emails->implode('email_type_data', ' / ') }} <br>
 			@endif
 			@if($entry->addresses->count() > 0)
-				<strong>{{ trans('contact.address.titles') }}:</strong> {{ $entry->addresses->implode('data1', ', ') }} <br>
+				<strong>{{ trans('contact.address.titles') }}:</strong> {{ $entry->addresses->implode('address_type_data', ' / ') }} <br>
 			@endif
 		</div>
 	</div>

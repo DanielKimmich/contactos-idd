@@ -122,6 +122,32 @@
                 
             </div>
 
+
+
+        @php
+            // Ejemplo de uso 
+            $ip = env('REMOTE_ADDR');
+            $db = env('DB_CONNECTION');
+            //    $url = env('DATABASE_URL');
+            $host = env('DB_HOST');
+            $port = env('DB_PORT');
+            $database = env('DB_DATABASE');
+            $username = env('DB_USERNAME');
+        //    $password = env('DB_PASSWORD');
+        @endphp
+
+        <div>
+            <p>
+                IP_LOCAL: {{ $ip }}<br>
+                DB_CONNECTION: {{ $db }}<br>
+                DB_HOST: {{ $host }}<br>
+                DB_PORT: {{ $port }}<br>
+                DB_DATABASE: {{ $database }}<br>
+                DB_USERNAME: {{ $username }}<br>
+            </p>
+        </div>
+
         </div>
     </body>
 </html>
+

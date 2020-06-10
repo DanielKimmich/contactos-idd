@@ -67,6 +67,7 @@ class BlogTagCrudController extends CrudController
             'label' => trans('blog.updated_at'),
             'type'  => 'text',
             'priority' => 4,
+            'searchLogic' => false,
             ]); 
 //$this->crud->addButton('top', 'export_buttons', 'view', 'crud::inc.export_buttons', 'end');
 //$this->crud->modifyButton('exportButtons', ['position' => 'end']);

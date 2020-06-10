@@ -23,9 +23,9 @@ class ContentType extends Model
 
     // protected $hidden = [];
     // protected $dates = [];
-    protected $fillable = ['mimetype', 'type', 'order', 'label', 'parent_id'];
+    protected $fillable = ['mimetype', 'type', 'label', 'parent_id'];
     protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
-    protected $attributes = ['mimetype' => 'user', 'order'=> '1'];
+    protected $attributes = ['mimetype' => 'user'];
     
     /*
     |--------------------------------------------------------------------------
@@ -70,6 +70,13 @@ class ContentType extends Model
     public static function getTypeAddresses()
     {   
         $id = self::where('type','Address')->where('depth', 1)->orWhereNull('depth')->first()->id;
+        $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        return $types->toArray();
+    }
+
+    public static function getTypeBloods()
+    {   
+        $id = self::where('type','Blood')->where('depth', 1)->orWhereNull('depth')->first()->id;
         $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
         return $types->toArray();
     }

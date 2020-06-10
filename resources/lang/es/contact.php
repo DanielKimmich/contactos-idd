@@ -120,6 +120,15 @@ return [
 		'profile_image'     => 'Imagen de perfil',    
     ],
 
+//NAME
+  	'blood'    => [
+		'tab'  		=> 'Grupo Sanguineo',
+	//Fields
+		'name'     	=> 'Es donante de Sangre ?',
+		'type'  	=> 'Grupo',
+		'label'    	=> 'Información Adicional',
+    ],
+
 //POST
     'family'      => [
         'entity_name'   => 'Familia',

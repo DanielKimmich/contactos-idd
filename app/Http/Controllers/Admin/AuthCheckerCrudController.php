@@ -77,6 +77,7 @@ class AuthCheckerCrudController extends CrudController
             'label' => trans('report.authchecker.logged_at'),
             'type'  => 'text',
             'priority' => 2,
+            'searchLogic' => false,
             ]);
         $this->crud->addColumn([
             'name'  => 'type',

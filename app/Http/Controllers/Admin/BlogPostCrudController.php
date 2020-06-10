@@ -75,6 +75,7 @@ class BlogPostCrudController extends CrudController
             'label' => trans('blog.post.posted_at'),
             'type'  => 'text',
             'priority' => 4,
+            'searchLogic' => false,
             ]); 
     }
 

@@ -75,6 +75,11 @@ class ContactPerson extends Model
     {
         return $this->hasMany('App\Models\ContactAddress','contact_id', 'id');
     }
+
+    public function bloods()
+    {
+        return $this->hasOne('App\Models\ContactBlood','contact_id','id');
+    }
 /*
     public function sex()
     {

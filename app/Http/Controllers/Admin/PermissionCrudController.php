@@ -68,6 +68,7 @@ class PermissionCrudController extends OriginalPermissionCrudController
             'label' => trans('world.updated_at'),
             'type'  => 'text',
             'priority' => 4,
+            'searchLogic' => false,
             ]);        
     }
 

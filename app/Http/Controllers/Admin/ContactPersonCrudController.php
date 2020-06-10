@@ -802,6 +802,33 @@ protected function setupShowOperation()
             ],
         ]);
 
+    //BLOOD
+        $this->crud->addField([ // radio
+            'name'  => 'bloods.data1',
+            'label' => trans('contact.blood.name'),
+            'type'  => 'radio',     //'radio',
+            'tab'   => trans('contact.blood.tab'),
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing
+            'inline'      => true,      
+           // 'options'     => ContentType::getTypeSexes(),
+            'options'     => ['YES' => 'Si', 'NO' => 'No', 'MAYBE' => 'Tal vez'],
+           ]);      
+        $this->crud->addField([ //
+            'name'  => 'bloods.data2',
+            'label' => trans('contact.blood.type'),
+            'type'  => 'select_from_array',
+            'tab'   => trans('contact.blood.tab'),
+            'wrapper' => ['class' => 'form-group col-md-6'], 
+            'options' => ContentType::getTypeBloods(),
+            'allows_null' => true,
+           ]); 
+        $this->crud->addField([ //
+            'name'  => 'bloods.data3',
+            'label' => trans('contact.blood.label'),
+            'type'  => 'text',
+            'tab'   => trans('contact.blood.tab'),
+           ]); 
+
     //PHOTO
         $this->crud->addField([
             'name' => 'names.data14',
@@ -853,9 +880,9 @@ protected function setupShowOperation()
             false,
             function($value) { // if the filter is active
                 $range = json_decode($value);
-                $today = Carbon::today();
+                //$today = Carbon::today();
                 if ($range->from) {
-                    $datefrom = $today->subYears($range->from)->format('Y-m-d');
+                    $datefrom = Carbon::today()->subYears($range->from)->format('Y-m-d');
                     $this->crud->addClause('whereHas', 'events', function ($query) use ($datefrom) {
                         $query->whereNotNull('data1')->whereNull('data4')
                             ->where('data1', '<=', $datefrom);
@@ -863,7 +890,7 @@ protected function setupShowOperation()
                 } 
 
                 if ($range->to) {
-                    $dateto = $today->subYears($range->to)->format('Y-m-d');
+                    $dateto = Carbon::today()->subYears($range->to)->format('Y-m-d');
                     $this->crud->addClause('whereHas', 'events', function ($query) use ($dateto) {
                         $query->whereNotNull('data1')->whereNull('data4')
                             ->where('data1', '>=', $dateto);
@@ -1228,7 +1255,9 @@ protected function destroyMacronutrients($productId)
         $this->crud->removeField('relation_email');
         $this->crud->removeField('relation_address');
         $this->crud->removeField('names[data14]');
-
+        $this->crud->removeField('bloods[data1]');
+        $this->crud->removeField('bloods[data2]');
+        $this->crud->removeField('bloods[data3]');
         //$this->crud->setOperationSetting('contentClass', 'col-md-12');
     }
 

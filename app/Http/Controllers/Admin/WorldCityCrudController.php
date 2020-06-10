@@ -78,6 +78,7 @@ class WorldCityCrudController extends CrudController
             'label' => trans('world.updated_at'),
             'type'  => 'text',
             'priority' => 4,
+            'searchLogic' => false,
             ]);
     }
 

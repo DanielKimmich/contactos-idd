@@ -73,8 +73,8 @@ class ContactContentTypes extends Seeder
             ),
             7 =>            
             array (
-                'type'      => 'Organization',
-                'label'     => 'Organización',
+                'type'      => 'Blood',
+                'label'     => 'Grupo Sanguineo',
                 'parent_id' => '0',
                 'depth'     => '1',
                 'mimetype' => 'system',
@@ -589,6 +589,71 @@ class ContactContentTypes extends Seeder
                 'depth'     => '3',
                 'mimetype' => 'system',
             ),     
+            71 => 
+            array (
+                'type' => 'GROUP_A+',
+                'label' => 'Grupo A+',
+                'parent_id' => '8',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
+            72 => 
+            array (
+                'type' => 'GROUP_AB+',
+                'label' => 'Grupo AB+',
+                'parent_id' => '8',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
+            73 => 
+            array (
+                'type' => 'GROUP_B+',
+                'label' => 'Grupo B+',
+                'parent_id' => '8',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
+            74 => 
+            array (
+                'type' => 'GROUP_0+',
+                'label' => 'Grupo 0+',
+                'parent_id' => '8',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
+            75 => 
+            array (
+                'type' => 'GROUP_A-',
+                'label' => 'Grupo A-',
+                'parent_id' => '8',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),     
+            76 => 
+            array (
+                'type' => 'GROUP_AB-',
+                'label' => 'Grupo AB-',
+                'parent_id' => '8',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),                 
+            77 => 
+            array (
+                'type' => 'GROUP_B-',
+                'label' => 'Grupo B-',
+                'parent_id' => '8',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),         
+            78 => 
+            array (
+                'type' => 'GROUP_0-',
+                'label' => 'Grupo 0-',
+                'parent_id' => '8',
+                'depth'     => '2',
+                'mimetype' => 'system',
+            ),
+
         ));
     }
 }

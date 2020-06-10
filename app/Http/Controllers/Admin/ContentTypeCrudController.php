@@ -78,6 +78,7 @@ class ContentTypeCrudController extends CrudController
             'label' => trans('contact.updated_at'),
             'type'  => 'text',
             'priority' => 4,
+            'searchLogic' => false,
             ]); 
     }
 

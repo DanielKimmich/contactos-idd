@@ -65,6 +65,7 @@ class BlogCommentCrudController extends CrudController
             'label' => trans('blog.updated_at'),
             'type'  => 'text',
             'priority' => 4,
+            'searchLogic' => false,
             ]); 
     }
 

@@ -70,6 +70,7 @@ class RoleCrudController extends OriginalRoleCrudController
             'label' => trans('common.updated_at'),
             'type'  => 'text',
             'priority' => 3,
+            'searchLogic' => false,
             ]);  
     }
 

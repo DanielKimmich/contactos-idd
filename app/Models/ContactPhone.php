@@ -24,26 +24,8 @@ class ContactPhone extends Model
     protected $guarded = ['id'];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $fillable = [
-        'contact_id', 
-        'mimetype', 
-        'data1', 
-        'data2', 
-        'data3',
-        'data4', 
-        'data5', 
-        'data6',
-        'data7', 
-        'data8', 
-        'data9',
-        'data10', 
-        'data11', 
-        'data12',
-        'data13',
-        'data14', 
-        'data15',
-    ];
-    protected $appends = ['phone_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user'];
+    protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3'];
+    protected $appends = ['phone_type_data','created_by_user', 'updated_by_user', 'deleted_by_user']; 
     protected $attributes = ['mimetype' => 'Phone'];  
 
     /*
@@ -56,7 +38,7 @@ class ContactPhone extends Model
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
-    */
+    */    
     public function types()
     {
         $id = ContentType::where('type','Phone')->where('depth', 1)->orWhereNull('depth')->first()->id;
@@ -79,10 +61,10 @@ class ContactPhone extends Model
     |--------------------------------------------------------------------------
     | ACCESSORS
     |--------------------------------------------------------------------------
-    */
+    */   
     Public function getPhoneTypeDataAttribute()
     {
-        return $this->types->label.': '.$this->data1;
+        return ($this->types->label ?? '') .': '.$this->data1;
     }
 
     Public function getCreatedByUserAttribute()

@@ -46,7 +46,7 @@ class ContactAddress extends Model
     ];
 
     protected $attributes = ['mimetype' => 'Address',  ];
-    protected $appends = ['address_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user'];
+    protected $appends = ['address_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user']; 
 
     /*
     |--------------------------------------------------------------------------
@@ -58,13 +58,13 @@ class ContactAddress extends Model
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
-    */
+    */ 
     public function types()
     {
         $id = ContentType::where('type','Address')->where('depth', 1)->orWhereNull('depth')->first()->id;
         return $this->belongsTo('App\Models\ContentType', 'data2', 'type')->where('parent_id', $id);
     }
-    
+ 
     public function country()
     {
         return $this->belongsTo('App\Models\Country', 'data10', 'id');
@@ -86,10 +86,10 @@ class ContactAddress extends Model
     |--------------------------------------------------------------------------
     | ACCESSORS
     |--------------------------------------------------------------------------
-    */
+ */   
     Public function getAddressTypeDataAttribute()
     {
-        return $this->types->label.': '.$this->data1;
+        return ($this->types->label ?? '') .': '.$this->data1;
     }
 
     Public function getCreatedByUserAttribute()

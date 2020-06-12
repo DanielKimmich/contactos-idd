@@ -198,7 +198,7 @@ class ContentTypeCrudController extends CrudController
     protected function setupAvancedOperation()
     {
     // ------ ADVANCED QUERIES  
-        $this->crud->orderBy('mimetype');
+        $this->crud->orderBy('id');
 
     // ------ CRUD FILTERS
         //parent filter

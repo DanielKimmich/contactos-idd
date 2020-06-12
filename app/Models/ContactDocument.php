@@ -25,7 +25,7 @@ class ContactDocument extends Model
     // protected $hidden = [];
     // protected $dates = [];
     protected $fillable = ['contact_id', 'mimetype', 'document_number', 'document_type', 'document_label'];
-    protected $appends = ['document_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user'];
+    protected $appends = ['document_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user']; 
     protected $attributes = ['mimetype' => 'Document'];
 
     /*
@@ -63,7 +63,7 @@ class ContactDocument extends Model
     */
     Public function getDocumentTypeDataAttribute()
     {
-        return $this->types->label.': '.$this->data1;
+        return ($this->types->label ?? '') .': '.$this->data1;
     }
 
     Public function getDocumentNumberAttribute()
@@ -97,11 +97,12 @@ class ContactDocument extends Model
     |--------------------------------------------------------------------------
     | MUTATORS
     |--------------------------------------------------------------------------
-    */
+   */ 
     public function setDocumentNumberAttribute($value)
     {
         $this->attributes['data1'] = $value;
     }
+
     public function setDocumentTypeAttribute($value)
     {
         $this->attributes['data2'] = $value;

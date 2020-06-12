@@ -24,25 +24,7 @@ class ContactEmail extends Model
     protected $guarded = ['id'];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $fillable = [
-        'contact_id', 
-        'mimetype', 
-        'data1', 
-        'data2', 
-        'data3',
-        'data4', 
-        'data5', 
-        'data6',
-        'data7', 
-        'data8', 
-        'data9',
-        'data10', 
-        'data11', 
-        'data12',
-        'data13',
-        'data14', 
-        'data15'
-    ];
+    protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3','data4'];
     protected $appends = ['email_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'Email'];
 
@@ -62,6 +44,7 @@ class ContactEmail extends Model
         $id = ContentType::where('type','Email')->where('depth', 1)->orWhereNull('depth')->first()->id;
         return $this->belongsTo('App\Models\ContentType', 'data2', 'type')->where('parent_id', $id);
     }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -77,10 +60,10 @@ class ContactEmail extends Model
     |--------------------------------------------------------------------------
     | ACCESSORS
     |--------------------------------------------------------------------------
-    */
+   */ 
     Public function getEmailTypeDataAttribute()
     {
-        return $this->types->label.': '.$this->data1;
+        return ($this->types->label ?? '') .': '.$this->data1;
     }
 
     Public function getCreatedByUserAttribute()

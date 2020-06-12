@@ -290,7 +290,23 @@ protected function setupShowOperation()
             'type'  => 'select_from_array',
             'options'   => ContentType::getTypeStatus(),
             ]);
-        $this->crud->addColumn([    
+        $this->crud->addColumn([
+            'name' => 'created_at_by_user',
+            'label' => trans('contact.created_at'),
+            'type' => 'closure',
+            'function' => function($entry) {
+                return $entry->created_at.' ('.$entry->created_by_user.')';
+                }
+            ]); 
+        $this->crud->addColumn([
+            'name' => 'updated_at_by_user',
+            'label' => trans('contact.updated_at'),
+            'type' => 'closure',
+            'function' => function($entry) {
+                return $entry->updated_at.' ('.$entry->updated_by_user.')';
+                }
+            ]);         
+/*        $this->crud->addColumn([    
             'name'  => 'created_at',
             'label' => trans('contact.created_at'),
             'type'  => 'text',
@@ -310,7 +326,7 @@ protected function setupShowOperation()
             'label' => trans('contact.updated_by'),
             'type'  => 'text',
             ]); 
-
+*/
     }      
 
 
@@ -504,6 +520,7 @@ protected function setupShowOperation()
             'label' => trans('contact.phone.titles'),
             'type'  => 'repeatable',
             'tab'   => trans('contact.phone.tab'),
+            'fake' => true,
             'fields' => [
                 [   'name' => 'id',
                     'type' => 'hidden',
@@ -574,6 +591,7 @@ protected function setupShowOperation()
             'label' => trans('contact.email.titles'),
             'type'  => 'repeatable',
             'tab'   => trans('contact.email.tab'),
+            'fake' => true,
             'fields' => [
                 [   'name' => 'id',
                     'type' => 'hidden',
@@ -715,6 +733,7 @@ protected function setupShowOperation()
             'label' => trans('contact.address.titles'),
             'type'  => 'repeatable',
             'tab'   => trans('contact.address.tab'),
+            'fake' => true,
             'fields' => [
                 [   'name' => 'id',
                     'type' => 'hidden',
@@ -845,6 +864,7 @@ protected function setupShowOperation()
     // 'disk' => 's3_bucket', // in case you need to show images from a different disk
     // 'prefix' => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
             ]);
+
     //INFO
         $this->getInfoFields();
 
@@ -912,6 +932,19 @@ protected function setupShowOperation()
                 $this->crud->addClause('where', 'sex_id', $value);
             }); 
 
+// Grupo Sanguineo
+        $this->crud->addFilter([ //
+            'name'  => 'blood',
+            'label' => trans('contact.blood.type'),
+            'type'  => 'dropdown',
+            ], 
+            ContentType::getTypeBloods(),
+            function ($value) { // if the filter is active
+                $this->crud->addClause('whereHas', 'bloods', function ($query) use ($value) {
+                    $query->where('data2', '=', $value);
+                });
+            }); 
+ 
         // Estado Civil
         $this->crud->addFilter([
             'name' => 'civil_status',
@@ -953,9 +986,28 @@ protected function setupShowOperation()
 //Operacion de Guardar
     public function store()
     { // do something before validation, before save, before everything;
+        //dump($this->crud->getCurrentEntryId());
+        //dump($this->crud->getRequest()->relation_phone);
         $response = $this->traitStore();
         // do something after save Parent, then save children
-        $this->updateRelationFields();  
+        //dump($this->crud->getCurrentEntryId());
+        //$this->updateRelationFields();  
+        $data_phone = (json_decode($this->crud->getRequest()->relation_phone, true)); 
+        foreach ($data_phone as &$item) {
+            $item['contact_id'] = $this->crud->getCurrentEntryId();
+        }
+        //dump($data_phone);
+        $data_email = (json_decode($this->crud->getRequest()->relation_email, true)); 
+        foreach ($data_email as &$item) {
+            $item['contact_id'] = $this->crud->getCurrentEntryId();
+        }
+        $data_address = (json_decode($this->crud->getRequest()->relation_address, true)); 
+        foreach ($data_address as &$item) {
+            $item['contact_id'] = $this->crud->getCurrentEntryId();
+        }
+        $this->crud->model->setRelationPhoneAttribute(json_encode($data_phone));
+        $this->crud->model->setRelationEmailAttribute(json_encode($data_email));
+        $this->crud->model->setRelationAddressAttribute(json_encode($data_address));
         return $response;
     }
 
@@ -988,17 +1040,24 @@ protected function setupShowOperation()
 //  dd($this->crud->model->getCastedAttributes());
 
 //     dump($this->crud->getRequest()->input('form'));
-
+//dump($this->crud->getCurrentEntryId());
         $response = $this->traitUpdate();
         // do something after save
       //  dd($this->crud->entry); 
-        $this->updateRelationFields(); 
+
+//dump($this->crud->getRequest()->relation_phone);
+//dump($this->crud->getCurrentEntryId());
+
+//$this->updateRelationFields(); 
+        $this->crud->model->setRelationPhoneAttribute($this->crud->getRequest()->relation_phone);
+        $this->crud->model->setRelationEmailAttribute($this->crud->getRequest()->relation_email);
+        $this->crud->model->setRelationAddressAttribute($this->crud->getRequest()->relation_address);
      //   $this->updateDataFields(); 
       //   dd($response);
       //  dd($this->crud->entry); 
  //   dump($this->crud->getCurrentFields());
-        return $response;
-}
+    return $response;
+    }
 /*
 The solution I found was to override the update method:
 Mutator is not called, the edit request finishes successfully
@@ -1113,35 +1172,7 @@ protected function destroyMacronutrients($productId)
         return response()->json(['status' => 'error', 'messages' => [trans('phone.phone_id_is_required')]]);
     }
 */
- /*
-    public function getTypeSexes()
-    {   
-        $types = ContentType::all();
-        $typeSexes = $types->where('mimetype', 'Sex')->sortBy('order')->pluck('label','type');
-        return $typeSexes->toArray();
-    }
 
-    public function getTypePhones()
-    {   
-        $types = ContentType::all();
-        $typePhones = $types->where('mimetype', 'Phone')->sortBy('order')->pluck('label','type');
-        return $typePhones->toArray();
-    }
-
-    public function getTypeEmails()
-    {   
-        $types = ContentType::all();
-        $typePhones = $types->where('mimetype', 'Email')->sortBy('order')->pluck('label','type');
-        return $typePhones->toArray();
-    }
-
-    public function getTypeAddresses()
-    {   
-        $types = ContentType::all();
-        $typePhones = $types->where('mimetype', 'Address')->sortBy('order')->pluck('label','type');
-        return $typePhones->toArray();
-    }
-*/
     public function getNations()
     {   
     //    $options = WorldCountry::all();
@@ -1261,7 +1292,6 @@ protected function destroyMacronutrients($productId)
         $this->crud->removeField('bloods[data1]');
         $this->crud->removeField('bloods[data2]');
         $this->crud->removeField('bloods[data3]');
-        //$this->crud->setOperationSetting('contentClass', 'col-md-12');
     }
 
 }

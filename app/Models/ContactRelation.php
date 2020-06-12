@@ -23,8 +23,7 @@ class ContactRelation extends Model
     protected $guarded = ['id'];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $fillable = ['contact_id', 'mimetype', 
-                'data1', 'data2', 'data3', 'data4', 'data5'];
+    protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3', 'data4', 'data5'];
 
     protected $attributes = ['mimetype' => 'Relation'];
     protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];

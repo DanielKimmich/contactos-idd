@@ -29,7 +29,7 @@ class ContactPerson extends Model
     // protected $hidden = [];
     // protected $dates = [];
     protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user',
-                'birthday', 'age',
+                'birthday', 'age', 
                 'phone_mobile', 'phone_home', 'email1', 'address1'];
     // protected $fakeColumns = ['status'];
     // protected $isColumnNullable = ['nationality_id'];
@@ -197,7 +197,9 @@ class ContactPerson extends Model
     */
     public function setRelationPhoneAttribute($value) {
         $data = (json_decode($value, true)); //converts json into array
+     //$data = $value;
         $keys = self::phones()->get()->modelKeys();
+        //dump ($this->id);
         //Insertar o actualizar registros en parent
         if(is_array($data)) {
             foreach ($data as $entry) {

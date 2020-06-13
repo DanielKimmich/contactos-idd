@@ -520,7 +520,7 @@ protected function setupShowOperation()
             'label' => trans('contact.phone.titles'),
             'type'  => 'repeatable',
             'tab'   => trans('contact.phone.tab'),
-            'fake' => true,
+        //    'fake' => true,
             'fields' => [
                 [   'name' => 'id',
                     'type' => 'hidden',
@@ -591,7 +591,7 @@ protected function setupShowOperation()
             'label' => trans('contact.email.titles'),
             'type'  => 'repeatable',
             'tab'   => trans('contact.email.tab'),
-            'fake' => true,
+        //    'fake' => true,
             'fields' => [
                 [   'name' => 'id',
                     'type' => 'hidden',
@@ -733,7 +733,7 @@ protected function setupShowOperation()
             'label' => trans('contact.address.titles'),
             'type'  => 'repeatable',
             'tab'   => trans('contact.address.tab'),
-            'fake' => true,
+        //    'fake' => true,
             'fields' => [
                 [   'name' => 'id',
                     'type' => 'hidden',
@@ -988,20 +988,28 @@ protected function setupShowOperation()
     { // do something before validation, before save, before everything;
         //dump($this->crud->getCurrentEntryId());
         //dump($this->crud->getRequest()->relation_phone);
+        $data_phone = (json_decode($this->crud->getRequest()->relation_phone, true)); 
+        $data_email = (json_decode($this->crud->getRequest()->relation_email, true)); 
+        $data_address = (json_decode($this->crud->getRequest()->relation_address, true));
+         // Remove fields not present on the user.
+        $this->crud->setRequest($this->crud->getRequest()->request->remove('relation_phone'));
+        $this->crud->setRequest($this->crud->getRequest()->request->remove('relation_email'));
+        $this->crud->setRequest($this->crud->getRequest()->request->remove('relation_address'));
+        dump($this->crud->getRequest());
         $response = $this->traitStore();
         // do something after save Parent, then save children
         //dump($this->crud->getCurrentEntryId());
         //$this->updateRelationFields();  
-        $data_phone = (json_decode($this->crud->getRequest()->relation_phone, true)); 
+
         foreach ($data_phone as &$item) {
             $item['contact_id'] = $this->crud->getCurrentEntryId();
         }
         //dump($data_phone);
-        $data_email = (json_decode($this->crud->getRequest()->relation_email, true)); 
+
         foreach ($data_email as &$item) {
             $item['contact_id'] = $this->crud->getCurrentEntryId();
         }
-        $data_address = (json_decode($this->crud->getRequest()->relation_address, true)); 
+ 
         foreach ($data_address as &$item) {
             $item['contact_id'] = $this->crud->getCurrentEntryId();
         }
@@ -1046,12 +1054,13 @@ protected function setupShowOperation()
       //  dd($this->crud->entry); 
 
 //dump($this->crud->getRequest()->relation_phone);
+
 //dump($this->crud->getCurrentEntryId());
 
 //$this->updateRelationFields(); 
-        $this->crud->model->setRelationPhoneAttribute($this->crud->getRequest()->relation_phone);
-        $this->crud->model->setRelationEmailAttribute($this->crud->getRequest()->relation_email);
-        $this->crud->model->setRelationAddressAttribute($this->crud->getRequest()->relation_address);
+ //       $this->crud->model->setRelationPhoneAttribute($this->crud->getRequest()->relation_phone);
+ //       $this->crud->model->setRelationEmailAttribute($this->crud->getRequest()->relation_email);
+  //      $this->crud->model->setRelationAddressAttribute($this->crud->getRequest()->relation_address);
      //   $this->updateDataFields(); 
       //   dd($response);
       //  dd($this->crud->entry); 

@@ -41,8 +41,8 @@ class ContactPhone extends Model
     */    
     public function types()
     {
-        $id = ContentType::where('type','Phone')->where('depth', 1)->orWhereNull('depth')->first()->id;
-        return $this->belongsTo('App\Models\ContentType', 'data2', 'type')->where('parent_id', $id);
+        $type_id = ContentType::where('type','Phone')->where('depth', 1)->orWhereNull('depth')->first()->id;
+        return $this->belongsTo('App\Models\ContentType', 'data2', 'type')->where('parent_id', $type_id);
     }
 
     /*

@@ -39,7 +39,8 @@ class WorldCityRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            'name' => trans('world.city.name'),
+            'code' => trans('world.city.code'),
         ];
     }
 

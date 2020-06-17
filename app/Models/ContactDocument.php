@@ -63,7 +63,10 @@ class ContactDocument extends Model
     */
     Public function getDocumentTypeDataAttribute()
     {
-        return ($this->types->label ?? '') .': '.$this->data1;
+        if (empty($this->types->label))
+            return $this->data1;
+        else
+            return $this->types->label .': '.$this->data1;
     }
 
     Public function getDocumentNumberAttribute()

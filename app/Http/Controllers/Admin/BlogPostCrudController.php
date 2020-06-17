@@ -62,7 +62,6 @@ class BlogPostCrudController extends CrudController
             'type'  => 'text',
             'priority' => 3,
             ]);
-
         $this->crud->addColumn([
             'name'  => 'status',
             'label' => trans('blog.post.status'),
@@ -140,26 +139,8 @@ class BlogPostCrudController extends CrudController
             'label' => trans('blog.post.slug'),
             'type' => 'text',
             ]);            
-        $this->crud->addColumn([    
-            'name'  => 'created_at',
-            'label' => trans('blog.created_at'),
-            'type'  => 'text',
-            ]);       
-        $this->crud->addColumn([    
-            'name'  => 'updated_at',
-            'label' => trans('blog.updated_at'),
-            'type'  => 'text',
-            ]); 
-        $this->crud->addColumn([    
-            'name'  => 'created_by_user',
-            'label' => trans('blog.created_by'),
-            'type'  => 'text',
-            ]);       
-        $this->crud->addColumn([    
-            'name'  => 'updated_by_user',
-            'label' => trans('blog.updated_by'),
-            'type'  => 'text',
-            ]); 
+    //INFO
+        $this->getInfoColumns();
     }
 
     protected function setupCreateOperation()

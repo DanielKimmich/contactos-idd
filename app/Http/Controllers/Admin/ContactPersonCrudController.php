@@ -127,29 +127,6 @@ class ContactPersonCrudController extends CrudController
             'options'   => $this->getNations(),
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
             ]); 
-
-/*        $this->crud->addColumn([
-            'name'  => 'phone_mobile',
-            'label' => trans('contact.phone.mobile1'),
-            'type'  => 'phone',
-            'priority' => 3,
-            ]);
-        $this->crud->addColumn([
-            'name'  => 'phone_home',
-            'label' => trans('contact.phone.home1'),
-            'type'  => 'phone',
-            'priority' => 3,
-            ]);
-
-        $this->crud->addColumn([
-            'name'  => 'phones',
-            'label' => trans('contact.phone.mobile1'),
-            'type'  => 'relationship',
-            'priority' => 3,
-            'attribute' => 'data1',
-            'limit' => 10, // Limit the number of characters shown
-            ]);
-*/
         $this->crud->addColumn([
             'name'      => 'phones', //the relationship in your Model
             'label'     => trans('contact.phone.titles'), //column heading
@@ -164,7 +141,20 @@ class ContactPersonCrudController extends CrudController
                 });
             }
             ]); 
-
+        $this->crud->addColumn([
+            'name'  => 'phone_mobile',
+            'label' => trans('contact.phone.mobile1'),
+            'type'  => 'phone',
+            'priority' => 3,
+            'exportOnlyField' => true,
+            ]);
+        $this->crud->addColumn([
+            'name'  => 'phone_home',
+            'label' => trans('contact.phone.home1'),
+            'type'  => 'phone',
+            'priority' => 3,
+            'exportOnlyField' => true,
+            ]);
         $this->crud->addColumn([
             'name'  => 'email1',
             'label' => trans('contact.email.email1'),
@@ -181,6 +171,22 @@ class ContactPersonCrudController extends CrudController
             'limit'     => 150,
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
             ]);
+        $this->crud->addColumn([ //
+            'name'  => 'bloods.data2',
+            'label' => trans('contact.blood.type'),
+            'type'  => 'select_from_array',
+            'priority'  => 4, 
+            'options' => ContentType::getTypeBloods(),
+            'exportOnlyField' => true,  //forced to exportfield and hidden in table
+           ]); 
+        $this->crud->addColumn([ 
+            'name'  => 'bloods.data1',
+            'label' => trans('contact.blood.name'),
+            'type'  => 'select_from_array',
+            'priority'  => 4, 
+            'options'     => ['YES' => 'Si', 'NO' => 'No', 'MAYBE' => 'Tal vez'],
+            'exportOnlyField' => true,  //forced to exportfield and hidden in table
+           ]);      
         $this->crud->addColumn([
             'name'  => 'names.data14', 
             'label' => trans('contact.photo.tab'), 
@@ -201,15 +207,6 @@ class ContactPersonCrudController extends CrudController
             'priority' => 4,
             'searchLogic' => false,
             ]); 
-/*        $this->crud->addColumn([
-            'name' => 'created_at',
-            'label' => 'Created At',
-            'type' => 'closure',
-            'priority' => 2,
-            'function' => function($entry) {
-                return 'Created on '.$entry->created_at;
-                }
-            ]); */
     }
 
 protected function setupShowOperation()
@@ -290,43 +287,8 @@ protected function setupShowOperation()
             'type'  => 'select_from_array',
             'options'   => ContentType::getTypeStatus(),
             ]);
-        $this->crud->addColumn([
-            'name' => 'created_at_by_user',
-            'label' => trans('contact.created_at'),
-            'type' => 'closure',
-            'function' => function($entry) {
-                return $entry->created_at.' ('.$entry->created_by_user.')';
-                }
-            ]); 
-        $this->crud->addColumn([
-            'name' => 'updated_at_by_user',
-            'label' => trans('contact.updated_at'),
-            'type' => 'closure',
-            'function' => function($entry) {
-                return $entry->updated_at.' ('.$entry->updated_by_user.')';
-                }
-            ]);         
-/*        $this->crud->addColumn([    
-            'name'  => 'created_at',
-            'label' => trans('contact.created_at'),
-            'type'  => 'text',
-            ]);       
-        $this->crud->addColumn([    
-            'name'  => 'updated_at',
-            'label' => trans('contact.updated_at'),
-            'type'  => 'text',
-            ]); 
-        $this->crud->addColumn([    
-            'name'  => 'created_by_user',
-            'label' => trans('contact.created_by'),
-            'type'  => 'text',
-            ]);       
-        $this->crud->addColumn([    
-            'name'  => 'updated_by_user',
-            'label' => trans('contact.updated_by'),
-            'type'  => 'text',
-            ]); 
-*/
+    //INFO
+        $this->getInfoColumns();
     }      
 
 
@@ -364,7 +326,6 @@ protected function setupShowOperation()
             'type'  => 'hidden',
             'tab'   => trans('contact.name.tab'), 
             'attributes' => ['id' => 'name_display'],
-        //    'entity' => 'names', 
             ]);
         $this->crud->addField([
             'name'  => 'names.name_first',
@@ -373,7 +334,6 @@ protected function setupShowOperation()
             'tab'   => trans('contact.name.tab'),
             'attributes' => ['id' => 'name_first'],
             'wrapper'   => ['class' => 'form-group col-md-6'], //resizing
-        //    'entity'    => 'names', 
             'auto_focus' => 'true',
             ]);
         $this->crud->addField([
@@ -383,18 +343,24 @@ protected function setupShowOperation()
             'tab'   =>  trans('contact.name.tab'),
             'attributes' => ['id' => 'name_middle'],
             'wrapper'   => ['class' => 'form-group col-md-6'], //resizing
-        //    'entity'    => 'names', 
             ]);
-
         $this->crud->addField([
             'name'  => 'names.name_family',
             'label' => trans('contact.name.family'),
             'type'  => 'text',
             'tab'   => trans('contact.name.tab'),
             'attributes' => ['id' => 'name_family'],
-        //    'entity'    => 'names', 
+            'wrapper'   => ['class' => 'form-group col-md-8'], //resizing
             ]);
-
+        $this->crud->addField([
+            'name'  => 'names.name_suffix',
+            'label' => trans('contact.name.suffix'),
+            'type'  => 'text',
+            'tab'   => trans('contact.name.tab'),
+            'attributes' => ['id' => 'name_suffix'], //'placeholder' => trans('contact.name.nickname')
+            'wrapper'   => ['class' => 'form-group col-md-4'], //resizing
+        //    'hint'      => trans('contact.name.nickname'),
+            ]);
     //DATA
         $this->crud->addField([ // radio
             'name'  => 'sex_id',
@@ -521,6 +487,8 @@ protected function setupShowOperation()
             'type'  => 'repeatable',
             'tab'   => trans('contact.phone.tab'),
         //    'fake' => true,
+        //    'pivot' => true,
+        //    'multiple' => false,
             'fields' => [
                 [   'name' => 'id',
                     'type' => 'hidden',
@@ -995,7 +963,7 @@ protected function setupShowOperation()
         $this->crud->setRequest($this->crud->getRequest()->request->remove('relation_phone'));
         $this->crud->setRequest($this->crud->getRequest()->request->remove('relation_email'));
         $this->crud->setRequest($this->crud->getRequest()->request->remove('relation_address'));
-        dump($this->crud->getRequest());
+     //   dump($this->crud->getRequest());
         $response = $this->traitStore();
         // do something after save Parent, then save children
         //dump($this->crud->getCurrentEntryId());

@@ -64,7 +64,10 @@ class ContactPhone extends Model
     */   
     Public function getPhoneTypeDataAttribute()
     {
-        return ($this->types->label ?? '') .': '.$this->data1;
+        if (empty($this->types->label))
+            return $this->data1;
+        else
+            return $this->types->label .': '.$this->data1;
     }
 
     Public function getCreatedByUserAttribute()

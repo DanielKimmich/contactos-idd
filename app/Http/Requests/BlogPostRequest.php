@@ -44,7 +44,13 @@ class BlogPostRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            'title'         => trans('blog.post.title'),
+            'description'   => trans('blog.post.description'),
+            'body'          => trans('blog.post.body'),
+            'category_id'   => trans('blog.post.category'),
+            'author_id'     => trans('blog.post.author'),
+            'posted_at'     => trans('blog.post.posted_at'),
+            'status'        => trans('blog.post.status'),
         ];
     }
 

@@ -39,7 +39,8 @@ class BlogCategoryRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            'name' => trans('blog.category.name'),
+            'description' => trans('blog.category.description'),
         ];
     }
 

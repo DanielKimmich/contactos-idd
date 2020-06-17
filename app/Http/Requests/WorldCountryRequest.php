@@ -50,7 +50,9 @@ class WorldCountryRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            'name'          => trans('world.country.name'),
+            'code'          => trans('world.country.code'),
+            'code_alpha3'   => trans('world.country.code_alpha3'),
         ];
     }
 

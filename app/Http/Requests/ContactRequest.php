@@ -25,12 +25,22 @@ class ContactRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'display_name'  => 'required|min:2|max:255',
+        $id = $this->get('id');
+        if (empty($id))
+            $rules = [
+           'display_name'  => 'required|min:2|max:255|unique:contacts,display_name',
             'status'        => 'required',
             'sex_id'        => 'required',
+            ];
+        else
+            $rules = [
+                'display_name'  => 'required|min:2|max:255|unique:contacts,display_name,' .$id,
+                'status'        => 'required',
+                'sex_id'        => 'required',
+            ]; 
+
+        return $rules;  
         //    'names[name_first]'  => 'required|min:2|max:255',
-        ];
     }
 
     /**
@@ -41,7 +51,9 @@ class ContactRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+           'display_name'  => trans('contact.person.display_name'),
+            'status'       => trans('contact.person.status'),
+            'sex_id'       => trans('contact.person.sex'),
         ];
     }
 

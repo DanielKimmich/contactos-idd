@@ -109,16 +109,8 @@ class PermissionCrudController extends OriginalPermissionCrudController
             'label' => trans('backpack::permissionmanager.guard_type'),
             'type'  => 'text',
             ]);
-        $this->crud->addColumn([    
-            'name'  => 'created_at',
-            'label' => trans('common.created_at'),
-            'type'  => 'text',
-            ]);       
-        $this->crud->addColumn([    
-            'name'  => 'updated_at',
-            'label' => trans('common.updated_at'),
-            'type'  => 'text',
-            ]);       
+    //INFO
+        $this->getInfoColumns();
     }
 
     public function setupCreateOperation()

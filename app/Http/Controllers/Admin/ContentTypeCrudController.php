@@ -118,26 +118,8 @@ class ContentTypeCrudController extends CrudController
             'label' => trans('contact.type.mimetype'),
             'type'  => 'text',
             ]);
-        $this->crud->addColumn([    
-            'name'  => 'created_at',
-            'label' => trans('contact.created_at'),
-            'type'  => 'text',
-            ]);       
-        $this->crud->addColumn([    
-            'name'  => 'updated_at',
-            'label' => trans('contact.updated_at'),
-            'type'  => 'text',
-            ]); 
-        $this->crud->addColumn([    
-            'name'  => 'created_by_user',
-            'label' => trans('contact.created_by'),
-            'type'  => 'text',
-            ]);       
-        $this->crud->addColumn([    
-            'name'  => 'updated_by_user',
-            'label' => trans('contact.updated_by'),
-            'type'  => 'text',
-            ]); 
+    //INFO
+        $this->getInfoColumns();
     }
 
     protected function setupCreateOperation()

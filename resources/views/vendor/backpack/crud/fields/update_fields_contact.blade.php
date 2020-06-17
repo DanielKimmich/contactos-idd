@@ -24,11 +24,11 @@
         });
 
         //NAME
-        $(document).on('keyup', '#name_first, #name_middle, #name_family', function() { 
+        $(document).on('keyup', '#name_first, #name_middle, #name_family, #name_suffix', function() { 
             setFullName();
         });
 
-        $('#inline-create-dialog').on('keyup', '#name_first, #name_middle, #name_family', function() { 
+        $('#inline-create-dialog').on('keyup', '#name_first, #name_middle, #name_family, #name_suffix', function() { 
             setFullName();
         });
 
@@ -71,14 +71,19 @@
             $first = $('#name_first').val();
             $middle = $('#name_middle').val();
             $family = $('#name_family').val();
+            $suffix = $('#name_suffix').val();
             //var name = $('input[name="name_first"]').val();
             //var family = $('input[name="name_family"]').val();
             //var middle = $('input[name="name_middle"]').val();
             $name =  $first.trim() +" "+ $middle.trim() +" "+ $family.trim();
             // $('input[name="data1"]').val(data1);
           //  $('input[name="display_name"]').val($name);
-            $('#display_name').val($name);
             $('#name_display').val($name);
+            if ($suffix.trim() === "") {
+                $('#display_name').val($name);
+            } else {
+                $('#display_name').val($name +" ("+ $suffix.trim() +")");
+            }
         }
 
         function setEventDead() {

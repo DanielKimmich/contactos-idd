@@ -76,6 +76,9 @@ return [
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
+            'dump' => [
+               'use_single_transaction',
+            ]
         ],
 
         'sqlsrv' => [

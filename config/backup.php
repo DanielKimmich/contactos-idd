@@ -17,7 +17,7 @@ return [
          * --disable-notifications
          */
         'backpack_flags' => [
-            '--disable-notifications'=> true,
+            '--disable-notifications',   //=> true,
         ],
 
         /*
@@ -84,7 +84,7 @@ return [
              * For a complete list of available customization options, see https://github.com/spatie/db-dumper
              */
             'databases' => [
-                'mysql', 'pgsql',
+                'pgsql',
             ],
         ],
 

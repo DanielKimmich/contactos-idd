@@ -39,7 +39,8 @@ class BlogTagRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            'name' => trans('blog.tag.name'),
+            'description' => trans('blog.tag.description'),
         ];
     }
 

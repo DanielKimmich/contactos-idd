@@ -31,6 +31,9 @@ return [
 		'first'     => 'Primer Nombre',
 		'middle'    => 'Segundo Nombre',
 		'family'    => 'Apellidos',
+		'prefix'    => 'Prefijo',
+		'suffix'    => 'Apodo / Sobrenombre',
+		'nickname'  => 'apodo, sobrenombre',
     ],
 
 //EVENT
@@ -120,12 +123,12 @@ return [
 		'profile_image'     => 'Imagen de perfil',    
     ],
 
-//NAME
+//BLOOD
   	'blood'    => [
 		'tab'  		=> 'Grupo Sanguineo',
 	//Fields
 		'name'     	=> 'Es donante de Sangre ?',
-		'type'  	=> 'Grupo',
+		'type'  	=> 'Grupo Sanguineo',
 		'label'    	=> 'Información Adicional',
     ],
 

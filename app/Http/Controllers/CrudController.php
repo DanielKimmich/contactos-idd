@@ -54,6 +54,32 @@ abstract class CrudController extends CrudControllerBackpack
         }  
     }
 
+    protected function getInfoColumns()
+    {
+        $this->crud->addColumn([
+            'name' => 'updated_at_by_user',
+            'label' => trans('common.updated_at'),
+            'type' => 'closure',
+            'function' => function($entry) {
+                if (empty($entry->updated_by_user))
+                    return $entry->updated_at;
+                else
+                    return $entry->updated_at.' ('.$entry->updated_by_user.')';
+                }
+            ]);
+        $this->crud->addColumn([
+            'name' => 'created_at_by_user',
+            'label' => trans('common.created_at'),
+            'type' => 'closure',
+            'function' => function($entry) {
+                if (empty($entry->created_by_user))
+                    return $entry->created_at;
+                else
+                    return $entry->created_at.' ('.$entry->created_by_user.')';
+                }
+            ]); 
+    }
+    
     protected function getInfoFields()
     { 
         if ( $this->crud->actionIs('edit')) {

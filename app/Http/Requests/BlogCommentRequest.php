@@ -28,7 +28,7 @@ class BlogCommentRequest extends FormRequest
         return [
             'post_id'     => 'required|exists:blog_posts,id',
             'body'        => 'required|min:2',
-            'status'      => 'required',            
+            'status'      => 'required',
         ];
     }
 
@@ -40,7 +40,9 @@ class BlogCommentRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            'post_id'     => trans('blog.comment.title'),
+            'body'        => trans('blog.comment.body'),
+            'status'      => trans('blog.comment.status'),            
         ];
     }
 

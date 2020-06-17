@@ -90,6 +90,7 @@ class AuthCheckerCrudController extends CrudController
     //   $this->crud->disableResponsiveTable();
     }
 
+
     protected function setupAvancedOperation()
     {
     // ------ ADVANCED QUERIES    

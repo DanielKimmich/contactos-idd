@@ -48,7 +48,8 @@ class WorldContinentRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            'name' => trans('world.continent.name'),
+            'code' => trans('world.continent.code'),
         ];
     }
 

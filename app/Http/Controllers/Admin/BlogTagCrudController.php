@@ -6,6 +6,7 @@ use App\Http\Requests\BlogTagRequest;
 //use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Log;
 
 /**
  * Class BlogTagsCrudController
@@ -16,8 +17,8 @@ class BlogTagCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
 //    use \Backpack\CRUD\app\Http\Controllers\Operations\CloneOperation { clone as traitClone; } 
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
@@ -98,26 +99,9 @@ class BlogTagCrudController extends CrudController
             'label' => trans('blog.tag.slug'),
             'type' => 'text',
             ]);            
-        $this->crud->addColumn([    
-            'name'  => 'created_at',
-            'label' => trans('blog.created_at'),
-            'type'  => 'text',
-            ]);       
-        $this->crud->addColumn([    
-            'name'  => 'updated_at',
-            'label' => trans('blog.updated_at'),
-            'type'  => 'text',
-            ]); 
-        $this->crud->addColumn([    
-            'name'  => 'created_by_user',
-            'label' => trans('blog.created_by'),
-            'type'  => 'text',
-            ]);       
-        $this->crud->addColumn([    
-            'name'  => 'updated_by_user',
-            'label' => trans('blog.updated_by'),
-            'type'  => 'text',
-            ]); 
+    //INFO
+        $this->getInfoColumns();
+
         $this->crud->addButton('line', 'clone', 'view', 'crud::buttons.clone', 'end');
     }
 
@@ -158,6 +142,7 @@ class BlogTagCrudController extends CrudController
 
     protected function setupAvancedOperation()
     {
+        Log::info('route=' .$this->crud->getRoute() .' user=' .auth()->user()->email);
     // ------ ADVANCED QUERIES  
         $this->crud->orderBy('name');
 
@@ -176,11 +161,31 @@ class BlogTagCrudController extends CrudController
         // daterange filter
         $this->setFilterDateUpdate();
     }
+
+    public function store()
+    { 
+        $response = $this->traitStore();
+        Log::info('route=' .$this->crud->getRoute() 
+                    .' user=' .auth()->user()->email
+                    .' operation=store'
+                    .' id= ' .$this->crud->getCurrentEntryId());
+        return $response;
+
+    }
+    public function update()
+    {
+        $response = $this->traitUpdate();
+        Log::info('route=' .$this->crud->getRoute() 
+                    .' user=' .auth()->user()->email
+                    .' operation=update'
+                    .' id= ' .$this->crud->getCurrentEntryId());        
+        return $response;
+    }
     
     public function clone($id)
     {
         $this->crud->hasAccessOrFail('clone');
-
+        Log::info('route=' .$this->crud->getRoute() .' user=' .auth()->user()->email);
         $clonedEntry = $this->crud->model->findOrFail($id)->replicate();
     // whatever you want
         $clonedEntry->name = $clonedEntry->name .' ' .'[clone]';

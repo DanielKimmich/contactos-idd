@@ -69,6 +69,37 @@ class BlogCommentCrudController extends CrudController
             ]); 
     }
 
+    protected function setupShowOperation()
+    {
+        $this->crud->set('show.setFromDb', false);
+    // ------ CRUD COLUMNS
+        $this->crud->addColumn([
+            'name'  => 'id',
+            'label' => 'Id',
+            'type'  => 'number',
+            ]) -> makeFirstColumn() ;
+        $this->crud->addColumn([ // Select
+            'name'  => 'post_id',
+            'label' => trans('blog.comment.title'),
+            'type'  => 'select',
+            'entity'    => 'posts', 
+            'attribute' => 'title',
+            ]);     
+        $this->crud->addColumn([    // EDITOR
+            'name'  => 'body',
+            'label' => trans('blog.comment.body'),
+            'type'  => 'text',
+            ]);
+        $this->crud->addColumn([
+            'name'  => 'status',
+            'label' => trans('blog.comment.status'),
+            'type'  => 'select_from_array',
+            'options'   => BlogComment::getTypeStatus(),
+            ]);
+    //INFO
+        $this->getInfoColumns();
+    }
+
     protected function setupCreateOperation()
     {
         $this->crud->setValidation(BlogCommentRequest::class);

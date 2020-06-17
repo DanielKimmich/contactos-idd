@@ -28,8 +28,7 @@ class ContactName extends Model
         'contact_id', 'mimetype', 
         'name_display', 
         'name_first', 'name_middle', 'name_family', 
-        'name_prefix', 'name_suffix',  
-        'data14',         
+        'name_prefix', 'name_suffix', 'data14',         
         ];
     protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'Name'];

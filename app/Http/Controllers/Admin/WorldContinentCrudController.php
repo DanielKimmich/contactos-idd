@@ -90,16 +90,8 @@ protected function setupShowOperation()
             'label' => trans('world.continent.code'),
             'type'  => 'text',
             ]);
-        $this->crud->addColumn([    
-            'name'  => 'created_at',
-            'label' => trans('world.created_at'),
-            'type'  => 'text',
-            ]);       
-        $this->crud->addColumn([    
-            'name'  => 'updated_at',
-            'label' => trans('world.updated_at'),
-            'type'  => 'text',
-            ]);       
+    //INFO
+        $this->getInfoColumns();
     }
 
     protected function setupCreateOperation()

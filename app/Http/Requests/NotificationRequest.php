@@ -39,7 +39,7 @@ class NotificationRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            'title' => trans('blog.notification.title'),
         ];
     }
 

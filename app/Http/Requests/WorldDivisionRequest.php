@@ -39,7 +39,8 @@ class WorldDivisionRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            'name' => trans('world.division.name'),
+            'code' => trans('world.division.code'),
         ];
     }
 

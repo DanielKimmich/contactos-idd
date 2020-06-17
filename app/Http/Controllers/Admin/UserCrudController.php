@@ -113,7 +113,7 @@ protected function setupShowOperation()
           'type' => "model_function",
           'function_name' => 'PermissionsViaRoles', // the method in your Model
            // 'function_parameters' => [$one, $two], // pass one/more parameters to that method
-           'limit' => 2000, // Limit the number of characters shown
+           'limit' => 200, // Limit the number of characters shown
             ]);
 
         $this->crud->addColumn([
@@ -126,16 +126,8 @@ protected function setupShowOperation()
   //          'model'     => config('permission.models.permission'), // foreign key model
             //'limit' => 2000, // Limit the number of characters shown
             ]);
-        $this->crud->addColumn([    
-            'name'  => 'created_at',
-            'label' => trans('common.created_at'),
-            'type'  => 'text',
-            ]);       
-        $this->crud->addColumn([    
-            'name'  => 'updated_at',
-            'label' => trans('common.updated_at'),
-            'type'  => 'text',
-            ]);       
+    //INFO
+        $this->getInfoColumns();
     }      
 
     public function setupCreateOperation()

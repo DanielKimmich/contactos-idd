@@ -22,7 +22,7 @@ class WorldCityCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\CloneOperation { clone as traitClone; }   
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation; 
     use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
- //   use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
  //   use \Backpack\CRUD\app\Http\Controllers\Operations\BulkCloneOperation;
 
     public function setup()
@@ -44,19 +44,19 @@ class WorldCityCrudController extends CrudController
             'label' => 'Id',
             'type'  => 'number',
             'priority' => 2,
-            ]) -> makeFirstColumn() ;
+        ]); // -> makeFirstColumn() ;
         $this->crud->addColumn([ // Text
             'name'  => 'name',
             'label' =>  trans('world.city.name'),
             'type'  => 'text',
             'priority' => 1,
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'code',
             'label' => trans('world.city.code'),
             'type'  => 'text',
             'priority' => 1,
-            ]);
+        ]);
         $this->crud->addColumn([ // Select
             'name'  => 'division_id',
             'label' => trans('world.city.division'),
@@ -64,7 +64,7 @@ class WorldCityCrudController extends CrudController
             'entity' => 'division', 
             'attribute' => 'name',
             'priority' => 3,
-            ]);
+        ]);
         $this->crud->addColumn([ // Select
             'name'  => 'country_id',
             'label' => trans('world.city.country'),
@@ -72,14 +72,14 @@ class WorldCityCrudController extends CrudController
             'entity' => 'country', 
             'attribute' => 'name',
             'priority' => 3,
-            ]);
+        ]);
         $this->crud->addColumn([    
             'name'  => 'updated_at',
             'label' => trans('world.updated_at'),
             'type'  => 'text',
             'priority' => 4,
             'searchLogic' => false,
-            ]);
+        ]);
     }
 
 protected function setupShowOperation()
@@ -90,36 +90,36 @@ protected function setupShowOperation()
             'name'  => 'id',
             'label' => 'Id',
             'type'  => 'number',
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'name',
             'label' =>  trans('world.city.name'),
             'type'  => 'text',
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'code',
             'label' => trans('world.city.code'),
             'type'  => 'text',
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'full_name',
             'label' => trans('world.city.full_name'),
             'type'  => 'text',
-            ]);
+        ]);
         $this->crud->addColumn([ // Select
             'name'  => 'division_id',
             'label' => trans('world.city.division'),
             'type'  => 'select',
             'entity' => 'division', 
             'attribute' => 'name',
-            ]); 
+        ]); 
         $this->crud->addColumn([ // Select
             'name'  => 'country_id',
             'label' => trans('world.city.country'),
             'type'  => 'select',
             'entity' => 'country', 
             'attribute' => 'name',
-            ]); 
+        ]); 
     //INFO
         $this->getInfoColumns();
     }
@@ -136,14 +136,14 @@ protected function setupShowOperation()
             'type'  => 'text',
             'tab'   => trans('world.data'),
             'wrapper' => ['class' => 'form-group col-md-8'],
-            ]);
+        ]);
         $this->crud->addField([ // Text
             'name'  => 'code',
             'label' => trans('world.city.code'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
             'wrapper' => ['class' => 'form-group col-md-4'],
-            ]);
+        ]);
          $this->crud->addField([ // Select
             'name'  => 'country_id',
             'label' => trans('world.city.country'),
@@ -156,7 +156,7 @@ protected function setupShowOperation()
             'default' => Config::get('settings.world_country'), // set default value
             'options'   => (function ($query) {
                 return $query->orderBy('name', 'ASC')->get(); }),
-            ]);
+        ]);
         $this->crud->addField([ // Select
             'name'  => 'division_id',
             'label' => trans('world.city.division'),
@@ -172,7 +172,7 @@ protected function setupShowOperation()
             'dependencies'  => ['country_id'], // when a dependency changes, this select2 is reset to null
          //   'dependencies'  => 'country_id',
             'minimum_input_length' => 0, // minimum characters to type before querying results
-            ]); 
+        ]); 
 /*        
         $this->crud->addField([ // Select
             'name'  => 'division_id',
@@ -195,7 +195,7 @@ protected function setupShowOperation()
             'label' => trans('world.city.full_name'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
-            ]);
+        ]);
     //INFO
         $this->getInfoFields();
     }
@@ -212,7 +212,7 @@ protected function setupShowOperation()
             'name'  => 'country_id',
             'label' => trans('world.city.country'),
             'type'  => 'select2',
-            ],
+        ],
         function() {
             return \App\Models\WorldCountry::all()->sortBy('name')->pluck('name', 'id')->toArray(); },
         function($value) {  
@@ -224,7 +224,7 @@ protected function setupShowOperation()
             'label' => trans('world.city.division'),
             'type'  => 'select2_ajax', 
             //'placeholder' => 'Pick a category',
-            ],
+        ],
         url('admin/filterdivision'), // the ajax route
         function($value) {  
             $this->crud->addClause('where', 'division_id', $value ); 

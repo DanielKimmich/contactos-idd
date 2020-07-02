@@ -67,13 +67,13 @@ class ContactPersonCrudController extends CrudController
             'label' => 'Id',
             'type'  => 'number',
             'priority' => 2,
-            ]) -> makeFirstColumn() ;
+        ]) -> makeFirstColumn() ;
         $this->crud->addColumn([ // Text
             'name'  => 'display_name',
             'label' =>  trans('contact.person.display_name'),
             'type'  => 'text',
             'priority' => 1,
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'sex_id',
             'label' => trans('contact.person.sex'),
@@ -81,34 +81,42 @@ class ContactPersonCrudController extends CrudController
             'priority'  => 4,
             'options'   => ContentType::getTypeSexes(),
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
-            ]); 
+        ]); 
          $this->crud->addColumn([
             'name'  => 'events.event_birth',
             'label' =>  trans('contact.event.birthday'),
             'type'  => 'text',
             'priority'  => 1,
-            ]); 
+        ]); 
         $this->crud->addColumn([
             'name'  => 'events.age',
             'label' =>  trans('contact.event.age'),
             'type'  => 'text',
             'priority'  => 2,
-//            'orderable' => true,
-            ]);       
+            'wrapper' => [
+                'element' => 'span',
+                'class'   => function ($crud, $column, $entry, $related_key) {
+                    if ($column['text'] >= '65') { return 'badge badge-warning'; }
+                    if ($column['text'] >= '30') { return 'badge badge-info'; }
+                    if ($column['text'] >= '13') { return 'badge badge-success'; }
+                    return 'badge badge-default';
+                },
+            ],
+        ]);       
         $this->crud->addColumn([
             'name'  => 'civil_status',
             'label' => trans('contact.person.civil_status'),
             'type'  => 'select_from_array',
             'priority'  => 3,
             'options'   => ContentType::getTypeCivilStatus(),
-            ]);
+        ]);
          $this->crud->addColumn([
             'name'  => 'documents.document_number',
             'label' =>  trans('contact.document.number'),
             'type'  => 'text',
             'priority' => 4,
             'exportOnlyField' => true,  //forced exportfield and hidden in table
-            ]); 
+        ]); 
  /*        $this->crud->addColumn([
             'name'  => 'nationality_id',
             'label' => trans('contact.nationality'),
@@ -126,7 +134,7 @@ class ContactPersonCrudController extends CrudController
             'priority'  => 4,
             'options'   => $this->getNations(),
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
-            ]); 
+        ]); 
         $this->crud->addColumn([
             'name'      => 'phones', //the relationship in your Model
             'label'     => trans('contact.phone.titles'), //column heading
@@ -140,21 +148,21 @@ class ContactPersonCrudController extends CrudController
                     $q->where('data1', 'like', '%'.$searchTerm.'%');
                 });
             }
-            ]); 
+        ]); 
         $this->crud->addColumn([
             'name'  => 'phone_mobile',
             'label' => trans('contact.phone.mobile1'),
             'type'  => 'phone',
             'priority' => 3,
             'exportOnlyField' => true,
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'phone_home',
             'label' => trans('contact.phone.home1'),
             'type'  => 'phone',
             'priority' => 3,
             'exportOnlyField' => true,
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'email1',
             'label' => trans('contact.email.email1'),
@@ -162,7 +170,7 @@ class ContactPersonCrudController extends CrudController
             'priority'  => 3,
             'limit'     => 80,
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'address1',
             'label' => trans('contact.address.address1'),
@@ -170,7 +178,7 @@ class ContactPersonCrudController extends CrudController
             'priority'  => 3,
             'limit'     => 150,
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
-            ]);
+        ]);
         $this->crud->addColumn([ //
             'name'  => 'bloods.data2',
             'label' => trans('contact.blood.type'),
@@ -178,7 +186,7 @@ class ContactPersonCrudController extends CrudController
             'priority'  => 4, 
             'options' => ContentType::getTypeBloods(),
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
-           ]); 
+        ]); 
         $this->crud->addColumn([ 
             'name'  => 'bloods.data1',
             'label' => trans('contact.blood.name'),
@@ -186,27 +194,27 @@ class ContactPersonCrudController extends CrudController
             'priority'  => 4, 
             'options'     => ['YES' => 'Si', 'NO' => 'No', 'MAYBE' => 'Tal vez'],
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
-           ]);      
+        ]);      
         $this->crud->addColumn([
             'name'  => 'names.data14', 
             'label' => trans('contact.photo.tab'), 
             'type'  => 'check',
             'priority'  => 4,
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'status',
             'label' => trans('contact.person.status'),
             'type'  => 'select_from_array',
             'priority'  => 3,
             'options'   => ContentType::getTypeStatus(),
-            ]);
+        ]);
         $this->crud->addColumn([    
             'name'  => 'updated_at',
             'label' => trans('contact.updated_at'),
             'type'  => 'text',
             'priority' => 4,
             'searchLogic' => false,
-            ]); 
+        ]); 
     }
 
 protected function setupShowOperation()
@@ -217,40 +225,40 @@ protected function setupShowOperation()
             'name'  => 'id',
             'label' => 'Id',
             'type'  => 'number',
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'display_name',
             'label' =>  trans('contact.person.display_name'),
             'type'  => 'text',
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'sex_id',
             'label' => trans('contact.person.sex'),
             'type'  => 'select_from_array',
             'options'   => ContentType::getTypeSexes(),
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'nationality_id',
             'label' => trans('contact.person.nationality'),
             'type'  => 'select_from_array',
             'options'   => $this->getNations(),
-            ]); 
+        ]); 
         $this->crud->addColumn([
             'name'  => 'events.data1',
             'label' =>  trans('contact.event.birthday'),
             'type'  => 'text',
-            ]);  
+        ]);  
         $this->crud->addColumn([
             'name'  => 'events.age',
             'label' =>  trans('contact.event.age'),
             'type'  => 'text',
-            ]);       
+        ]);       
         $this->crud->addColumn([
             'name'  => 'civil_status',
             'label' => trans('contact.person.civil_status'),
             'type'  => 'select_from_array',
             'options'   => ContentType::getTypeCivilStatus(),
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'documents.data1',
             'label' =>  trans('contact.document.number'),
@@ -264,7 +272,7 @@ protected function setupShowOperation()
             'entity'    => 'phones', //the relationship in your Model
             'attribute' => 'phone_type_data', //foreign key attribute that is shown to user
             'limit'     => 80, // Limit the number of characters shown
-            ]); 
+        ]); 
         $this->crud->addColumn([
             'name'      => 'emails', //the relationship in your Model
             'label'     => trans('contact.email.titles'), //column heading
@@ -272,7 +280,7 @@ protected function setupShowOperation()
             'entity'    => 'emails', //the relationship in your Model
             'attribute' => 'email_type_data', //foreign key attribute that is shown to user
             'limit'     => 80, // Limit the number of characters shown
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'      => 'addresses', //the relationship in your Model
             'label'     => trans('contact.address.titles'), //column heading
@@ -280,13 +288,13 @@ protected function setupShowOperation()
             'entity'    => 'addresses', //the relationship in your Model
             'attribute' => 'address_type_data', //foreign key attribute that is shown to user
             'limit'     => 150, // Limit the number of characters shown            
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'status',
             'label' => trans('contact.person.status'),
             'type'  => 'select_from_array',
             'options'   => ContentType::getTypeStatus(),
-            ]);
+        ]);
     //INFO
         $this->getInfoColumns();
     }      
@@ -305,7 +313,7 @@ protected function setupShowOperation()
             'prefix'     => '<i class="la la-id-card-o"></i>',
             'attributes' => ['readonly' => 'readonly', 'id' => 'display_name'],
         //     'attributes' => ['id' => 'display_name'],
-            ]);  
+        ]);  
         $this->crud->addField([ // Text
             'name'  => 'status',
             'label' => trans('contact.person.status'),
@@ -314,11 +322,11 @@ protected function setupShowOperation()
             'options'    => ContentType::getTypeStatus(),
             'default'    => 'START',
             'attributes' => ['id' => 'contact_status'],
-            ]);
+        ]);
         $this->crud->addField([
             'name'  => 'update_fields',
             'type'  => 'update_fields_contact',
-            ]);
+        ]);
 
     //NAME
         $this->crud->addField([
@@ -326,7 +334,7 @@ protected function setupShowOperation()
             'type'  => 'hidden',
             'tab'   => trans('contact.name.tab'), 
             'attributes' => ['id' => 'name_display'],
-            ]);
+        ]);
         $this->crud->addField([
             'name'  => 'names.name_first',
             'label' => trans('contact.name.first'),
@@ -335,7 +343,7 @@ protected function setupShowOperation()
             'attributes' => ['id' => 'name_first'],
             'wrapper'   => ['class' => 'form-group col-md-6'], //resizing
             'auto_focus' => 'true',
-            ]);
+        ]);
         $this->crud->addField([
             'name'  => 'names.name_middle',
             'label' => trans('contact.name.middle'),
@@ -343,7 +351,7 @@ protected function setupShowOperation()
             'tab'   =>  trans('contact.name.tab'),
             'attributes' => ['id' => 'name_middle'],
             'wrapper'   => ['class' => 'form-group col-md-6'], //resizing
-            ]);
+        ]);
         $this->crud->addField([
             'name'  => 'names.name_family',
             'label' => trans('contact.name.family'),
@@ -351,7 +359,7 @@ protected function setupShowOperation()
             'tab'   => trans('contact.name.tab'),
             'attributes' => ['id' => 'name_family'],
             'wrapper'   => ['class' => 'form-group col-md-8'], //resizing
-            ]);
+        ]);
         $this->crud->addField([
             'name'  => 'names.name_suffix',
             'label' => trans('contact.name.suffix'),
@@ -360,7 +368,7 @@ protected function setupShowOperation()
             'attributes' => ['id' => 'name_suffix'], //'placeholder' => trans('contact.name.nickname')
             'wrapper'   => ['class' => 'form-group col-md-4'], //resizing
         //    'hint'      => trans('contact.name.nickname'),
-            ]);
+        ]);
     //DATA
         $this->crud->addField([ // radio
             'name'  => 'sex_id',
@@ -371,7 +379,7 @@ protected function setupShowOperation()
             'inline'      => true,      
             'options'     => ContentType::getTypeSexes(),
  //           'options'     => ['FEMALE' => 'Femenino', 'MALE' => 'Masculino'],
-           ]);      
+        ]);      
         $this->crud->addField([
             'name'  => 'events.event_birth',
             'label' => trans('contact.event.birthday'),            
@@ -379,7 +387,7 @@ protected function setupShowOperation()
             'tab'   => trans('contact.data'),
             'wrapper' => ['class' => 'form-group col-md-6'], //resizing
         //    'entity' => 'events',
-            ]);
+        ]);
         $this->crud->addField([        
             'name'  => 'events.event_type',
             'label' => 'data2',
@@ -387,7 +395,7 @@ protected function setupShowOperation()
             'tab'   => trans('contact.data'),
         //    'entity' => 'events', 
             'value' => 'TYPE_BIRTHDAY',
-            ], 'create');       
+        ], 'create');       
         $this->crud->addField([
             'name'  => 'documents.document_number',
             'label' => trans('contact.document.number'),            
@@ -395,7 +403,7 @@ protected function setupShowOperation()
             'tab'   => trans('contact.data'),
             'wrapper' => ['class' => 'form-group col-md-6'], //resizing    
         //    'entity' => 'documents',
-            ]);
+        ]);
 
         $this->crud->addField([        
             'name'  => 'documents.document_type',
@@ -404,7 +412,7 @@ protected function setupShowOperation()
             'tab'   => trans('contact.data'),
         //    'entity' => 'documents', 
             'value' => 'TYPE_DOC',
-            ], 'create'); 
+        ], 'create'); 
 
         $this->crud->addField([ // Select
             'name'  => 'nationality_id',
@@ -420,7 +428,7 @@ protected function setupShowOperation()
  //           'attribute' => 'name',
  //           'options'   => (function ($query) {
   //              return $query->orderBy('name', 'ASC')->pluck('name','code_alpha3')->get(); }),
-            ]);
+        ]);
 
         $this->crud->addField([ // Text
             'name'  => 'civil_status',
@@ -431,7 +439,7 @@ protected function setupShowOperation()
             'options'    => ContentType::getTypeCivilStatus(),
             'allows_null' => true,
             'attributes' => ['id' => 'civil_status'],
-            ]);
+        ]);
         $this->crud->addField([
             'name'  => 'events.event_dead',
             'label' => trans('contact.event.deadday'),            
@@ -440,7 +448,7 @@ protected function setupShowOperation()
             'wrapper' => ['class' => 'form-group col-md-6'], //resizing
             'attributes' => ['id' => 'event_dead'],
         //    'entity' => 'events',
-            ]);
+        ]);
     //PHONE
 /*        $this->crud->addField([
             'name' => 'contact_phones',
@@ -802,7 +810,7 @@ protected function setupShowOperation()
             'inline'      => true,      
            // 'options'     => ContentType::getTypeSexes(),
             'options'     => ['YES' => 'Si', 'NO' => 'No', 'MAYBE' => 'Tal vez'],
-           ]);      
+        ]);      
         $this->crud->addField([ //
             'name'  => 'bloods.data2',
             'label' => trans('contact.blood.type'),
@@ -811,13 +819,13 @@ protected function setupShowOperation()
             'wrapper' => ['class' => 'form-group col-md-6'], 
             'options' => ContentType::getTypeBloods(),
             'allows_null' => true,
-           ]); 
+        ]); 
         $this->crud->addField([ //
             'name'  => 'bloods.data3',
             'label' => trans('contact.blood.label'),
             'type'  => 'text',
             'tab'   => trans('contact.blood.tab'),
-           ]); 
+        ]); 
 
     //PHOTO
         $this->crud->addField([
@@ -831,7 +839,7 @@ protected function setupShowOperation()
             'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
     // 'disk' => 's3_bucket', // in case you need to show images from a different disk
     // 'prefix' => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
-            ]);
+        ]);
 
     //INFO
         $this->getInfoFields();

@@ -47,7 +47,7 @@ class RoleCrudController extends OriginalRoleCrudController
             'type'  => 'text',
             'priority' => 1,
             ]);
-        $this->crud->addColumn([
+/*        $this->crud->addColumn([
             // n-n relationship (with pivot table)
             'label'     => ucfirst(trans('backpack::permissionmanager.permission_plural')),
             'type'      => 'select_multiple',
@@ -58,7 +58,21 @@ class RoleCrudController extends OriginalRoleCrudController
             'model'     => $this->permission_model, // foreign key model
             'pivot'     => true, // do you need to add/delete pivot table entries?
             'exportOnlyField' => true,  //forced to exportfield and hidden in table
-            ]);
+            ]); */
+        $this->crud->addColumn([
+            'name'      => 'permissions', 
+            'label'     => ucfirst(trans('backpack::permissionmanager.permission_plural')),
+            'type'      => 'relationship_count',
+            'priority'  => 3,
+            'suffix'    => '',
+            ]);    
+        $this->crud->addColumn([
+            'name'      => 'users',
+            'label'     => trans('backpack::permissionmanager.users'),
+            'type'      => 'relationship_count',
+            'priority'  => 3,
+            'suffix'    => '',
+            ]); 
         $this->crud->addColumn([
             'name'  => 'guard_name',
             'label' => trans('backpack::permissionmanager.guard_type'),
@@ -88,7 +102,7 @@ protected function setupShowOperation()
             'label' =>  trans('backpack::permissionmanager.name'),
             'type'  => 'text',
             ]);
-        $this->crud->addColumn([
+         $this->crud->addColumn([
             // n-n relationship (with pivot table)
             'name'      => 'permissions', // the method that defines the relationship in your Model
             'label'     => ucfirst(trans('backpack::permissionmanager.permission_plural')),
@@ -148,18 +162,18 @@ protected function setupShowOperation()
             });
 
         // User Filter
-/*        $this->crud->addFilter([
+        $this->crud->addFilter([
             'name'  => 'users',
             'label' => trans('backpack::permissionmanager.users'),
             'type'  => 'dropdown',
             ],
-            config('permission.models.users')::all()->pluck('name', 'id')->toArray(),
+            config('backpack.permissionmanager.models.user')::all()->pluck('name', 'id')->toArray(),
             function ($value) { // if the filter is active
                 $this->crud->addClause('whereHas', 'users', function ($query) use ($value) {
-                    $query->where('user_id', '=', $value);
+                    $query->where('model_id', '=', $value);
                 });
             });
-*/
+
         // daterange filter
         $this->setFilterDateUpdate();
     }

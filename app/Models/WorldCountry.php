@@ -38,6 +38,10 @@ class WorldCountry extends OriginalCountry
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function divisions()
+    {
+        return $this->hasMany('App\Models\WorldDivision','country_id', 'id');
+    }
 
     /*
     |--------------------------------------------------------------------------

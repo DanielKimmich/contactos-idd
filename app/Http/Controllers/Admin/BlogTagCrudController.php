@@ -142,7 +142,7 @@ class BlogTagCrudController extends CrudController
 
     protected function setupAvancedOperation()
     {
-        Log::info('route=' .$this->crud->getRoute() .' user=' .auth()->user()->email);
+        Log::info('route:' .$this->crud->getRoute() .' user:' .auth()->user()->email);
     // ------ ADVANCED QUERIES  
         $this->crud->orderBy('name');
 
@@ -165,27 +165,27 @@ class BlogTagCrudController extends CrudController
     public function store()
     { 
         $response = $this->traitStore();
-        Log::info('route=' .$this->crud->getRoute() 
-                    .' user=' .auth()->user()->email
-                    .' operation=store'
-                    .' id= ' .$this->crud->getCurrentEntryId());
+        Log::info('route:' .$this->crud->getRoute() 
+                    .' user:' .auth()->user()->email
+                    .' operation:store'
+                    .' id:' .$this->crud->getCurrentEntryId());
         return $response;
 
     }
     public function update()
     {
         $response = $this->traitUpdate();
-        Log::info('route=' .$this->crud->getRoute() 
-                    .' user=' .auth()->user()->email
-                    .' operation=update'
-                    .' id= ' .$this->crud->getCurrentEntryId());        
+        Log::info('route:' .$this->crud->getRoute() 
+                    .' user:' .auth()->user()->email
+                    .' operation:update'
+                    .' id:' .$this->crud->getCurrentEntryId());        
         return $response;
     }
     
     public function clone($id)
     {
         $this->crud->hasAccessOrFail('clone');
-        Log::info('route=' .$this->crud->getRoute() .' user=' .auth()->user()->email);
+    //    Log::info('route:' .$this->crud->getRoute() .' user:' .auth()->user()->email);
         $clonedEntry = $this->crud->model->findOrFail($id)->replicate();
     // whatever you want
         $clonedEntry->name = $clonedEntry->name .' ' .'[clone]';

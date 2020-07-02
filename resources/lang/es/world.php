@@ -7,41 +7,44 @@ return array (
     'created_at'  => 'Creado el',
 
 //CONTINENT
-    'continent'    => [
-        'title'             => 'Continente',
-        'titles'            => 'Continentes',
+    'continent' => [
+        'title'     => 'Continente',
+        'titles'    => 'Continentes',
     //Fields                
-        'name' => 'Nombre',
-        'code' => 'Codigo',
+        'name'      => 'Nombre',
+        'code'      => 'Codigo',
+        'countries' => 'Paises',
     ],    
 //COUNTRY
-    'country'    => [
-        'title'             => 'Pais',
-        'titles'            => 'Paises',
+    'country'  => [
+        'title'     => 'Pais',
+        'titles'    => 'Paises',
     //Fields                
-        'name' => 'Nombre',
-        'code' => 'Codigo',
+        'name'      => 'Nombre',
+        'code'      => 'Codigo',
         'code_alpha3' => 'Código alpha3',
         'continent' => 'Continente',
         'full_name' => 'Nombre completo',
-        'capital' => 'Capital',
+        'capital'   => 'Capital',
+        'divisions'    => 'Provincias',
         'has_division' => 'con Provincias',
-        'emoji' => 'Emoji',
+        'emoji'     => 'Emoji',
         'currency_code' => 'Código de moneda',
         'currency_name' => 'Nombre de moneda',
-        'calling_code' => 'Prefijo llamada',
-        'tld' => 'Código de dominio',
+        'calling_code'  => 'Prefijo llamada',
+        'tld'       => 'Código de dominio',
     ],    
 //DIVISION
-    'division'    => [
-        'title'             => 'Provincia',
-        'titles'            => 'Provincias',
+    'division'   => [
+        'title'     => 'Provincia',
+        'titles'    => 'Provincias',
     //Fields                
-        'name' => 'Nombre',
-        'code' => 'Codigo',
-        'country' => 'Pais',
+        'name'      => 'Nombre',
+        'code'      => 'Codigo',
+        'country'   => 'Pais',
         'full_name' => 'Nombre completo',
-        'has_city' => 'con Ciudades',
+        'cities'    => 'Ciudades',
+        'has_city'  => 'con Ciudades',
     ],    
 
 //CITY

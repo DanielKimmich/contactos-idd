@@ -25,10 +25,36 @@ class WorldDivisionRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|min:2|max:255',
-            'code' => 'required|min:2',
-        ];
+    // Validando un indice campo compuesto con 2 columnas
+        $id = $this->get('id') > 0 ? $this->get('id') : "NULL";
+        $country_id = $this->get('country_id') > 0 ? $this->get('country_id') : "NULL";
+        $rules = [
+            'name' => 'required|min:2|max:255|unique:world_divisions,name,' .$id 
+                        .',id,country_id,' .$country_id,
+            'code' => 'required|min:2|unique:world_divisions,code,' .$id 
+                        .',id,country_id,' .$country_id,
+            'country_id'  => 'required',
+            ]; 
+/*
+        $id = $this->get('id');
+        if (empty($id))
+            $rules = [
+                'name' => 'required|min:2|max:255',
+                'code' => 'required|min:2',
+            //    'name'   => 'unique:world_divisions,name',
+            //    'code'   => 'unique:world_divisions,code',
+            ];
+        else
+            $rules = [
+                'name' => 'required|min:2|max:255',
+                'code' => 'required|min:2',
+            //    'name'   => 'unique:world_divisions,name,' .$id,
+            //    'code'   => 'unique:world_divisions,code,' .$id,
+        //   'numero_identificacion' => 'unique:personas,numero_identificacion,' . $validar_update . ',id,tipo_identificacion,' . $this->get('tipo_identificacion'), //validando campo unico compuesto
+
+            ]; 
+*/
+        return $rules;  
     }
 
     /**

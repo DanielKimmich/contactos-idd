@@ -25,6 +25,13 @@ class WorldContinentRequest extends FormRequest
      */
     public function rules()
     {   
+    //Validando con un campo unico
+        $id = $this->get('id') > 0 ? $this->get('id') : "NULL";
+        $rules = [
+            'name' => 'required|min:2|max:255|unique:world_continents,name,' .$id,
+            'code' => 'required|min:2|max:2|unique:world_continents,code,' .$id,
+            ]; 
+/*
         $id = $this->get('id');
         if (empty($id))
             $rules = [
@@ -36,7 +43,7 @@ class WorldContinentRequest extends FormRequest
                 'name' => 'required|min:2|max:255|unique:world_continents,name,' .$id,
                 'code' => 'required|min:2|max:2|unique:world_continents,code,' .$id,
             ]; 
-
+*/
         return $rules;  
     }
 

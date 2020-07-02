@@ -93,6 +93,67 @@ class ContactFamilyCrudController extends CrudController
             ]);
     }
 
+    protected function setupShowOperation()
+    {  // $this->crud->setShowContentClass('col-md-8 col-md-offset-2');
+        $this->crud->set('show.setFromDb', false);
+    // ------ CRUD COLUMNS
+        $this->crud->addColumn([
+            'name'  => 'id',
+            'label' => 'Id',
+            'type'  => 'number',
+            ]);
+        $this->crud->addColumn([
+            'name'  => 'display_name',
+            'label' =>  trans('contact.person.display_name'),
+            'type'  => 'text',
+            ]);
+/*        $this->crud->addColumn([
+            'name'  => 'sex_id',
+            'label' => trans('contact.person.sex'),
+            'type'  => 'select_from_array',
+            'options'   => ContentType::getTypeSexes(),
+            ]);
+        $this->crud->addColumn([
+            'name'  => 'nationality_id',
+            'label' => trans('contact.person.nationality'),
+            'type'  => 'select_from_array',
+            'options'   => $this->getNations(),
+            ]);
+
+*/
+        $this->crud->addColumn([
+            'name' => 'parents', 
+            'label' => 'relation_parent', 
+            'type' => 'table_relationships', 
+            'columns' => [
+             //   [   'name' => 'id',
+                  //  'id' => ['label' => 'Id'], 
+                  //  'type' => 'text',
+              //  ],
+               // [   'name' => 'contact_id',
+                 //   'data1.display_name' => ['label' => trans('contact.parent.name')],
+                        'data1' => ['label' => trans('contact.parent.name')],
+                //    'type' => 'text',
+             //   ],        
+              //  [   'name' => 'parents.data1',
+                    'data2' => ['label' => trans('contact.parent.type')]
+                            //    'type'  => 'select_from_array',
+                             //   'options' => ContentType::getTypeRelationParents()]
+               //     'type' => 'text',
+             //   ],        
+            ]
+        ]);
+
+        $this->crud->addColumn([
+            'name'  => 'status',
+            'label' => trans('contact.person.status'),
+            'type'  => 'select_from_array',
+            'options'   => ContentType::getTypeStatus(),
+            ]);
+    //INFO
+        $this->getInfoColumns();
+    }      
+
     protected function setupCreateOperation()
     {
         $this->crud->setValidation(FamilyRequest::class);

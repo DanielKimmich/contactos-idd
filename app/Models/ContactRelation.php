@@ -44,6 +44,11 @@ class ContactRelation extends Model
         return $this->belongsTo('App\Models\ContactPerson', 'contact_id', 'id');
     }
 
+    public function types()
+    {
+
+        return $this->belongsTo('App\Models\ContentType', 'data2', 'type');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

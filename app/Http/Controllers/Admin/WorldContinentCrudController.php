@@ -41,26 +41,33 @@ class WorldContinentCrudController extends CrudController
             'label' => 'Id',
             'type'  => 'number',
             'priority' => 2,
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'name',
             'label' =>  trans('world.continent.name'),
             'type'  => 'text',
             'priority' => 1,
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'code',
             'label' => trans('world.continent.code'),
             'type'  => 'text',
             'priority' => 1,
-            ]);
+        ]);
+        $this->crud->addColumn([
+            'name'  => 'countries',
+            'label' => trans('world.continent.countries'),
+            'type'  => 'relationship_count',
+            'priority'  => 3,
+            'suffix'    => '',
+        ]);         
         $this->crud->addColumn([    
             'name'  => 'updated_at',
             'label' => trans('world.updated_at'),
             'type'  => 'text',
             'priority' => 4,
             'searchLogic' => false,
-            ]);
+        ]);
 /*
    'visibleInTable' => false, // no point, since it's a large text
    'visibleInModal' => false, // would make the modal too big
@@ -79,17 +86,23 @@ protected function setupShowOperation()
             'name'  => 'id',
             'label' => 'Id',
             'type'  => 'number',
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'name',
             'label' =>  trans('world.continent.name'),
             'type'  => 'text',
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'code',
             'label' => trans('world.continent.code'),
             'type'  => 'text',
-            ]);
+        ]);
+        $this->crud->addColumn([
+            'name'  => 'countries',
+            'label' => trans('world.continent.countries'),
+            'type'  => 'relationship_count',
+            'suffix'    => '',
+        ]);      
     //INFO
         $this->getInfoColumns();
     }
@@ -105,14 +118,14 @@ protected function setupShowOperation()
             'type'  => 'text',
             'tab'   => trans('world.data'),
             'wrapper' => ['class' => 'form-group col-md-8'],
-            ]);
+        ]);
         $this->crud->addField([ // Text
             'name'  => 'code',
             'label' => trans('world.continent.code'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
             'wrapper' => ['class' => 'form-group col-md-4'],
-            ]);
+        ]);
     //INFO
         $this->getInfoFields();
     }

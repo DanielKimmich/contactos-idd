@@ -21,7 +21,7 @@ class WorldCountryCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 //    use \Backpack\CRUD\app\Http\Controllers\Operations\CloneOperation { clone as traitClone; }   
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
- //   use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
  //   use \Backpack\CRUD\app\Http\Controllers\Operations\BulkCloneOperation;
 
 
@@ -44,19 +44,19 @@ class WorldCountryCrudController extends CrudController
             'label' => 'Id',
             'type'  => 'number',
             'priority' => 2,
-            ]);
+        ]);
         $this->crud->addColumn([ // Text
             'name'  => 'name',
             'label' =>  trans('world.country.name'),
             'type'  => 'text',
             'priority' => 1,
-            ]);
+        ]);
         $this->crud->addColumn([ // Text
             'name'  => 'code',
             'label' => trans('world.country.code'),
             'type'  => 'text',
             'priority' => 1,
-            ]); 
+        ]); 
         $this->crud->addColumn([ // Text
             'name'  => 'capital',
             'label' =>  trans('world.country.capital'),
@@ -64,13 +64,13 @@ class WorldCountryCrudController extends CrudController
             'priority' => 3,
             'orderable' => false,
             'exportOnlyField' => true, 
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'callingcode',
             'label' => trans('world.country.calling_code'),
             'type'  => 'number',
             'priority' => 3,
-            ]);      
+        ]);      
         $this->crud->addColumn([ // Select
             'name'  => 'continent_id',
             'label' => trans('world.country.continent'),
@@ -78,14 +78,21 @@ class WorldCountryCrudController extends CrudController
             'priority' => 2,
             'entity' => 'continent', 
             'attribute' => 'name',
-            ]); 
+        ]); 
+        $this->crud->addColumn([
+            'name'  => 'divisions',
+            'label' => trans('world.country.divisions'),
+            'type'  => 'relationship_count',
+            'priority'  => 3,
+            'suffix'    => '',
+        ]);         
         $this->crud->addColumn([    
             'name'  => 'updated_at',
             'label' => trans('world.updated_at'),
             'type'  => 'text',
             'priority' => 4,
             'searchLogic' => false,
-            ]);
+        ]);
     }
 
 protected function setupShowOperation()
@@ -96,47 +103,53 @@ protected function setupShowOperation()
             'name'  => 'id',
             'label' => 'Id',
             'type'  => 'number',
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'name',
             'label' =>  trans('world.country.name'),
             'type'  => 'text',
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'code',
             'label' => trans('world.country.code'),
             'type'  => 'text',
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'code_alpha3',
             'label' => trans('world.country.code_alpha3'),
             'type'  => 'text',
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'full_name',
             'label' => trans('world.country.full_name'),
             'type'  => 'text',
-            ]);
+        ]);
         $this->crud->addColumn([ // Text
             'name'  => 'capital',
             'label' =>  trans('world.country.capital'),
             'type'  => 'text',
-            ]);
+        ]);
         $this->crud->addColumn([
+            'name'  => 'divisions',
+            'label' => trans('world.country.divisions'),
+            'type'  => 'relationship_count',
+            'suffix'    => '',
+        ]);         
+/*        $this->crud->addColumn([
             'name'  => 'has_division',
             'label' => trans('world.country.has_division'),
             'type'  => 'check',
-            ]);      
+            ]);      */
         $this->crud->addColumn([
             'name'  => 'currency_code',
             'label' => trans('world.country.currency_code'),
             'type'  => 'text',
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'currency_name',
             'label' => trans('world.country.currency_name'),
             'type'  => 'text',
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'tld',
             'label' => trans('world.country.tld'),
@@ -146,14 +159,14 @@ protected function setupShowOperation()
             'name'  => 'callingcode',
             'label' => trans('world.country.calling_code'),
             'type'  => 'number',
-            ]);
+        ]);
         $this->crud->addColumn([ // Select
             'name'  => 'continent_id',
             'label' => trans('world.country.continent'),
             'type'  => 'select',
             'entity' => 'continent', 
             'attribute' => 'name',
-            ]); 
+        ]); 
     //INFO
         $this->getInfoColumns();
     }
@@ -169,35 +182,35 @@ protected function setupShowOperation()
             'type'  => 'text',
             'tab'   => trans('world.data'),
             'wrapper' => ['class' => 'form-group col-md-8'],
-            ]);    
+        ]);    
         $this->crud->addField([ // Text
             'name'  => 'code',
             'label' => trans('world.country.code'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
             'wrapper' => ['class' => 'form-group col-md-4'], //resizing fields 
-            ]);
+        ]);
         $this->crud->addField([ // Text
             'name'  => 'code_alpha3',
             'label' => trans('world.country.code_alpha3'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
             'wrapper' => ['class' => 'form-group col-md-4'], //resizing fields 
-            ]);
+        ]);
        $this->crud->addField([ // Text
             'name'  => 'tld',
             'label' => trans('world.country.tld'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
             'wrapper' => ['class' => 'form-group col-md-4'], //resizing fields
-            ]);
+        ]);
         $this->crud->addField([ // Text
             'name'  => 'emoji',
             'label' => trans('world.country.emoji'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
             'wrapper' => ['class' => 'form-group col-md-4'], //resizing fields
-            ]);
+        ]);
         $this->crud->addField([ // Select
             'name'  => 'continent_id',
             'label' => trans('world.country.continent'),
@@ -211,48 +224,48 @@ protected function setupShowOperation()
             'allows_null' => true,
             'options'   => (function ($query) {
                 return $query->orderBy('name', 'ASC')->get(); }), 
-            ]);
+        ]);
         $this->crud->addField([ // Text
             'name'  => 'capital',
             'label' => trans('world.country.capital'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
             'wrapper' => ['class' => 'form-group col-md-6'], //resizing fields
-            ]);
+        ]);
         $this->crud->addField([ // Number
             'name'  => 'callingcode',
             'label' => trans('world.country.calling_code'),
             'type'  => 'number',
             'tab'   => trans('world.data'),
             'wrapper' => ['class' => 'form-group col-md-4'], //resizing fields
-            ]);
+        ]);
         $this->crud->addField([ // Text
             'name'  => 'currency_code',
             'label' => trans('world.country.currency_code'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
             'wrapper' => ['class' => 'form-group col-md-4'], //resizing fields
-            ]);
+        ]);
         $this->crud->addField([ // Text
             'name'  => 'currency_name',
             'label' => trans('world.country.currency_name'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
             'wrapper' => ['class' => 'form-group col-md-4'], //resizing fields
-            ]);
+        ]);
         $this->crud->addField([ // Text
             'name'  => 'full_name',
             'label' => trans('world.country.full_name'),
             'type'  => 'text',
             'tab'   => trans('world.data'),
-            ]);
-        $this->crud->addField([ // CheckBox
+        ]);
+/*        $this->crud->addField([ // CheckBox
             'name'  => 'has_division',
             'label' => trans('world.country.has_division'),
             'type'  => 'checkbox',
             'tab'   => trans('world.data'),
             'wrapper' => ['class' => 'form-group col-md-6'], //resizing fields
-            ]);
+            ]); */
     //INFO
         $this->getInfoFields();
     }

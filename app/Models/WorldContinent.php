@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Khsing\World\Models\Continent as OriginalContinent;
+use Khsing\World\Models\Continent; //as OriginalContinent;
 use Wildside\Userstamps\Userstamps;
 
-class WorldContinent extends OriginalContinent
+class WorldContinent extends Continent
 {
     use CrudTrait;
     use Userstamps;
@@ -37,7 +37,10 @@ class WorldContinent extends OriginalContinent
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function countries()
+    {
+        return $this->hasMany('App\Models\WorldCountry','continent_id', 'id');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

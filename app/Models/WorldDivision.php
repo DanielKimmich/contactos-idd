@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Khsing\World\Models\Division as OriginalDivision;
+use Khsing\World\Models\Division;
 use Wildside\Userstamps\Userstamps;
 
-class WorldDivision extends OriginalDivision
+class WorldDivision extends Division
 {
     use CrudTrait;
     use Userstamps;
@@ -38,6 +38,10 @@ class WorldDivision extends OriginalDivision
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function cities()
+    {
+        return $this->hasMany('App\Models\WorldCity','division_id', 'id');
+    }
 
     /*
     |--------------------------------------------------------------------------

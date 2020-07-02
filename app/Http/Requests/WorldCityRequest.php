@@ -25,10 +25,22 @@ class WorldCityRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+    // Validando un indice campo compuesto con 2 columnas
+        $id = $this->get('id') > 0 ? $this->get('id') : "NULL";
+        $division_id = $this->get('division_id') > 0 ? $this->get('division_id') : "NULL";
+        $rules = [
+            'name'  => 'required|min:2|max:255|unique:world_cities,name,' .$id 
+                        .',id,division_id,' .$division_id,
+            'code'  => 'required|min:2',
+            'country_id'    => 'required',
+            'division_id'   => 'required',
+            ]; 
+
+/*        return [
             'name' => 'required|min:2|max:255',
             'code' => 'required|min:2',
-        ];
+        ];  */
+        return $rules;        
     }
 
     /**

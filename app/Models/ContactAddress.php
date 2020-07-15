@@ -25,24 +25,12 @@ class ContactAddress extends Model
     protected $guarded = ['id'];
     // protected $hidden = [];
     // protected $dates = [];
+    protected $touches = ['persons'];  
     protected $fillable = [
-        'contact_id', 
-        'mimetype', 
-        'data1', 
-        'data2', 
-        'data3',
-        'data4', 
-        'data5', 
-        'data6',
-        'data7', 
-        'data8', 
-        'data9',
-        'data10', 
-        'data11', 
-        'data12',
-        'data13',
-        'data14', 
-        'data15'
+        'contact_id', 'mimetype', 
+        'data1', 'data2', 'data3', 'data4', 'data5', 
+        'data6', 'data7', 'data8', 'data9', 'data10', 
+        'data11', 'data12', 'data13', 'data14', 'data15'
     ];
 
     protected $attributes = ['mimetype' => 'Address',  ];
@@ -70,6 +58,10 @@ class ContactAddress extends Model
         return $this->belongsTo('App\Models\Country', 'data10', 'id');
     }
 
+    public function persons()
+    {
+        return $this->belongsTo('App\Models\ContactPerson', 'contact_id', 'id');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

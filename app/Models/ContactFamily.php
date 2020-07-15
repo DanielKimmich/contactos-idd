@@ -6,6 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Wildside\Userstamps\Userstamps;
 use App\Models\ContentType;
+use App\Models\ContactRelation;
 
 class ContactFamily extends Model
 {
@@ -144,6 +145,8 @@ class ContactFamily extends Model
             foreach ($keys as $id) 
                 self::parents()->find($id)->delete();
         }    
+        //Insertar registros relacion inversa
+        $this->createRelation($value);
     }   
 
     public function setRelationSpouseAttribute($value) {
@@ -166,6 +169,8 @@ class ContactFamily extends Model
             foreach ($keys as $id) 
                 self::spouses()->find($id)->delete();
         }    
+        //Insertar registros relacion inversa
+        $this->createRelation($value);
     }   
 
     public function setRelationChildrenAttribute($value) {
@@ -188,7 +193,10 @@ class ContactFamily extends Model
             foreach ($keys as $id) 
                 self::children()->find($id)->delete();
         }    
+        //Insertar registros relacion inversa
+        $this->createRelation($value);
     }    
+
     public function setRelationRelativeAttribute($value) {
         $data = (json_decode($value, true)); //converts json into array
         $keys = self::relatives()->get()->modelKeys();
@@ -209,10 +217,77 @@ class ContactFamily extends Model
             foreach ($keys as $id) 
                 self::relatives()->find($id)->delete();
         }    
+        //Insertar registros relacion inversa
+        $this->createRelation($value);
     }    
-    public function setRelationOtherAttribute($value) {
 
+
+
+    public function setRelationOtherAttribute($value) {
+        $data = (json_decode($value, true)); //converts json into array
+        $keys = self::others()->get()->modelKeys();
+        //Insertar o actualizar registros en parent
+        if(is_array($data)) {
+            foreach ($data as $entry) {
+                if (!empty($entry['data1'])) {
+                    $id = (int) $entry['id'];
+                    unset($entry['id']);
+                    if (($key = array_search($id, $keys)) !== false) 
+                        unset($keys[$key]);  
+                    self::others()->updateOrCreate(['id' => $id], $entry);
+                }
+            }
+        }
+        //Eliminar registros en parent
+        if(!empty($keys)) {
+            foreach ($keys as $id) 
+                self::others()->find($id)->delete();
+        }    
+        //Insertar registros relacion inversa
+        $this->createRelation($value);
     }   
 
+    public function createRelation($value) {
+        $data = (json_decode($value, true)); //converts json into array
+        //dump($this->id);
+        //dump($this->sex_id);
+        //Insertar registros relacion inversa
+        if(is_array($data)) {
+            foreach ($data as $entry) {
+                if (!empty($entry['data1'])) {
+                    $id = (int) $entry['data1'];
+                    $type =  $entry['data2'];
+                    //dump($id);
+                   // $types = ContentType::where('type', $type)->pluck('extras');
+
+                    
+                    //$relation = ContactRelation::where('contact_id', $id)->get()->modelKeys();
+                    $relation = ContactRelation::where('contact_id', $id)
+                                    ->where('data1', $this->id)
+                                    ->get()->modelKeys();
+                                   // ->pluck('data2','data1');
+                    //dump($relation);
+                    if(empty($relation)) {
+                        $types = ContentType::where('type', $type)->first()->extras;
+                        $arr_types = (json_decode($types, true)); //converts json into array
+                        //dump($arr_types);
+                        if(is_array($arr_types)) {
+                        foreach ($arr_types as $reverse) {
+                            if ($reverse['data1'] == $this->sex_id) {
+                                //dump($reverse['data2']);
+                                ContactRelation::create([
+                                    'contact_id' => $id,
+                                    'data1' => $this->id,
+                                    'data2' => $reverse['data2'],
+                                    'data3' => 'generado automaticamente',
+                                ]);
+                            }
+                        }
+                        }
+                    }    
+                }
+            }
+        }
+    } 
 
 }

@@ -23,6 +23,7 @@ class ContactBlood extends Model
     protected $guarded = ['id'];
     // protected $hidden = [];
     // protected $dates = [];
+    protected $touches = ['persons'];  
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3'];
     protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'Blood'];
@@ -38,6 +39,10 @@ class ContactBlood extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function persons()
+    {
+        return $this->belongsTo('App\Models\ContactPerson', 'contact_id', 'id');
+    }
 
     /*
     |--------------------------------------------------------------------------

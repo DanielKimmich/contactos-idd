@@ -24,6 +24,7 @@ class ContactPhone extends Model
     protected $guarded = ['id'];
     // protected $hidden = [];
     // protected $dates = [];
+    protected $touches = ['persons'];
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3'];
     protected $appends = ['phone_type_data','created_by_user', 'updated_by_user', 'deleted_by_user']; 
     protected $attributes = ['mimetype' => 'Phone'];  
@@ -43,6 +44,11 @@ class ContactPhone extends Model
     {
         $type_id = ContentType::where('type','Phone')->where('depth', 1)->orWhereNull('depth')->first()->id;
         return $this->belongsTo('App\Models\ContentType', 'data2', 'type')->where('parent_id', $type_id);
+    }
+
+    public function persons()
+    {
+        return $this->belongsTo('App\Models\ContactPerson', 'contact_id', 'id');
     }
 
     /*

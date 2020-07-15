@@ -34,9 +34,9 @@ class ContactPersonCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
   //  use \App\Http\Controllers\Admin\Operations\PrintOperation;
 
-    protected $crudPhone;
-    protected $crudEmail;
-    protected $crudAddress;
+//    protected $crudPhone;
+//    protected $crudEmail;
+//    protected $crudAddress;
 
     public function setup()
     {
@@ -45,9 +45,9 @@ class ContactPersonCrudController extends CrudController
         $this->crud->setEntityNameStrings(trans('contact.person.entity_name'), trans('contact.person.entity_names'));
 //        $this->crud->with(['names', 'events']);
         $this->setAccessOperation('contactperson');
-        $this->setContactPhone();
-        $this->setContactEmail();
-        $this->setContactAddress();
+    //    $this->setContactPhone();
+    //    $this->setContactEmail();
+    //    $this->setContactAddress();
 
     // ------ CRUD DETAILS ROW
         $this->crud->enableDetailsRow();
@@ -117,17 +117,7 @@ class ContactPersonCrudController extends CrudController
             'priority' => 4,
             'exportOnlyField' => true,  //forced exportfield and hidden in table
         ]); 
- /*        $this->crud->addColumn([
-            'name'  => 'nationality_id',
-            'label' => trans('contact.nationality'),
-            'type'  => 'select',
-            'priority'  => 4,
-            'entity'    => 'nationality', 
-            'attribute' => 'name',
-            'exportOnlyField' => true,  //forced to exportfield and hidden in table
-            ]); */
-
-        $this->crud->addColumn([
+         $this->crud->addColumn([
             'name'  => 'nationality_id',
             'label' => trans('contact.person.nationality'),
             'type'  => 'select_from_array',
@@ -312,7 +302,6 @@ protected function setupShowOperation()
             'wrapper' => ['class' => 'form-group col-md-8'],
             'prefix'     => '<i class="la la-id-card-o"></i>',
             'attributes' => ['readonly' => 'readonly', 'id' => 'display_name'],
-        //     'attributes' => ['id' => 'display_name'],
         ]);  
         $this->crud->addField([ // Text
             'name'  => 'status',
@@ -365,7 +354,8 @@ protected function setupShowOperation()
             'label' => trans('contact.name.suffix'),
             'type'  => 'text',
             'tab'   => trans('contact.name.tab'),
-            'attributes' => ['id' => 'name_suffix'], //'placeholder' => trans('contact.name.nickname')
+            'attributes' => ['id' => 'name_suffix'], 
+            //'placeholder' => trans('contact.name.nickname')
             'wrapper'   => ['class' => 'form-group col-md-4'], //resizing
         //    'hint'      => trans('contact.name.nickname'),
         ]);
@@ -450,45 +440,6 @@ protected function setupShowOperation()
         //    'entity' => 'events',
         ]);
     //PHONE
-/*        $this->crud->addField([
-            'name' => 'contact_phones',
-            'label' => trans('contact.phone.titles'),
-            'type' => 'relationFields',
-            'tab' => trans('contact.phone.tab'),
-            'foreignKey' => 'contact_id',
-           // 'crud' => $this->crud->model->phones,
-          //'crud' => new crudPanel(ContactDataCrudController::class),
-            'crud' => $this->crudPhone,
-            'fake' => true,
-            'additional_fields_count' => 3,
-            'fields' => [
-                [   'name' => 'contact_id',
-                    'label' => 'contact_id',
-                    'type' => 'hidden',
-                ],
-                [   'name' => 'data1',
-                    'label' => trans('contact.phone.number'),
-                    'type' => 'text',
-                    'wrapper' => ['class' => 'form-group col-md-6'],
-                    'entity' => 'phones',
-                ],
-                [   'name' => 'data2',
-                    'label' => trans('contact.phone.type'),
-                    'type' => 'select_from_array',
-                    'wrapper' => ['class' => 'form-group col-md-6'], 
-                    'entity' => 'phones',
-                    'options'     => ContentType::getTypePhones(),
-                    'allows_null' => true,
-                ],
-                [   'name' => 'data3',
-                    'label' => trans('contact.phone.label'),
-                    'type' => 'text',
-                //    'wrapper' => ['class' => 'form-group col-md-6'], 
-                    'entity' => 'phones',
-                ],
-            ],
-        ], 'both');
-*/
         $this->crud->addField([
             'name'  => 'relation_phone',
             'label' => trans('contact.phone.titles'),
@@ -526,42 +477,6 @@ protected function setupShowOperation()
 
 
     //EMAIL
-/*        $this->crud->addField([
-            'name' => 'contact_emails',
-            'label' => trans('contact.email.titles'),
-            'type' => 'relationFields',
-            'tab' => trans('contact.email.tab'),
-            'foreignKey' => 'contact_id',
-            'crud' => $this->crudEmail,
-            'fake' => true,
-            'additional_fields_count' => 3,
-            'fields' => [
-                [   'name' => 'contact_id',
-                    'label' => 'contact_id',
-                    'type' => 'hidden',
-                ],
-                [   'name' => 'data1',
-                    'label' => trans('contact.email.address'),
-                    'type' => 'email',
-                    'entity' => 'emails',
-                ],
-                [   'name' => 'data2',
-                    'label' => trans('contact.email.type'),
-                    'type' => 'select_from_array',
-                    'wrapper' => ['class' => 'form-group col-md-6'],
-                    'entity' => 'emails',
-                    'options'     => ContentType::getTypeEmails(),
-                    'allows_null' => true,
-                ],
-                [   'name' => 'data3',
-                    'label' => trans('contact.email.label'),
-                    'type' => 'text',
-                    'wrapper' => ['class' => 'form-group col-md-6'], 
-                    'entity' => 'emails',
-                ],
-            ],
-        ], 'both');
-*/
         $this->crud->addField([
             'name'  => 'relation_email',
             'label' => trans('contact.email.titles'),
@@ -596,114 +511,6 @@ protected function setupShowOperation()
         ]);
 
     //ADDRESS
-/*        $this->crud->addField([
-            'name' => 'contact_addresses',
-            'label' => trans('contact.address.titles'),
-            'type' => 'relationFields',
-            'tab' => trans('contact.address.tab'),
-            'foreignKey' => 'contact_id',
-            'crud' => $this->crudAddress,
-            'fake' => true,
-            'additional_fields_count' => 3,
-            'fields' => [
-                [   'name' => 'contact_id',
-                    'label' => 'contact_id',
-                    'type' => 'hidden',
-                ],
-                [   'name' => 'data1',
-                    'label' => trans('contact.address.address'),
-                    'type' => 'text',
-                    'prefix'   => '<i class="la la-map-marker"></i>',
-                    'attributes' => ['readonly' => 'readonly'],
-                    'entity' => 'addresses',
-                ],
-                [   'name' => 'data2',
-                    'label' => trans('contact.address.type'),
-                    'type' => 'select_from_array',
-                    'wrapper' => ['class' => 'form-group col-md-6'], 
-                    'entity' => 'addresses',
-                    'options'     => ContentType::getTypeAddresses(),
-                    'allows_null' => true,
-                ],
-                [   'name' => 'data3',
-                    'label' => trans('contact.address.label'),
-                    'type' => 'text',
-                    'wrapper' => ['class' => 'form-group col-md-6'], 
-                    'entity' => 'addresses',
-                ],
-                [   'name' => 'data4',
-                    'label' => trans('contact.address.street'),
-                    'type' => 'text',
-                    'entity' => 'addresses',
-                ],  
-                [   'name' => 'data10',
-                    'label' => trans('contact.address.country'),
-                    'type' => 'select2_from_array',
-                    'wrapper' => ['class' => 'form-group col-md-6'],
-                    'entity' => 'addresses',
-                    'options'   => $this->getCountries(),
-                    'default' => Config::get('settings.contact_country'),
-                ],
-            [
-            'name'  => 'data8',
-            'label' => trans('contact.address.division'),
-            'type'  => 'select2_from_ajax',
-            'wrapper' => ['class' => 'form-group col-md-6'],
-            'entity' => 'addresses', 
-            'attribute' => 'name',
-            'model' => 'App\Models\WorldDivision', // foreign key model
-            'data_source'  => url('admin/searchdivision/data10'), // url to controller search
-            'placeholder' => '', // placeholder for the select
-      //      'dependencies'  => ['data10'], //this select2 is reset to null
-            'minimum_input_length' => 0, // minimum before querying results
-            'default' => Config::get('settings.contact_division'),
-            ],
-            [
-            'name'  => 'data7',
-            'label' => trans('contact.address.city'),
-            'type'  => 'select2_from_ajax',
-            'wrapper' => ['class' => 'form-group col-md-6'],
-            'entity' => 'addresses', 
-            'attribute' => 'name',
-            'model' => 'App\Models\WorldCity', // foreign key model
-           // 'data_source'  => url('admin/searchcity'), // url to controller search
-            'data_source'  => url('admin/searchcity/data8'),
-            'placeholder' => '', // placeholder for the select
-     //       'dependencies'  => ['data10','data8'], //this select2 is reset to null
-       //     'dependencies'  => ['contact_addresses[0][data8]'],
-            'minimum_input_length' => 0, // minimum before querying results
-            'default' => Config::get('settings.contact_city'),
-            ],
-
-/*                [   'name' => 'data8',
-                    'label' => trans('contact.address.region'),
-                    'type' => 'text',
-                    'wrapper' => ['class' => 'form-group col-md-6'],
-                    'entity' => 'addresses',
-                ],                
-                [   'name' => 'data7',
-                    'label' => trans('contact.address.city'),
-                    'type' => 'text',
-                    'wrapper' => ['class' => 'form-group col-md-6'],
-                    'entity' => 'addresses',
-                ],
-/
-
-                [   'name' => 'data9',
-                    'label' => trans('contact.address.postcode'),
-                    'type' => 'text',
-                    'wrapper' => ['class' => 'form-group col-md-6'], 
-                    'entity' => 'addresses',
-                ],                
-                [   'name' => 'data6',
-                    'label' => trans('contact.address.neigh'),
-                    'type' => 'text',
-                    'entity' => 'addresses',
-
-                ],                
-            ],
-        ], 'both');
-*/
         $this->crud->addField([
             'name'  => 'relation_address',
             'label' => trans('contact.address.titles'),
@@ -748,12 +555,13 @@ protected function setupShowOperation()
                     'attribute' => 'name',
                     'ajax' => true,
                     'multiple' => false,
-                    'data_source'  => backpack_url('contactperson/fetch/division'), // url to controller
-    //        'placeholder' => '', // placeholder for the select
+                 //   'data_source'  => backpack_url('contactperson/fetch/division'), // url to controller
+                    'data_source'  => url($this->crud->route.'/fetch/division'),
+                //    'placeholder' => '', // placeholder for the select
                     'dependencies'  => ['data10'], //this select2 is reset to null
                     'minimum_input_length' => 0, // minimum before querying results
                     'default' => Config::get('settings.contact_division'),
-
+                    'include_all_form_fields'  => false,
                 ],
                 [   'name'  => 'data7',
                     'label' => trans('contact.address.city'),
@@ -766,12 +574,13 @@ protected function setupShowOperation()
                     'ajax' => true,
                     'multiple' => false,
                     'data_source'  => backpack_url('contactperson/fetch/city'), // url to controller search
-          //  'data_source'  => url('admin/searchcity/data8'),
+
            // 'placeholder' => '', // placeholder for the select
                     'dependencies'  => ['data10','data8'], //this select2 is reset to null
        //     'dependencies'  => ['contact_addresses[0][data8]'],
                     'minimum_input_length' => 0, // minimum before querying results
                     'default' => Config::get('settings.contact_city'),
+                    'include_all_form_fields'  => false,
                 ],
 
                 [   'name' => 'data9',
@@ -1172,7 +981,7 @@ protected function destroyMacronutrients($productId)
         $options = $options->sortBy('name')->pluck('name','id');
         return $options->toArray();
     }
-
+/*
     protected function setContactPhone(): void
     {
         $this->crudPhone = new CrudPanel();
@@ -1203,7 +1012,7 @@ protected function destroyMacronutrients($productId)
         $this->crudAddress->addClause('where', 'mimetype', '=', 'Address');
     }
 
-
+*/
 
     public function renameKey($oldkey, $newkey, $array) {
         $val = $array[$oldkey]; 
@@ -1240,12 +1049,12 @@ protected function destroyMacronutrients($productId)
     public function fetchDivision()
     {
         //dump($this->crud->getRequest()->input('form'));
-        return $this->fetch('App\Models\WorldDivision');
-/*        return $this->fetch([
+     //   return $this->fetch('App\Models\WorldDivision');
+        return $this->fetch([
             'model' => 'App\Models\WorldDivision', // required
             'searchable_attributes' => ['name'],
             'paginate' => 50, // items to show per page
-            'query' => function($model) {
+     /*       'query' => function($model) {
                 $form = $this->crud->getRequest()->input('form');
                 foreach ($form as $entry) {
                     if ($entry['name'] == 'country_id') {
@@ -1255,12 +1064,30 @@ protected function destroyMacronutrients($productId)
                 }
                 return $model->where('country_id', $country_id)->orderBy('name');
             } // to filter the results that are returned
-        ]); */
+        */
+        ]); 
     }
 
     public function fetchCity()
     {
-        return $this->fetch('App\Models\WorldCity');
+     //   return $this->fetch('App\Models\WorldCity');
+        return $this->fetch([
+            'model' => 'App\Models\WorldCity', // required
+            'searchable_attributes' => ['name'],
+            'paginate' => 50, // items to show per page
+     /*       'query' => function($model) {
+                $form = $this->crud->getRequest()->input('form');
+                foreach ($form as $entry) {
+                    if ($entry['name'] == 'country_id') {
+                        $country_id = (int) $entry['value'];
+                        break 1;  // Sólo sale del foreach. 
+                    }
+                }
+                return $model->where('country_id', $country_id)->orderBy('name');
+            } // to filter the results that are returned
+        */
+        ]); 
+
     }
         
     protected function setupInlineCreateOperation()
@@ -1296,7 +1123,8 @@ protected function destroyMacronutrients($productId)
                 'type'=>'select_multiple_callback',
                 'entity'=>'contactsbusiness', 
                 'type_contact_id' => '1', 
-                'model' => "App\Models\Contact", 'pivot' => true,
+                'model' => "App\Models\Contact", 
+                'pivot' => true,
                 
             
             ],

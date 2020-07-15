@@ -23,7 +23,7 @@ class ContentType extends Model
 
     // protected $hidden = [];
     // protected $dates = [];
-    protected $fillable = ['mimetype', 'type', 'label', 'parent_id'];
+    protected $fillable = ['mimetype', 'type', 'label', 'parent_id', 'extras'];
     protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'user'];
     
@@ -32,6 +32,12 @@ class ContentType extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public static function getMimeType()
+    {   
+        $types = self::where('depth', 1)->orderBy('type', 'ASC')->pluck('label', 'type');
+        return $types->toArray();
+    }
+
     public static function getTypeStatus()
     {   
         $id = self::where('type','Status')->where('depth', 1)->orWhereNull('depth')->first()->id;
@@ -78,6 +84,12 @@ class ContentType extends Model
     {   
         $id = self::where('type','Blood')->where('depth', 1)->orWhereNull('depth')->first()->id;
         $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        return $types->toArray();
+    }
+
+    public static function getTypeAllRelations()
+    {   
+        $types = self::where('depth', 3)->orderBy('lft', 'ASC')->pluck('label','type');
         return $types->toArray();
     }
 

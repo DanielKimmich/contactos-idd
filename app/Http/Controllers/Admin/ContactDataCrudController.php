@@ -40,7 +40,13 @@ class ContactDataCrudController extends CrudController
             'type'  => 'number',
             'priority' => 2,
             ]) -> makeFirstColumn() ;        
-
+        $this->crud->addColumn([    
+            'name'  => 'updated_at',
+            'label' => trans('common.updated_at'),
+            'type'  => 'text',
+            'priority' => 3,
+            'searchLogic' => false,
+            ]);  
         $this->crud->disableResponsiveTable();
         $this->crud->addButtonFromView('top', 'import', 'import', 'end');  
         $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');  
@@ -88,8 +94,8 @@ class ContactDataCrudController extends CrudController
 
     protected function setupUpdateOperation()
     {
-    //    $this->setupCreateOperation();
-        $this->crud->addField([
+        $this->setupCreateOperation();
+    /*    $this->crud->addField([
             'name'  => 'data1',
             'label' => trans('contact.other.name'),
             'type'  => 'relationship',
@@ -100,7 +106,7 @@ class ContactDataCrudController extends CrudController
             'model'     => 'App\Models\ContactPerson',
             'ajax' => false,
             'inline_create' => ['entity' => 'contactperson'],             
-        ]);  
+        ]);  */
     }
 
     protected function setupAvancedOperation()

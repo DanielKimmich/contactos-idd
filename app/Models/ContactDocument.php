@@ -24,6 +24,7 @@ class ContactDocument extends Model
     protected $guarded = ['id'];
     // protected $hidden = [];
     // protected $dates = [];
+    protected $touches = ['persons'];  
     protected $fillable = ['contact_id', 'mimetype', 'document_number', 'document_type', 'document_label'];
     protected $appends = ['document_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user']; 
     protected $attributes = ['mimetype' => 'Document'];
@@ -45,6 +46,10 @@ class ContactDocument extends Model
         return $this->belongsTo('App\Models\ContentType', 'data2', 'type')->where('parent_id', $id);
     }
 
+    public function persons()
+    {
+        return $this->belongsTo('App\Models\ContactPerson', 'contact_id', 'id');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

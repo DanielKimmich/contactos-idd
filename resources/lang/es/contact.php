@@ -195,11 +195,13 @@ return [
 		'entity_name'       => 'Preferencia',
 		'entity_names'      => 'Preferencias',
 	//Fields				
-		'mimetype'          => 'Origen',
 		'type'            	=> 'Código',
 		'label'           	=> 'Nombre',
-		'order'      		=> 'Orden',
+		'mimetype'          => 'Grupo',
    		'parent'			=> 'Categoria',
+		'level'      		=> 'Nivel',
+		'order'      		=> 'Orden', 
+   		'extras'			=> 'Información Adicional',
    		'firstlevel'		=> 'Principal',
 	// Messages
 		'no_rows'           => 'No hay tipos',

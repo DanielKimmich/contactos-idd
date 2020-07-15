@@ -24,7 +24,7 @@ class ContactEvent extends Model
     protected $guarded = ['id'];
     // protected $hidden = [];
     // protected $dates = [];
-    
+    protected $touches = ['persons'];    
     protected $fillable = ['contact_id', 'mimetype', 'event_birth', 'event_type', 'event_label', 'event_dead'];
     protected $appends = ['display_name', 'age', 'birthday', 'created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'Event'];
@@ -55,11 +55,11 @@ class ContactEvent extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function contact()
+    // public function contact()
+    public function persons()
     {
         return $this->belongsTo('App\Models\ContactPerson', 'contact_id', 'id');
     }
-
     /*
     |--------------------------------------------------------------------------
     | SCOPES

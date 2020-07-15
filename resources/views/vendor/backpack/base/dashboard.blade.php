@@ -1,7 +1,6 @@
 @extends(backpack_view('blank'))
 
 @php
-
     use App\Models\Notification;
     use App\Models\ContactEvent;
     use App\Models\ContactPerson;

@@ -143,7 +143,7 @@ class ContactEvent extends Model
 
     Public function getDisplayNameAttribute()
     {
-        return $this->contact->display_name ?? '';
+        return $this->persons->display_name ?? '';
     }
 
     //--------------------------------------------------------------------------

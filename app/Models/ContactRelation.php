@@ -23,7 +23,7 @@ class ContactRelation extends Model
     protected $guarded = ['id'];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $touches = ['person'];
+    protected $touches = ['persons'];
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3', 'data4', 'data5'];
 
     protected $attributes = ['mimetype' => 'Relation'];
@@ -40,7 +40,8 @@ class ContactRelation extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function person()
+    // public function person()
+    public function persons()
     {
         return $this->belongsTo('App\Models\ContactPerson', 'contact_id', 'id');
     }

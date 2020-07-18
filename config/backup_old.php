@@ -17,7 +17,7 @@ return [
          * --disable-notifications
          */
         'backpack_flags' => [
-            '--disable-notifications'=> true,
+            '--disable-notifications',   //=> true,
         ],
 
         /*
@@ -51,11 +51,6 @@ return [
                  * Determines if symlinks should be followed.
                  */
                 'follow_links' => false,
-
-                /*
-                 * Determines if it should avoid unreadable folders.
-                 */
-                'ignore_unreadable_directories' => false,
             ],
 
             /*
@@ -153,11 +148,6 @@ return [
 
         'mail' => [
             'to' => 'your@example.com',
-
-            'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-                'name' => env('MAIL_FROM_NAME', 'Example'),
-            ],
         ],
 
         'slack' => [

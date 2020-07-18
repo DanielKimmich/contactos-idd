@@ -53,5 +53,10 @@ Route::group([
 
 
     Route::crud('notification', 'NotificationCrudController');
+//Backup
+    Route::get('backup', 'BackupController@index')->name('backup.index');
+    Route::put('backup/create', 'BackupController@create')->name('backup.store');
+    Route::get('backup/download/{file_name?}', 'BackupController@download')->name('backup.download');
+    Route::delete('backup/delete/{file_name?}', 'BackupController@delete')->where('file_name', '(.*)')->name('backup.destroy');
 
 }); // this should be the absolute last line of this file

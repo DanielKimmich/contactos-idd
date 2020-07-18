@@ -549,7 +549,7 @@ protected function setupShowOperation()
                     'label' => trans('contact.address.division'),
                     'type'  => 'relationship',
                     'wrapper' => ['class' => 'form-group col-md-6'],
-                    'attributes' => ['id' => 'address_division'],
+                //    'attributes' => ['id' => 'address_division'],
                     'model' => 'App\Models\WorldDivision', // foreign key model
                     'entity'    => 'addresses',
                     'attribute' => 'name',
@@ -561,13 +561,13 @@ protected function setupShowOperation()
                     'dependencies'  => ['data10'], //this select2 is reset to null
                     'minimum_input_length' => 0, // minimum before querying results
                     'default' => Config::get('settings.contact_division'),
-                    'include_all_form_fields'  => false,
+                  //  'include_all_form_fields'  => false,
                 ],
                 [   'name'  => 'data7',
                     'label' => trans('contact.address.city'),
                     'type'  => 'relationship',
                     'wrapper' => ['class' => 'form-group col-md-6'],
-                    'attributes' => ['id' => 'address_city'],
+                //    'attributes' => ['id' => 'address_city'],
                     'model' => 'App\Models\WorldCity', // foreign key model
                     'entity' => 'addresses', 
                     'attribute' => 'name',
@@ -580,7 +580,7 @@ protected function setupShowOperation()
        //     'dependencies'  => ['contact_addresses[0][data8]'],
                     'minimum_input_length' => 0, // minimum before querying results
                     'default' => Config::get('settings.contact_city'),
-                    'include_all_form_fields'  => false,
+                //    'include_all_form_fields'  => false,
                 ],
 
                 [   'name' => 'data9',
@@ -1049,12 +1049,12 @@ protected function destroyMacronutrients($productId)
     public function fetchDivision()
     {
         //dump($this->crud->getRequest()->input('form'));
-     //   return $this->fetch('App\Models\WorldDivision');
-        return $this->fetch([
+        return $this->fetch('App\Models\WorldDivision');
+    /*     return $this->fetch([
             'model' => 'App\Models\WorldDivision', // required
             'searchable_attributes' => ['name'],
             'paginate' => 50, // items to show per page
-     /*       'query' => function($model) {
+           'query' => function($model) {
                 $form = $this->crud->getRequest()->input('form');
                 foreach ($form as $entry) {
                     if ($entry['name'] == 'country_id') {
@@ -1064,8 +1064,8 @@ protected function destroyMacronutrients($productId)
                 }
                 return $model->where('country_id', $country_id)->orderBy('name');
             } // to filter the results that are returned
-        */
-        ]); 
+        
+        ]); */
     }
 
     public function fetchCity()

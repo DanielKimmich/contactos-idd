@@ -15,6 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/*
+// DropBox para listar todos los archivos, guardar, eliminar y descargar.
+  Route::get('/', 'FileController@index')->name('files.index');
+  Route::post('/files', 'FileController@store')->name('files.store');
+  Route::delete('/files/{file}', 'FileController@destroy')->name('files.destroy');
+  Route::get('/files/{file}/download', 'FileController@download')->name('files.download');
+*/ 
 
  // Ajax
 Route::group(['middleware' => 'admin',
@@ -37,6 +44,7 @@ Route::group(['middleware' => 'admin',
     Route::post('client/add/address', ['as' => 'addContactAddress', 'uses' => 'ContactAddressController@addContactAddress']);
     Route::post('client/delete/address', ['as' => 'deleteContactAddress', 'uses' => 'ContactAddressController@deleteContactAddress']);
 */
+
 
 });
 

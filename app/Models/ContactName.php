@@ -136,9 +136,11 @@ class ContactName extends Model
     public function setData14Attribute($value)
     {
         $attribute_name = "data14";
-        $disk = config('backpack.base.root_disk_name'); // or use your own disk, defined in config/filesystems.php
-        $destination_path = "public/uploads/contacts/photos"; // path relative to the disk
-            //$destination_path = "app/contacts/photos"; // path relative to the disk
+        //$disk = config('backpack.base.root_disk_name'); // or use your own disk, defined in config/filesystems.php
+        //$destination_path = "public/uploads/contacts/photos"; // path relative to the disk
+        $disk = 'dropbox'; 
+        $destination_path = 'contacts/photos'; // path relative to the disk
+        
         // if the image was erased
         if ($value==null) {
             // delete the image from disk
@@ -167,7 +169,7 @@ class ContactName extends Model
         // that way, what gets saved in the database is the user-accesible URL
             $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
             $this->attributes[$attribute_name] = $public_destination_path.'/'.$filename;
-                //$this->attributes[$attribute_name] = $destination_path.'/'.$filename;
+           // $this->attributes[$attribute_name] = $destination_path.'/'.$filename;
         }
     }
 

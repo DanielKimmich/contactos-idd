@@ -27,7 +27,7 @@ return [
     */
 
     'cloud' => env('FILESYSTEM_CLOUD', 's3'),
-
+    //'cloud' => 'google', // Optional: set Google Drive as default cloud storage
     /*
     |--------------------------------------------------------------------------
     | Filesystem Disks
@@ -66,9 +66,26 @@ return [
 
         // used for Backpack/BackupManager
         'backups' => [
-            'driver' => 'local',
+            'driver' => 'local', 
             'root'   => storage_path('backups'), // that's where your backups are stored by default: storage/backups
+
         ],
+
+        'dropbox' => [
+            'driver' => 'dropbox',
+            'authorizationToken' => env('DROPBOX_TOKEN'),
+            'appKey' => env('DROPBOX_APP_KEY'),
+            'appSecret' => env('DROPBOX_APP_SECRET'),
+        ],
+/*        
+        'google' => [
+            'driver' => 'google',
+            'clientId' => env('GOOGLE_DRIVE_CLIENT_ID'),
+            'clientSecret' => env('GOOGLE_DRIVE_CLIENT_SECRET'),
+            'refreshToken' => env('GOOGLE_DRIVE_REFRESH_TOKEN'),
+            'folderId' => env('GOOGLE_DRIVE_FOLDER_ID'),
+        ],
+*/
 
     ],
 

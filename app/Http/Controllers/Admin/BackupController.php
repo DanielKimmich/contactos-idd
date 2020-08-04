@@ -48,7 +48,8 @@ class BackupController extends Controller
         $this->data['backups'] = array_reverse($this->data['backups']);
         $this->data['title'] = 'Backups';
 
-        return view('backupmanager::backup', $this->data);
+       // return view('backupmanager::backup', $this->data);
+          return view('backup', $this->data);
     }
 
     public function create()

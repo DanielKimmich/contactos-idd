@@ -58,21 +58,24 @@
     		[ 	'type' => 'card', 
       			'class' => 'card bg-info text-white', 
       			'content' => [
-      				'header' => 'Cumpleaños de Hoy', 
+      				'header' => trans('dashboard.birthday.today'),
+              //'Cumpleaños de Hoy', 
       				'body' => $todaybirths,
       			] 
     		],
       		[	'type' 	=> 'card', 
       			'class' => 'card bg-success text-white', 
       			'content' => [
-      				'header' => 'Cumpleaños en los próximos ' .$dias. ' días',
+      				'header' => trans('dashboard.birthday.next', ['day' => $dias]),
+              //'Cumpleaños en los próximos ' .$dias. ' días',
       				'body' => $nextbirths,
       			] 
       		],
       		[ 	'type' 	=> 'card', 
       			'class' => 'card bg-dark text-white', 
       			'content' => [
-      				'header' => 'Cumpleaños de los últimos ' .$dias. ' días',
+      				'header' => trans('dashboard.birthday.previous', ['day' => $dias]),
+              //'Cumpleaños de los últimos ' .$dias. ' días',
       				'body' => $previousbirths,
       			] 
       		],
@@ -117,30 +120,34 @@
     		[ 	'type'        => 'progress',
     			'class'       => 'card text-white bg-success mb-2',
     			'value'       => $contactPersonCountNew,
-    			'description' => 'nuevas Personas',
+    			'description' => trans('dashboard.dataprogress.new_person'), //'nuevas Personas',
     			'progress'    => $contactProgress, // integer
-    			'hint'        => 'en los últimos ' .$dias. ' días',
+    			'hint'        => trans('dashboard.dataprogress.hint', ['day' => $dias]),
+          //'en los últimos ' .$dias. ' días',
     		],
       		[	'type'        => 'progress',
     			'class'       => 'card text-white bg-primary mb-2',
     			'value'       => $contactDataCountUpdate,	
-    			'description' => 'Datos editados',
+    			'description' => trans('dashboard.dataprogress.update_data'), //'Datos editados',
     			'progress'    => $contactDataProgress, // integer
-    			'hint'        => 'en los últimos ' .$dias. ' días',
+    			'hint'        => trans('dashboard.dataprogress.hint', ['day' => $dias]),
+          //'en los últimos ' .$dias. ' días',
       		],
       		[ 	'type'        => 'progress',
     			'class'       => 'card text-white bg-danger mb-2',
     			'value'       => $blogPostCountNew,
-    			'description' => 'nuevas Historias',
+    			'description' => trans('dashboard.dataprogress.new_post'), //'nuevas Historias',
     			'progress'    => $blogPostProgress, // integer
-    			'hint'        => 'en los últimos ' .$dias. ' días',
+    			'hint'        => trans('dashboard.dataprogress.hint', ['day' => $dias]),
+          //'en los últimos ' .$dias. ' días',
       		],
           [ 	'type'        => 'progress',
     			'class'       => 'card text-white bg-dark mb-2',
     			'value'       => $blogCommentCountNew,
-    			'description' => 'nuevos Comentarios',
+    			'description' => trans('dashboard.dataprogress.new_comment'), //'nuevos Comentarios',
     			'progress'    => $blogCommentProgress, // integer
-    			'hint'        => 'en los últimos ' .$dias. ' días',
+    			'hint'        => trans('dashboard.dataprogress.hint', ['day' => $dias]),
+          //'en los últimos ' .$dias. ' días',
       		],
   		] 
   	];
@@ -200,17 +207,17 @@ $widgets['before_content'][] =
     ];	
 
 
-
+   */
     $widgets['before_content'][] = 
     	[
         'type'        => 'jumbotron',
-        'heading'     => trans('backpack::base.welcome'),
-        'content'     => trans('backpack::base.use_sidebar'),
-        'button_link' => backpack_url('logout'),
-        'button_text' => trans('backpack::base.logout'),
+        'heading'     => trans('dashboard.email.heading'),
+        'content'     => trans('dashboard.email.content'),
+        'button_link' => backpack_url('sendmail'),
+        'button_text' => trans('dashboard.email.button'),
     	]; 
 
-   */
+
 @endphp
 
 @section('content')

@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Config;
 use Carbon\Carbon;
 use App\Http\Controllers\Admin\Operations\PrintOperation;
 use App\Models\Contact;
-use App\Models\ContactData;
-use App\Models\ContactPhone;
-use App\Models\ContactEmail;
-use App\Models\ContactAddress;
+//use App\Models\ContactData;
+//use App\Models\ContactPhone;
+//use App\Models\ContactEmail;
+//use App\Models\ContactAddress;
 use App\Models\ContentType;
 use App\Models\WorldCountry;
 use App\Models\WorldCity;
@@ -646,7 +646,8 @@ protected function setupShowOperation()
             'upload' => true,
             'crop' => true, // set to true to allow cropping, false to disable
             'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
-    // 'disk' => 's3_bucket', // in case you need to show images from a different disk
+          //  'disk' => config('backpack.base.root_disk_name'),
+            'disk' => 'dropbox', // in case you need to show images from a different disk
     // 'prefix' => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
         ]);
 

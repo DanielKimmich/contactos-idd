@@ -50,8 +50,8 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => public_path(), //storage_path('app/public'),
+            'url' => env('APP_URL'),         //.'/storage',
             'visibility' => 'public',
         ],
 
@@ -66,7 +66,7 @@ return [
 
         // used for Backpack/BackupManager
         'backups' => [
-            'driver' => 'local', 
+            'driver' => 'local',
             'root'   => storage_path('backups'), // that's where your backups are stored by default: storage/backups
 
         ],
@@ -76,6 +76,11 @@ return [
             'authorizationToken' => env('DROPBOX_TOKEN'),
             'appKey' => env('DROPBOX_APP_KEY'),
             'appSecret' => env('DROPBOX_APP_SECRET'),
+        ],
+
+        'photos' => [
+             'driver' => 'local',
+             'root'   => storage_path(''), //public_path(),
         ],
 /*        
         'google' => [

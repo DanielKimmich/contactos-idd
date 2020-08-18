@@ -221,6 +221,18 @@ protected function setupShowOperation()
             'label' =>  trans('contact.person.display_name'),
             'type'  => 'text',
         ]);
+    //PHOTO
+        $this->crud->addColumn([
+            'name'  => 'names.data14',
+            'label' => trans('contact.photo.profile_image'),
+            'type'  => 'image',
+         //   'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
+          //  'disk' => config('backpack.base.root_disk_name'),
+            'disk'   =>  Config::get('settings.contact_disk'), // 'dropbox',
+            'height' => '150px',
+            'width'  => '150px',
+        ]);
+
         $this->crud->addColumn([
             'name'  => 'sex_id',
             'label' => trans('contact.person.sex'),
@@ -643,11 +655,11 @@ protected function setupShowOperation()
             'type' => 'image',
             'tab'   => trans('contact.photo.tab'),
         //    'entity' => 'names', 
-            'upload' => true,
+          //  'upload' => true,
             'crop' => true, // set to true to allow cropping, false to disable
             'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
           //  'disk' => config('backpack.base.root_disk_name'),
-            'disk' => 'dropbox', // in case you need to show images from a different disk
+            'disk' =>  Config::get('settings.contact_disk'), //'dropbox', // in case you need to show images from a different disk
     // 'prefix' => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
         ]);
 

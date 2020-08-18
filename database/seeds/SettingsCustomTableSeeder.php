@@ -65,6 +65,16 @@ class SettingsCustomTableSeeder extends Seeder
             'field'         => '{"name":"value","label":"Value","type":"text"}',
             'active'        => 1,
         ],
+        [
+            'key'           => 'contact_disk',
+            'name'          => 'Contact Disk',
+            'description'   => 'Disco para almacenar las Fotos del contacto',
+            'value'         => 'dropbox',
+            'field'         => '{"name":"value","label":"Value","type":"text"}',
+            'active'        => 1, 
+        ],
+
+
     ];
 
     /**

@@ -61,7 +61,7 @@ class BackupController extends Controller
 
             Log::info('Backpack\BackupManager -- Called backup:run from admin interface');
 
-            Artisan::call('backup:run --disable-notifications');
+            Artisan::call('backup:run --disable-notifications --only-db');
 
             $output = Artisan::output();
             if (strpos($output, 'Backup failed because')) {

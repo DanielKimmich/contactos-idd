@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Wildside\Userstamps\Userstamps;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Config;
 
 class ContactName extends Model
 {
@@ -136,9 +137,10 @@ class ContactName extends Model
     public function setData14Attribute($value)
     {
         $attribute_name = "data14";
-        //$disk = config('backpack.base.root_disk_name'); // or use your own disk, defined in config/filesystems.php
-        //$destination_path = "public/uploads/contacts/photos"; // path relative to the disk
-        $disk = 'dropbox'; 
+      //  $disk = config('backpack.base.root_disk_name'); // or use your own disk, defined in config/filesystems.php
+      //  $destination_path = "public/uploads/contacts/photos"; // path relative to the disk
+     //   $destination_path = "public/contacts/photos"; // path relative to the disk
+        $disk =  Config::get('settings.contact_disk'); //'dropbox'; 
         $destination_path = 'contacts/photos'; // path relative to the disk
         
         // if the image was erased

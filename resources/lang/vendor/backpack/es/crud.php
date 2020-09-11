@@ -47,7 +47,8 @@ return [
     'language'          => 'Idioma',
 
     // CRUD table view
-    'all'                       => 'Todos los registros de ',
+  //  'all'                       => 'Todos los registros de ',
+    'all'                       => 'Todos',
     'in_the_database'           => 'en la base de datos',
     'list'                      => 'Listar',
     'reset'                     => 'Reiniciar',

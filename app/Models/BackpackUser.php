@@ -59,6 +59,11 @@ class BackpackUser extends User
         //->pluck('name');
     }
 
+   public function PermissionsViaRolesCount()
+    {
+        return $this->getPermissionsViaRoles()->count();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

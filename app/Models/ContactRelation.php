@@ -6,12 +6,13 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Wildside\Userstamps\Userstamps;
+//use Jlorente\Laravel\IdentityStamp\Database\Eloquent\IdentityStamps;
 
 class ContactRelation extends Model
 {
     use CrudTrait;
     use Userstamps;
-
+    //use IdentityStamps;
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
@@ -27,7 +28,7 @@ class ContactRelation extends Model
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3', 'data4', 'data5'];
 
     protected $attributes = ['mimetype' => 'Relation'];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user', 'relation_name', 'relation_type'];
 
     /*
     |--------------------------------------------------------------------------
@@ -46,9 +47,13 @@ class ContactRelation extends Model
         return $this->belongsTo('App\Models\ContactPerson', 'contact_id', 'id');
     }
 
+    public function parentrelacions()
+    {
+        return $this->belongsTo('App\Models\ContactPerson', 'data1', 'id');
+    }
+
     public function types()
     {
-
         return $this->belongsTo('App\Models\ContentType', 'data2', 'type');
     }
     /*
@@ -68,17 +73,29 @@ class ContactRelation extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    Public function getRelationNameAttribute()
+    {
+        return $this->parentrelacions->display_name ?? '';
+    }
+    Public function getRelationTypeAttribute()
+    {
+        return $this->types->label ?? '';
+    }
+
     Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
+      //  return $this->getCreatedByColumn();
     }
     Public function getUpdatedByUserAttribute()
     {
         return $this->editor->name ?? '';
+     //   return $this->getUpdatedByColumn();
     }
     Public function getDeletedByUserAttribute()
     {
         return $this->destroyer->name ?? '';
+     //   return $this->getDeletedByColumn();
     }
 
     /*

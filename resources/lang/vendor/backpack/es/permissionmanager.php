@@ -18,7 +18,7 @@ return [
     'user_singular'         => 'Usuario',
     'user_plural'           => 'Usuarios',
     'email'                 => 'Correo electrónico',
-    'extra_permissions'     => 'Permisos adicionales',
+    'extra_permissions'     => 'Adicionales',
     'password'              => 'Contraseña',
     'password_confirmation' => 'Confirmación de contraseña',
     'user_role_permission'  => 'Permisos del rol del usuario',

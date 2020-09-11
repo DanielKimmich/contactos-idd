@@ -112,49 +112,96 @@ class ContactFamilyCrudController extends CrudController
             'label' =>  trans('contact.person.display_name'),
             'type'  => 'text',
             ]);
-/*        $this->crud->addColumn([
-            'name'  => 'sex_id',
-            'label' => trans('contact.person.sex'),
-            'type'  => 'select_from_array',
-            'options'   => ContentType::getTypeSexes(),
-            ]);
         $this->crud->addColumn([
-            'name'  => 'nationality_id',
-            'label' => trans('contact.person.nationality'),
-            'type'  => 'select_from_array',
-            'options'   => $this->getNations(),
-            ]);
-
-*/
+            'name' => 'relation_parent', 
+            'label' => trans('contact.parent.tab'), 
+            'type' => 'closure', 
+            'function' => function($entry) {
+                $data = (json_decode($entry['relation_parent'], true)); //converts json into array
+                $items = '';
+                if(is_array($data)) {
+                    foreach ($data as $item) {
+                        $name = $item['relation_name'];
+                        $type = $item['relation_type'];
+                        $items .= $name .' ('. $type .')<br>';
+                     //   dump($item);   
+                    }
+                }
+                return $items;
+            }
+       ]); 
         $this->crud->addColumn([
-            'name' => 'parents', 
-            'label' => 'relation_parent', 
-            'type' => 'table_relationships', 
-            'columns' => [
-             //   [   'name' => 'id',
-                  //  'id' => ['label' => 'Id'], 
-                  //  'type' => 'text',
-              //  ],
-               // [   'name' => 'contact_id',
-                 //   'data1.display_name' => ['label' => trans('contact.parent.name')],
-                        'data1' => ['label' => trans('contact.parent.name')],
-                //    'type' => 'text',
-             //   ],        
-              //  [   'name' => 'parents.data1',
-                    'data2' => ['label' => trans('contact.parent.type')]
-                            //    'type'  => 'select_from_array',
-                             //   'options' => ContentType::getTypeRelationParents()]
-               //     'type' => 'text',
-             //   ],        
-            ]
-        ]);
-
+            'name' => 'relation_spouse', 
+            'label' => trans('contact.spouse.tab'), 
+            'type' => 'closure', 
+            'function' => function($entry) {
+                $data = (json_decode($entry['relation_spouse'], true)); //converts json into array
+                $items = '';
+                if(is_array($data)) {
+                    foreach ($data as $item) {
+                        $name = $item['relation_name'];
+                        $type = $item['relation_type'];
+                        $items .= $name .' ('. $type .')<br>';
+                     //   dump($item);   
+                    }
+                }
+                return $items;
+            }
+       ]); 
         $this->crud->addColumn([
-            'name'  => 'status',
-            'label' => trans('contact.person.status'),
-            'type'  => 'select_from_array',
-            'options'   => ContentType::getTypeStatus(),
-            ]);
+            'name' => 'relation_children', 
+            'label' => trans('contact.children.tab'), 
+            'type' => 'closure', 
+            'function' => function($entry) {
+                $data = (json_decode($entry['relation_children'], true)); //converts json into array
+                $items = '';
+                if(is_array($data)) {
+                    foreach ($data as $item) {
+                        $name = $item['relation_name'];
+                        $type = $item['relation_type'];
+                        $items .= $name .' ('. $type .')<br>';
+                     //   dump($item);   
+                    }
+                }
+                return $items;
+            }
+       ]); 
+        $this->crud->addColumn([
+            'name' => 'relation_relative', 
+            'label' => trans('contact.relative.tab'), 
+            'type' => 'closure', 
+            'function' => function($entry) {
+                $data = (json_decode($entry['relation_relative'], true)); //converts json into array
+                $items = '';
+                if(is_array($data)) {
+                    foreach ($data as $item) {
+                        $name = $item['relation_name'];
+                        $type = $item['relation_type'];
+                        $items .= $name .' ('. $type .')<br>';
+                     //   dump($item);   
+                    }
+                }
+                return $items;
+            }
+       ]); 
+        $this->crud->addColumn([
+            'name' => 'relation_other', 
+            'label' => trans('contact.other.tab'), 
+            'type' => 'closure', 
+            'function' => function($entry) {
+                $data = (json_decode($entry['relation_other'], true)); //converts json into array
+                $items = '';
+                if(is_array($data)) {
+                    foreach ($data as $item) {
+                        $name = $item['relation_name'];
+                        $type = $item['relation_type'];
+                        $items .= $name .' ('. $type .')<br>';
+                     //   dump($item);   
+                    }
+                }
+                return $items;
+            }
+       ]); 
     //INFO
         $this->getInfoColumns();
     }      
@@ -194,6 +241,7 @@ class ContactFamilyCrudController extends CrudController
             'label' => trans('contact.parent.data'),
             'type'  => 'repeatable',
             'tab'   => trans('contact.parent.tab'),
+            'pivot' => false, // on create&update, do you need to add/delete pivot table entries?
             'fields' => [
                 [   'name' => 'id',
                     'type' => 'hidden',

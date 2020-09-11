@@ -49,7 +49,7 @@ class ContactDataCrudController extends CrudController
             ]);  
         $this->crud->disableResponsiveTable();
         $this->crud->addButtonFromView('top', 'import', 'import', 'end');  
-        $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');  
+    //    $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');  
         $this->crud->enableExportButtons(); // ------ DATATABLE EXPORT BUTTONS
      //   $this->crud->addColumns(['id', 'mimetype', 'event_date', 'event_type', 'event_label'] );
     }
@@ -87,8 +87,8 @@ class ContactDataCrudController extends CrudController
             'tab'   => trans('contact.data'),
             'attributes' => ['id' => 'event_type'],
             ]);   */
-    $this->crud->addButtonFromView('top', 'import', 'import', 'end');  
-    $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');   
+//    $this->crud->addButtonFromView('top', 'import', 'import', 'end');  
+//    $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');   
 
     }
 

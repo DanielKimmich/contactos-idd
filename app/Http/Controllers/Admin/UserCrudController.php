@@ -56,14 +56,13 @@ class UserCrudController extends OriginalUserCrudController
             'priority'  => 3,
             'suffix'    => '',
             ]);
-/*        $this->crud->addColumn([
-            'name'      => 'PermissionsViaRoles', 
-            'label'     => trans('backpack::permissionmanager.permission_plural'), 
-            'type'      => 'relationship_count',
-            'priority' => 3,
-            'suffix'    => '',
-            ]);  */
-
+        $this->crud->addColumn([
+            'name' => 'roles_permissions',
+            'label' => trans('backpack::permissionmanager.permission_plural'),
+            'type' => 'model_function',
+            'priority'  => 3,
+            'function_name' => 'PermissionsViaRolesCount', // the method in your Model
+            ]); 
         $this->crud->addColumn([
             'name'      => 'permissions', 
             'label'     => trans('backpack::permissionmanager.extra_permissions'), 
@@ -71,26 +70,6 @@ class UserCrudController extends OriginalUserCrudController
             'priority'  => 3,
             'suffix'    => '',
             ]);
-/*        $this->crud->addColumn([
-            // n-n relationship (with pivot table)
-            'name'      => 'roles', // the method that defines the relationship in your Model
-            'label'     => trans('backpack::permissionmanager.roles'), // Table column heading
-            'type'      => 'select_multiple',
-            'priority' => 3,
-            'entity'    => 'roles', // the method that defines the relationship in your Model
-            'attribute' => 'name', // foreign key attribute that is shown to user
-            'model'     => config('permission.models.role'), // foreign key model
-            ]);
-        $this->crud->addColumn([
-            // n-n relationship (with pivot table)
-            'name'      => 'permissions', // the method that defines the relationship in your Model
-            'label'     => trans('backpack::permissionmanager.extra_permissions'), // Table column heading
-            'type'      => 'select_multiple',
-            'priority' => 4,
-            'entity'    => 'permissions', // the method that defines the relationship in your Model
-            'attribute' => 'name', // foreign key attribute that is shown to user
-            'model'     => config('permission.models.permission'), // foreign key model
-            ]); */
         $this->crud->addColumn([    
             'name'  => 'updated_at',
             'label' => trans('common.updated_at'),
@@ -139,27 +118,6 @@ protected function setupShowOperation()
            'limit' => 1500, // Limit the number of characters shown
            //'suffix' => '_',
             ]); 
-/*
-        $this->crud->addColumn([
-           // run a function on the CRUD model and show its return value
-            'name' => 'url',
-            'label' => ucfirst(trans('backpack::permissionmanager.permission_plural')),
-            'type' => 'model_function_attribute',
-            'function_name' => 'getPermissionsViaRoles', // the method in your Model
-           // 'function_parameters' => [$one, $two], // pass one/more parameters to that method
-           'attribute' => 'name',
-           'limit' => 200, // Limit the number of characters shown
-            ]); 
-
-/*        $this->crud->addColumn([
-           // run a function on the CRUD model and show its return value
-            'name' => "PermissionsViaRoles",
-            'label' => ucfirst(trans('backpack::permissionmanager.permission_plural')),
-            'type' => "relationship",
-            'entity'    => 'permissions',
-            'limit' => 2000, // Limit the number of characters shown
-            ]);
-*/
         $this->crud->addColumn([
             // n-n relationship (with pivot table)
             'name'      => 'permissions', // the method that defines the relationship in your Model

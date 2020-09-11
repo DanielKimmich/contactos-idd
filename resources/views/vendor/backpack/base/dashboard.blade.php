@@ -9,8 +9,10 @@
     use App\Models\BlogComment;
     use \Carbon\Carbon;
     use Illuminate\Support\Str;
+    use Illuminate\Support\Facades\Config;
 
-	$dias = 7;
+	//$dias = 7;
+    $dias = (int)Config::get('settings.panel_day');
 
     $today     = Carbon::today();
     $todayMMDD = Carbon::today()->format('m-d');
@@ -24,19 +26,20 @@
                 ->whereNull('data4')
                 ->where(\DB::raw("substr(data1, 6,5)"),">=", $fromMMDD)
                 ->where(\DB::raw("substr(data1, 6,5)"),"<=", $toMMDD)
+                ->orderBy(\DB::raw("substr(data1, 6,5)"), 'asc')
                 ->get();
 
     $todaybirths = '';
     $nextbirths = '';
     $previousbirths = '';
-    $arrbirths = [];
+  //  $arrbirths = [];
 
     foreach ($births as $birth)
     {   
         $birthday = substr($birth->data1, 5,5);
         $name  = $birth->display_name; 
         $age   = $birth->age;
-        $arrbirths[] = ['birth' => $birthday, 'name'  => $name, 'age'   => $age];
+ //       $arrbirths[] = ['birth' => $birthday, 'name'  => $name, 'age'   => $age];
         if ($birthday < $todayMMDD) {
             $previousbirths .= $birthday .' ' .$name .' (' .$age .')<br>';
         } else if ($birthday > $todayMMDD) {
@@ -46,6 +49,9 @@
             $todaybirths .= $birthday .' ' .$name .' (' .$age .')<br>';
         }
     }
+
+ //   $arrbirths = $arrbirths->sortBy('birth');
+
 //dump($arrbirths);
 //dump($previousbirths);
 //dump($nextbirths);

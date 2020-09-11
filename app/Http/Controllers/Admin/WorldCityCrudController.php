@@ -44,6 +44,7 @@ class WorldCityCrudController extends CrudController
             'label' => 'Id',
             'type'  => 'number',
             'priority' => 2,
+            'thousands_sep'   => '',
         ]); // -> makeFirstColumn() ;
         $this->crud->addColumn([ // Text
             'name'  => 'name',

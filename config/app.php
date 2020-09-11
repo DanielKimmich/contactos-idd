@@ -177,7 +177,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\DropboxServiceProvider::class
+        App\Providers\DropboxServiceProvider::class,
+   //     \Jlorente\Laravel\IdentityStamp\IdentityStampServiceProvider::class,
 
     ],
 

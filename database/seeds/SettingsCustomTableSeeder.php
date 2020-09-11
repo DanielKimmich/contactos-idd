@@ -73,7 +73,14 @@ class SettingsCustomTableSeeder extends Seeder
             'field'         => '{"name":"value","label":"Value","type":"text"}',
             'active'        => 1, 
         ],
-
+        [
+            'key'           => 'panel_day',
+            'name'          => 'Panel Day',
+            'description'   => 'Dias de controles en Panel',
+            'value'         => '7',
+            'field'         => '{"name":"value","label":"Value","type":"text"}',
+            'active'        => 1,
+        ],
 
     ];
 

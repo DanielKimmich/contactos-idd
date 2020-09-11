@@ -14,5 +14,7 @@ return [
     'description'      => 'Descripción',
     'setting_singular' => 'Configuración',
     'setting_plural'   => 'Configuraciones',
+    'key'              => 'Clave',
+    'active'           => 'Activo',
 
 ];

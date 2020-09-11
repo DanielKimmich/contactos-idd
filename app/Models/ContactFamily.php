@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Wildside\Userstamps\Userstamps;
 use App\Models\ContentType;
 use App\Models\ContactRelation;
+//use Jlorente\Laravel\IdentityStamp\Database\Eloquent\IdentityStamps;
 
 class ContactFamily extends Model
 {
     use CrudTrait;
     use Userstamps;
+ //   use IdentityStamps; 
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
@@ -32,7 +34,18 @@ class ContactFamily extends Model
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
-    */
+  
+public function touch()
+{
+    if (! $this->timestamps) {
+        return false;
+    }
+
+    $this->updateTimestamps();
+    $this->Updating();
+
+    return $this->save();
+}
 
     /*
     |--------------------------------------------------------------------------
@@ -88,15 +101,18 @@ class ContactFamily extends Model
     */
     Public function getCreatedByUserAttribute()
     {
-        return $this->creator->name ?? '';
+       return $this->creator->name ?? '';
+       // return $this->getCreatedByColumn();
     }
     Public function getUpdatedByUserAttribute()
     {
-        return $this->editor->name ?? '';
+       return $this->editor->name ?? '';
+       // return $this->getUpdatedByColumn();
     }
     Public function getDeletedByUserAttribute()
     {
-        return $this->destroyer->name ?? '';
+       return $this->destroyer->name ?? '';
+       // return $this->getDeletedByColumn();
     }
     //--------------------------------------------------------------------------
     public function getRelationParentAttribute() {

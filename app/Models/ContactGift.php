@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Wildside\Userstamps\Userstamps;
 use App\Models\ContentType;
 
-class ContactPhone extends Model
+class ContactGift extends Model
 {
     use CrudTrait;
     use Userstamps;
@@ -26,23 +26,17 @@ class ContactPhone extends Model
     // protected $dates = [];
     protected $touches = ['persons'];
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3', 'data4', 'data5'];
-    protected $appends = ['phone_type_data','created_by_user', 'updated_by_user', 'deleted_by_user']; 
-    protected $attributes = ['mimetype' => 'Phone'];  
+    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user']; 
+    protected $attributes = ['mimetype' => 'Gift'];  
 
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-
-    /*
-    |--------------------------------------------------------------------------
-    | RELATIONS
-    |--------------------------------------------------------------------------
-    */    
     public function types()
     {
-        $type_id = ContentType::where('type','Phone')->where('depth', 1)->orWhereNull('depth')->first()->id;
+        $type_id = ContentType::where('type','Gift')->where('depth', 1)->orWhereNull('depth')->first()->id;
         return $this->belongsTo('App\Models\ContentType', 'data2', 'type')->where('parent_id', $type_id);
     }
 
@@ -59,7 +53,7 @@ class ContactPhone extends Model
     protected static function boot()
     {   parent::boot();
         static::addGlobalScope('event', function (Builder $builder) {
-            $builder->where('mimetype', 'Phone');
+            $builder->where('mimetype', 'Gift');
         });
     }
 
@@ -68,14 +62,6 @@ class ContactPhone extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */   
-    Public function getPhoneTypeDataAttribute()
-    {
-        if (empty($this->types->label))
-            return $this->data1;
-        else
-            return $this->types->label .': '.$this->data1;
-    }
-
     Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
@@ -94,5 +80,4 @@ class ContactPhone extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-
 }

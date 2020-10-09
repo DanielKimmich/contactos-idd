@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Wildside\Userstamps\Userstamps;
 use App\Models\ContentType;
+//use App\Models\ContactRelation;
 
-class ContactPhone extends Model
+class ContactChurch extends Model
 {
     use CrudTrait;
     use Userstamps;
@@ -18,37 +18,41 @@ class ContactPhone extends Model
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-    protected $table = 'contact_data';
-    // protected $primaryKey = 'id';
-    public $timestamps = true;
+
+    protected $table = 'contacts';
     protected $guarded = ['id'];
+    public $timestamps = true;
+    protected $fillable = ['display_name', 'sex_id', 'civil_status', 'status',
+                           'relation_gift', 'relation_talent', 'relation_ministry'];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $touches = ['persons'];
-    protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3', 'data4', 'data5'];
-    protected $appends = ['phone_type_data','created_by_user', 'updated_by_user', 'deleted_by_user']; 
-    protected $attributes = ['mimetype' => 'Phone'];  
-
+    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user',];
+    
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
 
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
-    */    
-    public function types()
+    */
+    public function gifts()
     {
-        $type_id = ContentType::where('type','Phone')->where('depth', 1)->orWhereNull('depth')->first()->id;
-        return $this->belongsTo('App\Models\ContentType', 'data2', 'type')->where('parent_id', $type_id);
+        return $this->hasMany('App\Models\ContactGift','contact_id', 'id');
     }
 
-    public function persons()
+    public function Talents()
     {
-        return $this->belongsTo('App\Models\ContactPerson', 'contact_id', 'id');
+        return $this->hasMany('App\Models\ContactTalent','contact_id', 'id');
+    }
+
+    public function ministries()
+    {
+        return $this->hasMany('App\Models\ContactMinistry','contact_id', 'id');
     }
 
     /*
@@ -56,26 +60,27 @@ class ContactPhone extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
-    protected static function boot()
-    {   parent::boot();
-        static::addGlobalScope('event', function (Builder $builder) {
-            $builder->where('mimetype', 'Phone');
-        });
-    }
 
     /*
     |--------------------------------------------------------------------------
     | ACCESSORS
     |--------------------------------------------------------------------------
-    */   
-    Public function getPhoneTypeDataAttribute()
-    {
-        if (empty($this->types->label))
-            return $this->data1;
-        else
-            return $this->types->label .': '.$this->data1;
+    */
+    //--------------------------------------------------------------------------
+    public function getRelationGiftAttribute() {
+        $data = self::gifts()->get();
+        return $data->toJson();
     }
+    public function getRelationTalentAttribute() {
+        $data = self::talents()->get();
+        return $data->toJson();
+    }    
+    public function getRelationMinistryAttribute() {
+        $data = self::ministries()->get();
+        return $data->toJson();
+    }    
 
+    //-------------------------------------------------------------------------- 
     Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
@@ -94,5 +99,4 @@ class ContactPhone extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-
 }

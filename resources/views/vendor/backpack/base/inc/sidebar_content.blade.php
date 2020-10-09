@@ -16,6 +16,8 @@
 		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contactfamily') }}'><i class='nav-icon la la-users'></i>{{ trans('contact.family.entity_names') }}</a></li>
 	  @endcan
 
+		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contactchurch') }}'><i class='nav-icon la la-question'></i>{{ trans('contact.church.entity_names') }}</a></li>
+
  	  @can('list contactsetting')
 		<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contenttype') }}'><i class='nav-icon la la-cogs'></i>{{ trans('contact.type.entity_names') }}</a></li>	
 	  @endcan
@@ -150,3 +152,4 @@
 -->
 <!--  trans('report.logs.titles')}}</a></li> 
 -->
+

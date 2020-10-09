@@ -190,6 +190,53 @@ return [
     ],
 
 
+//CHURCH
+    'church'      => [
+        'entity_name'   => 'Eclesiástico',
+        'entity_names'  => 'Eclesiásticos',
+    //Fields                
+		'display_name'  => 'Nombre Completo',
+		'sex'			=> 'Género',
+		'civil_status'	=> 'Estado Civil',
+		'status'		=> 'Estado',
+    ],
+
+//GRAFT
+   'gift'    => [
+		'tab'		=> 'Dones',
+		'title'             => 'Don Espiritual',
+		'titles'            => 'Dones Espirituales',
+	//Fields				
+		'name'     	=> 'Nombre del don',
+		'type'  	=> 'Tipo',
+		'label'    	=> 'Información Adicional',
+	// Messages
+	],
+
+//TALENT
+   'talent'    => [
+		'tab'		=> 'Talentos',
+		'title'             => 'Talento',
+		'titles'            => 'Talentos y Habilidades',
+	//Fields				
+		'name'     	=> 'Nombre del talento',
+		'type'  	=> 'Tipo de Inteligencia',
+		'label'    	=> 'Información Adicional',
+	// Messages
+	],
+
+//MINISTRY
+   'ministry'    => [
+		'tab'		=> 'Ministerios',
+		'title'             => 'Ministerio',
+		'titles'            => 'Ministerios en la Iglesia',
+	//Fields				
+		'name'     	=> 'Nombre del ministerio',
+		'type'  	=> 'Tipo',
+		'label'    	=> 'Información Adicional',
+	// Messages
+	],
+
 //TYPE
   'type'    => [
 		'entity_name'       => 'Preferencia',

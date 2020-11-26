@@ -23,7 +23,7 @@ class ContactChurch extends Model
     protected $guarded = ['id'];
     public $timestamps = true;
     protected $fillable = ['display_name', 'sex_id', 'civil_status', 'status',
-                           'relation_gift', 'relation_talent', 'relation_ministry'];
+                           'relation_step', 'relation_gift', 'relation_talent', 'relation_ministry'];
     // protected $hidden = [];
     // protected $dates = [];
     protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user',];
@@ -40,12 +40,17 @@ class ContactChurch extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function steps()
+    {
+        return $this->hasMany('App\Models\ContactStep','contact_id', 'id');
+    }
+
     public function gifts()
     {
         return $this->hasMany('App\Models\ContactGift','contact_id', 'id');
     }
 
-    public function Talents()
+    public function talents()
     {
         return $this->hasMany('App\Models\ContactTalent','contact_id', 'id');
     }
@@ -67,6 +72,10 @@ class ContactChurch extends Model
     |--------------------------------------------------------------------------
     */
     //--------------------------------------------------------------------------
+    public function getRelationStepAttribute() {
+        $data = self::steps()->get();
+        return $data->toJson();
+    }
     public function getRelationGiftAttribute() {
         $data = self::gifts()->get();
         return $data->toJson();
@@ -99,4 +108,96 @@ class ContactChurch extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function setRelationStepAttribute($value) {
+        $data = (json_decode($value, true)); //converts json into array
+        $keys = self::steps()->get()->modelKeys();
+        //Insertar o actualizar registros en parent
+        if(is_array($data)) {
+            foreach ($data as $entry) {
+                if (!empty($entry['data1'])) {
+                    $id = (int) $entry['id'];
+                    unset($entry['id']);
+                    if (($key = array_search($id, $keys)) !== false) 
+                        unset($keys[$key]);  
+                    self::steps()->updateOrCreate(['id' => $id], $entry);
+                }
+            }
+        }
+        //Eliminar registros en parent
+        if(!empty($keys)) {
+            foreach ($keys as $id) 
+                self::steps()->find($id)->delete();
+        }    
+    }   
+
+
+
+    public function setRelationGiftAttribute($value) {
+        $data = (json_decode($value, true)); //converts json into array
+        $keys = self::gifts()->get()->modelKeys();
+        //Insertar o actualizar registros en parent
+        if(is_array($data)) {
+            foreach ($data as $entry) {
+                if (!empty($entry['data1'])) {
+                    $id = (int) $entry['id'];
+                    unset($entry['id']);
+                    if (($key = array_search($id, $keys)) !== false) 
+                        unset($keys[$key]);  
+                    self::gifts()->updateOrCreate(['id' => $id], $entry);
+                }
+            }
+        }
+        //Eliminar registros en parent
+        if(!empty($keys)) {
+            foreach ($keys as $id) 
+                self::gifts()->find($id)->delete();
+        }    
+    }   
+
+
+    public function setRelationTalentAttribute($value) {
+        $data = (json_decode($value, true)); //converts json into array
+        $keys = self::talents()->get()->modelKeys();
+        //Insertar o actualizar registros en parent
+        if(is_array($data)) {
+            foreach ($data as $entry) {
+                if (!empty($entry['data1'])) {
+                    $id = (int) $entry['id'];
+                    unset($entry['id']);
+                    if (($key = array_search($id, $keys)) !== false) 
+                        unset($keys[$key]);  
+                    self::talents()->updateOrCreate(['id' => $id], $entry);
+                }
+            }
+        }
+        //Eliminar registros en parent
+        if(!empty($keys)) {
+            foreach ($keys as $id) 
+                self::talents()->find($id)->delete();
+        }    
+    }   
+
+    public function setRelationMinistryAttribute($value) {
+        $data = (json_decode($value, true)); //converts json into array
+        $keys = self::ministries()->get()->modelKeys();
+        //Insertar o actualizar registros en parent
+        if(is_array($data)) {
+            foreach ($data as $entry) {
+                if (!empty($entry['data1'])) {
+                    $id = (int) $entry['id'];
+                    unset($entry['id']);
+                    if (($key = array_search($id, $keys)) !== false) 
+                        unset($keys[$key]);  
+                    self::ministries()->updateOrCreate(['id' => $id], $entry);
+                }
+            }
+        }
+        //Eliminar registros en parent
+        if(!empty($keys)) {
+            foreach ($keys as $id) 
+                self::ministries()->find($id)->delete();
+        }    
+    }   
+
+
 }

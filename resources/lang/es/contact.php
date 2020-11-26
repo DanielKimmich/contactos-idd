@@ -201,6 +201,20 @@ return [
 		'status'		=> 'Estado',
     ],
 
+//DATOS
+   'step'    => [
+		'tab'		=> 'Datos',
+		'title'             => 'Datos',
+		'titles'            => 'Fechas Importantes',
+	//Fields				
+		'name'     	=> 'Fecha',
+		'type'  	=> 'Tipo',
+		'label'    	=> 'Información Adicional',
+		'pastor'  	=> 'Pastor',
+		'site'    	=> 'Lugar',		
+	// Messages
+	],
+
 //GRAFT
    'gift'    => [
 		'tab'		=> 'Dones',

@@ -69,7 +69,7 @@ class ContactAddress extends Model
     */
     protected static function boot()
     {   parent::boot();
-        static::addGlobalScope('event', function (Builder $builder) {
+        static::addGlobalScope('address', function (Builder $builder) {
             $builder->where('mimetype', 'Address');
         });
     }

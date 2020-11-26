@@ -58,7 +58,7 @@ class ContactPhone extends Model
     */
     protected static function boot()
     {   parent::boot();
-        static::addGlobalScope('event', function (Builder $builder) {
+        static::addGlobalScope('phone', function (Builder $builder) {
             $builder->where('mimetype', 'Phone');
         });
     }

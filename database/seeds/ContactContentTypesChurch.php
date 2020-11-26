@@ -14,10 +14,11 @@ class ContactContentTypesChurch extends Seeder
     {
 
     //Eliminar si existen
-        \DB::table('world_cities')->where('mimetype', 'Gift')->delete();
-        \DB::table('world_cities')->where('mimetype', 'Talent')->delete();       
-        \DB::table('world_cities')->where('mimetype', 'Ministry')->delete();
-        
+        \DB::table('content_types')->where('mimetype', 'Church')->delete();
+        \DB::table('content_types')->where('mimetype', 'Gift')->delete();
+        \DB::table('content_types')->where('mimetype', 'Talent')->delete();       
+        \DB::table('content_types')->where('mimetype', 'Ministry')->delete();
+
     //Insertar nuevos
         \DB::table('content_types')->insert(array (
             0 => 
@@ -27,8 +28,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => '0',
                 'depth'     => '1',
                 'mimetype'  => 'Gift',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             1 => 
@@ -38,8 +39,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => '0',
                 'depth'     => '1',
                 'mimetype'  => 'Talent',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             2 => 
@@ -49,10 +50,88 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => '0',
                 'depth'     => '1',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
+            3 => 
+            array (
+                'type'      => 'Church',
+                'label'     => 'Datos',
+                'parent_id' => '0',
+                'depth'     => '1',
+                'mimetype'  => 'Church',
+                'lft'       => null,
+                'rgt'       => null,
+                'extras'    => '',
+            ),
+
+        ));
+
+/*Church Event
+    Fecha Conversion      / calcular edad        / lugar / pastor
+    Fecha Bautismo        / calcular edad        / lugar / pastor
+    Fecha Congregarse     / calcular antiguedad  / medio / pastor
+    Fecha Miembro         / calcular antiguedad  / motivo / pastor
+    Fecha Baja
+*/       
+        $type_C = ContentType::where('type', 'Church')->firstOrFail()->id;
+        \DB::table('content_types')->insert(array (
+            0 => 
+            array (
+                'type'      => 'CONVERSION',
+                'label'     => 'Conversión',
+                'parent_id' => $type_C,
+                'depth'     => '2',
+                'mimetype'  => 'Church',
+                'lft'       => null,
+                'rgt'       => null,
+                'extras'    => '',
+            ),
+            1 => 
+            array (
+                'type'      => 'BAPTISM',
+                'label'     => 'Bautismo',
+                'parent_id' => $type_C,
+                'depth'     => '2',
+                'mimetype'  => 'Church',
+                'lft'       => null,
+                'rgt'       => null,
+                'extras'    => '',
+            ),
+            2 => 
+            array (
+                'type'      => 'CONGREGATE',
+                'label'     => 'Congregarse',
+                'parent_id' => $type_C,
+                'depth'     => '2',
+                'mimetype'  => 'Church',
+                'lft'       => null,
+                'rgt'       => null,
+                'extras'    => '',
+            ),
+            3 => 
+            array (
+                'type'      => 'MEMBER',
+                'label'     => 'Miembro',
+                'parent_id' => $type_C,
+                'depth'     => '2',
+                'mimetype'  => 'Church',
+                'lft'       => null,
+                'rgt'       => null,
+                'extras'    => '',
+            ),
+            4 => 
+            array (
+                'type'      => 'CLOSURE',
+                'label'     => 'Cierre',
+                'parent_id' => $type_C,
+                'depth'     => '2',
+                'mimetype'  => 'Church',
+                'lft'       => null,
+                'rgt'       => null,
+                'extras'    => '',
+            ),            
         ));
 
         $type_G = ContentType::where('type', 'Gift')->firstOrFail()->id;
@@ -64,8 +143,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_G,
                 'depth'     => '2',
                 'mimetype'  => 'Gift',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             1 => 
@@ -75,8 +154,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_G,
                 'depth'     => '2',
                 'mimetype'  => 'Gift',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             2 => 
@@ -86,8 +165,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_G,
                 'depth'     => '2',
                 'mimetype'  => 'Gift',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             3 => 
@@ -97,8 +176,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_G,
                 'depth'     => '2',
                 'mimetype'  => 'Gift',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             4 => 
@@ -108,8 +187,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_G,
                 'depth'     => '2',
                 'mimetype'  => 'Gift',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             5 => 
@@ -119,8 +198,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_G,
                 'depth'     => '2',
                 'mimetype'  => 'Gift',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             6 => 
@@ -130,8 +209,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_G,
                 'depth'     => '2',
                 'mimetype'  => 'Gift',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
         ));
@@ -145,8 +224,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             1 => 
@@ -156,8 +235,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             2 => 
@@ -167,8 +246,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             3 => 
@@ -178,8 +257,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             4 => 
@@ -189,8 +268,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             5 => 
@@ -200,8 +279,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             6 => 
@@ -211,8 +290,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             7 => 
@@ -222,8 +301,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             8 => 
@@ -233,8 +312,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             9 => 
@@ -244,8 +323,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             10 => 
@@ -255,8 +334,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             11 => 
@@ -266,8 +345,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
         ));
@@ -281,8 +360,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             1 => 
@@ -292,8 +371,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             2 => 
@@ -303,8 +382,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             3 => 
@@ -314,8 +393,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             4 => 
@@ -325,8 +404,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             5 => 
@@ -336,8 +415,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             6 => 
@@ -347,8 +426,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             7 => 
@@ -358,8 +437,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             8 => 
@@ -369,8 +448,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             9 => 
@@ -380,8 +459,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             10 => 
@@ -391,8 +470,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             11 => 
@@ -402,8 +481,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             12 => 
@@ -413,8 +492,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             13 => 
@@ -424,8 +503,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             14 => 
@@ -435,8 +514,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             15 => 
@@ -446,8 +525,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             16 => 
@@ -457,8 +536,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
             17 => 
@@ -468,8 +547,8 @@ class ContactContentTypesChurch extends Seeder
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
-                'lft'       => '',
-                'rgt'       => '',
+                'lft'       => null,
+                'rgt'       => null,
                 'extras'    => '',
             ),
 

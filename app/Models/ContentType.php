@@ -34,56 +34,57 @@ class ContentType extends Model
     */
     public static function getMimeType()
     {   
-        $types = self::where('depth', 1)->orderBy('type', 'ASC')->pluck('label', 'type');
+        $types = self::where('depth', 1)
+                        ->orderBy('type', 'ASC')->pluck('label', 'type');
         return $types->toArray();
     }
 
     public static function getTypeStatus()
     {   
-        $id = self::where('type','Status')->where('depth', 1)->orWhereNull('depth')->first()->id;
-        $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        $types = self::where('mimetype','Status')->where('depth', '>', 1)
+                        ->orderBy('lft', 'ASC')->pluck('label','type');
         return $types->toArray();
     }
 
     public static function getTypeSexes()
     {   
-        $id = self::where('type','Sex')->where('depth', 1)->orWhereNull('depth')->first()->id;
-        $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        $types = self::where('mimetype','Sex')->where('depth', '>', 1)
+                        ->orderBy('lft', 'ASC')->pluck('label','type');
         return $types->toArray();
     }
 
     public static function getTypeDocuments()
     {   
-        $id = self::where('type','Document')->where('depth', 1)->orWhereNull('depth')->first()->id;
-        $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        $types = self::where('mimetype','Document')->where('depth', '>', 1)
+                        ->orderBy('lft', 'ASC')->pluck('label','type');
         return $types->toArray();
     }
 
     public static function getTypePhones()
     {   
-        $id = self::where('type','Phone')->where('depth', 1)->orWhereNull('depth')->first()->id;
-        $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        $types = self::where('mimetype','Phone')->where('depth', '>', 1)
+                        ->orderBy('lft', 'ASC')->pluck('label','type');
         return $types->toArray();
     }
 
     public static function getTypeEmails()
     {   
-        $id = self::where('type','Email')->where('depth', 1)->orWhereNull('depth')->first()->id;
-        $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        $types = self::where('mimetype','Email')->where('depth', '>', 1)
+                        ->orderBy('lft', 'ASC')->pluck('label','type');
         return $types->toArray();
     }
 
     public static function getTypeAddresses()
     {   
-        $id = self::where('type','Address')->where('depth', 1)->orWhereNull('depth')->first()->id;
-        $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        $types = self::where('mimetype','Address')->where('depth', '>', 1)
+                        ->orderBy('lft', 'ASC')->pluck('label','type');
         return $types->toArray();
     }
 
     public static function getTypeBloods()
     {   
-        $id = self::where('type','Blood')->where('depth', 1)->orWhereNull('depth')->first()->id;
-        $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        $types = self::where('mimetype','Blood')->where('depth', '>', 1)
+                        ->orderBy('lft', 'ASC')->pluck('label','type');
         return $types->toArray();
     }
 
@@ -137,11 +138,38 @@ class ContentType extends Model
             
     public static function getTypeCivilStatus()
     {   
-        $id = self::where('type','Civil_Status')->where('depth', 1)->orWhereNull('depth')->first()->id;
-        $types = self::where('parent_id', $id)->orderBy('lft', 'ASC')->pluck('label','type');
+        $types = self::where('mimetype','Civil_Status')->where('depth', '>', 1)
+                        ->orderBy('lft', 'ASC')->pluck('label','type');
         return $types->toArray();
     }
 
+    public static function getTypeChurchs()
+    {   
+        $types = self::where('mimetype','Church')->where('depth', '>', 1)
+                        ->orderBy('lft', 'ASC')->pluck('label','type');
+        return $types->toArray();
+    }
+
+    public static function getTypeGifts()
+    {   
+        $types = self::where('mimetype','Gift')->where('depth', '>', 1)
+                        ->orderBy('lft', 'ASC')->pluck('label','type');
+        return $types->toArray();
+    }
+
+    public static function getTypeTalents()
+    {   
+        $types = self::where('mimetype','Talent')->where('depth', '>', 1)
+                        ->orderBy('lft', 'ASC')->pluck('label','type');
+        return $types->toArray();
+    }
+
+    public static function getTypeMinistries()
+    {   
+        $types = self::where('mimetype','Ministry')->where('depth', '>', 1)
+                        ->orderBy('lft', 'ASC')->pluck('label','type');
+        return $types->toArray();
+    }    
     /*
     |--------------------------------------------------------------------------
     | RELATIONS

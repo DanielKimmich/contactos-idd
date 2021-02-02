@@ -55,16 +55,17 @@ return [
 //PHONE
     'phone'    => [
 		'tab'			=> 'Teléfonos',
-		'title'             => 'Telefono',
-		'titles'            => 'Telefonos',
+		'title'             => 'Teléfono',
+		'titles'            => 'Teléfonos',
 	//Fields				
 		'mobile1'			=> 'Movil_1',
-		'home1'				=> 'Telefono_1',
-		'number'          	=> 'Numero',
+		'home1'				=> 'Teléfono_1',
+		'number'          	=> 'Número',
 		'type'            	=> 'Tipo',
 		'label'           	=> 'Información Adicional',
 		'normalized'      	=> 'Normalizado',
 	// Messages
+		'add_new_item'      => 'Añadir teléfono',
 		'no_rows'           => 'There are no telefonos',
         'is_required'       => 'Telefono is required',
 		'is_deleted'        => 'Telefono was deleted',
@@ -75,15 +76,16 @@ return [
 //EMAIL
   'email'    => [
 		'tab'		=> 'Correos',
-		'title'             => 'Correo Electronico',
-		'titles'            => 'Correos Electronicos',
+		'title'             => 'Correo Electrónico',
+		'titles'            => 'Correos Electrónicos',
 	//Fields				
 		'email1'			=> 'Correo_1',
-		'address'          	=> 'Direccion de Correo',
+		'address'          	=> 'Dirección de Correo',
 		'type'            	=> 'Tipo',
 		'label'           	=> 'Información Adicional',
 		'display_name'  	=> 'Nombre a Mostrar',
 	// Messages
+		'add_new_item'      => 'Añadir correo',
 		'no_rows'           => 'There are no telefonos',
         'is_required'       => 'Telefono is required',
 		'is_deleted'        => 'Telefono was deleted',
@@ -109,7 +111,7 @@ return [
         'postcode'  => 'Codigo Postal',
         'country'   => 'Pais',   
 	// Messages
-		'add_new'           => 'Añadir nueva dirección',
+		'add_new_item'      => 'Añadir dirección',
 		'delete_confirm' 	=> '¿Estás seguro de que quieres borrar esta dirección?',
 		'no_rows'           => 'No hay direcciones',
         'is_required'       => 'Se requiere la dirección',

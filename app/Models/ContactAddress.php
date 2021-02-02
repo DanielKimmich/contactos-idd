@@ -34,7 +34,7 @@ class ContactAddress extends Model
     ];
 
     protected $attributes = ['mimetype' => 'Address',  ];
-    protected $appends = ['address_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user']; 
+    protected $appends = ['label', 'address_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user']; 
 
     /*
     |--------------------------------------------------------------------------
@@ -79,6 +79,11 @@ class ContactAddress extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
  */   
+    Public function getLabelAttribute()
+    {
+        return $this->types->label ?? '';
+    }
+
     Public function getAddressTypeDataAttribute()
     {
         if (empty($this->types->label))

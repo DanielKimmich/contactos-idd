@@ -266,7 +266,7 @@ protected function setupShowOperation()
             'label' =>  trans('contact.document.number'),
             'type'  => 'text',
             ]);  
-        $this->crud->addColumn([
+ /*       $this->crud->addColumn([
             'name'      => 'phones', //the relationship in your Model
             'label'     => trans('contact.phone.titles'), //column heading
             'type'      => 'select_multiple',
@@ -274,23 +274,102 @@ protected function setupShowOperation()
             'entity'    => 'phones', //the relationship in your Model
             'attribute' => 'phone_type_data', //foreign key attribute that is shown to user
             'limit'     => 80, // Limit the number of characters shown
-        ]); 
+        ]); */
+
         $this->crud->addColumn([
+            'name' => 'phones', 
+            'label' => trans('contact.phone.titles'), 
+            'type' => 'closure', 
+            'function' => function($entry) {
+                $data = (json_decode($entry['phones'], true)); //converts json into array
+                $items = '';
+                if(is_array($data)) {
+                    foreach ($data as $item) {
+                        $items .= '<b>'. $item['label'] .':</b> '. $item['data1'];
+                        if (empty($item['data3']))
+                            $items .= '<br>';
+                        else
+                            $items .= ' ('. $item['data3'] .')<br>';
+                    }
+                }
+                return $items;
+            }
+       ]); 
+
+/*        $this->crud->addColumn([
             'name'      => 'emails', //the relationship in your Model
             'label'     => trans('contact.email.titles'), //column heading
             'type'      => 'select_multiple',
             'entity'    => 'emails', //the relationship in your Model
             'attribute' => 'email_type_data', //foreign key attribute that is shown to user
             'limit'     => 80, // Limit the number of characters shown
-        ]);
+        ]); */
+
         $this->crud->addColumn([
+            'name' => 'emails', 
+            'label' => trans('contact.email.titles'), 
+            'type' => 'closure', 
+            'function' => function($entry) {
+                $data = (json_decode($entry['emails'], true)); //converts json into array
+                $items = '';
+                if(is_array($data)) {
+                    foreach ($data as $item) {
+                        $items .= '<b>'. $item['label'] .':</b> '. $item['data1'];
+                        if (empty($item['data3']))
+                            $items .= '<br>';
+                        else
+                            $items .= ' ('. $item['data3'] .')<br>';
+                    }
+                }
+                return $items;
+            }
+       ]); 
+
+ /*       $this->crud->addColumn([
             'name'      => 'addresses', //the relationship in your Model
             'label'     => trans('contact.address.titles'), //column heading
             'type'      => 'select_multiple',
             'entity'    => 'addresses', //the relationship in your Model
             'attribute' => 'address_type_data', //foreign key attribute that is shown to user
             'limit'     => 150, // Limit the number of characters shown            
-        ]);
+        ]);  */
+
+        $this->crud->addColumn([
+            'name' => 'addresses', 
+            'label' => trans('contact.address.titles'), 
+            'type' => 'closure', 
+            'function' => function($entry) {
+                $data = (json_decode($entry['addresses'], true)); //converts json into array
+                $items = '';
+                if(is_array($data)) {
+                    foreach ($data as $item) {
+                        $items .= '<b>'. $item['label'] .':</b> '. $item['data1'];
+                        if (empty($item['data3']))
+                            $items .= '<br>';
+                        else
+                            $items .= ' ('. $item['data3'] .')<br>';
+                    }
+                }
+                return $items;
+            }
+       ]); 
+
+    //BLOOD
+        $this->crud->addColumn([ // radio
+            'name'  => 'bloods.data1',
+            'label' => trans('contact.blood.name'),
+            'type'  => 'select_from_array',
+            //'type'  => 'radio',     //'radio',
+            'options'     => ['YES' => 'Si', 'NO' => 'No', 'MAYBE' => 'Tal vez'],
+        ]);      
+        $this->crud->addColumn([ //
+            'name'  => 'bloods.data2',
+            'label' => trans('contact.blood.type'),
+            'type'  => 'select_from_array',
+            'options' => ContentType::getTypeBloods(),
+        ]); 
+
+
         $this->crud->addColumn([
             'name'  => 'status',
             'label' => trans('contact.person.status'),
@@ -460,6 +539,11 @@ protected function setupShowOperation()
         //    'fake' => true,
         //    'pivot' => true,
         //    'multiple' => false,
+            // optional
+            'new_item_label' => trans('contact.phone.add_new_item'), // customize text button
+            'init_rows' => 0, // number of empty rows to be initialized, by default 1
+          //  'min_rows' => 2, // minimum rows allowed, when reached the "delete" buttons will be hidden
+         //   'max_rows' => 2, // maximum rows allowed, when reached the "new item" button will be hidden
             'fields' => [
                 [   'name' => 'id',
                     'type' => 'hidden',
@@ -468,17 +552,17 @@ protected function setupShowOperation()
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
-                [   'name'  => 'data1',
-                    'label' => trans('contact.phone.number'),
-                    'type'  => 'text',
-                    'wrapper'   => ['class' => 'form-group col-md-6'],
-                ],
                 [   'name'  => 'data2',
                     'label' => trans('contact.phone.type'),
                     'type'  => 'select_from_array',
                     'wrapper' => ['class' => 'form-group col-md-6'], 
                     'options' => ContentType::getTypePhones(),
                     'allows_null' => true,
+                ],
+                [   'name'  => 'data1',
+                    'label' => trans('contact.phone.number'),
+                    'type'  => 'text',
+                    'wrapper'   => ['class' => 'form-group col-md-6'],
                 ],
                 [   'name'  => 'data3',
                     'label' => trans('contact.phone.label'),
@@ -495,6 +579,9 @@ protected function setupShowOperation()
             'type'  => 'repeatable',
             'tab'   => trans('contact.email.tab'),
         //    'fake' => true,
+            // optional
+            'new_item_label' => trans('contact.email.add_new_item'), // customize text button
+            'init_rows' => 0, // number of empty rows to be initialized, by default 1
             'fields' => [
                 [   'name' => 'id',
                     'type' => 'hidden',
@@ -503,17 +590,17 @@ protected function setupShowOperation()
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
-                [   'name'  => 'data1',
-                    'label' => trans('contact.email.address'),
-                    'type'  => 'text',
-                    'wrapper'   => ['class' => 'form-group col-md-6'],
-                ],
                 [   'name'  => 'data2',
                     'label' => trans('contact.email.type'),
                     'type'  => 'select_from_array',
                     'wrapper' => ['class' => 'form-group col-md-6'], 
                     'options' => ContentType::getTypeEmails(),
                     'allows_null' => true,
+                ],
+                [   'name'  => 'data1',
+                    'label' => trans('contact.email.address'),
+                    'type'  => 'text',
+                    'wrapper'   => ['class' => 'form-group col-md-6'],
                 ],
                 [   'name'  => 'data3',
                     'label' => trans('contact.email.label'),
@@ -529,6 +616,9 @@ protected function setupShowOperation()
             'type'  => 'repeatable',
             'tab'   => trans('contact.address.tab'),
         //    'fake' => true,
+            // optional
+            'new_item_label' => trans('contact.address.add_new_item'), // customize text button
+            'init_rows' => 0, // number of empty rows to be initialized, by default 1
             'fields' => [
                 [   'name' => 'id',
                     'type' => 'hidden',

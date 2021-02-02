@@ -24,9 +24,9 @@ class ContactEmail extends Model
     protected $guarded = ['id'];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $touches = ['persons'];  
+    protected $touches = ['persons']; 
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3','data4'];
-    protected $appends = ['email_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user'];
+    protected $appends = ['label', 'email_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'Email'];
 
     /*
@@ -66,6 +66,11 @@ class ContactEmail extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
    */ 
+    Public function getLabelAttribute()
+    {
+        return $this->types->label ?? '';
+    }
+
     Public function getEmailTypeDataAttribute()
     {
         if (empty($this->types->label))

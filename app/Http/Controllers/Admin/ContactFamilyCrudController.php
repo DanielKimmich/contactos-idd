@@ -123,7 +123,8 @@ class ContactFamilyCrudController extends CrudController
                     foreach ($data as $item) {
                         $name = $item['relation_name'];
                         $type = $item['relation_type'];
-                        $items .= $name .' ('. $type .')<br>';
+                       // $items .= $name .' ('. $type .')<br>';
+                        $items .= '<b>'. $type .':</b> '. $name .'<br>';
                      //   dump($item);   
                     }
                 }
@@ -141,7 +142,8 @@ class ContactFamilyCrudController extends CrudController
                     foreach ($data as $item) {
                         $name = $item['relation_name'];
                         $type = $item['relation_type'];
-                        $items .= $name .' ('. $type .')<br>';
+                        //$items .= $name .' ('. $type .')<br>';
+                        $items .= '<b>'. $type .':</b> '. $name .'<br>';
                      //   dump($item);   
                     }
                 }
@@ -159,7 +161,8 @@ class ContactFamilyCrudController extends CrudController
                     foreach ($data as $item) {
                         $name = $item['relation_name'];
                         $type = $item['relation_type'];
-                        $items .= $name .' ('. $type .')<br>';
+                        //$items .= $name .' ('. $type .')<br>';
+                        $items .= '<b>'. $type .':</b> '. $name .'<br>';
                      //   dump($item);   
                     }
                 }
@@ -177,7 +180,8 @@ class ContactFamilyCrudController extends CrudController
                     foreach ($data as $item) {
                         $name = $item['relation_name'];
                         $type = $item['relation_type'];
-                        $items .= $name .' ('. $type .')<br>';
+                        //$items .= $name .' ('. $type .')<br>';
+                        $items .= '<b>'. $type .':</b> '. $name .'<br>';
                      //   dump($item);   
                     }
                 }
@@ -195,7 +199,8 @@ class ContactFamilyCrudController extends CrudController
                     foreach ($data as $item) {
                         $name = $item['relation_name'];
                         $type = $item['relation_type'];
-                        $items .= $name .' ('. $type .')<br>';
+                        //$items .= $name .' ('. $type .')<br>';
+                        $items .= '<b>'. $type .':</b> '. $name .'<br>';
                      //   dump($item);   
                     }
                 }
@@ -250,6 +255,13 @@ class ContactFamilyCrudController extends CrudController
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
+                [   'name'  => 'data2',
+                    'label' => trans('contact.parent.type'),
+                    'type'  => 'select_from_array',
+                    'wrapper' => ['class' => 'form-group col-md-4'], 
+                    'options' => ContentType::getTypeRelationParents(),
+                    'allows_null' => true,
+                ],
                 [   'name'  => 'data1',
                     'label' => trans('contact.parent.name'),
                     'type'  => 'relationship',
@@ -266,13 +278,6 @@ class ContactFamilyCrudController extends CrudController
                         'modal_class' => 'modal-dialog modal-xl',
                     ],             
                 ],  
-                [   'name'  => 'data2',
-                    'label' => trans('contact.parent.type'),
-                    'type'  => 'select_from_array',
-                    'wrapper' => ['class' => 'form-group col-md-4'], 
-                    'options' => ContentType::getTypeRelationParents(),
-                    'allows_null' => true,
-                ],
                 [   'name'  => 'data3',
                     'label' => trans('contact.parent.label'),
                     'type'  => 'text',
@@ -294,6 +299,13 @@ class ContactFamilyCrudController extends CrudController
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
+                [   'name'  => 'data2',
+                    'label' => trans('contact.spouse.type'),
+                    'type'  => 'select_from_array',
+                    'wrapper' => ['class' => 'form-group col-md-4'], 
+                    'options' => ContentType::getTypeRelationSpouses(),
+                    'allows_null' => true,
+                ],
                 [   'name'  => 'data1',
                     'label' => trans('contact.spouse.name'),
                     'type'  => 'relationship',
@@ -310,13 +322,6 @@ class ContactFamilyCrudController extends CrudController
                         'modal_class' => 'modal-dialog modal-xl',
                     ],             
                 ],  
-                [   'name'  => 'data2',
-                    'label' => trans('contact.spouse.type'),
-                    'type'  => 'select_from_array',
-                    'wrapper' => ['class' => 'form-group col-md-4'], 
-                    'options' => ContentType::getTypeRelationSpouses(),
-                    'allows_null' => true,
-                ],
                 [   'name'  => 'data3',
                     'label' => trans('contact.spouse.label'),
                     'type'  => 'text',
@@ -338,6 +343,13 @@ class ContactFamilyCrudController extends CrudController
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
+                [   'name'  => 'data2',
+                    'label' => trans('contact.children.type'),
+                    'type'  => 'select_from_array',
+                    'wrapper' => ['class' => 'form-group col-md-4'], 
+                    'options' => ContentType::getTypeRelationChildren(),
+                    'allows_null' => true,
+                ],
                 [   'name'  => 'data1',
                     'label' => trans('contact.children.name'),
                     'type'  => 'relationship',
@@ -354,13 +366,6 @@ class ContactFamilyCrudController extends CrudController
                         'modal_class' => 'modal-dialog modal-xl',
                     ],             
                 ],  
-                [   'name'  => 'data2',
-                    'label' => trans('contact.children.type'),
-                    'type'  => 'select_from_array',
-                    'wrapper' => ['class' => 'form-group col-md-4'], 
-                    'options' => ContentType::getTypeRelationChildren(),
-                    'allows_null' => true,
-                ],
                 [   'name'  => 'data3',
                     'label' => trans('contact.children.label'),
                     'type'  => 'text',
@@ -382,6 +387,13 @@ class ContactFamilyCrudController extends CrudController
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
+                [   'name'  => 'data2',
+                    'label' => trans('contact.relative.type'),
+                    'type'  => 'select_from_array',
+                    'wrapper' => ['class' => 'form-group col-md-4'], 
+                    'options' => ContentType::getTypeRelationRelatives(),
+                    'allows_null' => true,
+                ],
                 [   'name'  => 'data1',
                     'label' => trans('contact.relative.name'),
                     'type'  => 'relationship',
@@ -400,13 +412,6 @@ class ContactFamilyCrudController extends CrudController
                         'modal_class' => 'modal-dialog modal-xl',
                     ],             
                 ],  
-                [   'name'  => 'data2',
-                    'label' => trans('contact.relative.type'),
-                    'type'  => 'select_from_array',
-                    'wrapper' => ['class' => 'form-group col-md-4'], 
-                    'options' => ContentType::getTypeRelationRelatives(),
-                    'allows_null' => true,
-                ],
                 [   'name'  => 'data3',
                     'label' => trans('contact.relative.label'),
                     'type'  => 'text',
@@ -428,6 +433,13 @@ class ContactFamilyCrudController extends CrudController
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
+                [   'name'  => 'data2',
+                    'label' => trans('contact.other.type'),
+                    'type'  => 'select_from_array',
+                    'wrapper' => ['class' => 'form-group col-md-4'], 
+                    'options' => ContentType::getTypeRelationOthers(),
+                    'allows_null' => true,
+                ],
                 [   'name'  => 'data1',
                     'label' => trans('contact.other.name'),
                     'type'  => 'relationship',
@@ -443,13 +455,6 @@ class ContactFamilyCrudController extends CrudController
                         'entity' => 'contactperson', 
                         'modal_class' => 'modal-dialog modal-xl',
                     ],             
-                ],  
-                [   'name'  => 'data2',
-                    'label' => trans('contact.other.type'),
-                    'type'  => 'select_from_array',
-                    'wrapper' => ['class' => 'form-group col-md-4'], 
-                    'options' => ContentType::getTypeRelationOthers(),
-                    'allows_null' => true,
                 ],  
                 [   'name'  => 'data3',
                     'label' => trans('contact.other.label'),
@@ -473,6 +478,13 @@ class ContactFamilyCrudController extends CrudController
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
+                [   'name'  => 'data2',
+                    'label' => trans('contact.parent.type'),
+                    'type'  => 'select_from_array',
+                    'wrapper' => ['class' => 'form-group col-md-4'], 
+                    'options' => ContentType::getTypeRelationParents(),
+                    'allows_null' => true,
+                ],
                 [   'name'  => 'data1',
                     'label' => trans('contact.parent.name'),
                     'type'  => 'select2',
@@ -480,13 +492,6 @@ class ContactFamilyCrudController extends CrudController
                     'entity'    => 'parents',
                     'model'     => 'App\Models\ContactPerson',
                     'attribute' => 'display_name',
-                    'allows_null' => true,
-                ],
-                [   'name'  => 'data2',
-                    'label' => trans('contact.parent.type'),
-                    'type'  => 'select_from_array',
-                    'wrapper' => ['class' => 'form-group col-md-4'], 
-                    'options' => ContentType::getTypeRelationParents(),
                     'allows_null' => true,
                 ],
                 [   'name'  => 'data3',
@@ -510,6 +515,13 @@ class ContactFamilyCrudController extends CrudController
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
+                [   'name'  => 'data2',
+                    'label' => trans('contact.spouse.type'),
+                    'type'  => 'select_from_array',
+                    'wrapper' => ['class' => 'form-group col-md-4'], 
+                    'options' => ContentType::getTypeRelationSpouses(),
+                    'allows_null' => true,
+                ],
                 [   'name'  => 'data1',
                     'label' => trans('contact.spouse.name'),
                     'type'  => 'select2',
@@ -517,13 +529,6 @@ class ContactFamilyCrudController extends CrudController
                     'entity'    => 'spouses',
                     'model'     => 'App\Models\ContactPerson',
                     'attribute' => 'display_name',
-                    'allows_null' => true,
-                ],
-                [   'name'  => 'data2',
-                    'label' => trans('contact.spouse.type'),
-                    'type'  => 'select_from_array',
-                    'wrapper' => ['class' => 'form-group col-md-4'], 
-                    'options' => ContentType::getTypeRelationSpouses(),
                     'allows_null' => true,
                 ],
                 [   'name'  => 'data3',
@@ -547,6 +552,13 @@ class ContactFamilyCrudController extends CrudController
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
+                [   'name'  => 'data2',
+                    'label' => trans('contact.children.type'),
+                    'type'  => 'select_from_array',
+                    'wrapper' => ['class' => 'form-group col-md-4'], 
+                    'options' => ContentType::getTypeRelationChildren(),
+                    'allows_null' => true,
+                ],
                 [   'name'  => 'data1',
                     'label' => trans('contact.children.name'),
                     'type'  => 'select2',
@@ -556,13 +568,6 @@ class ContactFamilyCrudController extends CrudController
                     'attribute' => 'display_name',
                     'allows_null' => true,
                 ],  
-                [   'name'  => 'data2',
-                    'label' => trans('contact.children.type'),
-                    'type'  => 'select_from_array',
-                    'wrapper' => ['class' => 'form-group col-md-4'], 
-                    'options' => ContentType::getTypeRelationChildren(),
-                    'allows_null' => true,
-                ],
                 [   'name'  => 'data3',
                     'label' => trans('contact.children.label'),
                     'type'  => 'text',
@@ -584,6 +589,13 @@ class ContactFamilyCrudController extends CrudController
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
+                [   'name'  => 'data2',
+                    'label' => trans('contact.relative.type'),
+                    'type'  => 'select_from_array',
+                    'wrapper' => ['class' => 'form-group col-md-4'], 
+                    'options' => ContentType::getTypeRelationRelatives(),
+                    'allows_null' => true,
+                ],
                 [   'name'  => 'data1',
                     'label' => trans('contact.relative.name'),
                     'type'  => 'select2',
@@ -593,13 +605,6 @@ class ContactFamilyCrudController extends CrudController
                     'attribute' => 'display_name',
                     'allows_null' => true,
                 ],  
-                [   'name'  => 'data2',
-                    'label' => trans('contact.relative.type'),
-                    'type'  => 'select_from_array',
-                    'wrapper' => ['class' => 'form-group col-md-4'], 
-                    'options' => ContentType::getTypeRelationRelatives(),
-                    'allows_null' => true,
-                ],
                 [   'name'  => 'data3',
                     'label' => trans('contact.relative.label'),
                     'type'  => 'text',
@@ -622,6 +627,13 @@ class ContactFamilyCrudController extends CrudController
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
+                [   'name'  => 'data2',
+                    'label' => trans('contact.other.type'),
+                    'type'  => 'select_from_array',
+                    'wrapper' => ['class' => 'form-group col-md-4'], 
+                    'options' => ContentType::getTypeRelationOthers(),
+                    'allows_null' => true,
+                ],
                 [   'name'  => 'data1',
                     'label' => trans('contact.other.name'),
                     'type'  => 'select2',
@@ -631,13 +643,6 @@ class ContactFamilyCrudController extends CrudController
                     'attribute' => 'display_name',
                     'allows_null' => true,
                 ],    
-                [   'name'  => 'data2',
-                    'label' => trans('contact.other.type'),
-                    'type'  => 'select_from_array',
-                    'wrapper' => ['class' => 'form-group col-md-4'], 
-                    'options' => ContentType::getTypeRelationOthers(),
-                    'allows_null' => true,
-                ],  
                 [   'name'  => 'data3',
                     'label' => trans('contact.other.label'),
                     'type'  => 'text',

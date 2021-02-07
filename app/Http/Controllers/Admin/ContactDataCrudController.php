@@ -122,10 +122,13 @@ class ContactDataCrudController extends CrudController
             'type'  => 'dropdown',
             ],
             function() {
-                return \App\Models\ContentAlias::all()->sortBy('mimetype')->pluck('mimetype', 'mimetype')->toArray(); },
+ /*               return \App\Models\ContentAlias::all()->sortBy('mimetype')->pluck('mimetype', 'mimetype')->toArray(); },
+            function($value) {  
+                $this->crud->addClause('where', 'mimetype', $value ); }); */
+                return \App\Models\ContentType::where('depth', '1')->orderBy('label')->pluck('label', 'type')->toArray(); },
             function($value) {  
                 $this->crud->addClause('where', 'mimetype', $value ); });
-
+        
         // daterange filter
         $this->setFilterDateUpdate();
     }

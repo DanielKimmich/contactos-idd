@@ -6,18 +6,29 @@ use App\Http\Requests\ContactRequest;
 use App\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
+use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Support\Facades\Config;
 use Carbon\Carbon;
 use App\Http\Controllers\Admin\Operations\PrintOperation;
-use App\Models\Contact;
-//use App\Models\ContactData;
+use App\Models\ContactPerson; 
+use App\Models\ContactName;
 //use App\Models\ContactPhone;
 //use App\Models\ContactEmail;
 //use App\Models\ContactAddress;
+use App\Models\ContactEvent;
+use App\Models\ContactBlood;
 use App\Models\ContentType;
 use App\Models\WorldCountry;
 use App\Models\WorldCity;
-
+/* 
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
+*/
 /**
  * Class ContactCrudController
  * @package App\Http\Controllers\Admin
@@ -25,13 +36,22 @@ use App\Models\WorldCity;
  */
 class ContactPersonCrudController extends CrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+   use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
+/* 
+    use ListOperation;
+    use ShowOperation;
+    use CreateOperation { store as traitStore; }
+    use InlineCreateOperation;
+    use UpdateOperation { update as traitUpdate; }
+    use DeleteOperation;
+    use FetchOperation;
+*/
   //  use \App\Http\Controllers\Admin\Operations\PrintOperation;
 
 //    protected $crudPhone;
@@ -54,12 +74,15 @@ class ContactPersonCrudController extends CrudController
         //$this->crud->disableDetailsRow();
         $this->crud->setDetailsRowView('vendor.backpack.crud.details_row_contact');
 
+    //    $this->dashboard();
+
     }
 
     protected function setupListOperation()
     {   //$this->crud->setListContentClass('col-md-8 col-md-offset-2');
     //    $this->crud->setDefaultPageLength(25); //number of rows shown in list
      //   $this->crud->disableResponsiveTable();
+        $this->dashboard();
         $this->setupAvancedOperation();
      // ------ CRUD COLUMNS
         $this->crud->addColumn([
@@ -67,12 +90,14 @@ class ContactPersonCrudController extends CrudController
             'label' => 'Id',
             'type'  => 'number',
             'priority' => 2,
+            'visibleInTable' => true,
         ]) -> makeFirstColumn() ;
         $this->crud->addColumn([ // Text
             'name'  => 'display_name',
             'label' =>  trans('contact.person.display_name'),
             'type'  => 'text',
             'priority' => 1,
+            'visibleInTable' => true,
         ]);
         $this->crud->addColumn([
             'name'  => 'sex_id',
@@ -80,13 +105,16 @@ class ContactPersonCrudController extends CrudController
             'type'  => 'select_from_array',
             'priority'  => 4,
             'options'   => ContentType::getTypeSexes(),
-            'exportOnlyField' => true,  //forced to exportfield and hidden in table
+            'visibleInTable' => false,
+            'visibleInExport' => true,
         ]); 
          $this->crud->addColumn([
             'name'  => 'events.event_birth',
             'label' =>  trans('contact.event.birthday'),
             'type'  => 'text',
             'priority'  => 1,
+            'visibleInTable' => false,
+            'visibleInExport' => true,            
         ]); 
         $this->crud->addColumn([
             'name'  => 'events.age',
@@ -102,6 +130,7 @@ class ContactPersonCrudController extends CrudController
                     return 'badge badge-default';
                 },
             ],
+            'visibleInExport' => true,
         ]);       
         $this->crud->addColumn([
             'name'  => 'civil_status',
@@ -109,13 +138,16 @@ class ContactPersonCrudController extends CrudController
             'type'  => 'select_from_array',
             'priority'  => 3,
             'options'   => ContentType::getTypeCivilStatus(),
+            'visibleInTable' => false,
+            'visibleInExport' => true,
         ]);
          $this->crud->addColumn([
             'name'  => 'documents.document_number',
             'label' =>  trans('contact.document.number'),
             'type'  => 'text',
             'priority' => 4,
-            'exportOnlyField' => true,  //forced exportfield and hidden in table
+            'visibleInTable' => false,
+            'visibleInExport' => true,
         ]); 
          $this->crud->addColumn([
             'name'  => 'nationality_id',
@@ -123,7 +155,8 @@ class ContactPersonCrudController extends CrudController
             'type'  => 'select_from_array',
             'priority'  => 4,
             'options'   => $this->getNations(),
-            'exportOnlyField' => true,  //forced to exportfield and hidden in table
+            'visibleInTable' => false,
+            'visibleInExport' => true,
         ]); 
         $this->crud->addColumn([
             'name'      => 'phones', //the relationship in your Model
@@ -133,6 +166,7 @@ class ContactPersonCrudController extends CrudController
             'entity'    => 'phones', //the relationship in your Model
             'attribute' => 'data1', //foreign key attribute that is shown to user
             'separate'  => '/', //optional
+            'visibleInExport' => true,
             'searchLogic' => function ($query, $column, $searchTerm) {
                 $query->orWhereHas('phones', function ($q) use ($column, $searchTerm) {
                     $q->where('data1', 'like', '%'.$searchTerm.'%');
@@ -144,14 +178,16 @@ class ContactPersonCrudController extends CrudController
             'label' => trans('contact.phone.mobile1'),
             'type'  => 'phone',
             'priority' => 3,
-            'exportOnlyField' => true,
+            'visibleInTable' => false,
+            'visibleInExport' => true,
         ]);
         $this->crud->addColumn([
             'name'  => 'phone_home',
             'label' => trans('contact.phone.home1'),
             'type'  => 'phone',
             'priority' => 3,
-            'exportOnlyField' => true,
+            'visibleInTable' => false,
+            'visibleInExport' => true,
         ]);
         $this->crud->addColumn([
             'name'  => 'email1',
@@ -159,7 +195,8 @@ class ContactPersonCrudController extends CrudController
             'type'  => 'email',
             'priority'  => 3,
             'limit'     => 80,
-            'exportOnlyField' => true,  //forced to exportfield and hidden in table
+            'visibleInTable' => false,
+            'visibleInExport' => true,
         ]);
         $this->crud->addColumn([
             'name'  => 'address1',
@@ -175,7 +212,8 @@ class ContactPersonCrudController extends CrudController
             'type'  => 'select_from_array',
             'priority'  => 4, 
             'options' => ContentType::getTypeBloods(),
-            'exportOnlyField' => true,  //forced to exportfield and hidden in table
+            'visibleInTable' => false,
+            'visibleInExport' => true,
         ]); 
         $this->crud->addColumn([ 
             'name'  => 'bloods.data1',
@@ -183,13 +221,15 @@ class ContactPersonCrudController extends CrudController
             'type'  => 'select_from_array',
             'priority'  => 4, 
             'options'     => ['YES' => 'Si', 'NO' => 'No', 'MAYBE' => 'Tal vez'],
-            'exportOnlyField' => true,  //forced to exportfield and hidden in table
+            'visibleInTable' => false,
+            'visibleInExport' => true,
         ]);      
         $this->crud->addColumn([
             'name'  => 'names.data14', 
             'label' => trans('contact.photo.tab'), 
             'type'  => 'check',
             'priority'  => 4,
+            'visibleInExport' => true,
         ]);
         $this->crud->addColumn([
             'name'  => 'status',
@@ -197,6 +237,7 @@ class ContactPersonCrudController extends CrudController
             'type'  => 'select_from_array',
             'priority'  => 3,
             'options'   => ContentType::getTypeStatus(),
+            'visibleInExport' => true,
         ]);
         $this->crud->addColumn([    
             'name'  => 'updated_at',
@@ -204,6 +245,8 @@ class ContactPersonCrudController extends CrudController
             'type'  => 'text',
             'priority' => 4,
             'searchLogic' => false,
+            'visibleInTable' => false,
+            'visibleInExport' => true,
         ]); 
     }
 
@@ -1070,6 +1113,68 @@ protected function destroyMacronutrients($productId)
     }
 */
 
+    public function dashboard()
+    {
+        // display lead status counts on page top
+        $widgets = [
+            'type'  => 'div',
+            'class' => 'row',
+            'content' => [  ] // widgets
+        ];  
+
+        $personCount = ContactPerson::count();
+        $nodatebirthCount = ContactEvent::where('data2', 'TYPE_BIRTHDAY')->whereNull('data1')->count();
+        $nocivilstatusCount = ContactPerson::whereNull('civil_status')->count();
+        $bloodCount = ContactBlood::count();
+        $nophotoCount = ContactName::whereNull('data14')->count();
+
+        if ($nodatebirthCount > 0) { 
+            array_push($widgets['content'], 
+                [   'type'        => 'count',
+                    'class'       => 'card mb-2',
+                    'value'       => $nodatebirthCount,
+                    'description' => trans('contact.event.nodatebirth'), 
+                    'icon'        => 'la-user bg-success',
+                ],
+            );
+        }
+         
+        if ($nocivilstatusCount > 0) { 
+            array_push($widgets['content'], 
+                [   'type'        => 'count',
+                    'class'       => 'card mb-2',
+                    'value'       => $nocivilstatusCount,
+                    'description' => trans('contact.person.nocivilstatus'), 
+                    'icon'        => 'la-user bg-warning',
+                ], 
+            );
+        }
+
+        if ($personCount - $bloodCount > 0) { 
+            array_push($widgets['content'], 
+                [   'type'        => 'count',
+                    'class'       => 'card mb-2',
+                    'value'       => $personCount - $bloodCount,
+                    'description' => trans('contact.blood.noblood'), 
+                    'icon'        => 'la-user bg-danger',
+                ], 
+            );
+        }
+
+        if ($nophotoCount > 0) { 
+            array_push($widgets['content'], 
+                [   'type'        => 'count',
+                    'class'       => 'card mb-2',
+                    'value'       => $nophotoCount,
+                    'description' => trans('contact.photo.nophoto'), 
+                    'icon'        => 'la-user bg-info',
+                ], 
+            );
+        }
+
+        Widget::add($widgets)->to('before_content');
+    }
+
     public function getNations()
     {   
     //    $options = WorldCountry::all();
@@ -1192,7 +1297,7 @@ protected function destroyMacronutrients($productId)
         ]); 
 
     }
-        
+   
     protected function setupInlineCreateOperation()
     {
 

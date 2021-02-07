@@ -6,6 +6,8 @@ use App\Http\Requests\WorldContinentRequest;
 //use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use App\Models\WorldContinent;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class WorldContinentCrudController
@@ -30,6 +32,18 @@ class WorldContinentCrudController extends CrudController
         $this->crud->setEntityNameStrings( trans('world.continent.title'),  trans('world.continent.titles'));
 
         $this->setAccessOperation('worldcontinent');
+
+        // display lead status counts on page top
+        $contactPersonCount = WorldContinent::count();
+            Widget::add([
+                'type'        => 'progress',
+                'class'       => 'card text-white bg-success mb-2',
+                'value'       => $contactPersonCount,
+                'description' => trans('dashboard.dataprogress.new_person'), //'nuevas Personas',
+                'progress'    => $contactPersonCount, // integer
+                'hint'        => trans('dashboard.dataprogress.hint'),
+            ])->to('before_content');
+
     }
 
     protected function setupListOperation()

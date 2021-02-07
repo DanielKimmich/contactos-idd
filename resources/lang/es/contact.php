@@ -22,6 +22,8 @@ return [
 		'nationality'	=> 'Nacionalidad',
 		'civil_status'	=> 'Estado Civil',
 		'status'		=> 'Estado',
+	// Messages
+		'nocivilstatus'	=> 'Sin Estado Civil',
     ],
 
 //NAME
@@ -44,6 +46,7 @@ return [
 		'age'      		=> 'Edad',
 	// Messages
 		'delete_confirm' => 'Si cambia el estado de Fallecido, entonces se eliminará la fecha. ¿Está seguro que desea eliminar la fecha de fallecido?',
+		'nodatebirth'	=> 'Sin Fecha de Nac.',
 	],
 
 //DOCUMENT
@@ -123,6 +126,8 @@ return [
 	'photo'    => [
 		'tab'  		=> 'Foto',
 		'profile_image'     => 'Imagen de perfil',    
+	// Messages
+		'nophoto'	=> 'Sin Foto',
     ],
 
 //BLOOD
@@ -132,6 +137,8 @@ return [
 		'name'     	=> 'Es donante de Sangre ?',
 		'type'  	=> 'Grupo Sanguineo',
 		'label'    	=> 'Información Adicional',
+	// Messages
+		'noblood'	=> 'Sin Grupo Sang.',
     ],
 
 //POST

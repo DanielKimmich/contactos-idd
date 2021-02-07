@@ -137,6 +137,7 @@
     			'description' => trans('dashboard.dataprogress.update_data'), //'Datos editados',
     			'progress'    => $contactDataProgress, // integer
     			'hint'        => trans('dashboard.dataprogress.hint', ['day' => $dias]),
+          // 'icon'        => 'la la-star-o',
           //'en los últimos ' .$dias. ' días',
       		],
       		[ 	'type'        => 'progress',

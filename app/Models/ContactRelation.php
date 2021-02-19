@@ -28,7 +28,7 @@ class ContactRelation extends Model
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3', 'data4', 'data5'];
 
     protected $attributes = ['mimetype' => 'Relation'];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user', 'relation_name', 'relation_type'];
+    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user', 'name', 'label'];
 
     /*
     |--------------------------------------------------------------------------
@@ -73,11 +73,11 @@ class ContactRelation extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-    Public function getRelationNameAttribute()
+    Public function getNameAttribute()
     {
         return $this->parentrelacions->display_name ?? '';
     }
-    Public function getRelationTypeAttribute()
+    Public function getLabelAttribute()
     {
         return $this->types->label ?? '';
     }

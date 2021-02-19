@@ -6,8 +6,11 @@ use App\Http\Requests\FamilyRequest;
 //use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 use App\Models\ContentType;
 use App\Models\ContactPerson;
+use App\Models\ContactRelation; 
+
 /**
  * Class FamilyCrudController
  * @package App\Http\Controllers\Admin
@@ -33,6 +36,7 @@ class ContactFamilyCrudController extends CrudController
 
     protected function setupListOperation()
     {
+        $this->dashboard();
         $this->setupAvancedOperation();
      // ------ CRUD COLUMNS
         $this->crud->addColumn([
@@ -72,7 +76,14 @@ class ContactFamilyCrudController extends CrudController
             'name'  => 'relatives',
             'label' => trans('contact.relative.tab'),
             'type'  => 'relationship_count',
-            'priority'  => 2,
+            'priority'  => 3,
+            'suffix' => '',
+            ]); 
+        $this->crud->addColumn([
+            'name'  => 'others',
+            'label' => trans('contact.other.tab'),
+            'type'  => 'relationship_count',
+            'priority'  => 3,
             'suffix' => '',
             ]); 
 /*        $this->crud->addColumn([
@@ -89,13 +100,13 @@ class ContactFamilyCrudController extends CrudController
             'priority'  => 3,
             'options'   => ContentType::getTypeCivilStatus(),
             ]);
-        $this->crud->addColumn([
+/*        $this->crud->addColumn([
             'name'  => 'status',
             'label' => trans('contact.family.status'),
             'type'  => 'select_from_array',
             'priority'  => 3,
             'options'   => ContentType::getTypeStatus(),
-            ]);
+            ]); */
     }
 
     protected function setupShowOperation()
@@ -121,16 +132,16 @@ class ContactFamilyCrudController extends CrudController
                 $items = '';
                 if(is_array($data)) {
                     foreach ($data as $item) {
-                        $name = $item['relation_name'];
-                        $type = $item['relation_type'];
-                       // $items .= $name .' ('. $type .')<br>';
-                        $items .= '<b>'. $type .':</b> '. $name .'<br>';
-                     //   dump($item);   
+                        $items .= '<b>'. $item['label'] .':</b> '. $item['name'];
+                        if (empty($item['data3']))
+                            $items .= '<br>';
+                        else
+                            $items .= ' ('. $item['data3'] .')<br>';
                     }
                 }
                 return $items;
             }
-       ]); 
+        ]); 
         $this->crud->addColumn([
             'name' => 'relation_spouse', 
             'label' => trans('contact.spouse.tab'), 
@@ -140,11 +151,11 @@ class ContactFamilyCrudController extends CrudController
                 $items = '';
                 if(is_array($data)) {
                     foreach ($data as $item) {
-                        $name = $item['relation_name'];
-                        $type = $item['relation_type'];
-                        //$items .= $name .' ('. $type .')<br>';
-                        $items .= '<b>'. $type .':</b> '. $name .'<br>';
-                     //   dump($item);   
+                        $items .= '<b>'. $item['label'] .':</b> '. $item['name'];
+                        if (empty($item['data3']))
+                            $items .= '<br>';
+                        else
+                            $items .= ' ('. $item['data3'] .')<br>';
                     }
                 }
                 return $items;
@@ -159,11 +170,11 @@ class ContactFamilyCrudController extends CrudController
                 $items = '';
                 if(is_array($data)) {
                     foreach ($data as $item) {
-                        $name = $item['relation_name'];
-                        $type = $item['relation_type'];
-                        //$items .= $name .' ('. $type .')<br>';
-                        $items .= '<b>'. $type .':</b> '. $name .'<br>';
-                     //   dump($item);   
+                        $items .= '<b>'. $item['label'] .':</b> '. $item['name'];
+                        if (empty($item['data3']))
+                            $items .= '<br>';
+                        else
+                            $items .= ' ('. $item['data3'] .')<br>';
                     }
                 }
                 return $items;
@@ -178,11 +189,11 @@ class ContactFamilyCrudController extends CrudController
                 $items = '';
                 if(is_array($data)) {
                     foreach ($data as $item) {
-                        $name = $item['relation_name'];
-                        $type = $item['relation_type'];
-                        //$items .= $name .' ('. $type .')<br>';
-                        $items .= '<b>'. $type .':</b> '. $name .'<br>';
-                     //   dump($item);   
+                        $items .= '<b>'. $item['label'] .':</b> '. $item['name'];
+                        if (empty($item['data3']))
+                            $items .= '<br>';
+                        else
+                            $items .= ' ('. $item['data3'] .')<br>';
                     }
                 }
                 return $items;
@@ -197,11 +208,11 @@ class ContactFamilyCrudController extends CrudController
                 $items = '';
                 if(is_array($data)) {
                     foreach ($data as $item) {
-                        $name = $item['relation_name'];
-                        $type = $item['relation_type'];
-                        //$items .= $name .' ('. $type .')<br>';
-                        $items .= '<b>'. $type .':</b> '. $name .'<br>';
-                     //   dump($item);   
+                        $items .= '<b>'. $item['label'] .':</b> '. $item['name'];
+                        if (empty($item['data3']))
+                            $items .= '<br>';
+                        else
+                            $items .= ' ('. $item['data3'] .')<br>';
                     }
                 }
                 return $items;
@@ -683,7 +694,7 @@ class ContactFamilyCrudController extends CrudController
                     $this->crud->addClause('orwhere', 'civil_status', $value);
                 }
             });
-
+/*
         // select2_multiple filter
         $this->crud->addFilter([
             'name' => 'status',
@@ -696,7 +707,7 @@ class ContactFamilyCrudController extends CrudController
                     $this->crud->addClause('orwhere', 'status', $value);
                 }
             });
-
+*/
         // daterange filter
         $this->setFilterDateUpdate();
     }
@@ -711,4 +722,65 @@ class ContactFamilyCrudController extends CrudController
         $options = ContactPerson::orderBy('display_name')->pluck('display_name','id'); 
         return $options->toArray();
     }
+
+
+    public function dashboard()
+    {
+        // display lead status counts on page top
+        $widgets = [
+            'type'  => 'div',
+            'class' => 'row',
+            'content' => [  ] // widgets
+        ];  
+
+        $personCount = ContactPerson::count();
+        $relationCount = ContactRelation::select('contact_id')->groupBy('contact_id')->get()->count();
+
+        if ( $personCount - $relationCount > 0) { 
+            array_push($widgets['content'], 
+                [   'type'        => 'count',
+                    'class'       => 'card mb-2',
+                    'value'       =>  $personCount - $relationCount,
+                    'description' => trans('contact.family.norelation'), 
+                    'icon'        => 'la-user bg-success',
+                ],
+            );
+        }
+/*         
+        if ($nocivilstatusCount > 0) { 
+            array_push($widgets['content'], 
+                [   'type'        => 'count',
+                    'class'       => 'card mb-2',
+                    'value'       => $nocivilstatusCount,
+                    'description' => trans('contact.person.nocivilstatus'), 
+                    'icon'        => 'la-user bg-warning',
+                ], 
+            );
+        }
+
+        if ($personCount - $bloodCount > 0) { 
+            array_push($widgets['content'], 
+                [   'type'        => 'count',
+                    'class'       => 'card mb-2',
+                    'value'       => $personCount - $bloodCount,
+                    'description' => trans('contact.blood.noblood'), 
+                    'icon'        => 'la-user bg-danger',
+                ], 
+            );
+        }
+
+        if ($nophotoCount > 0) { 
+            array_push($widgets['content'], 
+                [   'type'        => 'count',
+                    'class'       => 'card mb-2',
+                    'value'       => $nophotoCount,
+                    'description' => trans('contact.photo.nophoto'), 
+                    'icon'        => 'la-user bg-info',
+                ], 
+            );
+        } */
+
+        Widget::add($widgets)->to('after_content');
+    }
+
 }

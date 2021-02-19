@@ -150,6 +150,8 @@ return [
 		'sex'			=> 'Género',
 		'civil_status'	=> 'Estado Civil',
 		'status'		=> 'Estado',
+	// Messages
+		'norelation'	=> 'Sin Familia', 
     ],
 
 //PARENT
@@ -267,12 +269,12 @@ return [
 	//Fields				
 		'type'            	=> 'Código',
 		'label'           	=> 'Nombre',
-		'mimetype'          => 'Grupo',
+		'mimetype'          => 'Tipo',
    		'parent'			=> 'Categoria',
 		'level'      		=> 'Nivel',
 		'order'      		=> 'Orden', 
    		'extras'			=> 'Información Adicional',
-   		'firstlevel'		=> 'Principal',
+   		'firstlevel'		=> 'Nivel_1',
 	// Messages
 		'no_rows'           => 'No hay tipos',
         'is_required'       => 'Se requiere el tipo',

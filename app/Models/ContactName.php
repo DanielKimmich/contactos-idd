@@ -158,9 +158,10 @@ class ContactName extends Model
             // 0. Make the image
             $image = \Image::make($value)->encode('jpg', 90);
             // resize the image to a width of 300 and constrain aspect ratio (auto height)
-            $image->resize(400, null, function ($constraint) {
+ /*           $image->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
+*/
             // 1. Generate a filename.
             //$filename = md5($value.time()).'.jpg';
             $filename = str_replace(' ', '',$this->attributes['data1']) .'(' .$this->attributes['contact_id'] .')' .'.jpg';

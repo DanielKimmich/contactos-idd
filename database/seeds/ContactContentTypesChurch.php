@@ -19,12 +19,12 @@ class ContactContentTypesChurch extends Seeder
         \DB::table('content_types')->where('mimetype', 'Talent')->delete();       
         \DB::table('content_types')->where('mimetype', 'Ministry')->delete();
 
-    //Insertar nuevos
+    //Insertar nuevos Tipos
         \DB::table('content_types')->insert(array (
             0 => 
             array (
                 'type'      => 'Gift',
-                'label'     => 'Don',
+                'label'     => '{"es": "Don"}',
                 'parent_id' => '0',
                 'depth'     => '1',
                 'mimetype'  => 'Gift',
@@ -35,7 +35,7 @@ class ContactContentTypesChurch extends Seeder
             1 => 
             array (
                 'type'      => 'Talent',
-                'label'     => 'Talento',
+                'label'     => '{"es": "Talento"}',
                 'parent_id' => '0',
                 'depth'     => '1',
                 'mimetype'  => 'Talent',
@@ -46,7 +46,7 @@ class ContactContentTypesChurch extends Seeder
             2 => 
             array (
                 'type'      => 'Ministry',
-                'label'     => 'Ministerio',
+                'label'     => '{"es": "Ministerio"}',
                 'parent_id' => '0',
                 'depth'     => '1',
                 'mimetype'  => 'Ministry',
@@ -57,7 +57,7 @@ class ContactContentTypesChurch extends Seeder
             3 => 
             array (
                 'type'      => 'Church',
-                'label'     => 'Datos',
+                'label'     => '{"es": "Datos"}',
                 'parent_id' => '0',
                 'depth'     => '1',
                 'mimetype'  => 'Church',
@@ -75,12 +75,13 @@ class ContactContentTypesChurch extends Seeder
     Fecha Miembro         / calcular antiguedad  / motivo / pastor
     Fecha Baja
 */       
+    //Insertar parent church
         $type_C = ContentType::where('type', 'Church')->firstOrFail()->id;
         \DB::table('content_types')->insert(array (
             0 => 
             array (
                 'type'      => 'CONVERSION',
-                'label'     => 'Conversión',
+                'label'     => '{"es": "Conversión"}',
                 'parent_id' => $type_C,
                 'depth'     => '2',
                 'mimetype'  => 'Church',
@@ -91,7 +92,7 @@ class ContactContentTypesChurch extends Seeder
             1 => 
             array (
                 'type'      => 'BAPTISM',
-                'label'     => 'Bautismo',
+                'label'     => '{"es": "Bautismo"}',
                 'parent_id' => $type_C,
                 'depth'     => '2',
                 'mimetype'  => 'Church',
@@ -102,7 +103,7 @@ class ContactContentTypesChurch extends Seeder
             2 => 
             array (
                 'type'      => 'CONGREGATE',
-                'label'     => 'Congregarse',
+                'label'     => '{"es": "Congregarse"}',
                 'parent_id' => $type_C,
                 'depth'     => '2',
                 'mimetype'  => 'Church',
@@ -113,7 +114,7 @@ class ContactContentTypesChurch extends Seeder
             3 => 
             array (
                 'type'      => 'MEMBER',
-                'label'     => 'Miembro',
+                'label'     => '{"es": "Miembro"}',
                 'parent_id' => $type_C,
                 'depth'     => '2',
                 'mimetype'  => 'Church',
@@ -124,7 +125,7 @@ class ContactContentTypesChurch extends Seeder
             4 => 
             array (
                 'type'      => 'CLOSURE',
-                'label'     => 'Cierre',
+                'label'     => '{"es": "Cierre"}',
                 'parent_id' => $type_C,
                 'depth'     => '2',
                 'mimetype'  => 'Church',
@@ -134,12 +135,13 @@ class ContactContentTypesChurch extends Seeder
             ),            
         ));
 
+    //Insertar parent gift
         $type_G = ContentType::where('type', 'Gift')->firstOrFail()->id;
         \DB::table('content_types')->insert(array (
             0 => 
             array (
                 'type'      => 'PROPHESYING',
-                'label'     => 'Profecía',
+                'label'     => '{"es": "Profecía"}',
                 'parent_id' => $type_G,
                 'depth'     => '2',
                 'mimetype'  => 'Gift',
@@ -150,7 +152,7 @@ class ContactContentTypesChurch extends Seeder
             1 => 
             array (
                 'type'      => 'SERVING',
-                'label'     => 'Servicio',
+                'label'     => '{"es": "Servicio"}',
                 'parent_id' => $type_G,
                 'depth'     => '2',
                 'mimetype'  => 'Gift',
@@ -161,7 +163,7 @@ class ContactContentTypesChurch extends Seeder
             2 => 
             array (
                 'type'      => 'TEACHING',
-                'label'     => 'Enseñanza',
+                'label'     => '{"es": "Enseñanza"}',
                 'parent_id' => $type_G,
                 'depth'     => '2',
                 'mimetype'  => 'Gift',
@@ -172,7 +174,7 @@ class ContactContentTypesChurch extends Seeder
             3 => 
             array (
                 'type'      => 'ENCOURAGING',
-                'label'     => 'Exhortación',
+                'label'     => '{"es": "Exhortación"}',
                 'parent_id' => $type_G,
                 'depth'     => '2',
                 'mimetype'  => 'Gift',
@@ -183,7 +185,7 @@ class ContactContentTypesChurch extends Seeder
             4 => 
             array (
                 'type'      => 'GIVING',
-                'label'     => 'Dar',
+                'label'     => '{"es": "Dar"}',
                 'parent_id' => $type_G,
                 'depth'     => '2',
                 'mimetype'  => 'Gift',
@@ -194,7 +196,7 @@ class ContactContentTypesChurch extends Seeder
             5 => 
             array (
                 'type'      => 'LEADING',
-                'label'     => 'Administración',
+                'label'     => '{"es": "Administración"}',
                 'parent_id' => $type_G,
                 'depth'     => '2',
                 'mimetype'  => 'Gift',
@@ -205,7 +207,7 @@ class ContactContentTypesChurch extends Seeder
             6 => 
             array (
                 'type'      => 'MERCY',
-                'label'     => 'Misericordia',
+                'label'     => '{"es": "Misericordia"}',
                 'parent_id' => $type_G,
                 'depth'     => '2',
                 'mimetype'  => 'Gift',
@@ -215,12 +217,13 @@ class ContactContentTypesChurch extends Seeder
             ),
         ));
 
+    //Insertar parent talent
         $type_T = ContentType::where('type', 'Talent')->firstOrFail()->id;
         \DB::table('content_types')->insert(array (
             0 => 
             array (
                 'type'      => 'LINGUISTIC',
-                'label'     => 'Lingüístico - Verbal',
+                'label'     => '{"es": "Lingüístico - Verbal"}',
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
@@ -231,7 +234,7 @@ class ContactContentTypesChurch extends Seeder
             1 => 
             array (
                 'type'      => 'MATHEMATICAL',
-                'label'     => 'Lógico - Matemático',
+                'label'     => '{"es": "Lógico - Matemático"}',
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
@@ -242,7 +245,7 @@ class ContactContentTypesChurch extends Seeder
             2 => 
             array (
                 'type'      => 'MUSICAL',
-                'label'     => 'Musical',
+                'label'     => '{"es": "Musical"}',
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
@@ -253,7 +256,7 @@ class ContactContentTypesChurch extends Seeder
             3 => 
             array (
                 'type'      => 'SPATIAL',
-                'label'     => 'Visual - Espacial',
+                'label'     => '{"es": "Visual - Espacial"}',
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
@@ -264,7 +267,7 @@ class ContactContentTypesChurch extends Seeder
             4 => 
             array (
                 'type'      => 'BODILY',
-                'label'     => 'Corporal - Kinestésica',
+                'label'     => '{"es": "Corporal - Kinestésica"}',
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
@@ -275,7 +278,7 @@ class ContactContentTypesChurch extends Seeder
             5 => 
             array (
                 'type'      => 'INTRAPERSONAL',
-                'label'     => 'Intrapersonal',
+                'label'     => '{"es": "Intrapersonal"}',
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
@@ -286,7 +289,7 @@ class ContactContentTypesChurch extends Seeder
             6 => 
             array (
                 'type'      => 'INTERPERSONAL',
-                'label'     => 'Interpersonal',
+                'label'     => '{"es": "Interpersonal"}',
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
@@ -297,7 +300,7 @@ class ContactContentTypesChurch extends Seeder
             7 => 
             array (
                 'type'      => 'NATURALIST',
-                'label'     => 'Naturalista',
+                'label'     => '{"es": "Naturalista"}',
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
@@ -308,7 +311,7 @@ class ContactContentTypesChurch extends Seeder
             8 => 
             array (
                 'type'      => 'EMOTIONAL',
-                'label'     => 'Emocional',
+                'label'     => '{"es": "Emocional"}',
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
@@ -319,7 +322,7 @@ class ContactContentTypesChurch extends Seeder
             9 => 
             array (
                 'type'      => 'EXISTENTIAL',
-                'label'     => 'Existencial - Espiritual',
+                'label'     => '{"es": "Existencial - Espiritual"}',
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
@@ -330,7 +333,7 @@ class ContactContentTypesChurch extends Seeder
             10 => 
             array (
                 'type'      => 'CREATIVE',
-                'label'     => 'Creativo',
+                'label'     => '{"es": "Creativo"}',
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
@@ -341,7 +344,7 @@ class ContactContentTypesChurch extends Seeder
             11 => 
             array (
                 'type'      => 'Colaborative',
-                'label'     => 'Colaborativa',
+                'label'     => '{"es": "Colaborativa"}',
                 'parent_id' => $type_T,
                 'depth'     => '2',
                 'mimetype'  => 'Talent',
@@ -351,12 +354,13 @@ class ContactContentTypesChurch extends Seeder
             ),
         ));
 
+    //Insertar parent ministry
         $type_M = ContentType::where('type', 'Ministry')->firstOrFail()->id;
         \DB::table('content_types')->insert(array (
             0 => 
             array (
                 'type'      => 'WORSHIP',
-                'label'     => 'Alabanza y Adoración',
+                'label'     => '{"es": "Alabanza y Adoración"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -367,7 +371,7 @@ class ContactContentTypesChurch extends Seeder
             1 => 
             array (
                 'type'      => 'MULTIMEDIA',
-                'label'     => 'Multimedia y Comunicación',
+                'label'     => '{"es": "Multimedia y Comunicación"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -378,7 +382,7 @@ class ContactContentTypesChurch extends Seeder
             2 => 
             array (
                 'type'      => 'INTERCESSION',
-                'label'     => 'Intercesión',
+                'label'     => '{"es": "Intercesión"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -389,7 +393,7 @@ class ContactContentTypesChurch extends Seeder
             3 => 
             array (
                 'type'      => 'COMMITTEE',
-                'label'     => 'CONSEJO LOCAL',
+                'label'     => '{"es": "Consejo Local"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -400,7 +404,7 @@ class ContactContentTypesChurch extends Seeder
             4 => 
             array (
                 'type'      => 'ADMINISTRATION',
-                'label'     => 'Administración',
+                'label'     => '{"es": "Administración"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -411,7 +415,7 @@ class ContactContentTypesChurch extends Seeder
             5 => 
             array (
                 'type'      => 'PASTOR',
-                'label'     => 'Consejería y Pastorado',
+                'label'     => '{"es": "Consejería y Pastorado"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -422,7 +426,7 @@ class ContactContentTypesChurch extends Seeder
             6 => 
             array (
                 'type'      => 'EVANGELISM',
-                'label'     => 'Evangelismo y Misiones',
+                'label'     => '{"es": "Evangelismo y Misiones"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -433,7 +437,7 @@ class ContactContentTypesChurch extends Seeder
             7 => 
             array (
                 'type'      => 'TRAINING',
-                'label'     => 'Capacitación y Discipulado',
+                'label'     => '{"es": "Capacitación y Discipulado"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -444,7 +448,7 @@ class ContactContentTypesChurch extends Seeder
             8 => 
             array (
                 'type'      => 'SOCIAL',
-                'label'     => 'Acción Social',
+                'label'     => '{"es": "Acción Social"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -455,7 +459,7 @@ class ContactContentTypesChurch extends Seeder
             9 => 
             array (
                 'type'      => 'VISITATION',
-                'label'     => 'Visitación',
+                'label'     => '{"es": "Visitación"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -466,7 +470,7 @@ class ContactContentTypesChurch extends Seeder
             10 => 
             array (
                 'type'      => 'ART',
-                'label'     => 'Arte',
+                'label'     => '{"es": "Arte"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -477,7 +481,7 @@ class ContactContentTypesChurch extends Seeder
             11 => 
             array (
                 'type'      => 'JUNIOR',
-                'label'     => 'Niñez',
+                'label'     => '{"es": "Niñez"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -488,7 +492,7 @@ class ContactContentTypesChurch extends Seeder
             12 => 
             array (
                 'type'      => 'TEENS',
-                'label'     => 'Preadolescentes y Adolescentes',
+                'label'     => '{"es": "Preadolescentes y Adolescentes"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -499,7 +503,7 @@ class ContactContentTypesChurch extends Seeder
             13 => 
             array (
                 'type'      => 'YOUNG',
-                'label'     => 'Jóvenes',
+                'label'     => '{"es": "Jóvenes"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -510,7 +514,7 @@ class ContactContentTypesChurch extends Seeder
             14 => 
             array (
                 'type'      => 'FAMILIES',
-                'label'     => 'Familias y Matrimonios',
+                'label'     => '{"es": "Familias y Matrimonios"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -521,7 +525,7 @@ class ContactContentTypesChurch extends Seeder
             15 => 
             array (
                 'type'      => 'WOMEN',
-                'label'     => 'Mujeres',
+                'label'     => '{"es": "Mujeres"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -532,7 +536,7 @@ class ContactContentTypesChurch extends Seeder
             16 => 
             array (
                 'type'      => 'MENS',
-                'label'     => 'Hombres',
+                'label'     => '{"es": "Hombres"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',
@@ -543,7 +547,7 @@ class ContactContentTypesChurch extends Seeder
             17 => 
             array (
                 'type'      => 'ADULTS',
-                'label'     => 'Adultos',
+                'label'     => '{"es": "Adultos"}',
                 'parent_id' => $type_M,
                 'depth'     => '2',
                 'mimetype'  => 'Ministry',

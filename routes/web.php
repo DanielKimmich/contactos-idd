@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/tests', function () {
+    return view('/tests/index');
+});
 /*
 // DropBox para listar todos los archivos, guardar, eliminar y descargar.
   Route::get('/', 'FileController@index')->name('files.index');

@@ -47,7 +47,6 @@ return [
     'language'          => 'Idioma',
 
     // CRUD table view
-  //  'all'                       => 'Todos los registros de ',
     'all'                       => 'Todos',
     'in_the_database'           => 'en la base de datos',
     'list'                      => 'Listar',
@@ -81,6 +80,13 @@ return [
     'bulk_delete_sucess_message' => ' los registros han sido eliminados',
     'bulk_delete_error_title'    => 'Registros no eliminados',
     'bulk_delete_error_message'  => 'No se pudieron eliminar uno o más registros',
+
+    // Bulk clone
+    'bulk_clone_are_you_sure'   => 'Are you sure you want to clone these :number entries?',
+    'bulk_clone_sucess_title'   => 'Entries cloned',
+    'bulk_clone_sucess_message' => ' items have been cloned.',
+    'bulk_clone_error_title'    => 'Cloning failed',
+    'bulk_clone_error_message'  => 'One or more entries could not be created. Please try again.',
 
     // Ajax errors
     'ajax_error_title' => 'Error',
@@ -143,6 +149,17 @@ return [
     'filters'        => 'Filtros',
     'toggle_filters' => 'Alternar filtros',
     'remove_filters' => 'Remover filtros',
+    'apply' => 'Apply',
+
+    //filters language strings
+    'today' => 'Today',
+    'yesterday' => 'Yesterday',
+    'last_7_days' => 'Last 7 Days',
+    'last_30_days' => 'Last 30 Days',
+    'this_month' => 'This Month',
+    'last_month' => 'Last Month',
+    'custom_range' => 'Custom Range',
+    'weekLabel' => 'W',
 
     // Fields
     'browse_uploads'            => 'Subir archivos',

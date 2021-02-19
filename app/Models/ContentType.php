@@ -5,12 +5,13 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Wildside\Userstamps\Userstamps;
+use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 
 class ContentType extends Model
 {
     use CrudTrait;
     use Userstamps;
-
+    use HasTranslations;
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
@@ -26,7 +27,8 @@ class ContentType extends Model
     protected $fillable = ['mimetype', 'type', 'label', 'parent_id', 'extras'];
     protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'user'];
-    
+    public $translatable = ['label'];
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS

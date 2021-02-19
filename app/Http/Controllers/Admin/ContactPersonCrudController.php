@@ -787,12 +787,14 @@ protected function setupShowOperation()
             'label' => trans('contact.photo.profile_image'),
             'type' => 'image',
             'tab'   => trans('contact.photo.tab'),
+      //      'max_file_size' => '10000',
         //    'entity' => 'names', 
           //  'upload' => true,
             'crop' => true, // set to true to allow cropping, false to disable
             'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
           //  'disk' => config('backpack.base.root_disk_name'),
             'disk' =>  Config::get('settings.contact_disk'), //'dropbox', // in case you need to show images from a different disk
+         //   'wrapper' => ['data-init-function' => 'ComprimirImageElement'],
     // 'prefix' => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
         ]);
 
@@ -1172,7 +1174,7 @@ protected function destroyMacronutrients($productId)
             );
         }
 
-        Widget::add($widgets)->to('before_content');
+        Widget::add($widgets)->to('after_content');
     }
 
     public function getNations()

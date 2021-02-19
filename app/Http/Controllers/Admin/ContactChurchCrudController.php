@@ -48,6 +48,9 @@ class ContactChurchCrudController extends CrudController
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
          */
+
+    //    $this->dashboard();
+        $this->setupAvancedOperation();
      // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -62,12 +65,26 @@ class ContactChurchCrudController extends CrudController
             'priority' => 1,
             ]);
         $this->crud->addColumn([
-            'name'  => 'sex_id',
-            'label' => trans('contact.person.sex'),
-            'type'  => 'select_from_array',
-            'priority'  => 4,
-            'options'   => ContentType::getTypeSexes(),
-        ]); 
+            'name'  => 'gifts',
+            'label' => trans('contact.gift.tab'),
+            'type'  => 'relationship_count',
+            'priority'  => 3,
+            'suffix' => '',
+            ]); 
+        $this->crud->addColumn([
+            'name'  => 'talents',
+            'label' => trans('contact.talent.tab'),
+            'type'  => 'relationship_count',
+            'priority'  => 3,
+            'suffix' => '',
+            ]); 
+        $this->crud->addColumn([
+            'name'  => 'ministries',
+            'label' => trans('contact.ministry.tab'),
+            'type'  => 'relationship_count',
+            'priority'  => 3,
+            'suffix' => '',
+            ]); 
         $this->crud->addColumn([
             'name'  => 'status',
             'label' => trans('contact.church.status'),
@@ -84,18 +101,6 @@ class ContactChurchCrudController extends CrudController
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
-    protected function setupCreateOperation()
-    {
-        CRUD::setValidation(ContactChurchRequest::class);
-
-        CRUD::setFromDb(); // fields
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
-    }
 
     protected function setupShowOperation()
     {  // $this->crud->setShowContentClass('col-md-8 col-md-offset-2');
@@ -111,6 +116,65 @@ class ContactChurchCrudController extends CrudController
             'label' =>  trans('contact.person.display_name'),
             'type'  => 'text',
             ]);
+
+
+        $this->crud->addColumn([
+            'name' => 'relation_gift', 
+            'label' => trans('contact.gift.tab'), 
+            'type' => 'closure', 
+            'function' => function($entry) {
+                $data = (json_decode($entry['relation_gift'], true)); //converts json into array
+                $items = '';
+                if(is_array($data)) {
+                    foreach ($data as $item) {
+                        $items .= '<b>'. $item['label'] .':</b> '. $item['data1'];
+                        if (empty($item['data3']))
+                            $items .= '<br>';
+                        else
+                            $items .= ' ('. $item['data3'] .')<br>';
+                    }
+                }
+                return $items; 
+            }
+       ]); 
+        $this->crud->addColumn([
+            'name' => 'relation_talent', 
+            'label' => trans('contact.talent.tab'), 
+            'type' => 'closure', 
+            'function' => function($entry) {
+                $data = (json_decode($entry['relation_talent'], true)); //converts json into array
+                $items = '';
+                if(is_array($data)) {
+                    foreach ($data as $item) {
+                        $items .= '<b>'. $item['label'] .':</b> '. $item['data1'];
+                        if (empty($item['data3']))
+                            $items .= '<br>';
+                        else
+                            $items .= ' ('. $item['data3'] .')<br>';
+                    }
+                }
+                return $items; 
+            }
+       ]); 
+        $this->crud->addColumn([
+            'name' => 'relation_ministry', 
+            'label' => trans('contact.ministry.tab'), 
+            'type' => 'closure', 
+            'function' => function($entry) {
+                $data = (json_decode($entry['relation_ministry'], true)); //converts json into array
+                $items = '';
+                if(is_array($data)) {
+                    foreach ($data as $item) {
+                        $items .= '<b>'. $item['label'] .':</b> '. $item['data1'];
+                        if (empty($item['data3']))
+                            $items .= '<br>';
+                        else
+                            $items .= ' ('. $item['data3'] .')<br>';
+                    }
+                }
+                return $items; 
+            }
+       ]); 
     //INFO
         $this->getInfoColumns();
     }              
@@ -233,7 +297,7 @@ class ContactChurchCrudController extends CrudController
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
                 [   'name'  => 'data2',
-                    'label' => trans('contact.talent.type'),
+                    'label' => trans('contact.talent.titles'),
                     'type'  => 'select_from_array',
                     'wrapper' => ['class' => 'form-group col-md-6'], 
                     'options' => ContentType::getTypeTalents(),
@@ -287,4 +351,82 @@ class ContactChurchCrudController extends CrudController
     //INFO
         $this->getInfoFields();        
     }
+
+    protected function setupAvancedOperation()
+    {
+    // ------ ADVANCED QUERIES  
+        $this->crud->orderBy('updated_at', 'desc');  // 'asc', 'desc'
+
+    // ------ CRUD FILTERS
+        // Genero
+        $this->crud->addFilter([
+            'name' => 'sex_id',
+            'label' => trans('contact.person.sex'),
+            'type' => 'dropdown',     
+            ], 
+            ContentType::getTypeSexes(),
+            function($value) { // if the filter is active
+                $this->crud->addClause('where', 'sex_id', $value);
+            }); 
+
+        // Dones
+        $this->crud->addFilter([
+            'name' => 'gift',
+            'label' => trans('contact.gift.title'),
+            'type' => 'dropdown',     
+            ], 
+            ContentType::getTypeGifts(),
+            function($value) { // if the filter is active
+                $this->crud->addClause('whereHas', 'gifts', function ($query) use ($value) {
+                    $query->where('data2', '=', $value);
+                });
+            }); 
+
+
+        // Talentos
+        $this->crud->addFilter([
+            'name' => 'talent',
+            'label' => trans('contact.talent.title'),
+            'type' => 'dropdown',     
+            ], 
+            ContentType::getTypeTalents(),
+            function($value) { // if the filter is active
+                $this->crud->addClause('whereHas', 'talents', function ($query) use ($value) {
+                    $query->where('data2', '=', $value);
+                });
+            }); 
+
+
+        // Ministerios
+        $this->crud->addFilter([
+            'name' => 'ministry',
+            'label' => trans('contact.ministry.title'),
+            'type' => 'dropdown',     
+            ], 
+            ContentType::getTypeMinistries(),
+            function($value) { // if the filter is active
+                $this->crud->addClause('whereHas', 'ministries', function ($query) use ($value) {
+                    $query->where('data2', '=', $value);
+                });
+            }); 
+                                
+        // Estado
+        $this->crud->addFilter([
+            'name' => 'status',
+            'label' => trans('contact.person.status'),
+            'type' => 'select2_multiple',      
+            ], 
+            function() {return ContentType::getTypeStatus(); },
+            function($values) { // if the filter is active
+                foreach (json_decode($values) as $key => $value) {
+                    $this->crud->addClause('orwhere', 'status', $value);
+                }
+            });
+
+        // daterange filter
+        $this->setFilterDateUpdate();
+    }
+
+
+
 }

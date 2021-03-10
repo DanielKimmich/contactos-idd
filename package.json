@@ -22,6 +22,8 @@
         "utf-8-validate": "^5.0.4"
     },
     "dependencies": {
-        "compress.js": "^1.1.2"
+        "compress.js": "^1.1.2",
+        "datatables.net-dt": "^1.10.23",
+        "jquery": "^3.5.1"
     }
 }

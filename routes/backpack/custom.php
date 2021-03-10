@@ -53,12 +53,15 @@ Route::group([
 
 
     Route::crud('notification', 'NotificationCrudController');
-//Backup
-    Route::get('backup', 'BackupController@index')->name('backup.index');
-    Route::put('backup/create', 'BackupController@create')->name('backup.store');
-    Route::get('backup/download/{file_name?}', 'BackupController@download')->name('backup.download');
-    Route::delete('backup/delete/{file_name?}', 'BackupController@delete')->where('file_name', '(.*)')->name('backup.destroy');
 
+//Backup_Restore
+    Route::get('backuprestore', 'BackupController@index')->name('backup.index');
+    Route::put('backuprestore/create', 'BackupController@create')->name('backup.store');
+    Route::post('backuprestore/upload', 'BackupController@upload');
+    Route::get('backuprestore/download/{file_name?}', 'BackupController@download')->name('backup.download');
+//    Route::delete('backup/delete/{file_name?}', 'BackupController@delete')->where('file_name', '(.*)')->name('backup.destroy');
+    Route::delete('backuprestore/delete/{file_name?}', 'BackupController@delete')->name('backup.destroy');
+    Route::put('backuprestore/restore/{file_name?}', 'BackupController@restore')->name('backup.load');
 //Setting
     Route::crud('setting', 'SettingCrudController');
 

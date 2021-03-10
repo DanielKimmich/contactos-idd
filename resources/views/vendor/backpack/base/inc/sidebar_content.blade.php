@@ -130,6 +130,7 @@
 
 	  @can('list managerbackup')
 	   <li class='nav-item'><a class='nav-link' href='{{ backpack_url('backup') }}'><i class='nav-icon la la-hdd-o'></i>{{ trans('backpack::backup.backup') }}</a></li>
+	   <li class='nav-item'><a class='nav-link' href='{{ backpack_url('backuprestore') }}'><i class='nav-icon la la-hdd-o'></i>{{ trans('backup.backup') }}</a></li>
 	  @endcan
 
 		<li class=nav-item><a class=nav-link href="{{ backpack_url('elfinder') }}"><i class="nav-icon la la-files-o"></i><span>{{ trans('backpack::crud.file_manager') }}</span></a></li>

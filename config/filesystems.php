@@ -71,6 +71,12 @@ return [
 
         ],
 
+        // used for Backpack/BackupManager
+        'backup_db' => [
+            'driver' => 'local',
+            'root'   => storage_path('backups/database'), // that's where your backups are stored by default
+        ],
+
         'dropbox' => [
             'driver' => 'dropbox',
             'authorizationToken' => env('DROPBOX_TOKEN'),

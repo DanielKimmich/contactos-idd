@@ -145,13 +145,15 @@ return [
          * The password to be used for archive encryption.
          * Set to `null` to disable encryption.
          */
-        'password' => env('BACKUP_ARCHIVE_PASSWORD'),
+     //   'password' => env('BACKUP_ARCHIVE_PASSWORD'),
+        'password' => null,
 
         /*
          * The encryption algorithm to be used for archive encryption.
          * You can set it to `null` or `false` to disable encryption.
          */
-        'encryption' => \ZipArchive::EM_AES_256,
+      //  'encryption' => \ZipArchive::EM_AES_256,
+        'encryption' => null,
 
     ],
 

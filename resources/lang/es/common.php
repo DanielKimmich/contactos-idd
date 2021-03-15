@@ -5,7 +5,7 @@ return [
  	'created_at' 	=> 'Creado el',
  	'updated_by' 	=> 'Actualizado por',
  	'created_by' 	=> 'Creado por',
- 	'updated_range' => 'Actualizado entre',
+ 	'updated_range' => 'Actualizado',
 
 	'data' 	=> 'Datos',
 	'info' 	=> 'Información',

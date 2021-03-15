@@ -82,11 +82,11 @@ return [
     'bulk_delete_error_message'  => 'No se pudieron eliminar uno o más registros',
 
     // Bulk clone
-    'bulk_clone_are_you_sure'   => 'Are you sure you want to clone these :number entries?',
-    'bulk_clone_sucess_title'   => 'Entries cloned',
-    'bulk_clone_sucess_message' => ' items have been cloned.',
-    'bulk_clone_error_title'    => 'Cloning failed',
-    'bulk_clone_error_message'  => 'One or more entries could not be created. Please try again.',
+    'bulk_clone_are_you_sure'   => '¿Estás seguro de que deseas clonar :number registros?',
+    'bulk_clone_sucess_title'   => 'Registros clonados',
+    'bulk_clone_sucess_message' => ' los registros han sido clonados.',
+    'bulk_clone_error_title'    => 'Registros no clonados',
+    'bulk_clone_error_message'  => 'No se pudieron clonar uno o más registros',
 
     // Ajax errors
     'ajax_error_title' => 'Error',
@@ -149,17 +149,17 @@ return [
     'filters'        => 'Filtros',
     'toggle_filters' => 'Alternar filtros',
     'remove_filters' => 'Remover filtros',
-    'apply' => 'Apply',
+    'apply'          => 'Aplicar',
 
     //filters language strings
-    'today' => 'Today',
-    'yesterday' => 'Yesterday',
-    'last_7_days' => 'Last 7 Days',
-    'last_30_days' => 'Last 30 Days',
-    'this_month' => 'This Month',
-    'last_month' => 'Last Month',
-    'custom_range' => 'Custom Range',
-    'weekLabel' => 'W',
+    'today' => 'Hoy',
+    'yesterday' => 'Ayer',
+    'last_7_days' => 'Últimos 7 días',
+    'last_30_days' => 'Últimos 30 días',
+    'this_month' => 'Este mes',
+    'last_month' => 'Último mes',
+    'custom_range' => 'Intervalo personalizado',
+    'weekLabel' => 'S',
 
     // Fields
     'browse_uploads'            => 'Subir archivos',
@@ -173,9 +173,9 @@ return [
     'internal_link_placeholder' => 'Slug interno. Ejemplo: \'admin/page\' (sin comillas) para \':url\'',
     'external_link'             => 'Enlace externo',
     'choose_file'               => 'Elegir archivo',
-    'new_item'                  => 'Nuevo Item',
-    'select_entry'              => 'Selecciona una entrada',
-    'select_entries'            => 'Seleccionar entradas',
+    'new_item'                  => 'Nuevo elemento',
+    'select_entry'              => 'Selecciona un registro',
+    'select_entries'            => 'Selecciona registros',
 
     // Table field
     'table_cant_add'    => 'No se puede agregar una nueva :entity',
@@ -185,6 +185,6 @@ return [
     'file_manager' => 'Administrar Archivos',
 
     // InlineCreateOperation
-    'related_entry_created_success' => 'Se ha creado y seleccionado una entrada relacionada.',
-    'related_entry_created_error' => 'No se pudo crear una entrada relacionada.',
+    'related_entry_created_success' => 'Los registros relacionados se han creado correctamente.',
+    'related_entry_created_error' => 'No puedes crear registros relacionados.',
 ];

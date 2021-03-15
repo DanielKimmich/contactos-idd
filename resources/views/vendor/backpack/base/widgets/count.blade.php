@@ -10,15 +10,18 @@
       <i class="la {!! $widget['icon'] !!} p-3 font-2xl mr-3"></i>
       <div>
         @if (isset($widget['value']))
-          <div class="text-value">{!! $widget['value'] !!}</div>
+          <div class="text-value">{!! $widget['value'] !!} </div>
         @endif
 
         @if (isset($widget['description']))
-          <div>{!! $widget['description'] !!}</div>
+          @if (isset($widget['url']))
+            <div> <a href="{{ $widget['url'] }}"> {!! $widget['description'] !!} </a></div>
+          @else
+            <div> {!! $widget['description'] !!} </div>
+          @endif
         @endif
       </div>
     </div>
   </div>
-
 @includeWhen(!empty($widget['wrapper']), 'backpack::widgets.inc.wrapper_end')
 

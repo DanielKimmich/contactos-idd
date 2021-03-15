@@ -96,6 +96,12 @@ class ContentType extends Model
         return $types->toArray();
     }
 
+    public static function getTypeFamilyRelations()
+    {   
+        $types = self::where('mimetype','Relation')->where('depth', 2)->orderBy('lft', 'ASC')->pluck('label','type');
+        return $types->toArray();
+    }
+
     public static function getTypeRelations()
     {   
         $id = self::where('type','Relation')->where('depth', 1)->orWhereNull('depth')->first()->id;

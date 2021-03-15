@@ -6,7 +6,9 @@ use App\Http\Requests\ContactChurchRequest;
 //use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 use App\Models\ContentType;
+use App\Models\ContactChurch;
 
 /**
  * Class ContactChurchCrudController
@@ -49,7 +51,7 @@ class ContactChurchCrudController extends CrudController
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
          */
 
-    //    $this->dashboard();
+        $this->dashboard();
         $this->setupAvancedOperation();
      // ------ CRUD COLUMNS
         $this->crud->addColumn([
@@ -377,9 +379,13 @@ class ContactChurchCrudController extends CrudController
             ], 
             ContentType::getTypeGifts(),
             function($value) { // if the filter is active
-                $this->crud->addClause('whereHas', 'gifts', function ($query) use ($value) {
-                    $query->where('data2', '=', $value);
-                });
+                if ($value === 'null') {
+                    $this->crud->addClause('doesntHave', 'gifts');
+                } else {
+                    $this->crud->addClause('whereHas', 'gifts', function ($query) use ($value) {
+                        $query->where('data2', '=', $value);
+                    });
+                }
             }); 
 
 
@@ -391,9 +397,14 @@ class ContactChurchCrudController extends CrudController
             ], 
             ContentType::getTypeTalents(),
             function($value) { // if the filter is active
-                $this->crud->addClause('whereHas', 'talents', function ($query) use ($value) {
-                    $query->where('data2', '=', $value);
-                });
+                if ($value === 'null') {
+                    $this->crud->addClause('doesntHave', 'talents');
+                } else {
+
+                    $this->crud->addClause('whereHas', 'talents', function ($query) use ($value) {
+                        $query->where('data2', '=', $value);
+                    });
+                }
             }); 
 
 
@@ -405,9 +416,12 @@ class ContactChurchCrudController extends CrudController
             ], 
             ContentType::getTypeMinistries(),
             function($value) { // if the filter is active
-                $this->crud->addClause('whereHas', 'ministries', function ($query) use ($value) {
-                    $query->where('data2', '=', $value);
-                });
+                if ($value === 'null') {
+                    $this->crud->addClause('doesntHave', 'ministries');
+                } else {
+                    $this->crud->addClause('whereHas', 'ministries', function ($query) use ($value) { $query->where('data2', '=', $value);
+                    });
+                }
             }); 
                                 
         // Estado
@@ -418,15 +432,62 @@ class ContactChurchCrudController extends CrudController
             ], 
             function() {return ContentType::getTypeStatus(); },
             function($values) { // if the filter is active
-                foreach (json_decode($values) as $key => $value) {
-                    $this->crud->addClause('orwhere', 'status', $value);
-                }
+                $this->crud->addClause('whereIn', 'civil_status', json_decode($values));
             });
 
         // daterange filter
         $this->setFilterDateUpdate();
     }
 
+    public function dashboard()
+    {
+        // display lead status counts on page top
+        $widgets = [
+            'type'  => 'div',
+            'class' => 'row',
+            'content' => [  ] // widgets
+        ];  
 
+        $nogiftCount = ContactChurch::doesntHave('gifts')->count();
+        $notalentCount = ContactChurch::doesntHave('talents')->count();
+        $noministryCount = ContactChurch::doesntHave('ministries')->count();
 
+        if ($nogiftCount > 0) { 
+            array_push($widgets['content'], 
+                [   'type'        => 'count',
+                    'class'       => 'card mb-2',
+                    'value'       => $nogiftCount,
+                    'description' => trans('contact.gift.not_gift'), 
+                    'icon'        => 'la-gift bg-info',
+                    'url' => url($this->crud->getRoute() .'?gift=null'),
+                ], 
+            );
+        }
+
+        if ($notalentCount > 0) { 
+            array_push($widgets['content'], 
+                [   'type'        => 'count',
+                    'class'       => 'card mb-2',
+                    'value'       => $notalentCount,
+                    'description' => trans('contact.talent.not_talent'), 
+                    'icon'        => 'la-brain bg-success',
+                    'url' => url($this->crud->getRoute() .'?talent=null'),
+                ], 
+            );
+        }
+
+        if ($noministryCount > 0) { 
+            array_push($widgets['content'], 
+                [   'type'        => 'count',
+                    'class'       => 'card mb-2',
+                    'value'       => $noministryCount,
+                    'description' => trans('contact.ministry.not_ministry'), 
+                    'icon'        => 'la-dove bg-warning',
+                    'url' => url($this->crud->getRoute() .'?ministry=null'),
+                ], 
+            );
+        }
+
+        Widget::add($widgets)->to('after_content');
+    }
 }

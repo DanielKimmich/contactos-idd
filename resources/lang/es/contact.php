@@ -23,7 +23,7 @@ return [
 		'civil_status'	=> 'Estado Civil',
 		'status'		=> 'Estado',
 	// Messages
-		'nocivilstatus'	=> 'Sin Estado Civil',
+		'not_civilstatus'	=> 'Sin Estado Civil',
     ],
 
 //NAME
@@ -46,7 +46,7 @@ return [
 		'age'      		=> 'Edad',
 	// Messages
 		'delete_confirm' => 'Si cambia el estado de Fallecido, entonces se eliminará la fecha. ¿Está seguro que desea eliminar la fecha de fallecido?',
-		'nodatebirth'	=> 'Sin Fecha de Nac.',
+		'not_birthday'	=> 'Sin Fecha de Nac.',
 	],
 
 //DOCUMENT
@@ -127,7 +127,7 @@ return [
 		'tab'  		=> 'Foto',
 		'profile_image'     => 'Imagen de perfil',    
 	// Messages
-		'nophoto'	=> 'Sin Foto',
+		'not_photo'	=> 'Sin Foto',
     ],
 
 //BLOOD
@@ -138,7 +138,7 @@ return [
 		'type'  	=> 'Grupo Sanguineo',
 		'label'    	=> 'Información Adicional',
 	// Messages
-		'noblood'	=> 'Sin Grupo Sang.',
+		'not_blood'	=> 'Sin Grupo Sang.',
     ],
 
 //POST
@@ -150,8 +150,10 @@ return [
 		'sex'			=> 'Género',
 		'civil_status'	=> 'Estado Civil',
 		'status'		=> 'Estado',
+	//Filters
+		'family_group'	=> 'Grupo Familiar',
 	// Messages
-		'norelation'	=> 'Sin Familia', 
+		'not_family'	=> 'Sin Familiares', 
     ],
 
 //PARENT
@@ -236,6 +238,7 @@ return [
 		'type'  	=> 'Tipo',
 		'label'    	=> 'Información Adicional',
 	// Messages
+		'not_gift'	=> 'Sin Dones', 
 	],
 
 //TALENT
@@ -248,6 +251,7 @@ return [
 		'type'  	=> 'Tipo de Inteligencia',
 		'label'    	=> 'Información Adicional',
 	// Messages
+		'not_talent'	=> 'Sin Talentos', 
 	],
 
 //MINISTRY
@@ -260,6 +264,7 @@ return [
 		'type'  	=> 'Tipo',
 		'label'    	=> 'Información Adicional',
 	// Messages
+		'not_ministry'	=> 'Sin Ministerios', 
 	],
 
 //TYPE

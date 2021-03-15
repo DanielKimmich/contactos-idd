@@ -20,15 +20,7 @@ use App\Models\ContactBlood;
 use App\Models\ContentType;
 use App\Models\WorldCountry;
 use App\Models\WorldCity;
-/* 
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
-*/
+
 /**
  * Class ContactCrudController
  * @package App\Http\Controllers\Admin
@@ -43,15 +35,7 @@ class ContactPersonCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
-/* 
-    use ListOperation;
-    use ShowOperation;
-    use CreateOperation { store as traitStore; }
-    use InlineCreateOperation;
-    use UpdateOperation { update as traitUpdate; }
-    use DeleteOperation;
-    use FetchOperation;
-*/
+
   //  use \App\Http\Controllers\Admin\Operations\PrintOperation;
 
 //    protected $crudPhone;
@@ -82,6 +66,7 @@ class ContactPersonCrudController extends CrudController
     {   //$this->crud->setListContentClass('col-md-8 col-md-offset-2');
     //    $this->crud->setDefaultPageLength(25); //number of rows shown in list
      //   $this->crud->disableResponsiveTable();
+      //  dump($this->crud->getRoute());
         $this->dashboard();
         $this->setupAvancedOperation();
      // ------ CRUD COLUMNS
@@ -818,10 +803,15 @@ protected function setupShowOperation()
             ],
             $this->getMonth(),
             function ($value) { // if the filter is active
-                $this->crud->addClause('whereHas', 'events', function ($query) use ($value) {
-                $query->whereNull('data4')->where(\DB::raw("substr(data1, 6, 2)"),$value)
-                    ->orWhere(\DB::raw("substr(data1, 6,5)"),$value)->whereNull('data4');
-                });
+                if ($value === 'null') {
+                    $this->crud->addClause('whereHas', 'events', function ($query) use ($value) { $query->whereNull('data1');
+                    });
+                } else {
+                    $this->crud->addClause('whereHas', 'events', function ($query) use ($value) {
+                    $query->whereNull('data4')->where(\DB::raw("substr(data1, 6, 2)"),$value)
+                        ->orWhere(\DB::raw("substr(data1, 6,5)"),$value)->whereNull('data4');
+                    });
+                }
             });
 
         //Age Range
@@ -865,17 +855,22 @@ protected function setupShowOperation()
                 $this->crud->addClause('where', 'sex_id', $value);
             }); 
 
+
 // Grupo Sanguineo
         $this->crud->addFilter([ //
             'name'  => 'blood',
             'label' => trans('contact.blood.type'),
-            'type'  => 'dropdown',
+            'type'  => 'select2_multiple',
             ], 
             ContentType::getTypeBloods(),
-            function ($value) { // if the filter is active
-                $this->crud->addClause('whereHas', 'bloods', function ($query) use ($value) {
-                    $query->where('data2', '=', $value);
-                });
+            function ($values) { // if the filter is active
+                if ($values === 'null') {
+                //$users = User::doesntHave('posts')->get();
+                    $this->crud->addClause('doesntHave', 'bloods');
+                } else {
+                    $this->crud->addClause('whereHas', 'bloods', function ($query) use ($values) {  $query->whereIn('data2', json_decode($values));
+                    });
+                }
             }); 
  
         // Estado Civil
@@ -886,8 +881,13 @@ protected function setupShowOperation()
             ], 
             function() {return ContentType::getTypeCivilStatus(); },
             function($values) { // if the filter is active
-                foreach (json_decode($values) as $key => $value) {
-                    $this->crud->addClause('orwhere', 'civil_status', $value);
+                if ($values === 'null') {
+                    $this->crud->addClause('whereNull', 'civil_status');
+                } else {
+                     $this->crud->addClause('whereIn', 'civil_status', json_decode($values));
+                    //foreach (json_decode($values) as $key => $value) {
+                    //    $this->crud->addClause('orwhere', 'civil_status', $value);
+                    //}
                 }
             });
 
@@ -899,13 +899,39 @@ protected function setupShowOperation()
             ], 
             function() {return ContentType::getTypeStatus(); },
             function($values) { // if the filter is active
-                foreach (json_decode($values) as $key => $value) {
-                    $this->crud->addClause('orwhere', 'status', $value);
-                }
+                $this->crud->addClause('whereIn', 'status', json_decode($values));
+                //foreach (json_decode($values) as $key => $value) {
+                //    $this->crud->addClause('orwhere', 'status', $value);
+                //}
             });
+
+        // simple  photo
+        $this->crud->addFilter([
+            'name'  => 'photo',
+            'label' => 'Foto',
+            'type'  => 'simple_custom',
+            ], 
+            false, 
+            function() { // if the filter is true
+              $data = ($this->crud->getRequest()->query);
+          //     dump($this->crud->getRoute());
+           //     $tArray = array();
+          //    foreach ($data as $key ) {
+                  
+              foreach ($data as $key => $value) {
+                if ($key == 'photo' && $value == 'true') { 
+                    $this->crud->addClause('whereHas', 'names', function ($query) { $query->whereNotNull('data14');
+                    });
+                } else if ($key == 'photo' && $value == 'false') {
+                    $this->crud->addClause('whereHas', 'names', function ($query) { $query->whereNull('data14');
+                    });
+                }
+              }
+            } );
 
         // daterange filter
         $this->setFilterDateUpdate();
+
     }
 
 
@@ -1128,6 +1154,7 @@ protected function destroyMacronutrients($productId)
         $nodatebirthCount = ContactEvent::where('data2', 'TYPE_BIRTHDAY')->whereNull('data1')->count();
         $nocivilstatusCount = ContactPerson::whereNull('civil_status')->count();
         $bloodCount = ContactBlood::count();
+        $nobloodCount = ContactPerson::doesntHave('bloods')->count();
         $nophotoCount = ContactName::whereNull('data14')->count();
 
         if ($nodatebirthCount > 0) { 
@@ -1135,8 +1162,9 @@ protected function destroyMacronutrients($productId)
                 [   'type'        => 'count',
                     'class'       => 'card mb-2',
                     'value'       => $nodatebirthCount,
-                    'description' => trans('contact.event.nodatebirth'), 
-                    'icon'        => 'la-user bg-success',
+                    'description' => trans('contact.event.not_birthday'), 
+                    'icon'        => 'la-calendar-times bg-success',
+                    'url' => url($this->crud->getRoute() .'?birthday=null'),
                 ],
             );
         }
@@ -1146,19 +1174,21 @@ protected function destroyMacronutrients($productId)
                 [   'type'        => 'count',
                     'class'       => 'card mb-2',
                     'value'       => $nocivilstatusCount,
-                    'description' => trans('contact.person.nocivilstatus'), 
+                    'description' => trans('contact.person.not_civilstatus'), 
                     'icon'        => 'la-user bg-warning',
+                    'url' => url($this->crud->getRoute() .'?civil_status=null'),
                 ], 
             );
         }
 
-        if ($personCount - $bloodCount > 0) { 
+        if ($nobloodCount > 0) { 
             array_push($widgets['content'], 
                 [   'type'        => 'count',
                     'class'       => 'card mb-2',
-                    'value'       => $personCount - $bloodCount,
-                    'description' => trans('contact.blood.noblood'), 
-                    'icon'        => 'la-user bg-danger',
+                    'value'       => $nobloodCount,
+                    'description' => trans('contact.blood.not_blood'), 
+                    'icon'        => 'la-heart bg-danger',
+                    'url' => url($this->crud->getRoute() .'?blood=null'),
                 ], 
             );
         }
@@ -1168,8 +1198,9 @@ protected function destroyMacronutrients($productId)
                 [   'type'        => 'count',
                     'class'       => 'card mb-2',
                     'value'       => $nophotoCount,
-                    'description' => trans('contact.photo.nophoto'), 
-                    'icon'        => 'la-user bg-info',
+                    'description' => trans('contact.photo.not_photo'), 
+                    'icon'        => 'la-user-alt-slash bg-info',
+                    'url' => url($this->crud->getRoute() .'?photo=false'),
                 ], 
             );
         }
@@ -1179,8 +1210,6 @@ protected function destroyMacronutrients($productId)
 
     public function getNations()
     {   
-    //    $options = WorldCountry::all();
-    //    $options = $options->sortBy('name')->pluck('name','code_alpha3');
         $options = WorldCountry::orderBy('name')->pluck('name','code_alpha3');    
         return $options->toArray();
     }
@@ -1252,6 +1281,7 @@ protected function destroyMacronutrients($productId)
             '10'  => 'Octubre',
             '11'  => 'Noviembre',
             '12'  => 'Diciembre',
+         //   'null' => 'sin fecha',
         ];
         return $months;
     }

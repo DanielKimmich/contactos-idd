@@ -52,6 +52,11 @@ public function touch()
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function relations()
+    {
+        return $this->hasMany('App\Models\ContactRelation','contact_id', 'id');
+    }
+
     public function parents()
     {
         $keys = array_keys(ContentType::getTypeRelationParents());

@@ -8,7 +8,7 @@ use App\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
 use App\Models\ContentType;
-use App\Models\ContactPerson;
+use App\Models\ContactFamily;
 use App\Models\ContactRelation; 
 
 /**
@@ -690,24 +690,47 @@ class ContactFamilyCrudController extends CrudController
             ], 
             function() {return ContentType::getTypeCivilStatus(); },
             function($values) { // if the filter is active
-                foreach (json_decode($values) as $key => $value) {
-                    $this->crud->addClause('orwhere', 'civil_status', $value);
-                }
+                $this->crud->addClause('whereIn', 'civil_status', json_decode($values));
             });
-/*
-        // select2_multiple filter
+
+        // Family Group
         $this->crud->addFilter([
-            'name' => 'status',
-            'label' => trans('contact.person.status'),
-            'type' => 'select2_multiple',      
-            ], 
-            function() {return ContentType::getTypeStatus(); },
-            function($values) { // if the filter is active
-                foreach (json_decode($values) as $key => $value) {
-                    $this->crud->addClause('orwhere', 'status', $value);
+            'name'  => 'family',
+            'label' => trans('contact.family.family_group'),
+            'type'  => 'dropdown',
+            ],
+            function() {return ContentType::getTypeFamilyRelations(); },
+            function ($value) { // if the filter is active
+            /*    if ($value === 'null') {
+                    $this->crud->addClause('doesntHave', 'relations');
+                } else {
+                    $this->crud->addClause('whereHas', 'relations', function ($query) use ($value) {
+                    $query->where('data2', $value);
+                    });
+                }
+*/
+                switch ($value) {
+                    case 'null':
+                        $this->crud->addClause('doesntHave', 'relations');
+                        break;
+                    case 'TYPE_PARENT':
+                        $this->crud->addClause('whereHas', 'parents');
+                        break;
+                    case 'TYPE_SPOUSE':
+                        $this->crud->addClause('whereHas', 'spouses');
+                        break;
+                    case 'TYPE_CHILDREN':
+                        $this->crud->addClause('whereHas', 'children');
+                        break;
+                    case 'TYPE_RELATIVE':
+                        $this->crud->addClause('whereHas', 'relatives');
+                        break;
+                    case 'TYPE_OTHERS':
+                        $this->crud->addClause('whereHas', 'others');
+                        break;
                 }
             });
-*/
+
         // daterange filter
         $this->setFilterDateUpdate();
     }
@@ -733,52 +756,21 @@ class ContactFamilyCrudController extends CrudController
             'content' => [  ] // widgets
         ];  
 
-        $personCount = ContactPerson::count();
-        $relationCount = ContactRelation::select('contact_id')->groupBy('contact_id')->get()->count();
+ //       $personCount = ContactFamily::count();
+ //       $relationCount = ContactRelation::select('contact_id')->groupBy('contact_id')->get()->count();
+        $norelationCount = ContactFamily::doesntHave('relations')->count();
 
-        if ( $personCount - $relationCount > 0) { 
+        if ( $norelationCount > 0) { 
             array_push($widgets['content'], 
                 [   'type'        => 'count',
                     'class'       => 'card mb-2',
-                    'value'       =>  $personCount - $relationCount,
-                    'description' => trans('contact.family.norelation'), 
+                    'value'       =>  $norelationCount,
+                    'description' => trans('contact.family.not_family'), 
                     'icon'        => 'la-user bg-success',
+                    'url'         => url($this->crud->getRoute() .'?family=null'),
                 ],
             );
         }
-/*         
-        if ($nocivilstatusCount > 0) { 
-            array_push($widgets['content'], 
-                [   'type'        => 'count',
-                    'class'       => 'card mb-2',
-                    'value'       => $nocivilstatusCount,
-                    'description' => trans('contact.person.nocivilstatus'), 
-                    'icon'        => 'la-user bg-warning',
-                ], 
-            );
-        }
-
-        if ($personCount - $bloodCount > 0) { 
-            array_push($widgets['content'], 
-                [   'type'        => 'count',
-                    'class'       => 'card mb-2',
-                    'value'       => $personCount - $bloodCount,
-                    'description' => trans('contact.blood.noblood'), 
-                    'icon'        => 'la-user bg-danger',
-                ], 
-            );
-        }
-
-        if ($nophotoCount > 0) { 
-            array_push($widgets['content'], 
-                [   'type'        => 'count',
-                    'class'       => 'card mb-2',
-                    'value'       => $nophotoCount,
-                    'description' => trans('contact.photo.nophoto'), 
-                    'icon'        => 'la-user bg-info',
-                ], 
-            );
-        } */
 
         Widget::add($widgets)->to('after_content');
     }

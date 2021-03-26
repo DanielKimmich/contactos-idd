@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 
 class ContentType extends Model
@@ -25,7 +25,7 @@ class ContentType extends Model
     // protected $hidden = [];
     // protected $dates = [];
     protected $fillable = ['mimetype', 'type', 'label', 'parent_id', 'extras'];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'user'];
     public $translatable = ['label'];
 
@@ -208,7 +208,7 @@ class ContentType extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
     }
@@ -220,7 +220,7 @@ class ContentType extends Model
     {
         return $this->destroyer->name ?? '';
     }
-
+*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

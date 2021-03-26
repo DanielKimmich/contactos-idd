@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 use App\Models\ContentType;
 
 class ContactTalent extends Model
@@ -26,7 +26,8 @@ class ContactTalent extends Model
     // protected $dates = [];
     protected $touches = ['persons'];
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3', 'data4', 'data5'];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user', 'label']; 
+    protected $appends = [//'created_by_user', 'updated_by_user', 'deleted_by_user', 
+            'label']; 
     protected $attributes = ['mimetype' => 'Talent'];  
 
     /*
@@ -66,7 +67,7 @@ class ContactTalent extends Model
     {
         return $this->types->label ?? '';
     }
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
     }
@@ -78,7 +79,7 @@ class ContactTalent extends Model
     {
         return $this->destroyer->name ?? '';
     }
-
+*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

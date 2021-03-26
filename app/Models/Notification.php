@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 
 class Notification extends Model
 {
@@ -24,7 +24,7 @@ class Notification extends Model
     protected $fillable = ['title', 'body', 'color', 'sound', 'icon', 'actions', 'priority', 'visibility', 'expires_at'];
     // protected $hidden = [];
     protected $dates = ['expires_at'];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user',
+    protected $appends = [//'created_by_user', 'updated_by_user', 'deleted_by_user',
                             'class_color'];
 
     /*
@@ -95,7 +95,7 @@ class Notification extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
     }
@@ -107,7 +107,7 @@ class Notification extends Model
     {
         return $this->destroyer->name ?? '';
     }
-
+*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

@@ -46,7 +46,15 @@ class ContactDataCrudController extends CrudController
             'type'  => 'text',
             'priority' => 3,
             'searchLogic' => false,
-            ]);  
+            ]); 
+        $this->crud->addColumn([    
+            'name'  => 'updated_by_user',
+            'label' => trans('common.updated_by'),
+            'type'  => 'text',
+            'priority' => 3,
+            'searchLogic' => false,
+            ]); 
+
         $this->crud->disableResponsiveTable();
         $this->crud->addButtonFromView('top', 'import', 'import', 'end');  
     //    $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');  

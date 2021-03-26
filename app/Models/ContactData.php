@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 use Illuminate\Support\Str;
 
 class ContactData extends Model
@@ -30,7 +30,7 @@ class ContactData extends Model
         'data6', 'data7', 'data8', 'data9', 'data10', 
         'data11', 'data12', 'data13', 'data14', 'data15',
     ];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
 /*
     protected $visible = [
         'contact_id',
@@ -106,7 +106,7 @@ class ContactData extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
     }
@@ -118,7 +118,7 @@ class ContactData extends Model
     {
         return $this->destroyer->name ?? '';
     }
-
+*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

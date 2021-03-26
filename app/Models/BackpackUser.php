@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notifiable;
 //use Backpack\CRUD\app\Models\Traits\InheritsRelationsFromParentModel;
 use Backpack\CRUD\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 
 class BackpackUser extends User
 {
@@ -16,7 +16,7 @@ class BackpackUser extends User
     use Userstamps;
 
     protected $table = 'users';
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
     /**
      * Send the password reset notification.
      *
@@ -69,7 +69,7 @@ class BackpackUser extends User
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByUserAttribute()
     {
         if (! empty( $this->creator->name)){
             return $this->creator->name;
@@ -95,5 +95,5 @@ class BackpackUser extends User
             return '';
         }        
     }
-
+*/
 }

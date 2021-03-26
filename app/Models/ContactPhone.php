@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 use App\Models\ContentType;
 
 class ContactPhone extends Model
@@ -26,14 +26,23 @@ class ContactPhone extends Model
     // protected $dates = [];
     protected $touches = ['persons'];
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3', 'data4', 'data5'];
-    protected $appends = ['label','phone_type_data','created_by_user', 'updated_by_user', 'deleted_by_user']; 
+    protected $appends = ['label','phone_type_data',
+        //'created_by_user', 'updated_by_user', 'deleted_by_user'
+        ]; 
     protected $attributes = ['mimetype' => 'Phone'];  
 
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
-    */
+ 
+    public function touchOwners()  // touchOwners()
+    {
+        parent::touchOwners();    
+        foreach ($this->touches as $relation) {
+            $this->$relation->touch_user();
+        }
+    } 
 
     /*
     |--------------------------------------------------------------------------
@@ -81,7 +90,7 @@ class ContactPhone extends Model
             return $this->types->label .': '.$this->data1;
     }
 
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
     }
@@ -93,7 +102,7 @@ class ContactPhone extends Model
     {
         return $this->destroyer->name ?? '';
     }
-
+*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

@@ -6,7 +6,7 @@ use App\Http\Requests\BlogTagRequest;
 //use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Log;
+//use Log;
 
 /**
  * Class BlogTagsCrudController
@@ -20,20 +20,25 @@ class BlogTagCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
 //    use \Backpack\CRUD\app\Http\Controllers\Operations\CloneOperation { clone as traitClone; } 
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation { destroy as traitDestroy; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
 
 
     public function setup()
     {
+/*        if ($this->crud->getModel() !== '\App\Models\Entity') {
+            $this->setupLogOperation('index');
+        }   */
         $this->crud->setModel('App\Models\BlogTag');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/blogtag');
+        $this->crud->setRoute(config('backpack.base.route_prefix') .'/blogtag');
         $this->crud->setEntityNameStrings(trans('blog.tag.entity_name'), trans('blog.tag.entity_names'));
         $this->setAccessOperation('blogtag');
+
     }
 
     protected function setupListOperation()
     {
+        $this->setupLogOperation('index');
         $this->setupAvancedOperation();
         $this->crud->orderButtons('line', ['show','update','delete']);
 // ------ CRUD COLUMNS
@@ -70,6 +75,8 @@ class BlogTagCrudController extends CrudController
             'priority' => 4,
             'searchLogic' => false,
             ]); 
+
+    //    parent::setupListOperation();
 //$this->crud->addButton('top', 'export_buttons', 'view', 'crud::inc.export_buttons', 'end');
 //$this->crud->modifyButton('exportButtons', ['position' => 'end']);
 //$this->crud->modifyButton('exportbuttons', ['stack' => 'top']);
@@ -141,23 +148,13 @@ class BlogTagCrudController extends CrudController
     }
 
     protected function setupAvancedOperation()
-    {
-        Log::info('route:' .$this->crud->getRoute() .' user:' .auth()->user()->email);
+    {  
+     //   Log::info('| route:' .$this->crud->getRoute() .' | user:' .auth()->user()->email);
     // ------ ADVANCED QUERIES  
         $this->crud->orderBy('name');
 
     // ------ CRUD FILTERS
-    // simple filter
-/*        $this->crud->addFilter([
-            'type' => 'text',
-            'name' => 'description',
-            'label'=> 'Description'
-        ], 
-        false, 
-        function($value) { // if the filter is active
-            $this->crud->addClause('where', 'description', 'LIKE', "%$value%");
-        });
-*/
+
         // daterange filter
         $this->setFilterDateUpdate();
     }
@@ -165,22 +162,24 @@ class BlogTagCrudController extends CrudController
     public function store()
     { 
         $response = $this->traitStore();
-        Log::info('route:' .$this->crud->getRoute() 
-                    .' user:' .auth()->user()->email
-                    .' operation:store'
-                    .' id:' .$this->crud->getCurrentEntryId());
+        $this->setupLogOperation('store');
         return $response;
-
     }
+
     public function update()
     {
         $response = $this->traitUpdate();
-        Log::info('route:' .$this->crud->getRoute() 
-                    .' user:' .auth()->user()->email
-                    .' operation:update'
-                    .' id:' .$this->crud->getCurrentEntryId());        
+        $this->setupLogOperation('update');
         return $response;
     }
+
+    public function destroy($id)
+    {
+        $response = $this->traitDestroy($id);
+        $this->setupLogOperation('destroy');
+        return $response;
+    }
+
     
     public function clone($id)
     {

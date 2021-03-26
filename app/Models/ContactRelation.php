@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 //use Jlorente\Laravel\IdentityStamp\Database\Eloquent\IdentityStamps;
 
 class ContactRelation extends Model
@@ -28,7 +28,8 @@ class ContactRelation extends Model
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3', 'data4', 'data5'];
 
     protected $attributes = ['mimetype' => 'Relation'];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user', 'name', 'label'];
+    protected $appends = [//'created_by_user', 'updated_by_user', 'deleted_by_user', 
+        'name', 'label'];
 
     /*
     |--------------------------------------------------------------------------
@@ -82,7 +83,7 @@ class ContactRelation extends Model
         return $this->types->label ?? '';
     }
 
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
       //  return $this->getCreatedByColumn();
@@ -97,7 +98,7 @@ class ContactRelation extends Model
         return $this->destroyer->name ?? '';
      //   return $this->getDeletedByColumn();
     }
-
+*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

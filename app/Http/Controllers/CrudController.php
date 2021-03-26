@@ -7,10 +7,35 @@
 namespace App\Http\Controllers;
 use Backpack\CRUD\app\Http\Controllers\CrudController as CrudControllerBackpack;
 use Illuminate\Http\Request;
+use Log;
+
 //use NineDotMedia\BulkNotifications\Models\BulkNotification;
 
 abstract class CrudController extends CrudControllerBackpack
 {
+
+    protected function setupLogOperation($action)
+    {   
+        switch ($action) {
+            case 'index':
+                Log::info('| route:' .$this->crud->getRoute() 
+                        .' | user:' .auth()->user()->email);
+                break;
+            case 'store':
+            case 'update':
+            case 'destroy':                        
+                Log::info('| route:' .$this->crud->getRoute() 
+                        .' | user:' .auth()->user()->email
+                        .' | operation:' .$action
+                        .' | id:' .$this->crud->getCurrentEntryId());
+                break;
+            case 'default':
+                Log::info('| route:' .$this->crud->getRoute() 
+                        .' | user:' .auth()->user()->email
+                        .' | operation:' .$action);
+                break;
+        }       
+    }
 
     protected function setAccessOperation($ruta)
     {   //$ruta = 'worldcity';
@@ -52,6 +77,8 @@ abstract class CrudController extends CrudControllerBackpack
         if (auth()->user()->hasAnyPermission(['delete '.$ruta, 'create '.$ruta]))  { 
          //   $this->crud->enableBulkActions();
         }  
+
+
     }
 
     protected function getInfoColumns()
@@ -61,10 +88,10 @@ abstract class CrudController extends CrudControllerBackpack
             'label' => trans('common.updated_at'),
             'type' => 'closure',
             'function' => function($entry) {
-                if (empty($entry->updated_by_user))
+                if (empty($entry->updated_by_user_name))
                     return $entry->updated_at;
                 else
-                    return $entry->updated_at.' ('.$entry->updated_by_user.')';
+                    return $entry->updated_at.' ('.$entry->updated_by_user_name.')';
                 }
             ]);
         $this->crud->addColumn([
@@ -72,10 +99,10 @@ abstract class CrudController extends CrudControllerBackpack
             'label' => trans('common.created_at'),
             'type' => 'closure',
             'function' => function($entry) {
-                if (empty($entry->created_by_user))
+                if (empty($entry->created_by_user_name))
                     return $entry->created_at;
                 else
-                    return $entry->created_at.' ('.$entry->created_by_user.')';
+                    return $entry->created_at.' ('.$entry->created_by_user_name.')';
                 }
             ]); 
     }
@@ -110,7 +137,7 @@ abstract class CrudController extends CrudControllerBackpack
             'prefix'   => "<i class='la la-calendar-check-o'></i>", 
             ]);     
          $this->crud->addField([ // Text
-            'name'  => 'updated_by_user',
+            'name'  => 'updated_by_user_name',
             'label' => trans('common.updated_by'),
             'type'  => 'text',
             'tab'   => trans('common.info'),
@@ -128,7 +155,7 @@ abstract class CrudController extends CrudControllerBackpack
             'prefix'   => "<i class='la la-calendar-plus-o'></i>",
             ]);   
          $this->crud->addField([ // Text
-            'name'  => 'created_by_user',
+            'name'  => 'created_by_user_name',
             'label' => trans('common.created_by'),
             'type'  => 'text',
             'tab'   => trans('common.info'),

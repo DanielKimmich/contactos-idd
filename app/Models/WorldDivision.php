@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Khsing\World\Models\Division;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 
 class WorldDivision extends Division
 {
@@ -25,7 +25,7 @@ class WorldDivision extends Division
     // protected $hidden = [];
     // protected $dates = [];
     protected $fillable = ['country_id', 'name', 'full_name', 'code', 'has_city'];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ class WorldDivision extends Division
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
     }
@@ -66,7 +66,7 @@ class WorldDivision extends Division
     {
         return $this->destroyer->name ?? '';
     }
-
+*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

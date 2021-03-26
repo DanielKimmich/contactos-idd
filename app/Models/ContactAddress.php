@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 use App\Models\Country;
 use App\Models\ContentType;
 
@@ -34,7 +34,9 @@ class ContactAddress extends Model
     ];
 
     protected $attributes = ['mimetype' => 'Address',  ];
-    protected $appends = ['label', 'address_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user']; 
+    protected $appends = ['label', 'address_type_data', 
+        //'created_by_user', 'updated_by_user', 'deleted_by_user'
+        ]; 
 
     /*
     |--------------------------------------------------------------------------
@@ -92,7 +94,7 @@ class ContactAddress extends Model
             return $this->types->label .': '.$this->data1;
     }
 
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
     }
@@ -104,7 +106,7 @@ class ContactAddress extends Model
     {
         return $this->destroyer->name ?? '';
     }
-
+*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

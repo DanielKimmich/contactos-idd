@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Khsing\World\Models\Country as OriginalCountry;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 
 class WorldCountry extends OriginalCountry
 {
@@ -25,7 +25,7 @@ class WorldCountry extends OriginalCountry
     // protected $hidden = [];
     // protected $dates = [];
     protected $fillable = ['continent_id', 'name', 'full_name', 'capital', 'code', 'code_alpha3', 'emoji', 'has_division', 'currency_code','currency_name', 'tld','callingcode'];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ class WorldCountry extends OriginalCountry
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
     }
@@ -66,7 +66,7 @@ class WorldCountry extends OriginalCountry
     {
         return $this->destroyer->name ?? '';
     }
-
+*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

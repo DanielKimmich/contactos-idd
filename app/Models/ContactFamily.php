@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 use App\Models\ContentType;
 use App\Models\ContactRelation;
 //use Jlorente\Laravel\IdentityStamp\Database\Eloquent\IdentityStamps;

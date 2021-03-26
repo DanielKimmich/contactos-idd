@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 
 class ContentAlias extends Model
 {
@@ -19,7 +19,7 @@ class ContentAlias extends Model
     protected $table = 'content_alias';
     public $timestamps = true;
     protected $fillable = ['mimetype', 'alias',	'data_column'];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
 
 	 /*
     |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ class ContentAlias extends Model
     | ACCESORS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
     }
@@ -56,7 +56,7 @@ class ContentAlias extends Model
     {
         return $this->destroyer->name ?? '';
     }
-
+*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

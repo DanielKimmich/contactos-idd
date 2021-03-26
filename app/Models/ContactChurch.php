@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 use App\Models\ContentType;
 //use App\Models\ContactRelation;
 
@@ -26,7 +26,7 @@ class ContactChurch extends Model
                            'relation_step', 'relation_gift', 'relation_talent', 'relation_ministry'];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user',];
+//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user',];
     
     /*
     |--------------------------------------------------------------------------
@@ -90,7 +90,7 @@ class ContactChurch extends Model
     }    
 
     //-------------------------------------------------------------------------- 
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
     }
@@ -102,7 +102,7 @@ class ContactChurch extends Model
     {
         return $this->destroyer->name ?? '';
     }
-
+*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

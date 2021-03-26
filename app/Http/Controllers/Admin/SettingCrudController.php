@@ -109,5 +109,8 @@ class SettingCrudController extends OriginalRoleCrudController
             'type'  => 'checkbox',
         ]);
 
+    //INFO
+        $this->getInfoFields();
+
     }
 }

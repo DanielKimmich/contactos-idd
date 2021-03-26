@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Backpack\PermissionManager\app\Models\Permission as OriginalPermission;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 use Illuminate\Support\Collection;
 
 class BackpackPermission extends OriginalPermission
@@ -16,7 +16,7 @@ class BackpackPermission extends OriginalPermission
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
 
     /*
     |--------------------------------------------------------------------------
@@ -69,7 +69,7 @@ class BackpackPermission extends OriginalPermission
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByUserAttribute()
     {
         if (! empty( $this->creator->name)){
             return $this->creator->name;
@@ -95,5 +95,5 @@ class BackpackPermission extends OriginalPermission
             return '';
         }        
     }
-    
+    */
 }

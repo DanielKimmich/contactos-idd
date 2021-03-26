@@ -5,10 +5,11 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Pivot;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 use Carbon\Carbon;
 use App\Models\WorldCountry;
 use App\Models\ContentType;
+//use Illuminate\Support\Facades\Auth;
 
 class ContactPerson extends Model
 //class Contact extends Pivot
@@ -28,7 +29,7 @@ class ContactPerson extends Model
     protected $fillable = ['display_name', 'sex_id', 'nationality_id', 'civil_status', 'photo_id', 'status', 'relation_phone', 'relation_email', 'relation_address'];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user',
+    protected $appends = [ //'created_by_user', 'updated_by_user', 'deleted_by_user',
                 'birthday', 'age', 
                 'phone_mobile', 'phone_home', 'email1', 'address1'];
     // protected $fakeColumns = ['status'];
@@ -40,6 +41,25 @@ class ContactPerson extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+/*    public function touch()  // touchOwners()
+    {
+        if ( $this->isUserstamping() && !is_null($this->getUpdatedByColumn()) && !is_null(Auth::id())) {
+                $this->{$this->getUpdatedByColumn()} = Auth::id();
+        }
+        parent::touch();
+    } 
+*/
+
+/*    public function touch_user()  // touch()
+    {
+        if ( $this->isUserstamping() && !is_null($this->getUpdatedByColumn()) 
+                && !is_null(Auth::id()) ) 
+        {
+            $this->{$this->getUpdatedByColumn()} = Auth::id();
+            $this->save();
+        }
+    } 
+*/
 
     /*
     |--------------------------------------------------------------------------
@@ -80,6 +100,11 @@ class ContactPerson extends Model
     {
         return $this->hasOne('App\Models\ContactBlood','contact_id','id');
     }
+
+
+
+
+
 /*
     public function sex()
     {
@@ -177,19 +202,19 @@ class ContactPerson extends Model
     }
 
     //--------------------------------------------------------------------------
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByEmailAttribute()
     {
-        return $this->creator->name ?? '';
+        return $this->getCreatedByUserAttribute('email');
     }
-    Public function getUpdatedByUserAttribute()
+    Public function getUpdatedByEmailAttribute()
     {
-        return $this->editor->name ?? '';
+        return $this->getUpdatedByUserAttribute('email');
     }
-    Public function getDeletedByUserAttribute()
+    Public function getDeletedByEmailAttribute()
     {
-        return $this->destroyer->name ?? '';
+        return $this->getDeletedByUserAttribute('email');
     }
-
+*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

@@ -58,15 +58,12 @@ class ContactPersonCrudController extends CrudController
         //$this->crud->disableDetailsRow();
         $this->crud->setDetailsRowView('vendor.backpack.crud.details_row_contact');
 
-    //    $this->dashboard();
-
     }
 
     protected function setupListOperation()
     {   //$this->crud->setListContentClass('col-md-8 col-md-offset-2');
     //    $this->crud->setDefaultPageLength(25); //number of rows shown in list
      //   $this->crud->disableResponsiveTable();
-      //  dump($this->crud->getRoute());
         $this->dashboard();
         $this->setupAvancedOperation();
      // ------ CRUD COLUMNS
@@ -1147,7 +1144,7 @@ protected function destroyMacronutrients($productId)
         $widgets = [
             'type'  => 'div',
             'class' => 'row',
-            'content' => [  ] // widgets
+            'content' => [] // widgets
         ];  
 
         $personCount = ContactPerson::count();

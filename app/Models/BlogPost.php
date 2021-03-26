@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Wildside\Userstamps\Userstamps;
+use DaLiSoft\Userstamps\Userstamps;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 
@@ -26,7 +26,8 @@ class BlogPost extends Model
     // protected $fillable = [];
     // protected $hidden = [];
     protected $dates = ['posted_at'];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user', 'comments_count'];
+    protected $appends = [//'created_by_user', 'updated_by_user', 'deleted_by_user', 
+                    'comments_count'];
     protected $fillable = ['title', 'description', 'body', 'featured_image', 'slug', 'category_id', 'author_id', 'posted_at', 'status'];
 
     /*
@@ -96,7 +97,7 @@ class BlogPost extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
     }
@@ -108,7 +109,7 @@ class BlogPost extends Model
     {
         return $this->destroyer->name ?? '';
     }
-
+*/
     // The slug is created automatically from the "title" field if no slug exists.
     public function getSlugOrTitleAttribute()
     {

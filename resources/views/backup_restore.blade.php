@@ -66,7 +66,7 @@
 
 @section('after_styles')
   <!-- DATA TABLES -->
-  <link rel="stylesheet" type="text/css" href="{{ asset('packages/datatables.net/css/jquery.dataTables.min.css') }}"> 
+  <link rel="stylesheet" type="text/css" href="{{ asset('packages/datatables.net-dt/css/jquery.dataTables.min.css') }}"> 
 @endsection
 
 @section('after_scripts')

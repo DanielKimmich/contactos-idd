@@ -119,14 +119,14 @@
                     <img src="img/apache-logo.jpg" alt="Apache" height="150" width="300">
                     <img src="img/heroku-logo.png" alt="Heroku" height="150" width="300">
                 </p>
-                
+                </div>
+
             </div>
 
 
-
-        @php
+            @php
             // Ejemplo de uso 
-        /*    $ip = env('REMOTE_ADDR');
+            /*    $ip = env('REMOTE_ADDR');
             $db = env('DB_CONNECTION');
             //    $url = env('DATABASE_URL');
             $host = env('DB_HOST');
@@ -134,18 +134,18 @@
             $database = env('DB_DATABASE');
             $username = env('DB_USERNAME');
             //  $password = env('DB_PASSWORD');       */
-        @endphp
+            @endphp
 
-        <div>
-            <p>
+            <div>
+                <p>
         {{--    IP_LOCAL: {{ $ip }}<br>
                 DB_CONNECTION: {{ $db }}<br>
                 DB_HOST: {{ $host }}<br>
                 DB_PORT: {{ $port }}<br>
                 DB_DATABASE: {{ $database }}<br>
                 DB_USERNAME: {{ $username }}<br>  --}}
-            </p>
-        </div>
+                </p>
+            </div>
 
         </div>
     </body>

@@ -33,6 +33,8 @@ class ContactChurchCrudController extends CrudController
         CRUD::setModel(\App\Models\ContactChurch::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/contactchurch');
         CRUD::setEntityNameStrings(trans('contact.church.entity_name'), trans('contact.church.entity_names'));
+
+        $this->setAccessOperation('contactchurch');
     }
 
     /**
@@ -51,8 +53,10 @@ class ContactChurchCrudController extends CrudController
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
          */
 
-        $this->dashboard();
         $this->setupAvancedOperation();
+        $this->addCustomButton();
+        $this->dashboard();
+
      // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -107,6 +111,8 @@ class ContactChurchCrudController extends CrudController
     protected function setupShowOperation()
     {  // $this->crud->setShowContentClass('col-md-8 col-md-offset-2');
         $this->crud->set('show.setFromDb', false);
+        $this->addCustomButton();
+
     // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -437,6 +443,22 @@ class ContactChurchCrudController extends CrudController
 
         // daterange filter
         $this->setFilterDateUpdate();
+    }
+
+    public function addCustomButton()
+    {   // ----BUTTONS
+        if (auth()->user()->can('contactperson.update') ) {
+            $this->crud->allowAccess('updateperson');
+            $this->crud->addButtonFromView('line', 'updateperson', 'updatePerson', 'end');
+            $this->crud->moveButton('updatefamily', 'before','delete');
+        }
+        if (auth()->user()->can('contactfamily.update') ) {    
+            $this->crud->allowAccess('updatechurch');
+            $this->crud->addButtonFromView('line', 'updatechurch', 'updateChurch', 'end'); 
+            $this->crud->moveButton('updatechurch', 'before','delete');         
+        }         
+
+        //    $this->crud->addButtonFromView('line', 'topdf', 'topdf', 'end');   
     }
 
     public function dashboard()

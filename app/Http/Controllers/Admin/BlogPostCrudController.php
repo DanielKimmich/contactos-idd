@@ -159,7 +159,7 @@ class BlogPostCrudController extends CrudController
             'options'   => (function ($query) {
                 return $query->orderBy('display_name', 'ASC')->get(); }), 
             ]);
-    if (auth()->user()->can('increate blogpost') ) {
+    if (auth()->user()->can('blogcategory.create') ) {
         $this->crud->addField([    // Relationship
             'name'  => 'category_id',
             'label' => trans('blog.post.category'),
@@ -210,7 +210,7 @@ class BlogPostCrudController extends CrudController
             'tab'   => trans('blog.data'),            
             'placeholder' => 'Your textarea text here',
             ]);
-    if (auth()->user()->can('increate blogpost') ) {
+    if (auth()->user()->can('blogtag.create') ) {
         $this->crud->addField([    // Relationship
             'name'  => 'tags',
             'label' => trans('blog.post.tags'),

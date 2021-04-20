@@ -293,7 +293,7 @@ public function touch()
                         $arr_types = (json_decode($types, true)); //converts json into array
                         //dump($arr_types);
                         if(is_array($arr_types)) {
-                        foreach ($arr_types as $reverse) {
+                          foreach ($arr_types as $reverse) {
                             if ($reverse['data1'] == $this->sex_id) {
                                 //dump($reverse['data2']);
                                 ContactRelation::create([
@@ -303,7 +303,7 @@ public function touch()
                                     'data3' => 'generado automaticamente',
                                 ]);
                             }
-                        }
+                          }
                         }
                     }    
                 }

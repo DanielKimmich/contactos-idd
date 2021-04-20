@@ -40,14 +40,14 @@ abstract class CrudController extends CrudControllerBackpack
     protected function setAccessOperation($ruta)
     {   //$ruta = 'worldcity';
     // ------ CRUD ACCESS
-        if (auth()->user()->can('list '.$ruta ) ) {
+        if (auth()->user()->can($ruta.'.list' ) ) {
             $this->crud->allowAccess('list');
             $this->crud->enableExportButtons(); // ------ DATATABLE EXPORT BUTTONS
 //            $this->crud->modifyButton('exportButtons', ['stack' => 'top']);
         } else {
             $this->crud->denyAccess('list');
         }
-        if (auth()->user()->can('create '.$ruta ) ) {
+        if (auth()->user()->can($ruta.'.create' ) ) {
             $this->crud->allowAccess('create');
             $this->crud->allowAccess('clone');
             $this->crud->allowAccess('bulkClone');
@@ -56,17 +56,17 @@ abstract class CrudController extends CrudControllerBackpack
             $this->crud->denyAccess('clone');
             $this->crud->denyAccess('bulkClone');
         }
-        if (auth()->user()->can('update '.$ruta) ) {
+        if (auth()->user()->can($ruta.'.update') ) {
             $this->crud->allowAccess('update');
         } else {
             $this->crud->denyAccess('update');
         } 
-        if (auth()->user()->can('show '.$ruta) ) {
+        if (auth()->user()->can($ruta.'.show') ) {
             $this->crud->allowAccess('show');
         } else {
             $this->crud->denyAccess('show');
         }
-        if (auth()->user()->can('delete '.$ruta) ) {
+        if (auth()->user()->can($ruta.'.delete') ) {
             $this->crud->allowAccess('delete');
             $this->crud->allowAccess('bulkDelete');
         } else {
@@ -74,7 +74,7 @@ abstract class CrudController extends CrudControllerBackpack
             $this->crud->denyAccess('bulkDelete');
         }
         // ------ CRUD BUTTONS
-        if (auth()->user()->hasAnyPermission(['delete '.$ruta, 'create '.$ruta]))  { 
+        if (auth()->user()->hasAnyPermission([$ruta.'.delete', $ruta.'create']))  { 
          //   $this->crud->enableBulkActions();
         }  
 

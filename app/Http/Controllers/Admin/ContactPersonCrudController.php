@@ -9,6 +9,9 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Support\Facades\Config;
 use Carbon\Carbon;
+//use Spatie\Browsershot\Browsershot;
+//use Storage;
+
 use App\Http\Controllers\Admin\Operations\PrintOperation;
 use App\Models\ContactPerson; 
 use App\Models\ContactName;
@@ -28,7 +31,7 @@ use App\Models\WorldCity;
  */
 class ContactPersonCrudController extends CrudController
 {
-   use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\InlineCreateOperation;
@@ -64,8 +67,11 @@ class ContactPersonCrudController extends CrudController
     {   //$this->crud->setListContentClass('col-md-8 col-md-offset-2');
     //    $this->crud->setDefaultPageLength(25); //number of rows shown in list
      //   $this->crud->disableResponsiveTable();
-        $this->dashboard();
+
         $this->setupAvancedOperation();
+        $this->addCustomButton();
+        $this->dashboard();
+
      // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -235,6 +241,8 @@ class ContactPersonCrudController extends CrudController
 protected function setupShowOperation()
     {  // $this->crud->setShowContentClass('col-md-8 col-md-offset-2');
         $this->crud->set('show.setFromDb', false);
+        $this->addCustomButton();
+
     // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -933,6 +941,18 @@ protected function setupShowOperation()
 
 
 
+    protected function export_to_pdf()
+    {
+        //\Alert::message('this is a test message', 'info');
+        
+    //    $targetPath = storage_path().DIRECTORY_SEPARATOR.'example.pdf';
+     //   Browsershot::url('http://crudcontact.telecom.int/admin/contactperson/71/show')->save($targetPath);
+
+     //   \Alert::success(trans('this is a test message'))->flash();
+        return redirect()->back();
+
+    }
+
     protected function setupUpdateOperation()
     {
         $this->crud->disableAutoFocus();
@@ -1137,6 +1157,21 @@ protected function destroyMacronutrients($productId)
         return response()->json(['status' => 'error', 'messages' => [trans('phone.phone_id_is_required')]]);
     }
 */
+    public function addCustomButton()
+    {   // ----BUTTONS
+        if (auth()->user()->can('contactfamily.update') ) {
+            $this->crud->allowAccess('updatefamily');
+            $this->crud->addButtonFromView('line', 'updatefamily', 'updateFamily', 'end');
+            $this->crud->moveButton('updatefamily', 'before','delete');
+        }
+        if (auth()->user()->can('contactchurch.update') ) {    
+            $this->crud->allowAccess('updatechurch');
+            $this->crud->addButtonFromView('line', 'updatechurch', 'updateChurch', 'end'); 
+            $this->crud->moveButton('updatechurch', 'before','delete');         
+        }     
+    //  $this->crud->orderButtons('line', ['show','update', 'updatefamily', 'updatechurch','delete']);
+        //    $this->crud->addButtonFromView('line', 'topdf', 'topdf', 'end');   
+    }
 
     public function dashboard()
     {

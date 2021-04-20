@@ -36,8 +36,10 @@ class ContactFamilyCrudController extends CrudController
 
     protected function setupListOperation()
     {
-        $this->dashboard();
         $this->setupAvancedOperation();
+        $this->dashboard(); 
+        $this->addCustomButton();
+
      // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -112,6 +114,8 @@ class ContactFamilyCrudController extends CrudController
     protected function setupShowOperation()
     {  // $this->crud->setShowContentClass('col-md-8 col-md-offset-2');
         $this->crud->set('show.setFromDb', false);
+        $this->addCustomButton();
+
     // ------ CRUD COLUMNS
         $this->crud->addColumn([
             'name'  => 'id',
@@ -250,7 +254,7 @@ class ContactFamilyCrudController extends CrudController
             'wrapper'   => ['class' => 'form-group col-md-4'],
             'options'   => ContentType::getTypeCivilStatus(),
             ]);        
-    if (auth()->user()->can('increate contactfamily') ) {
+    if (auth()->user()->can('contactperson.create') ) {
     //PARENT
          $this->crud->addField([
             'name'  => 'relation_parent',
@@ -665,6 +669,17 @@ class ContactFamilyCrudController extends CrudController
         $this->getInfoFields();
     }
 
+    public function fetchPerson()
+    {
+        return $this->fetch('App\Models\ContactPerson');
+    }
+
+    public function getPersons()
+    {   
+        $options = ContactPerson::orderBy('display_name')->pluck('display_name','id'); 
+        return $options->toArray();
+    }
+
     protected function setupAvancedOperation()
     {
     // ------ ADVANCED QUERIES  
@@ -735,15 +750,20 @@ class ContactFamilyCrudController extends CrudController
         $this->setFilterDateUpdate();
     }
 
-    public function fetchPerson()
-    {
-        return $this->fetch('App\Models\ContactPerson');
-    }
+    public function addCustomButton()
+    {   // ----BUTTONS
+        if (auth()->user()->can('contactperson.update') ) {
+            $this->crud->allowAccess('updateperson');
+            $this->crud->addButtonFromView('line', 'updateperson', 'updatePerson', 'end');
+            $this->crud->moveButton('updatefamily', 'before','delete');
+        }
+        if (auth()->user()->can('contactchurch.update') ) {    
+            $this->crud->allowAccess('updatechurch');
+            $this->crud->addButtonFromView('line', 'updatechurch', 'updateChurch', 'end'); 
+            $this->crud->moveButton('updatechurch', 'before','delete');         
+        }     
 
-    public function getPersons()
-    {   
-        $options = ContactPerson::orderBy('display_name')->pluck('display_name','id'); 
-        return $options->toArray();
+        //    $this->crud->addButtonFromView('line', 'topdf', 'topdf', 'end');   
     }
 
 

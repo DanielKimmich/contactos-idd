@@ -225,6 +225,7 @@ return [
 		'label'    	=> 'Información Adicional',
 		'pastor'  	=> 'Pastor',
 		'site'    	=> 'Lugar',		
+		'baptized'  => 'Bautizado',
 	// Messages
 	],
 

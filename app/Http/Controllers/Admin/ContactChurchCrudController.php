@@ -71,6 +71,13 @@ class ContactChurchCrudController extends CrudController
             'priority' => 1,
             ]);
         $this->crud->addColumn([
+            'name'  => 'baptismday',
+            'label' =>  trans('contact.step.baptized'),
+            'type'  => 'check',
+            'priority' => 2,
+            ]);
+
+        $this->crud->addColumn([
             'name'  => 'gifts',
             'label' => trans('contact.gift.tab'),
             'type'  => 'relationship_count',
@@ -124,7 +131,25 @@ class ContactChurchCrudController extends CrudController
             'label' =>  trans('contact.person.display_name'),
             'type'  => 'text',
             ]);
-
+        $this->crud->addColumn([
+            'name' => 'relation_step', 
+            'label' => trans('contact.step.tab'), 
+            'type' => 'closure', 
+            'function' => function($entry) {
+                $data = (json_decode($entry['relation_step'], true)); //converts json into array
+                $items = '';
+                if(is_array($data)) {
+                    foreach ($data as $item) {
+                        $items .= '<b>'. $item['label'] .':</b> '. $item['data1'];
+                        if (empty($item['data3']))
+                            $items .= '<br>';
+                        else
+                            $items .= ' ('. $item['data3'] .')<br>';
+                    }
+                }
+                return $items; 
+            }
+       ]); 
 
         $this->crud->addColumn([
             'name' => 'relation_gift', 

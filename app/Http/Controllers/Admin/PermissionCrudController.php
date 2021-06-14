@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\CrudController as OriginalPermissionCrudController;
 use Backpack\PermissionManager\app\Http\Requests\PermissionStoreCrudRequest as StoreRequest;
 use Backpack\PermissionManager\app\Http\Requests\PermissionUpdateCrudRequest as UpdateRequest;
+use App\Models\ContentType;
 
 // VALIDATION
 
@@ -95,7 +96,7 @@ class PermissionCrudController extends OriginalPermissionCrudController
             'name'  => 'id',
             'label' => 'Id',
             'type'  => 'number',
-            ]);
+        ]);
         $this->crud->addColumn([
             'name'  => 'name',
             'label' =>  trans('backpack::permissionmanager.name'),
@@ -175,6 +176,28 @@ class PermissionCrudController extends OriginalPermissionCrudController
                     $query->where('model_id', '=', $value);
                 });
             });
+
+        // Modulo
+        $this->crud->addFilter([
+            'name' => 'name_module',
+            'label' => trans('backpack::permissionmanager.module'),
+            'type' => 'dropdown',     
+            ], 
+            ContentType::getTypeModules(),
+            function($value) { // if the filter is active
+                $this->crud->addClause('where', 'name', 'LIKE', "$value%");
+            }); 
+
+        // Operacion
+        $this->crud->addFilter([
+            'name' => 'name_operation',
+            'label' => trans('backpack::permissionmanager.operation'),
+            'type' => 'dropdown',     
+            ], 
+            ContentType::getTypeOperations(),
+            function($value) { // if the filter is active
+                $this->crud->addClause('where', 'name', 'LIKE', "%$value");
+            }); 
         
         // daterange filter
         $this->setFilterDateUpdate();
@@ -184,19 +207,45 @@ class PermissionCrudController extends OriginalPermissionCrudController
     {
     // ------ CRUD FIELDS
     //DATA
-        $this->crud->addField([
+/*        $this->crud->addField([
             'name'  => 'name',
             'label' => trans('backpack::permissionmanager.name'),
             'type'  => 'text',
             'tab'   => 'Data',
             ]);
-        if (config('backpack.permissionmanager.multiple_guards')) {
+*/
         $this->crud->addField([
-            'name'    => 'guard_name',
-            'label'   => trans('backpack::permissionmanager.guard_type'),
-            'type'    => 'select_from_array',
+            'name'  => 'name',
+            'label' => trans('backpack::permissionmanager.name'),
+            'type'  => 'text_from_modal',
             'tab'   => 'Data',
-            'options' => $this->getGuardTypes(),
+            'separate'  => '.',
+            'modal_class' => 'modal-dialog',
+            'fields' => [
+                [   'name' => 'module',
+                    'label' => trans('backpack::permissionmanager.module'),
+                    'type' => 'select_from_array',
+                //    'attributes' => ['return_value' => 'text'],
+                    'options'   => ContentType::getTypeModules(),
+                    'allows_null' => false,
+                ],                
+                [   'name' => 'operation',
+                    'label' => trans('backpack::permissionmanager.operation'),
+                    'type' => 'select_from_array',
+                //    'attributes' => ['return_value' => 'text'],
+                    'options'   => ContentType::getTypeOperations(),
+                    'allows_null' => false,
+                ],
+            ],
+        ]);
+
+        if (config('backpack.permissionmanager.multiple_guards')) {
+            $this->crud->addField([
+                'name'    => 'guard_name',
+                'label'   => trans('backpack::permissionmanager.guard_type'),
+                'type'    => 'select_from_array',
+                'tab'   => 'Data',
+                'options' => $this->getGuardTypes(),
             ]);
         }
         $this->crud->addField([
@@ -208,7 +257,7 @@ class PermissionCrudController extends OriginalPermissionCrudController
             'attribute' => 'name',
             'model'     => $this->role_model,
             'pivot'     => true,
-            ]);
+        ]);
 
     //INFO
         $this->getInfoFields();

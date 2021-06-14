@@ -30,7 +30,7 @@ class ContactPerson extends Model
     // protected $hidden = [];
     // protected $dates = [];
     protected $appends = [ //'created_by_user', 'updated_by_user', 'deleted_by_user',
-                'birthday', 'age', 
+                'birthday', 'age', 'spouse',
                 'phone_mobile', 'phone_home', 'email1', 'address1'];
     // protected $fakeColumns = ['status'];
     // protected $isColumnNullable = ['nationality_id'];
@@ -101,7 +101,12 @@ class ContactPerson extends Model
         return $this->hasOne('App\Models\ContactBlood','contact_id','id');
     }
 
-
+    public function spouses()
+    {
+        $keys = array_keys(ContentType::getTypeRelationSpouses());
+        return $this->hasMany('App\Models\ContactRelation','contact_id', 'id')
+                        ->whereIn('data2', $keys);
+    }
 
 
 
@@ -166,6 +171,14 @@ class ContactPerson extends Model
             return ''; 
         }
     }
+
+    Public function getSpouseAttribute()
+    {
+        $spouse = $this->spouses()->first()->name ?? '';
+
+            return $spouse; 
+    }
+
 
     //--------------------------------------------------------------------------
     public function getRelationPhoneAttribute() {

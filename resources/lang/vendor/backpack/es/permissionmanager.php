@@ -24,5 +24,6 @@ return [
     'user_role_permission'  => 'Permisos del rol del usuario',
     'user'                  => 'Usuario',
     'users'                 => 'Usuarios',
-
+    'module'                => 'Módulo',
+    'operation'             => 'Operación',
 ];

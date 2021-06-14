@@ -173,7 +173,7 @@
     @push('crud_fields_scripts')
         <script src="{{ asset('packages/cropperjs/dist/cropper.min.js') }}"></script>
         <script src="{{ asset('packages/jquery-cropper/dist/jquery-cropper.min.js') }}"></script>
-        <script src="{{ asset('packages/compress.js/build/compress.js') }}"></script>
+ {{--       <script src="{{ asset('packages/compress.js/build/compress.js') }}"></script> --}}
  {{--       <script src="{{ asset('packages/compress.js/index.js') }}"></script>  --}}
         <script>
 

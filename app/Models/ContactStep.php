@@ -26,7 +26,7 @@ class ContactStep extends Model
     // protected $dates = [];
     protected $touches = ['persons'];
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3', 'data4', 'data5'];
-//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user']; 
+    protected $appends = ['label']; 
     protected $attributes = ['mimetype' => 'Church'];  
 
     /*
@@ -62,6 +62,11 @@ class ContactStep extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */   
+    Public function getLabelAttribute()
+    {
+        return $this->types->label ?? '';
+    }
+
 /*    Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';

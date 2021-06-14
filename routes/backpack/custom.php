@@ -15,6 +15,7 @@ Route::group([
 //Contact
     Route::crud('contactperson', 'ContactPersonCrudController');
     Route::crud('contactfamily', 'ContactFamilyCrudController');
+    Route::crud('contactchurch', 'ContactChurchCrudController');
     Route::crud('contactdata', 'ContactDataCrudController');
     Route::crud('contenttype', 'ContentTypeCrudController');    
     Route::get('contactdata/import', 'ContactDataCrudController@import');
@@ -68,5 +69,5 @@ Route::group([
     Route::crud('setting', 'SettingCrudController');
 
     Route::get('sendmail', 'Api\EmailNotificationController@sendMail');
-    Route::crud('contactchurch', 'ContactChurchCrudController');
+
 }); // this should be the absolute last line of this file

@@ -5,7 +5,9 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use DaLiSoft\Userstamps\Userstamps;
+use Carbon\Carbon;
 use App\Models\ContentType;
+
 //use App\Models\ContactRelation;
 
 class ContactChurch extends Model
@@ -26,7 +28,7 @@ class ContactChurch extends Model
                            'relation_step', 'relation_gift', 'relation_talent', 'relation_ministry'];
     // protected $hidden = [];
     // protected $dates = [];
-//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user',];
+    protected $appends = ['baptismday'];
     
     /*
     |--------------------------------------------------------------------------
@@ -72,6 +74,17 @@ class ContactChurch extends Model
     |--------------------------------------------------------------------------
     */
     //--------------------------------------------------------------------------
+    Public function getBaptismdayAttribute()
+    {
+        $baptism = $this->steps()->firstWhere('data2', 'BAPTISM')->data1 ?? '';
+        if (!empty($baptism)) {
+            return Carbon::createFromFormat('Y-m-d',$baptism);
+        } else {
+            return ''; 
+        }
+    }
+
+
     public function getRelationStepAttribute() {
         $data = self::steps()->get();
         return $data->toJson();

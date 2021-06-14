@@ -104,7 +104,7 @@ public function touch()
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-    Public function getCreatedByUserAttribute()
+/*    Public function getCreatedByUserAttribute()
     {
        return $this->creator->name ?? '';
        // return $this->getCreatedByColumn();
@@ -119,6 +119,7 @@ public function touch()
        return $this->destroyer->name ?? '';
        // return $this->getDeletedByColumn();
     }
+*/
     //--------------------------------------------------------------------------
     public function getRelationParentAttribute() {
         $data = self::parents()->get();

@@ -6,7 +6,11 @@ use App\Http\Requests\NotificationRequest;
 //use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Config;
 use App\Models\Notification;
+use App\Models\WorldCountry;
+use App\Models\ContentType;
+use \Backpack\CRUD\app\Http\Controllers\Operations\FetchOperation;
 
 /**
  * Class NotificationCrudController
@@ -79,14 +83,14 @@ class NotificationCrudController extends CrudController
             'label' => trans('blog.notification.title'),
             'type'  => 'text',
             'tab'   => trans('blog.data'),
-            ]);        
+        ]);        
         $this->crud->addField([
             'name'  => 'body',
             'label' => trans('blog.notification.body'),
             'type'  => 'ckeditor',
             'tab'   => trans('blog.data'),
 
-            ]);
+        ]);
         $this->crud->addField([
             'name'  => 'color',
             'label' => trans('blog.notification.color'),
@@ -95,7 +99,7 @@ class NotificationCrudController extends CrudController
             'wrapper' => ['class' => 'form-group col-md-6'],
             'options'    => Notification::getTypeColor(),
             'default'    => 'GREEN',
-            ]);
+        ]);
         $this->crud->addField([ // Text
             'name'  => 'priority',
             'label' => trans('blog.notification.priority'),
@@ -111,7 +115,19 @@ class NotificationCrudController extends CrudController
             'type'  => 'date',
             'tab'   => trans('contact.data'),
             'wrapper' => ['class' => 'form-group col-md-6'], //resizing
-            ]);
+        ]);
+
+/*        $this->crud->addField([
+            'name'  => 'comments',
+            'label' => trans('blog.notification.title'),
+            'type'  => 'nested_crud',
+            'tab'   => trans('blog.data'),
+            'wrapper' => ['class' => 'form-group col-md-6'], //resizing
+            'target'  => 'comment',
+            'model'   => 'App\Models\BlogComment',
+            'fake'    => true,
+        ]);        
+*/
     //INFO
         $this->getInfoFields(); 
 
@@ -130,6 +146,57 @@ class NotificationCrudController extends CrudController
     // ------ CRUD FILTERS
         // daterange filter
         $this->setFilterDateUpdate();
+    }
+
+    public function getCountries()
+    {   
+        $options = WorldCountry::all();
+        $options = $options->sortBy('name')->pluck('name','id');
+        return $options->toArray();
+    }
+
+    public function fetchDivision()
+    {
+        //dump($this->crud->getRequest()->input('form'));
+        return $this->fetch('App\Models\WorldDivision');
+    /*     return $this->fetch([
+            'model' => 'App\Models\WorldDivision', // required
+            'searchable_attributes' => ['name'],
+            'paginate' => 50, // items to show per page
+           'query' => function($model) {
+                $form = $this->crud->getRequest()->input('form');
+                foreach ($form as $entry) {
+                    if ($entry['name'] == 'country_id') {
+                        $country_id = (int) $entry['value'];
+                        break 1;  // Sólo sale del foreach. 
+                    }
+                }
+                return $model->where('country_id', $country_id)->orderBy('name');
+            } // to filter the results that are returned
+        
+        ]); */
+    }
+
+    public function fetchCity()
+    {
+     //   return $this->fetch('App\Models\WorldCity');
+        return $this->fetch([
+            'model' => 'App\Models\WorldCity', // required
+            'searchable_attributes' => ['name'],
+            'paginate' => 50, // items to show per page
+     /*       'query' => function($model) {
+                $form = $this->crud->getRequest()->input('form');
+                foreach ($form as $entry) {
+                    if ($entry['name'] == 'country_id') {
+                        $country_id = (int) $entry['value'];
+                        break 1;  // Sólo sale del foreach. 
+                    }
+                }
+                return $model->where('country_id', $country_id)->orderBy('name');
+            } // to filter the results that are returned
+        */
+        ]); 
+
     }
 
 }

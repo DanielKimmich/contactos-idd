@@ -88,13 +88,6 @@ class ContactFamilyCrudController extends CrudController
             'priority'  => 3,
             'suffix' => '',
             ]); 
-/*        $this->crud->addColumn([
-            'name'  => 'sex_id',
-            'label' => trans('contact.family.sex'),
-            'type'  => 'select_from_array',
-            'priority'  => 4,
-            'options'   => ContentType::getTypeSexes(),
-            ]); */
         $this->crud->addColumn([
             'name'  => 'civil_status',
             'label' => trans('contact.family.civil_status'),
@@ -102,13 +95,6 @@ class ContactFamilyCrudController extends CrudController
             'priority'  => 3,
             'options'   => ContentType::getTypeCivilStatus(),
             ]);
-/*        $this->crud->addColumn([
-            'name'  => 'status',
-            'label' => trans('contact.family.status'),
-            'type'  => 'select_from_array',
-            'priority'  => 3,
-            'options'   => ContentType::getTypeStatus(),
-            ]); */
     }
 
     protected function setupShowOperation()

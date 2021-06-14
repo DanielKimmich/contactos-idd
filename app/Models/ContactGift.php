@@ -26,7 +26,7 @@ class ContactGift extends Model
     // protected $dates = [];
     protected $touches = ['persons'];
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3', 'data4', 'data5'];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user', 'label']; 
+    protected $appends = ['label']; 
     protected $attributes = ['mimetype' => 'Gift'];  
 
     /*
@@ -66,7 +66,8 @@ class ContactGift extends Model
     {
         return $this->types->label ?? '';
     }
-    Public function getCreatedByUserAttribute()
+
+/*    Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
     }
@@ -78,7 +79,7 @@ class ContactGift extends Model
     {
         return $this->destroyer->name ?? '';
     }
-
+*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

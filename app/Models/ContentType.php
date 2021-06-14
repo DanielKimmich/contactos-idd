@@ -178,6 +178,20 @@ class ContentType extends Model
                         ->orderBy('lft', 'ASC')->pluck('label','type');
         return $types->toArray();
     }    
+
+    public static function getTypeModules()
+    {   
+        $types = self::where('mimetype','Module')->where('depth', '>', 1)
+                        ->orderBy('lft', 'ASC')->pluck('label','type');
+        return $types->toArray();
+    }   
+
+    public static function getTypeOperations()
+    {   
+        $types = self::where('mimetype','Operation')->where('depth', '>', 1)
+                        ->orderBy('lft', 'ASC')->pluck('label','type');
+        return $types->toArray();
+    }       
     /*
     |--------------------------------------------------------------------------
     | RELATIONS

@@ -554,6 +554,15 @@ protected function setupShowOperation()
             'allows_null' => true,
             'attributes' => ['id' => 'civil_status'],
         ]);
+        $this->crud->addField([ // Text
+            'name'  => 'spouse',
+            'label' => trans('contact.person.display_name'),
+            'type'  => 'text',
+            'tab'   => trans('contact.data'),
+            'wrapper' => ['class' => 'form-group col-md-6'],
+            'attributes' => ['readonly' => 'readonly'],
+        ]); 
+
         $this->crud->addField([
             'name'  => 'events.event_dead',
             'label' => trans('contact.event.deadday'),            
@@ -641,7 +650,7 @@ protected function setupShowOperation()
                 ],
             ],
         ]);
-
+/*
     //ADDRESS
         $this->crud->addField([
             'name'  => 'relation_address',
@@ -660,31 +669,92 @@ protected function setupShowOperation()
                     'type' => 'hidden',
                     'default'   =>  $this->crud->getCurrentEntryId(),
                 ],        
-                [   'name' => 'data1',
-                    'label' => trans('contact.address.address'),
-                    'type' => 'text',
-                    'prefix'   => '<i class="la la-map-marker"></i>',
-                    'attributes' => ['readonly' => 'readonly', 'id' => 'address_data1'],
+                [   'name'  => 'data2',
+                    'label' => trans('contact.address.type'),
+                    'type'  => 'select_from_array',
+                    'wrapper' => ['class' => 'form-group col-md-6'], 
+                    'options' => ContentType::getTypeAddresses(),
+                    'allows_null' => true,
                 ],
+
+                [   'name'  => 'data1',
+                    'label' => trans('contact.address.address'),
+                    'type'  => 'text_from_modal',
+                    'separate'  => ',',
+                    'modal_class' => 'modal-dialog modal-xl',
+                  //  'fake'   => true,
+                    'fields' => [
+                        [   'name'  => 'data4',
+                            'label' => trans('contact.address.street'),
+                            'type'  => 'text',
+                        //    'attributes' => ['id' => 'address_street'],
+                        ],
+                        [   'name' => 'data6',
+                            'label' => trans('contact.address.neigh'),
+                            'type' => 'text',
+                            //    'attributes' => ['id' => 'address_neigh'], 
+                        ], 
+                    ],                
+                ],
+
+                [   'name'  => 'data3',
+                    'label' => trans('contact.address.label'),
+                    'type'  => 'text',
+                ],
+            ],
+        ]);
+
+*/
+
+    //ADDRESS
+/*        $this->crud->addField([ //
+            'name'  => 'data2',
+            'label' => trans('contact.address.type'),
+            'type'  => 'select_from_array',
+            'tab'   => trans('contact.address.tab'),
+            'wrapper' => ['class' => 'form-group col-md-6'], 
+            'options' => ContentType::getTypeAddresses(),
+            'allows_null' => true,
+            'fake'   => true,            
+        ]); 
+
+        $this->crud->addField([
+            'name'  => 'data1',
+            'label' => trans('contact.address.address'),
+            'type'  => 'text_from_modal',
+            'tab'   => trans('contact.address.tab'),
+         //   'prefix'   => '<i class="la la-map-marker"></i>',
+         //   'suffix'   => '<i class="la la-trash"></i>',
+            'separate'  => ',',
+            'modal_class' => 'modal-dialog modal-xl',
+            'fake'   => true,
+            'fields' => [
                 [   'name'  => 'data4',
                     'label' => trans('contact.address.street'),
                     'type'  => 'text',
-                    'attributes' => ['id' => 'address_street'],
+                //    'attributes' => ['id' => 'address_street'],
                 ],
+                [   'name' => 'data6',
+                    'label' => trans('contact.address.neigh'),
+                    'type' => 'text',
+                //    'attributes' => ['id' => 'address_neigh'], 
+                ],                
+
+
+
                 [   'name' => 'data10',
                     'label' => trans('contact.address.country'),
                     'type' => 'select2_from_array',
                     'wrapper' => ['class' => 'form-group col-md-6'],
-                    'attributes' => ['id' => 'address_country'],
+                 //   'attributes' => ['id' => 'address_country', 'return_value' => 'text'],
                     'options'   => $this->getCountries(),
                     'default' => Config::get('settings.contact_country'),
                 ],
-
                 [   'name'  => 'data8',
                     'label' => trans('contact.address.division'),
                     'type'  => 'relationship',
                     'wrapper' => ['class' => 'form-group col-md-6'],
-                //    'attributes' => ['id' => 'address_division'],
+                //    'attributes' => ['id' => 'address_division', 'return_value' => 'text'],
                     'model' => 'App\Models\WorldDivision', // foreign key model
                     'entity'    => 'addresses',
                     'attribute' => 'name',
@@ -717,6 +787,110 @@ protected function setupShowOperation()
                     'default' => Config::get('settings.contact_city'),
                 //    'include_all_form_fields'  => false,
                 ],
+                [   'name' => 'data9',
+                    'label' => trans('contact.address.postcode'),
+                    'type' => 'text',
+                    'wrapper' => ['class' => 'form-group col-md-6'], 
+                //    'attributes' => ['id' => 'address_postcode'],
+                ],
+
+            ],
+        ]);     
+        $this->crud->addField([
+            'name'  => 'data3',
+            'label' => trans('contact.address.label'),
+            'type'  => 'text',
+            'tab'   => trans('contact.address.tab'),
+            'fake'   => true,
+        ]);
+*/
+
+
+
+
+    //ADDRESS
+        $this->crud->addField([
+            'name'  => 'relation_address',
+            'label' => trans('contact.address.titles'),
+            'type'  => 'repeatable',
+            'tab'   => trans('contact.address.tab'),
+        //    'fake' => true,
+            // optional
+            'new_item_label' => trans('contact.address.add_new_item'), // customize text button
+            'init_rows' => 0, // number of empty rows to be initialized, by default 1
+            'fields' => [
+                [   'name' => 'id',
+                    'type' => 'hidden',
+                ],
+                [   'name' => 'contact_id',
+                    'type' => 'hidden',
+                    'default'   =>  $this->crud->getCurrentEntryId(),
+                ],        
+                [   'name'  => 'data2',
+                    'label' => trans('contact.address.type'),
+                    'type'  => 'select_from_array',
+                    'wrapper' => ['class' => 'form-group col-md-6'], 
+                    'options' => ContentType::getTypeAddresses(),
+                    'allows_null' => true,
+                ],
+
+                [   'name' => 'data1',
+                    'label' => trans('contact.address.address'),
+                    'type' => 'text',
+                    'prefix'   => '<i class="la la-map-marker"></i>',
+                    'attributes' => ['readonly' => 'readonly', 'id' => 'address_data1'],
+                ],
+                [   'name'  => 'data4',
+                    'label' => trans('contact.address.street'),
+                    'type'  => 'text',
+                    'attributes' => ['id' => 'address_street'],
+                ],
+                [   'name' => 'data10',
+                    'label' => trans('contact.address.country'),
+                    'type' => 'select2_from_array',
+                    'wrapper' => ['class' => 'form-group col-md-6'],
+                    'attributes' => ['id' => 'address_country'],
+                    'options'   => $this->getCountries(),
+                    'default' => Config::get('settings.contact_country'),
+                ],
+
+                [   'name'  => 'data8',
+                    'label' => trans('contact.address.division'),
+                    'type'  => 'relationship',
+                    'wrapper' => ['class' => 'form-group col-md-6'],
+                    'attributes' => ['id' => 'address_division'],
+                    'model' => 'App\Models\WorldDivision', // foreign key model
+                    'entity'    => 'addresses',
+                    'attribute' => 'name',
+                    'ajax' => true,
+                    'multiple' => false,
+                 //   'data_source'  => backpack_url('contactperson/fetch/division'), // url to controller
+                    'data_source'  => url($this->crud->route.'/fetch/division'),
+                //    'placeholder' => '', // placeholder for the select
+                    'dependencies'  => ['data10'], //this select2 is reset to null
+                    'minimum_input_length' => 0, // minimum before querying results
+                    'default' => Config::get('settings.contact_division'),
+                  //  'include_all_form_fields'  => false,
+                ],
+                [   'name'  => 'data7',
+                    'label' => trans('contact.address.city'),
+                    'type'  => 'relationship',
+                    'wrapper' => ['class' => 'form-group col-md-6'],
+                    'attributes' => ['id' => 'address_city'],
+                    'model' => 'App\Models\WorldCity', // foreign key model
+                    'entity' => 'addresses', 
+                    'attribute' => 'name',
+                    'ajax' => true,
+                    'multiple' => false,
+                    'data_source'  => backpack_url('contactperson/fetch/city'), // url to controller search
+
+           // 'placeholder' => '', // placeholder for the select
+                    'dependencies'  => ['data10','data8'], //this select2 is reset to null
+       //     'dependencies'  => ['contact_addresses[0][data8]'],
+                    'minimum_input_length' => 0, // minimum before querying results
+                    'default' => Config::get('settings.contact_city'),
+                //    'include_all_form_fields'  => false,
+                ],
 
                 [   'name' => 'data9',
                     'label' => trans('contact.address.postcode'),
@@ -730,19 +904,15 @@ protected function setupShowOperation()
                     'wrapper' => ['class' => 'form-group col-md-6'],
                     'attributes' => ['id' => 'address_neigh'], 
                 ],                
-                [   'name'  => 'data2',
-                    'label' => trans('contact.address.type'),
-                    'type'  => 'select_from_array',
-                    'wrapper' => ['class' => 'form-group col-md-6'], 
-                    'options' => ContentType::getTypeAddresses(),
-                    'allows_null' => true,
-                ],
                 [   'name'  => 'data3',
                     'label' => trans('contact.address.label'),
                     'type'  => 'text',
                 ],
+
             ],
         ]);
+
+
 
     //BLOOD
         $this->crud->addField([ // radio

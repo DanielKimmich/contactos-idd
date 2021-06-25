@@ -167,18 +167,20 @@ return [
          */
         Khsing\World\WorldServiceProvider::class,
         Backpack\Settings\SettingsServiceProvider::class,
-        App\Providers\PermissionManagerServiceProvider::class, 
+        Barryvdh\DomPDF\ServiceProvider::class,
+   //     \Jlorente\Laravel\IdentityStamp\IdentityStampServiceProvider::class, 
 
         /*
          * Application Service Providers...
          */
+        App\Providers\PermissionManagerServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\DropboxServiceProvider::class,
-   //     \Jlorente\Laravel\IdentityStamp\IdentityStampServiceProvider::class,
+
 
     ],
 
@@ -230,6 +232,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

@@ -21,6 +21,7 @@ Route::group([
     Route::get('contactdata/import', 'ContactDataCrudController@import');
 
     Route::get('contactperson/topdf', 'ContactPersonCrudController@export_to_pdf');
+    Route::get('contactperson/pdf', 'ContactPersonCrudController@createPDF');
 
 //Blog 
     Route::crud('blogpost', 'BlogPostCrudController');

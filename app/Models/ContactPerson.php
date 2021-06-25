@@ -31,7 +31,8 @@ class ContactPerson extends Model
     // protected $dates = [];
     protected $appends = [ //'created_by_user', 'updated_by_user', 'deleted_by_user',
                 'birthday', 'age', 'spouse',
-                'phone_mobile', 'phone_home', 'email1', 'address1'];
+                'phone_mobile', 'phone_home', 'email1', 'address1',
+                'baptismday'];
     // protected $fakeColumns = ['status'];
     // protected $isColumnNullable = ['nationality_id'];
     //  protected $casts = ['status' => 'array', ];
@@ -108,6 +109,15 @@ class ContactPerson extends Model
                         ->whereIn('data2', $keys);
     }
 
+    public function steps()
+    {
+        return $this->hasMany('App\Models\ContactStep','contact_id', 'id');
+    }
+
+public function baptisms()
+    {
+        return $this->hasOne('App\Models\ContactStep','contact_id','id')->where('data2', 'BAPTISM');
+    }
 
 
 /*
@@ -179,6 +189,10 @@ class ContactPerson extends Model
             return $spouse; 
     }
 
+    Public function getBaptismdayAttribute()
+    {
+        return $this->steps()->firstWhere('data2', 'BAPTISM')->data1 ?? '';
+    }
 
     //--------------------------------------------------------------------------
     public function getRelationPhoneAttribute() {

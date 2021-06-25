@@ -278,6 +278,7 @@ class ContactChurchCrudController extends CrudController
                 [   'name'  => 'data3',
                     'label' => trans('contact.step.label'),
                     'type'  => 'text',
+                    'hint'  => 'Si no sabe la fecha complete este campo',
                 ],
             ],
         ]);

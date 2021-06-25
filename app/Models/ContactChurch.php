@@ -127,7 +127,7 @@ class ContactChurch extends Model
         //Insertar o actualizar registros en parent
         if(is_array($data)) {
             foreach ($data as $entry) {
-                if (!empty($entry['data1'])) {
+                if (!empty($entry['data1']) || !empty($entry['data3'])) {
                     $id = (int) $entry['id'];
                     unset($entry['id']);
                     if (($key = array_search($id, $keys)) !== false) 

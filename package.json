@@ -22,7 +22,6 @@
         "utf-8-validate": "^5.0.4"
     },
     "dependencies": {
-        "compress.js": "^1.1.2",
         "datatables.net": "^1.10.24",
         "jquery": "^3.6.0"
     }

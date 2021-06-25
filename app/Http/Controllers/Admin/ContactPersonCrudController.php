@@ -9,7 +9,9 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Support\Facades\Config;
 use Carbon\Carbon;
-//use Spatie\Browsershot\Browsershot;
+use PDF;
+use Spatie\Browsershot\Browsershot;
+
 //use Storage;
 
 use App\Http\Controllers\Admin\Operations\PrintOperation;
@@ -242,8 +244,17 @@ protected function setupShowOperation()
     {  // $this->crud->setShowContentClass('col-md-8 col-md-offset-2');
         $this->crud->set('show.setFromDb', false);
         $this->addCustomButton();
+        $this->crud->setShowView('crud::show_contact');
+     //   $this->crud->enableExportButtons(); // ------ DATATABLE EXPORT BUTTONS
 
     // ------ CRUD COLUMNS
+
+        $this->crud->addColumn([
+            'name' => 'title', 
+            'label' => 'IGLESIA DE DIOS - MONTECARLO', 
+            'type' => 'closure', 
+            'function' => '',
+       ]); 
         $this->crud->addColumn([
             'name'  => 'id',
             'label' => 'Id',
@@ -262,8 +273,8 @@ protected function setupShowOperation()
          //   'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
           //  'disk' => config('backpack.base.root_disk_name'),
             'disk'   =>  Config::get('settings.contact_disk'), // 'dropbox',
-            'height' => '150px',
-            'width'  => '150px',
+            'height' => '200px',
+            'width'  => '200px',
         ]);
 
         $this->crud->addColumn([
@@ -294,6 +305,13 @@ protected function setupShowOperation()
             'type'  => 'select_from_array',
             'options'   => ContentType::getTypeCivilStatus(),
         ]);
+        $this->crud->addColumn([ 
+            'name'  => 'spouse',
+            'label' => trans('contact.person.spouse'),
+            'type'  => 'text',
+        ]); 
+
+
         $this->crud->addColumn([
             'name'  => 'documents.data1',
             'label' =>  trans('contact.document.number'),
@@ -394,12 +412,21 @@ protected function setupShowOperation()
             'type'  => 'select_from_array',
             //'type'  => 'radio',     //'radio',
             'options'     => ['YES' => 'Si', 'NO' => 'No', 'MAYBE' => 'Tal vez'],
+        /*    'wrapper'   => [
+                'class' => function ($crud, $column, $entry, $related_key) {
+                    if ($column['bloods-data1'] == 'Si') {
+                        return 'badge badge-success';
+                    }
+                    return 'badge badge-default';
+                },
+            ],  */
         ]);      
         $this->crud->addColumn([ //
             'name'  => 'bloods.data2',
             'label' => trans('contact.blood.type'),
             'type'  => 'select_from_array',
             'options' => ContentType::getTypeBloods(),
+         //   'wrapper'  => [ 'class' => 'form-group col-md-6'  ],
         ]); 
 
 
@@ -408,7 +435,57 @@ protected function setupShowOperation()
             'label' => trans('contact.person.status'),
             'type'  => 'select_from_array',
             'options'   => ContentType::getTypeStatus(),
+        /*    'wrapper'   => [
+                'class' => function ($crud, $column, $entry, $related_key) {
+                    if ($entry->status == 'MEMBER') {
+                        return 'badge badge-default';
+                    }
+                    return '';
+                },
+            ],  */
         ]);
+
+        $this->crud->addColumn([ 
+            'name'  => 'baptismday',
+            'label' => trans('contact.step.baptized'),
+            'type'  => 'text',
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'baptisms', 
+            'label' => trans('contact.step.baptized'), 
+            'type' => 'closure', 
+            'function' => function($entry) {
+                $data = (json_decode($entry['baptisms'], true)); //converts json into array
+                $items = '';
+                if(is_array($data)) {
+                    if (!empty($data['data1']))
+                       $items .= $data['data1'] ;
+                    if (!empty($data['data3']))
+                            $items .= ' ('. $data['data3'] .')';
+            /*        if (!empty($data['data4']))
+                            $items .= ' &nbsp; &nbsp;<b>'. trans('contact.step.pastor')  .':</b> '. $data['data4'] ;
+                    if (!empty($data['data5']))
+                            $items .= ' &nbsp; &nbsp;<b>'. trans('contact.step.site')  .':</b> '. $data['data5'] ;
+*/
+                }
+                return $items;
+            }
+               
+       ]); 
+
+        $this->crud->addColumn([
+            'name'  => 'baptisms.data4',
+            'label' =>  trans('contact.step.pastor'),
+            'type'  => 'text',
+        ]);  
+        $this->crud->addColumn([
+            'name'  => 'baptisms.data5',
+            'label' =>  trans('contact.step.site'),
+            'type'  => 'text',
+        ]);  
+
+
     //INFO
         $this->getInfoColumns();
     }      
@@ -556,7 +633,7 @@ protected function setupShowOperation()
         ]);
         $this->crud->addField([ // Text
             'name'  => 'spouse',
-            'label' => trans('contact.person.display_name'),
+            'label' => trans('contact.person.spouse'),
             'type'  => 'text',
             'tab'   => trans('contact.data'),
             'wrapper' => ['class' => 'form-group col-md-6'],
@@ -1111,17 +1188,7 @@ protected function setupShowOperation()
 
 
 
-    protected function export_to_pdf()
-    {
-        //\Alert::message('this is a test message', 'info');
-        
-    //    $targetPath = storage_path().DIRECTORY_SEPARATOR.'example.pdf';
-     //   Browsershot::url('http://crudcontact.telecom.int/admin/contactperson/71/show')->save($targetPath);
 
-     //   \Alert::success(trans('this is a test message'))->flash();
-        return redirect()->back();
-
-    }
 
     protected function setupUpdateOperation()
     {
@@ -1338,9 +1405,11 @@ protected function destroyMacronutrients($productId)
             $this->crud->allowAccess('updatechurch');
             $this->crud->addButtonFromView('line', 'updatechurch', 'updateChurch', 'end'); 
             $this->crud->moveButton('updatechurch', 'before','delete');         
-        }     
-    //  $this->crud->orderButtons('line', ['show','update', 'updatefamily', 'updatechurch','delete']);
-        //    $this->crud->addButtonFromView('line', 'topdf', 'topdf', 'end');   
+        }
+
+     // $this->crud->orderButtons('line', ['update', 'updatefamily', 'updatechurch','delete']);
+        $this->crud->addButtonFromView('line', 'exportpdf', 'exportpdf', 'end');   
+        $this->crud->addButtonFromView('line', 'print', 'print', 'end');
     }
 
     public function dashboard()
@@ -1409,6 +1478,42 @@ protected function destroyMacronutrients($productId)
 
         Widget::add($widgets)->to('after_content');
     }
+
+    // Generate PDF
+    public function createPDF() {
+      // retreive all records from db
+     // $data = Employee::all();
+        $data = $this->crud;
+      // share data to view
+      //view()->share('p', $this);
+      $pdf = PDF::loadView('crud::show_contact', compact($data));
+
+      // download PDF file with download method
+      return $pdf->download('pdf_file.pdf');
+    }
+
+    protected function export_to_pdf()
+    {
+       $url = $_GET["url"];
+        //\Alert::message('this is a test message', 'info');
+      //  $targetPath = __DIR__.DIRECTORY_SEPARATOR.'example.pdf';
+      //  $pathToImage = "example.pdf";
+        $pathToImage = public_path().DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'ficha.pdf';
+   //  echo $url;
+        Browsershot::url($url)->save($pathToImage);
+      //  Browsershot::html('<h1>Hello world!!</h1>')->pdf();
+
+ //   \Alert::success(trans('this is a test message'))->flash();
+     //   return redirect()->back();
+ //Browsershot::url($url)->emulateMedia('print')->pdf();
+ 
+ //   return $pdf;
+
+      //  Browsershot::url($url)->screenshot();
+//return $image;
+
+    }
+
 
     public function getNations()
     {   

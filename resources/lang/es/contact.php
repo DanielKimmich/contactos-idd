@@ -21,6 +21,7 @@ return [
 		'sex'			=> 'Género',
 		'nationality'	=> 'Nacionalidad',
 		'civil_status'	=> 'Estado Civil',
+		'spouse'        => 'Nombre Conyugue',
 		'status'		=> 'Estado',
 	// Messages
 		'not_civilstatus'	=> 'Sin Estado Civil',

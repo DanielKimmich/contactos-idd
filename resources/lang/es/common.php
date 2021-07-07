@@ -10,6 +10,8 @@ return [
 	'data' 	=> 'Datos',
 	'info' 	=> 'Información',
 
+    'copy_success' => '<strong>Copia exitosa</strong><br>La información se añadio al portapapeles.',
+    'copy_failure' => '<strong>Copia fallida</strong><br>No se pudo copiar. Inténtalo de nuevo.',
 
 	'add'              => 'Add',
 	'cancel'           => 'Cancel',

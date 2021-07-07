@@ -14,17 +14,20 @@
 @section('header')
 	<section class="container-fluid d-print-none">
 	<!--
-    	<a href="javascript: window.print();" class="btn float-right"><i class="la la-print"></i>Imprimir</a> 
-
 		<a href="#" onclick="$('#reportsTable').tableExport({type:'csv',escape:'false'});">CSV</a> 
-		<a href="#" onclick="$('#reportsTable').tableExport({type:'txt',escape:'false'});">TXT</a> 
+
 									
 			<a class="btn btn-primary" href="{{ url($crud->route.'/pdf') }}">Export to PDF</a>
 			<a href="#" onclick="$('#reportsTable').tableExport({type:'excel',escape:'false'});">Excel</a>
 			<a href="#" onclick="$('#reportsTable').tableExport({type:'doc',escape:'false'});">Word</a> 
 			<a href="#" onclick="$('#reportsTable').tableExport({type:'png',escape:'false'});">Imagen</a> 
 			<a href="#" onclick="$('#reportsTable').tableExport({type:'pdf',pdfFontSize:'7',escape:'false'});">PDF</a>
-		-->						
+							
+	<a href="#" onclick="$('#reportsTable').tableExport({type:'txt',escape:'false'});">TXT</a> 
+  <input id="btn-Preview-Image" type="button" value="Preview" />
+  <a id="btn-Convert-Html2Image" href="#">Download</a>
+  <input type="button" value="Preview & Convert" id="btnConvert" >
+ -->	
 
 		<h2>
 	        <span class="text-capitalize">{!! $crud->getHeading() ?? $crud->entity_name_plural !!}</span>
@@ -217,8 +220,6 @@
 @section('after_styles')
 	<link rel="stylesheet" href="{{ asset('packages/backpack/crud/css/crud.css').'?v='.config('backpack.base.cachebusting_string') }}">
 	<link rel="stylesheet" href="{{ asset('packages/backpack/crud/css/show.css').'?v='.config('backpack.base.cachebusting_string') }}">
-
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/> -->
 @endsection
 
 @section('after_scripts')
@@ -226,15 +227,69 @@
 	<script src="{{ asset('packages/backpack/crud/js/show.js').'?v='.config('backpack.base.cachebusting_string') }}"></script>
 
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
-<script src="{{ asset('packages/jquery/dist/jquery.js') }}"></script> 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+<!-- <script src="{{ asset('packages/jquery/dist/jquery.js') }}"> </script>
+
 <script type="text/javascript" src="{{ asset('packages/tableExport.js') }}"></script>
 <script type="text/javascript" src="{{ asset('packages/jquery.base64.js') }}"></script>
 <script type="text/javascript" src="{{ asset('packages/html2canvas.js') }}"></script>
 <script type="text/javascript" src="{{ asset('packages/jspdf/libs/sprintf.js') }}"></script>
 <script type="text/javascript" src="{{ asset('packages/jspdf/jspdf.js') }}"></script>
 <script type="text/javascript" src="{{ asset('packages/jspdf/libs/base64.js') }}"></script>
+  -->
+
+<!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+
 <!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
+
+<script> 
+/*
+$(document).getElementById("btn_convert1").addEventListener("click", function() {
+	html2canvas($(document).getElementById("reportsTable")).then(function (canvas) {			var anchorTag = $(document).createElement("a");
+			$(document).body.appendChild(anchorTag);
+			$(document).getElementById("previewImg").appendChild(canvas);
+			anchorTag.download = "filename.jpg";
+			anchorTag.href = canvas.toDataURL();
+			anchorTag.target = '_blank';
+			anchorTag.click();
+		});
+ });
+
+$("#btnConvert").on('click', function () {
+                html2canvas(document.getElementById("reportsTable")).then(function (canvas) {                   
+                   var anchorTag = document.createElement("a");
+                    document.body.appendChild(anchorTag);
+                    document.getElementById("previewImg").appendChild(canvas);
+                    anchorTag.download = "filename.jpg";
+                    anchorTag.href = canvas.toDataURL();
+                    anchorTag.target = '_blank';
+                    anchorTag.click();
+                });
+    });
+
+
+var element = $("#reportsTable"); // global variable
+var getCanvas; // global variable
+
+    $("#btn-Preview-Image").on('click', function () {
+         html2canvas(element, {
+         onrendered: function (canvas) {
+                $("#previewImage").append(canvas);
+                getCanvas = canvas;
+             }
+         });
+    });
+
+    $("#btn-Convert-Html2Image").on('click', function () {
+    var imgageData = getCanvas.toDataURL("image/png");
+    // Now browser starts downloading it instead of just showing it
+    var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+    $("#btn-Convert-Html2Image").attr("download", "your_pic_name.png").attr("href", newData);
+});
+*/
+
+</script>
+
 
 
 @endsection

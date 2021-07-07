@@ -1408,8 +1408,9 @@ protected function destroyMacronutrients($productId)
         }
 
      // $this->crud->orderButtons('line', ['update', 'updatefamily', 'updatechurch','delete']);
-        $this->crud->addButtonFromView('line', 'exportpdf', 'exportpdf', 'end');   
+    //    $this->crud->addButtonFromView('line', 'exportpdf', 'exportpdf', 'end');   
         $this->crud->addButtonFromView('line', 'print', 'print', 'end');
+        $this->crud->addButtonFromView('line', 'copy', 'copy', 'end');
     }
 
     public function dashboard()

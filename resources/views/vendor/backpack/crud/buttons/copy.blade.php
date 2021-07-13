@@ -1,7 +1,7 @@
 @if ($crud->hasAccess('show'))
 	@if ($crud->actionIs('show'))
 	<!-- Single button -->
-		<a href="javascript:void(0)" class="btn btn-sm btn-link btn-copy" data-clipboard-target="#reportsTable"><i class="la la-copy"></i> {{ trans('backpack::crud.export.copy') }}</a>
+		<a href="javascript:void(0)" class="btn btn-sm btn-link btn-copy" data-clipboard-target="#reportsTable"><i class="la la-clipboard"></i> {{ trans('backpack::crud.export.copy') }}</a>
 	@endif
 @endif
 

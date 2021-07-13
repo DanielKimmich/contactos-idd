@@ -13,7 +13,7 @@
 
 	//$dias = 7;
     $dias = (int)Config::get('settings.panel_day');
-
+    $show_age = false;
     $today     = Carbon::today();
     $todayMMDD = Carbon::today()->format('m-d');
     $fromMMDD  = Carbon::today()->subDays($dias)->format('m-d');
@@ -38,16 +38,27 @@
     {   
         $birthday = substr($birth->data1, 5,5);
         $name  = $birth->display_name; 
-        $age   = $birth->age;
- //       $arrbirths[] = ['birth' => $birthday, 'name'  => $name, 'age'   => $age];
+
         if ($birthday < $todayMMDD) {
+            $age = $show_age ? ' (' .$birth->age .')' : '';
+            $previousbirths .= $birthday .' ' .$name .$age .'<br>';
+        } else if ($birthday > $todayMMDD) {
+            $age = $show_age ? ' (' .((int)($birth->age) +1) .')' : '';
+            $nextbirths .= $birthday .' ' .$name .$age .'<br>';
+        }  else {
+            $age = $show_age ? ' (' .$birth->age .')' : '';
+            $todaybirths .= $birthday .' ' .$name .$age .'<br>';
+        }
+
+/*        if ($birthday < $todayMMDD) {
             $previousbirths .= $birthday .' ' .$name .' (' .$age .')<br>';
         } else if ($birthday > $todayMMDD) {
             $nextage = (int)($age) +1;
             $nextbirths .= $birthday .' ' .$name .' (' .$nextage  .')<br>';
         }  else {
             $todaybirths .= $birthday .' ' .$name .' (' .$age .')<br>';
-        }
+        } 
+*/
     }
 
  //   $arrbirths = $arrbirths->sortBy('birth');
@@ -61,7 +72,7 @@
   		'type' 	=> 'div',
   		'class' => 'row',
   		'content' => [ // widgets 
-    		[ 	'type' => 'card', 
+    		[ 	'type' => 'card_copy', 
       			'class' => 'card bg-info text-white', 
       			'content' => [
       				'header' => trans('dashboard.birthday.today'),
@@ -69,7 +80,7 @@
       				'body' => $todaybirths,
       			] 
     		],
-      		[	'type' 	=> 'card', 
+      		[	'type' 	=> 'card_copy', 
       			'class' => 'card bg-success text-white', 
       			'content' => [
       				'header' => trans('dashboard.birthday.next', ['day' => $dias]),
@@ -77,7 +88,7 @@
       				'body' => $nextbirths,
       			] 
       		],
-      		[ 	'type' 	=> 'card', 
+      		[ 	'type' 	=> 'card_copy', 
       			'class' => 'card bg-dark text-white', 
       			'content' => [
       				'header' => trans('dashboard.birthday.previous', ['day' => $dias]),

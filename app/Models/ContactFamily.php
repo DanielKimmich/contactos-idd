@@ -301,7 +301,7 @@ public function touch()
                                     'contact_id' => $id,
                                     'data1' => $this->id,
                                     'data2' => $reverse['data2'],
-                                    'data3' => 'generado automaticamente',
+                                   // 'data3' => 'generado automaticamente',
                                 ]);
                             }
                           }

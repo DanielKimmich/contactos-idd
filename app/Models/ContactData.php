@@ -30,7 +30,7 @@ class ContactData extends Model
         'data6', 'data7', 'data8', 'data9', 'data10', 
         'data11', 'data12', 'data13', 'data14', 'data15',
     ];
-//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+
 /*
     protected $visible = [
         'contact_id',
@@ -106,19 +106,7 @@ class ContactData extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-/*    Public function getCreatedByUserAttribute()
-    {
-        return $this->creator->name ?? '';
-    }
-    Public function getUpdatedByUserAttribute()
-    {
-        return $this->editor->name ?? '';
-    }
-    Public function getDeletedByUserAttribute()
-    {
-        return $this->destroyer->name ?? '';
-    }
-*/
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

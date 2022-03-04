@@ -28,8 +28,7 @@ class ContactRelation extends Model
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3', 'data4', 'data5'];
 
     protected $attributes = ['mimetype' => 'Relation'];
-    protected $appends = [//'created_by_user', 'updated_by_user', 'deleted_by_user', 
-        'name', 'label'];
+    protected $appends = ['name', 'label'];
 
     /*
     |--------------------------------------------------------------------------
@@ -83,22 +82,6 @@ class ContactRelation extends Model
         return $this->types->label ?? '';
     }
 
-/*    Public function getCreatedByUserAttribute()
-    {
-        return $this->creator->name ?? '';
-      //  return $this->getCreatedByColumn();
-    }
-    Public function getUpdatedByUserAttribute()
-    {
-        return $this->editor->name ?? '';
-     //   return $this->getUpdatedByColumn();
-    }
-    Public function getDeletedByUserAttribute()
-    {
-        return $this->destroyer->name ?? '';
-     //   return $this->getDeletedByColumn();
-    }
-*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

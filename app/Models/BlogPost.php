@@ -26,8 +26,7 @@ class BlogPost extends Model
     // protected $fillable = [];
     // protected $hidden = [];
     protected $dates = ['posted_at'];
-    protected $appends = [//'created_by_user', 'updated_by_user', 'deleted_by_user', 
-                    'comments_count'];
+    protected $appends = ['comments_count'];
     protected $fillable = ['title', 'description', 'body', 'featured_image', 'slug', 'category_id', 'author_id', 'posted_at', 'status'];
 
     /*
@@ -97,19 +96,6 @@ class BlogPost extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-/*    Public function getCreatedByUserAttribute()
-    {
-        return $this->creator->name ?? '';
-    }
-    Public function getUpdatedByUserAttribute()
-    {
-        return $this->editor->name ?? '';
-    }
-    Public function getDeletedByUserAttribute()
-    {
-        return $this->destroyer->name ?? '';
-    }
-*/
     // The slug is created automatically from the "title" field if no slug exists.
     public function getSlugOrTitleAttribute()
     {

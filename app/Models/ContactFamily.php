@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use DaLiSoft\Userstamps\Userstamps;
 use App\Models\ContentType;
 use App\Models\ContactRelation;
-//use Jlorente\Laravel\IdentityStamp\Database\Eloquent\IdentityStamps;
 
 class ContactFamily extends Model
 {
     use CrudTrait;
     use Userstamps;
- //   use IdentityStamps; 
+
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
@@ -28,7 +27,7 @@ class ContactFamily extends Model
         'relation_parent', 'relation_spouse', 'relation_children', 'relation_relative', 'relation_other'];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user',];
+//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user',];
 
     /*
     |--------------------------------------------------------------------------

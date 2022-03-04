@@ -24,7 +24,6 @@ class WorldContinent extends Continent
     protected $fillable = ['name', 'code'];
     // protected $hidden = [];
     // protected $dates = [];
-//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
 
     /*
     |--------------------------------------------------------------------------
@@ -52,19 +51,7 @@ class WorldContinent extends Continent
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-/*    Public function getCreatedByUserAttribute()
-    {
-        return $this->creator->name ?? '';
-    }
-    Public function getUpdatedByUserAttribute()
-    {
-        return $this->editor->name ?? '';
-    }
-    Public function getDeletedByUserAttribute()
-    {
-        return $this->destroyer->name ?? '';
-    }
-*/
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

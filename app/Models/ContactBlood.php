@@ -25,7 +25,6 @@ class ContactBlood extends Model
     // protected $dates = [];
     protected $touches = ['persons'];  
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3'];
-//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'Blood'];
 
     /*
@@ -62,20 +61,6 @@ class ContactBlood extends Model
     |--------------------------------------------------------------------------
     */
 
-    //-------------------------------------------------------------------------- 
-/*    Public function getCreatedByUserAttribute()
-    {
-        return $this->creator->name ?? '';
-    }
-    Public function getUpdatedByUserAttribute()
-    {
-        return $this->editor->name ?? '';
-    }
-    Public function getDeletedByUserAttribute()
-    {
-        return $this->destroyer->name ?? '';
-    }
-*/
    /*
     |--------------------------------------------------------------------------
     | MUTATORS

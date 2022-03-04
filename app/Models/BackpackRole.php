@@ -15,7 +15,6 @@ class BackpackRole extends OriginalRole
     | GLOBAL VARIABLES
     |--------------------------------------------------------------------------
     */
-//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
 
     /*
     |--------------------------------------------------------------------------
@@ -46,31 +45,5 @@ class BackpackRole extends OriginalRole
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-/*    Public function getCreatedByUserAttribute()
-    {
-        if (! empty( $this->creator->name)){
-            return $this->creator->name;
-        } else {
-            return '';
-        }
-    }
 
-    Public function getUpdatedByUserAttribute()
-    {
-        if (! empty( $this->editor->name)){
-            return $this->editor->name;
-        } else {
-            return '';
-        }
-    }
-
-    Public function getDeletedByUserAttribute()
-    {
-        if (! empty( $this->destroyer->name)){
-            return $this->destroyer->name;
-        } else {
-            return '';
-        }        
-    }
-*/
 }

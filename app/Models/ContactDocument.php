@@ -26,9 +26,7 @@ class ContactDocument extends Model
     // protected $dates = [];
     protected $touches = ['persons'];  
     protected $fillable = ['contact_id', 'mimetype', 'document_number', 'document_type', 'document_label'];
-    protected $appends = ['document_type_data',
-    // 'created_by_user', 'updated_by_user', 'deleted_by_user'
-]; 
+    protected $appends = ['document_type_data']; 
     protected $attributes = ['mimetype' => 'Document'];
 
     /*
@@ -89,20 +87,6 @@ class ContactDocument extends Model
         return $this->data3;
     }
 
-    //--------------------------------------------------------------------------
-/*    Public function getCreatedByUserAttribute()
-    {
-        return $this->creator->name ?? '';
-    }
-    Public function getUpdatedByUserAttribute()
-    {
-        return $this->editor->name ?? '';
-    }
-    Public function getDeletedByUserAttribute()
-    {
-        return $this->destroyer->name ?? '';
-    }
-*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

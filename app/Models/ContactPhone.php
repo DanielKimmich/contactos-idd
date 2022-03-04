@@ -26,9 +26,7 @@ class ContactPhone extends Model
     // protected $dates = [];
     protected $touches = ['persons'];
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3', 'data4', 'data5'];
-    protected $appends = ['label','phone_type_data',
-        //'created_by_user', 'updated_by_user', 'deleted_by_user'
-        ]; 
+    protected $appends = ['label','phone_type_data']; 
     protected $attributes = ['mimetype' => 'Phone'];  
 
     /*
@@ -90,19 +88,6 @@ class ContactPhone extends Model
             return $this->types->label .': '.$this->data1;
     }
 
-/*    Public function getCreatedByUserAttribute()
-    {
-        return $this->creator->name ?? '';
-    }
-    Public function getUpdatedByUserAttribute()
-    {
-        return $this->editor->name ?? '';
-    }
-    Public function getDeletedByUserAttribute()
-    {
-        return $this->destroyer->name ?? '';
-    }
-*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

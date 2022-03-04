@@ -31,7 +31,7 @@ class ContactName extends Model
         'name_first', 'name_middle', 'name_family', 
         'name_prefix', 'name_suffix', 'data14',         
         ];
-    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
+//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'Name'];
     /*
     |--------------------------------------------------------------------------
@@ -89,6 +89,7 @@ class ContactName extends Model
     }
 
     //-------------------------------------------------------------------------- 
+/*
     Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
@@ -101,7 +102,7 @@ class ContactName extends Model
     {
         return $this->destroyer->name ?? '';
     }
-
+*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

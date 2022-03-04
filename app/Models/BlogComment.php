@@ -25,7 +25,6 @@ class BlogComment extends Model
     protected $guarded = ['id'];
     // protected $hidden = [];
     // protected $dates = [];
-//    protected $appends = ['created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $fillable = ['post_id', 'body', 'slug', 'status']; 
 
     /*
@@ -77,19 +76,6 @@ class BlogComment extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
-/*    Public function getCreatedByUserAttribute()
-    {
-        return $this->creator->name ?? '';
-    }
-    Public function getUpdatedByUserAttribute()
-    {
-        return $this->editor->name ?? '';
-    }
-    Public function getDeletedByUserAttribute()
-    {
-        return $this->destroyer->name ?? '';
-    }
-*/
     // The slug is created automatically from the "title" field if no slug exists.
     public function getSlugOrTitleAttribute()
     {

@@ -88,10 +88,10 @@ abstract class CrudController extends CrudControllerBackpack
             'label' => trans('common.updated_at'),
             'type' => 'closure',
             'function' => function($entry) {
-                if (empty($entry->updated_by_user_name))
+                if (empty($entry->updated_by_user))
                     return $entry->updated_at;
                 else
-                    return $entry->updated_at.' ('.$entry->updated_by_user_name.')';
+                    return $entry->updated_at.' ('.$entry->updated_by_user.')';
                 }
             ]);
         $this->crud->addColumn([
@@ -99,10 +99,10 @@ abstract class CrudController extends CrudControllerBackpack
             'label' => trans('common.created_at'),
             'type' => 'closure',
             'function' => function($entry) {
-                if (empty($entry->created_by_user_name))
+                if (empty($entry->created_by_user))
                     return $entry->created_at;
                 else
-                    return $entry->created_at.' ('.$entry->created_by_user_name.')';
+                    return $entry->created_at.' ('.$entry->created_by_user.')';
                 }
             ]); 
     }
@@ -137,7 +137,7 @@ abstract class CrudController extends CrudControllerBackpack
             'prefix'   => "<i class='la la-calendar-check-o'></i>", 
             ]);     
          $this->crud->addField([ // Text
-            'name'  => 'updated_by_user_name',
+            'name'  => 'updated_by_user',
             'label' => trans('common.updated_by'),
             'type'  => 'text',
             'tab'   => trans('common.info'),
@@ -155,7 +155,7 @@ abstract class CrudController extends CrudControllerBackpack
             'prefix'   => "<i class='la la-calendar-plus-o'></i>",
             ]);   
          $this->crud->addField([ // Text
-            'name'  => 'created_by_user_name',
+            'name'  => 'created_by_user',
             'label' => trans('common.created_by'),
             'type'  => 'text',
             'tab'   => trans('common.info'),

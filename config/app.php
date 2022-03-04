@@ -168,6 +168,7 @@ return [
         Khsing\World\WorldServiceProvider::class,
         Backpack\Settings\SettingsServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        DaLiSoft\Userstamps\UserStampServiceProvider::class,
    //     \Jlorente\Laravel\IdentityStamp\IdentityStampServiceProvider::class, 
 
         /*

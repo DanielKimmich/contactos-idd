@@ -26,7 +26,8 @@ class ContactEmail extends Model
     // protected $dates = [];
     protected $touches = ['persons']; 
     protected $fillable = ['contact_id', 'mimetype', 'data1', 'data2', 'data3','data4'];
-    protected $appends = ['label', 'email_type_data', 'created_by_user', 'updated_by_user', 'deleted_by_user'];
+    protected $appends = ['label', 'email_type_data']; 
+    //'created_by_user', 'updated_by_user', 'deleted_by_user'];
     protected $attributes = ['mimetype' => 'Email'];
 
     /*
@@ -78,7 +79,7 @@ class ContactEmail extends Model
         else
             return $this->types->label .': '.$this->data1;
     }
-
+/*
     Public function getCreatedByUserAttribute()
     {
         return $this->creator->name ?? '';
@@ -91,7 +92,7 @@ class ContactEmail extends Model
     {
         return $this->destroyer->name ?? '';
     }
-    
+*/    
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

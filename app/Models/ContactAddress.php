@@ -34,9 +34,7 @@ class ContactAddress extends Model
     ];
 
     protected $attributes = ['mimetype' => 'Address',  ];
-    protected $appends = ['label', 'address_type_data', 
-        //'created_by_user', 'updated_by_user', 'deleted_by_user'
-        ]; 
+    protected $appends = ['label', 'address_type_data']; 
 
     /*
     |--------------------------------------------------------------------------
@@ -94,19 +92,6 @@ class ContactAddress extends Model
             return $this->types->label .': '.$this->data1;
     }
 
-/*    Public function getCreatedByUserAttribute()
-    {
-        return $this->creator->name ?? '';
-    }
-    Public function getUpdatedByUserAttribute()
-    {
-        return $this->editor->name ?? '';
-    }
-    Public function getDeletedByUserAttribute()
-    {
-        return $this->destroyer->name ?? '';
-    }
-*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

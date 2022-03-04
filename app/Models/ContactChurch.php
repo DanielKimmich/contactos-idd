@@ -102,20 +102,6 @@ class ContactChurch extends Model
         return $data->toJson();
     }    
 
-    //-------------------------------------------------------------------------- 
-/*    Public function getCreatedByUserAttribute()
-    {
-        return $this->creator->name ?? '';
-    }
-    Public function getUpdatedByUserAttribute()
-    {
-        return $this->editor->name ?? '';
-    }
-    Public function getDeletedByUserAttribute()
-    {
-        return $this->destroyer->name ?? '';
-    }
-*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

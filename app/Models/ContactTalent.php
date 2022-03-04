@@ -66,19 +66,7 @@ class ContactTalent extends Model
     {
         return $this->types->label ?? '';
     }
-/*    Public function getCreatedByUserAttribute()
-    {
-        return $this->creator->name ?? '';
-    }
-    Public function getUpdatedByUserAttribute()
-    {
-        return $this->editor->name ?? '';
-    }
-    Public function getDeletedByUserAttribute()
-    {
-        return $this->destroyer->name ?? '';
-    }
-*/
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS

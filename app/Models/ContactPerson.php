@@ -29,7 +29,7 @@ class ContactPerson extends Model
     protected $fillable = ['display_name', 'sex_id', 'nationality_id', 'civil_status', 'photo_id', 'status', 'relation_phone', 'relation_email', 'relation_address'];
     // protected $hidden = [];
     // protected $dates = [];
-    protected $appends = [ //'created_by_user', 'updated_by_user', 'deleted_by_user',
+    protected $appends = [ 
                 'birthday', 'age', 'spouse',
                 'phone_mobile', 'phone_home', 'email1', 'address1',
                 'baptismday'];
@@ -228,20 +228,6 @@ public function baptisms()
         return $this->addresses()->first()->data1 ?? '';
     }
 
-    //--------------------------------------------------------------------------
-/*    Public function getCreatedByEmailAttribute()
-    {
-        return $this->getCreatedByUserAttribute('email');
-    }
-    Public function getUpdatedByEmailAttribute()
-    {
-        return $this->getUpdatedByUserAttribute('email');
-    }
-    Public function getDeletedByEmailAttribute()
-    {
-        return $this->getDeletedByUserAttribute('email');
-    }
-*/
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
